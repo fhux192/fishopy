@@ -3,3 +3,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.main-body {
+  min-height: calc(100vh - 96px - 307px);
+}

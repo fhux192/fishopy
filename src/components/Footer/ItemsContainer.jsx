@@ -1,7 +1,4 @@
 export const ItemsContainer = () => {
-  {
-    /*Menu*/
-  }
   const PRODUCTS = [
     { text: "10/5C ấp 3 xã Đông Thạnh huyện Hóc Môn", link: "#" },
   ];
@@ -11,11 +8,9 @@ export const ItemsContainer = () => {
     { text: "Zalo: Nguyễn Hoàng Phúc", link: "#" },
     { text: "Facebook: Phúc Nguyễn", link: "#" },
   ];
-  {
-    /*Items*/
-  }
+
   return (
-    <div className="mt-[19.5rem] grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 ">
+    <div className=" grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 ">
       <ul>
         <h1 className="mb-1 font-semibold text-white text-2xl">Liên Hệ</h1>
         {CONTACT.map((link) => (

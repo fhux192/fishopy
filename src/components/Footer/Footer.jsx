@@ -4,10 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-teal2 ">
       <ItemsContainer />
-      <div
-        className="mt-[1.25rem] grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-10
-      text-center pt-0.3 text-white text-sm pb-5 "
-      >
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-10  text-center  text-white text-sm py-3 place-items-center ">
         <span>© 2020 Appy. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
       </div>
