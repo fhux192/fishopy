@@ -20,7 +20,7 @@ const HeaderSearch = () => {
           <input
             type="text"
             id="header-search"
-            className="header-search shadow-md"
+            className="header-search shadow-md "
             onFocus={() => setIsActiveSearch((pre) => !pre)}
             onBlur={() => setIsActiveSearch((pre) => !pre)}
             value={searchText}
