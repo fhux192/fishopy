@@ -6,7 +6,11 @@ const HeaderSearch = () => {
   const [isActiveSearch, setIsActiveSearch] = useState(false);
 
   return (
-    <div className="ml-[40rem] mr-[0.8rem] relative w-full  overflow-hidden">
+    <div
+      className={`flex justify-items-center mr-[0.8rem] mt-[0.25rem] relative w-full overflow-hidden ${
+        searchText && isActiveSearch ? "ml-[0rem]" : "ml-[50rem]"
+      }`}
+    >
       <form className="absolute flex w-full h-[45px] rounded-full overflow-hidden">
         <div className="absolute w-full">
           {!isActiveSearch && !searchText && (

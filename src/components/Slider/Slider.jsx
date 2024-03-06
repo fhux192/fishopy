@@ -1,0 +1,64 @@
+import React, { useState } from "react";
+import { useEffect } from "react";
+import { IoArrowUndoOutline } from "react-icons/io5";
+import { IoArrowRedoOutline } from "react-icons/io5";
+
+const Slider = ({ slides }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const prevSlide = () => {
+    setCurrentSlide(currentSlide === 0 ? slides.length - 1 : currentSlide - 1);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide(currentSlide === slides.length - 1 ? 0 : currentSlide + 1);
+  };
+
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      nextSlide();
+    }, 3000);
+
+    return () => clearInterval(slideInterval);
+  }, [currentSlide, nextSlide, slides.length]);
+  return (
+    <div className="flex justify-center">
+      <div className=" justify-items-center relative w-full h-[21rem]">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <button
+            onClick={prevSlide}
+            className="absolute w-[3.5rem] bg-primaryBlack bg-opacity-50 left-5 z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
+          >
+            <IoArrowUndoOutline className="w-full h-full" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute w-[3.5rem] bg-primaryBlack bg-opacity-50 right-5 z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
+          >
+            <IoArrowRedoOutline className="w-full h-full" />
+          </button>
+        </div>
+        {slides.map((slide, index) => (
+          <div
+            key={slide.id}
+            className={`absolute inset-0 transition duration-1000 ease-in ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <img
+              src={slide.image}
+              alt={slide.caption}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h2 className="text-4xl text-white font-bold">{slide.caption}</h2>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Slider;
