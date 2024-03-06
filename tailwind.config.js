@@ -7,8 +7,9 @@ export default {
         // Configure your color palette here
 
         primaryBlack: "#141414",
+        secondBlack:"#111111",
         primaryGrey: "#666666",
-        primaryWhite:"",
+        secondGrey:"#999999",
         primaryTeal: "#019090",
         "button-search": "#f8f7f9",
       },

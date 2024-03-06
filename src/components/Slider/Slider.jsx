@@ -23,7 +23,7 @@ const Slider = ({ slides }) => {
 
   return (
     <div className="flex justify-center mt-[6rem] ">
-      <div className=" justify-items-center shadow-lg border-primaryBlack shadow-lg border-x-8  relative w-[100rem] h-[15rem]">
+      <div className=" justify-items-center shadow-lg border-x-primaryWhite border-x-8 border-t-black border-t-8 shadow-lg  relative w-[100rem] h-[15rem]">
         <div className="absolute inset-0 flex items-center justify-center">
           <button
             onClick={prevSlide}
@@ -48,7 +48,7 @@ const Slider = ({ slides }) => {
             <img
               src={slide.image}
               alt={slide.caption}
-              className="w-full h-full object-cover"
+              className="w-full  h-full object-cover"
             />
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="absolute inset-0 flex items-center justify-center">
