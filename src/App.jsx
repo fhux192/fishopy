@@ -9,6 +9,7 @@ function App() {
   return (
     <>
     <Header/>
+    
       <main className="main-body">
         <Outlet />
         <Slider slides={slides}/>

@@ -6,15 +6,15 @@ const AccountCart = () => {
   return (
     <nav>
       <ul className="flex self-center">
-        <li className="flex justify-center items-center pr-[0.5rem] border-r-[1px] border-r-white ">
+        <li className="flex justify-center items-center pr-[0.5rem] border-r-[3px] border-r-white ">
           <button className="px-[1rem] w-[6rem] button-account">
             <span className="flex justify-center items-center ">
               <div className="w-[55px] h-[33px]">
                 <IoPersonOutline className="w-full h-full text-white   icon-account" />
               </div>
-              <MdKeyboardArrowDown className="w-full h-full text-white  icon-expand" />
+              <MdKeyboardArrowDown className="w-[2rem] h-full text-white  icon-expand" />
             </span>
-            <span className="w-full h-full font-bold text-xs shadow-md text-white text-account">
+            <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">
               Tài Khoản
             </span>
           </button>
@@ -25,7 +25,7 @@ const AccountCart = () => {
             <span>
               <div className="w-[55px] h-[33px] items-center">
                 <IoCartOutline className="w-full h-full text-white icon-cart" />
-                <span className="w-full h-full font-bold text-xs text-white text-cart">
+                <span className="w-full h-full font-mono font-semibold text-xs text-white text-cart">
                   Giỏ Hàng
                 </span>
               </div>

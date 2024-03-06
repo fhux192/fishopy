@@ -18,12 +18,12 @@ const Slider = ({ slides }) => {
     const slideInterval = setInterval(() => {
       nextSlide();
     }, 3000);
-
     return () => clearInterval(slideInterval);
   }, [currentSlide, nextSlide, slides.length]);
+
   return (
-    <div className="flex justify-center">
-      <div className=" justify-items-center relative w-full h-[21rem]">
+    <div className="flex justify-center mt-[6rem] ">
+      <div className=" justify-items-center shadow-lg border-primaryBlack shadow-lg border-x-8  relative w-[100rem] h-[15rem]">
         <div className="absolute inset-0 flex items-center justify-center">
           <button
             onClick={prevSlide}
@@ -58,6 +58,7 @@ const Slider = ({ slides }) => {
         ))}
       </div>
     </div>
+    
   );
 };
 

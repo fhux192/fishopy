@@ -7,7 +7,7 @@ const HeaderSearch = () => {
 
   return (
     <div
-      className={`flex justify-items-center mr-[0.8rem] mt-[0.25rem] relative w-full overflow-hidden ${
+      className={`flex justify-items-center mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
         searchText && isActiveSearch ? "ml-[0rem]" : "ml-[50rem]"
       }`}
     >
@@ -16,7 +16,7 @@ const HeaderSearch = () => {
           {!isActiveSearch && !searchText && (
             <label
               htmlFor="header-search"
-              className="absolute left-[1.1rem] top-[.7rem]"
+              className="absolute font-mono left-[1.1rem] top-[0.7rem]"
             >
               Search...
             </label>
