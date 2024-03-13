@@ -10,7 +10,7 @@ export default {
         secondBlack:"#111111",
         primaryGrey: "#666666",
         secondGrey:"#999999",
-        primaryTeal: "#019090",
+        primaryTeal: "#0A6C62",
         "button-search": "#f8f7f9",
       },
       fontFamily: {

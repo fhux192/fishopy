@@ -22,18 +22,18 @@ const Slider = ({ slides }) => {
   }, [currentSlide, nextSlide, slides.length]);
 
   return (
-    <div className="flex justify-center mt-[6rem] ">
-      <div className=" justify-items-center shadow-lg border-x-primaryWhite border-x-8 border-t-black border-t-8 shadow-lg  relative w-[100rem] h-[15rem]">
+    <div className="flex justify-center mt-[6rem] lg:mb-[11.95rem] md:mb-[8.95rem] mb-[5.95rem] ">
+      <div className=" justify-items-center border-x-8 border-t-black border-y-8 border-x-white shadow-lg  relative w-full max-h-[10rem]">
         <div className="absolute inset-0 flex items-center justify-center">
           <button
             onClick={prevSlide}
-            className="absolute w-[3.5rem] bg-primaryBlack bg-opacity-50 left-5 z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
+            className="absolute w-[2.5rem] bg-primaryBlack bg-opacity-40 left-5 mt-[6rem] md:mt-[9rem] lg:mt-[12rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
           >
             <IoArrowUndoOutline className="w-full h-full" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute w-[3.5rem] bg-primaryBlack bg-opacity-50 right-5 z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
+            className="absolute w-[2.5rem] bg-primaryBlack bg-opacity-40 right-5 mt-[6rem] md:mt-[9rem] lg:mt-[12rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none"
           >
             <IoArrowRedoOutline className="w-full h-full" />
           </button>
@@ -48,7 +48,7 @@ const Slider = ({ slides }) => {
             <img
               src={slide.image}
               alt={slide.caption}
-              className="w-full  h-full object-cover"
+              className="w-full max-h-[6rem] md:max-h-[9rem] lg:max-h-[12rem] object-cover"
             />
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="absolute inset-0 flex items-center justify-center">
@@ -58,7 +58,6 @@ const Slider = ({ slides }) => {
         ))}
       </div>
     </div>
-    
   );
 };
 
