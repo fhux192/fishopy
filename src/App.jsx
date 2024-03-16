@@ -8,6 +8,7 @@ import Products from "./components/Products/Products";
 import BigImage from "./components/Products/BigImage";
 import MessageBox from "./components/Products/MessageBox";
 import InfoBox from "./components/Products/InfoBox";
+import ModalLogin from "./components/ModalLogin/ModalLogin";
 
 function App() {
   return (
@@ -19,9 +20,10 @@ function App() {
         <MessageBox />
         <Products />
         <BigImage />
-        <InfoBox /> 
+        <InfoBox />
       </main>
       <Footer />
+      <ModalLogin />
     </>
   );
 }

@@ -1,13 +1,20 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
+import ModalAuth from "../ModalAuth/ModalAuth";
+import { useState } from "react";
 
 const AccountCart = () => {
+  const [isShowModalAuth, setIsShowModalAuth] = useState(false);
+
   return (
     <nav>
       <ul className="flex self-center">
-        <li className="flex justify-center items-center pr-[0.5rem] border-r-[3px] border-r-white ">
-          <button className="px-[1rem] w-[6rem] button-account">
+        <li className=" relative flex justify-center items-center pr-[0.5rem] border-r-[3px] border-r-white ">
+          <button
+            onClick={() => setIsShowModalAuth((pre) => !pre)}
+            className="px-[1rem] w-[6rem] button-account"
+          >
             <span className="flex justify-center items-center ">
               <div className="w-[55px] h-[33px]">
                 <IoPersonOutline className="w-full h-full text-white   icon-account" />
@@ -18,6 +25,8 @@ const AccountCart = () => {
               Tài Khoản
             </span>
           </button>
+
+          {isShowModalAuth && <ModalAuth />}
         </li>
 
         <li className="pl-[0.5rem]">

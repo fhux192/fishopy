@@ -1,0 +1,79 @@
+import { useDispatch, useSelector } from "react-redux";
+import { toggleModalLogin } from "../../redux/features/toggle/toggleSlice";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
+import { callLogin } from "../../services/api";
+
+const ModalLogin = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { isShowModalLogin } = useSelector((state) => state.toggle);
+  const dispatch = useDispatch();
+
+  const handlelogin = async () => {
+    const res = await callLogin(email, password);
+    console.log("check res >>>", res);
+  };
+
+  return (
+    <div
+      className={`fixed  inset-0 z-[21] ${
+        isShowModalLogin ? "block" : "hidden"
+      }`}
+    >
+      <div
+        className="w-full h-full  bg-overlay"
+        onClick={() => dispatch(toggleModalLogin())}
+      ></div>
+      <div className="absolute left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded ">
+        <h2 className="text-center text-2xl text-white mb-4">Đăng nhập</h2>
+        <label htmlFor="email" className="text-white ">
+          Email:
+          <input
+            type="text"
+            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
+        <label htmlFor="password" className="text-white  ">
+          Mật khẩu:
+          <div className="relative">
+            <input
+              type={isShowPassword ? "text" : "password"}
+              className="w-full p-2 outline-none text-primaryBlack rounded mb-[0.5rem]"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {isShowPassword ? (
+              <FaEye
+                onClick={() => setIsShowPassword(!isShowPassword)}
+                className="absolute right-2 top-[50%] -translate-y-1/2 text-white cursor-pointer"
+                color="black"
+                size={20}
+              />
+            ) : (
+              <FaEyeSlash
+                onClick={() => setIsShowPassword(!isShowPassword)}
+                className="absolute right-2 top-[50%] -translate-y-1/2 text-white cursor-pointer"
+                color="black"
+                size={20}
+              />
+            )}
+          </div>
+        </label>
+        <button
+          onClick={() => handlelogin()}
+          className="h-10 w-full px-2 text-center bg-white  text-black mt-4 hover:bg-secondTeal hover:text-white rounded-full duration-150  "
+        >
+          Đăng nhập
+        </button>
+      </div>
+    </div>
+  );
+};
+export default ModalLogin;
