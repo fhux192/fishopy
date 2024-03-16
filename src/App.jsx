@@ -5,6 +5,9 @@ import { Outlet } from "react-router-dom";
 import Slider from "./components/Slider/Slider";
 import { slides } from "./components/Slider/MenuSlider";
 import Products from "./components/Products/Products";
+import BigImage from "./components/Products/BigImage";
+import MessageBox from "./components/Products/MessageBox";
+import InfoBox from "./components/Products/InfoBox";
 
 function App() {
   return (
@@ -13,7 +16,10 @@ function App() {
       <main className="main-body">
         <Outlet />
         <Slider slides={slides} />
+        <MessageBox />
         <Products />
+        <BigImage />
+        <InfoBox /> 
       </main>
       <Footer />
     </>

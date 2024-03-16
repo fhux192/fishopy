@@ -19,16 +19,16 @@ const Header = () => {
             <div className="min-w-[24rem] object-cover h-full"></div>
             <List />
           </a>
-  
+
           {/* header search */}
           <HeaderSearch />
-  
+
           {/* Account and Cart */}
           <AccountCart />
         </div>
       </div>
     </header>
-  );  
+  );
 };
 
 export default Header;
