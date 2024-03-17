@@ -67,7 +67,10 @@ const Products = () => {
         >
           {/*Card Section*/}
           {ProductsData.map((data) => (
-            <div className="group/item hover:bg-primaryBlack hover:scale-105 mb-[2rem] border-b-primaryBlack border-y-4 shadow-lg rounded-3xl cursor-pointer">
+            <div
+              key={data.id}
+              className="group/item hover:bg-primaryBlack hover:scale-105 mb-[2rem] border-b-primaryBlack border-y-4 shadow-lg rounded-3xl cursor-pointer"
+            >
               <img
                 src={data.img}
                 alt=""

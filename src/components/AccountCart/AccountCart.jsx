@@ -3,9 +3,11 @@ import { IoCartOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 import ModalAuth from "../ModalAuth/ModalAuth";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const AccountCart = () => {
   const [isShowModalAuth, setIsShowModalAuth] = useState(false);
+  const { account } = useSelector((state) => state.user);
 
   return (
     <nav>
@@ -21,9 +23,15 @@ const AccountCart = () => {
               </div>
               <MdKeyboardArrowDown className="w-[2rem] h-full text-white  icon-expand" />
             </span>
-            <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">
-              Tài Khoản
-            </span>
+            {account?.name ? (
+              <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">
+                {account.name}
+              </span>
+            ) : (
+              <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">
+                Tài Khoản
+              </span>
+            )}
           </button>
 
           {isShowModalAuth && <ModalAuth />}

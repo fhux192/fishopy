@@ -4,6 +4,8 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { callLogin } from "../../services/api";
+import { toast } from "react-toastify";
+import { setCredentials } from "../../redux/features/user/userSlice";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -14,7 +16,15 @@ const ModalLogin = () => {
 
   const handlelogin = async () => {
     const res = await callLogin(email, password);
-    console.log("check res >>>", res);
+
+    if (res.vcode == 0) {
+      console.log("check res.data", res.data);
+      dispatch(setCredentials(res.data));
+      toast.success(res.msg);
+      dispatch(toggleModalLogin());
+    } else {
+      toast.error(res.msg);
+    }
   };
 
   return (

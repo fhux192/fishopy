@@ -9,6 +9,8 @@ import BigImage from "./components/Products/BigImage";
 import MessageBox from "./components/Products/MessageBox";
 import InfoBox from "./components/Products/InfoBox";
 import ModalLogin from "./components/ModalLogin/ModalLogin";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
       </main>
       <Footer />
       <ModalLogin />
+      <ToastContainer />
     </>
   );
 }
