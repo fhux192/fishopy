@@ -4,10 +4,9 @@ import { IoPersonOutline } from "react-icons/io5";
 import ModalAuth from "../ModalAuth/ModalAuth";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import {motion} from 'framer-motion'
+import { motion } from "framer-motion";
 
 const AccountCart = () => {
-
   const [isShowModalAuth, setIsShowModalAuth] = useState(false);
   const { account } = useSelector((state) => state.user);
 
@@ -23,8 +22,12 @@ const AccountCart = () => {
               <div className="w-[55px] h-[33px]">
                 <IoPersonOutline className="w-full h-full text-white   icon-account" />
               </div>
-              <motion.div animate={{rotate: isShowModalAuth ? 180 :0}} className="w-[2rem] h-full text-white  icon-expand  " ><MdKeyboardArrowUp className="w-full h-full" /></motion.div>
-              
+              <motion.div
+                animate={{ rotate: isShowModalAuth ? 180 : 0 }}
+                className="w-[2rem] h-full text-white  icon-expand  "
+              >
+                <MdKeyboardArrowUp className="w-full h-full" />
+              </motion.div>
             </span>
             {account?.name ? (
               <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">

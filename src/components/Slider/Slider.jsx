@@ -1,6 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IoArrowUndoOutline } from "react-icons/io5";
 import { IoArrowRedoOutline } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const Slider = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,18 +25,20 @@ const Slider = ({ slides }) => {
     <div className="group flex justify-center mt-[6rem] lg:mb-[14.95rem] md:mb-[12.95rem] mb-[8.95rem]  ">
       <div className=" justify-items-center border-x-8 border-t-black border-y-8 border-x-white shadow-lg  relative w-full max-h-[10rem]">
         <div className="absolute inset-0 flex items-center justify-center">
-          <button
+          <motion.button
+            whileTap={{ scale: 0.5 }}
             onClick={prevSlide}
             className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 left-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
             <IoArrowUndoOutline className="w-full h-[10rem]" />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.5 }}
             onClick={nextSlide}
             className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 right-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
             <IoArrowRedoOutline className="w-full h-[10rem]" />
-          </button>
+          </motion.button>
         </div>
         {slides.map((slide, index) => (
           <div
