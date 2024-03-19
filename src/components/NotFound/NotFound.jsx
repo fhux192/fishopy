@@ -1,4 +1,6 @@
+import Products from "../Products/Products";
 const NotFound = () => {
-  return <div>NotFound</div>;
+  return <div>
+    <Products/></div>;
 };
 export default NotFound;

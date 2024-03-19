@@ -1,29 +1,24 @@
 import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import { Outlet } from "react-router-dom";
-import Slider from "./components/Slider/Slider";
-import { slides } from "./components/Slider/MenuSlider";
-import Products from "./components/Products/Products";
-import BigImage from "./components/Products/BigImage";
 import MessageBox from "./components/Products/MessageBox";
-import InfoBox from "./components/Products/InfoBox";
 import ModalLogin from "./components/ModalLogin/ModalLogin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Route,Routes } from "react-router-dom";
+import Home from "./router/page/Home";
+import ProductPage from "./router/page/ProductPage";
 
 function App() {
   return (
     <>
-      <Header />
-      <main className="main-body">
-        <Outlet />
-        <Slider slides={slides} />
-        <MessageBox />
-        <Products />
-        <BigImage />
-        <InfoBox />
-      </main>
+    <Header />
+    <Routes>
+      <Route path="home" element={<Home/>}/>
+      <Route path="product" element={<ProductPage/>}/>
+      <Route path="infomation" element={<Home/>}/>
+    </Routes>
+    <MessageBox />
       <Footer />
       <ModalLogin />
       <ToastContainer />
