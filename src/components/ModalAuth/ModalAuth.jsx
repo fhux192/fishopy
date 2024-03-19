@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleModalLogin } from "../../redux/features/toggle/toggleSlice";
 import { toast } from "react-toastify";
 import { logout } from "../../redux/features/user/userSlice";
+import {motion} from 'framer-motion'
 const ModalAuth = () => {
   const dispatch = useDispatch();
   const { account } = useSelector((state) => state.user);
@@ -18,16 +19,16 @@ const ModalAuth = () => {
           onClick={handleLogout}
           className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
         >
-          Đăng xuất
+          Đăng Xuất
         </button>
       ) : (
         <>
-          <button
+          <motion.button
             onClick={() => dispatch(toggleModalLogin())}
             className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
           >
             Đăng nhập
-          </button>
+          </motion.button>
           <button className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150">
             Đăng ký
           </button>

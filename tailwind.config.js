@@ -11,7 +11,7 @@ export default {
         secondGrey: "#999999",
         primaryTeal: "#0A6C62",
         secondTeal: "#2dd4bf",
-        overlay: "rgba(0, 0, 0, 0.8)",
+        overlay: "rgba(0, 0, 0, 0.9)",
         "button-search": "#f8f7f9",
       },
       fontFamily: {

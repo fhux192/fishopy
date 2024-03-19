@@ -1,15 +1,18 @@
 import { useState } from "react";
 import search from "../../assets/Zoom.png";
-
+import { motion } from "framer-motion";
 const HeaderSearch = () => {
   const [searchText, setSearchText] = useState("");
   const [isActiveSearch, setIsActiveSearch] = useState(false);
 
   return (
-    <div
+    <motion.div
       className={`flex justify-items-center mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
         searchText && isActiveSearch ? "ml-[0rem]" : "ml-[50rem]"
       }`}
+      animate={{
+        x: searchText && isActiveSearch ? 5 : 0,
+      }}
     >
       <form className="absolute flex w-full h-[45px] rounded-full overflow-hidden">
         <div className="absolute w-full">
@@ -37,7 +40,7 @@ const HeaderSearch = () => {
           </div>
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 export default HeaderSearch;

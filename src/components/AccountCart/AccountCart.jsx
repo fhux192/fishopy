@@ -1,11 +1,13 @@
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowUp } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
 import ModalAuth from "../ModalAuth/ModalAuth";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import {motion} from 'framer-motion'
 
 const AccountCart = () => {
+
   const [isShowModalAuth, setIsShowModalAuth] = useState(false);
   const { account } = useSelector((state) => state.user);
 
@@ -15,13 +17,14 @@ const AccountCart = () => {
         <li className=" relative flex justify-center items-center pr-[0.5rem] border-r-[3px] border-r-white ">
           <button
             onClick={() => setIsShowModalAuth((pre) => !pre)}
-            className="px-[1rem] w-[6rem] button-account"
+            className={`px-[1rem] w-[6rem] button-account  }`}
           >
             <span className="flex justify-center items-center ">
               <div className="w-[55px] h-[33px]">
                 <IoPersonOutline className="w-full h-full text-white   icon-account" />
               </div>
-              <MdKeyboardArrowDown className="w-[2rem] h-full text-white  icon-expand" />
+              <motion.div animate={{rotate: isShowModalAuth ? 180 :0}} className="w-[2rem] h-full text-white  icon-expand  " ><MdKeyboardArrowUp className="w-full h-full" /></motion.div>
+              
             </span>
             {account?.name ? (
               <span className="w-full h-full font-mono font-semibold text-xs shadow-md text-white text-account">

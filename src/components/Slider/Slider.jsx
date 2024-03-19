@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { IoArrowUndoOutline } from "react-icons/io5";
 import { IoArrowRedoOutline } from "react-icons/io5";
 
@@ -26,15 +26,15 @@ const Slider = ({ slides }) => {
         <div className="absolute inset-0 flex items-center justify-center">
           <button
             onClick={prevSlide}
-            className="absolute lg:invisible group-hover:visible w-[2.5rem] bg-primaryBlack bg-opacity-40 left-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
+            className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 left-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
-            <IoArrowUndoOutline className="w-full h-full" />
+            <IoArrowUndoOutline className="w-full h-[10rem]" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute lg:invisible group-hover:visible w-[2.5rem] bg-primaryBlack bg-opacity-40 right-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
+            className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 right-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
-            <IoArrowRedoOutline className="w-full h-full" />
+            <IoArrowRedoOutline className="w-full h-[10rem]" />
           </button>
         </div>
         {slides.map((slide, index) => (

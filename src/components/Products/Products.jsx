@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import {motion} from 'framer-motion'
 import "aos/dist/aos.css";
 import Aos from "aos";
 import Golden from "../../assets/caVang.jpeg";
@@ -67,7 +68,9 @@ const Products = () => {
         >
           {/*Card Section*/}
           {ProductsData.map((data) => (
-            <div
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 1000 }}
               key={data.id}
               className="group/item hover:bg-primaryBlack hover:scale-105 mb-[2rem] border-b-primaryBlack border-y-4 shadow-lg rounded-3xl cursor-pointer"
             >
@@ -84,7 +87,7 @@ const Products = () => {
                   {data.price}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
