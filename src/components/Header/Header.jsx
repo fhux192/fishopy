@@ -11,7 +11,7 @@ const Header = () => {
       <div className="bg-primaryBlack">
         <div className="h-[6rem] py-[1.25rem] mx-[1rem] flex">
           {/* Logo */}
-          <a className="flex w-[257px] h-full items-center ml-[1rem]">
+          <div className="flex w-[257px] h-full items-center ml-[1rem]">
             <motion.div
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 1000 }}
@@ -22,7 +22,7 @@ const Header = () => {
             </motion.div>
             <div className="min-w-[24rem] object-cover h-full"></div>
             <List />
-          </a>
+          </div>
 
           {/* header search */}
           <HeaderSearch />
