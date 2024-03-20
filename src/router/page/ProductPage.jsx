@@ -1,17 +1,14 @@
 import React from "react";
-import Products from "../../components/Products/Products";
+import Products from "../../components/Products/TopProducts";
+import AllProducts from "../../components/Products/AllProducts";
 
 const ProductPage = () => {
   return (
     <div>
-      <div className="w-full">
+      <div className="w-full mt-[10rem]">
         {" "}
         <Products />
-        <Products />
-        <Products />
-        <Products />
-        <Products />
-        <Products />
+        <AllProducts />
       </div>
     </div>
   );

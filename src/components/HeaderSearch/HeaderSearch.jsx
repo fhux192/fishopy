@@ -7,7 +7,7 @@ const HeaderSearch = () => {
 
   return (
     <motion.div
-      className={`flex justify-items-center mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
+      className={`flex justify-items-center shadow-md shadow-black mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
         searchText && isActiveSearch ? "ml-[0rem]" : "ml-[50rem]"
       }`}
       animate={{

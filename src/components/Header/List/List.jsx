@@ -3,7 +3,7 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 export const List = () => {
   return (
     <nav>
-      <ul className="flex left-10 items-center justify-between w-[25rem] ">
+      <ul className="flex ml-[0.2rem] items-center justify-between w-[25rem] ">
         {/* Home */}
         <ul className="flex items-center border-r-[3px] border-r-secondGrey">
           <CustomLink to="/">Trang Chủ</CustomLink>
@@ -30,7 +30,7 @@ function CustomLink({ to, children, ...props }) {
       <Link
         to={to}
         {...props}
-        className={`w-[8rem] mr-[2rem] focus:text-white font-mono font-bold h-full text-lg shadow-md text-secondGrey text-center text-account  ${
+        className={`w-[8rem] mr-[1.7rem] focus:text-white font-mono font-bold h-full text-lg shadow-md text-secondGrey text-center text-account  ${
           isActive ? "text-white cursor-default" : "hover:text-teal-400 "
         }`}
       >

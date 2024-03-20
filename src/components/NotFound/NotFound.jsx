@@ -1,4 +1,3 @@
-import Products from "../Products/Products";
 const NotFound = () => {
   return (
     <div>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Fish from "../../assets/Fish.png";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 
 const BigImage = () => {
   useEffect(() => {
@@ -35,11 +36,12 @@ const BigImage = () => {
           src={Fish}
           alt=""
         />
+
         <button
-          className="text-black text-xl font-bold font-mono hover:text-teal-300 hover:bg-black shadow-md w-[10rem] h-[3rem] bg-white absolute mt-[32rem] rounded-full"
+          className="text-black text-xl font-bold font-mono hover:text-teal-300 hover:bg-black hover:shadow-teal-700 shadow-md shadow-black w-[10rem] h-[3rem] bg-white absolute mt-[32rem] rounded-full"
           data-aos="zoom-in-up"
         >
-          Xem Thêm
+          <Link to="product">Xem Thêm</Link>
         </button>
       </div>
     </div>

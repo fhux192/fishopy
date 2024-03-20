@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "../../components/Slider/Slider";
-import Products from "../../components/Products/Products";
+import Products from "../../components/Products/TopProducts";
 import BigImage from "../../components/Products/BigImage";
 import InfoBox from "../../components/Products/InfoBox";
 import { slides } from "../../components/Slider/MenuSlider";

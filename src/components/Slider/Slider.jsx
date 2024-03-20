@@ -30,14 +30,14 @@ const Slider = ({ slides }) => {
             onClick={prevSlide}
             className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 left-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
-            <IoArrowUndoOutline className="w-full h-[10rem]" />
+            <IoArrowUndoOutline className="w-full h-[8rem]" />
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.5 }}
             onClick={nextSlide}
             className="absolute lg:invisible group-hover:visible w-[3rem] bg-primaryBlack bg-opacity-20 right-5 mt-[9rem] md:mt-[12rem] lg:mt-[15rem]  z-10 p-2 text-white rounded-full hover:bg-teal-600 focus:outline-none cursor-pointer"
           >
-            <IoArrowRedoOutline className="w-full h-[10rem]" />
+            <IoArrowRedoOutline className="w-full h-[8rem]" />
           </motion.button>
         </div>
         {slides.map((slide, index) => (

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const Header = () => {
   return (
     <header className="fixed top-0 left-0  right-0 z-20">
-      <div className="bg-primaryBlack">
+      <div className="bg-primaryBlack shadow-md shadow-black">
         <div className="h-[6rem] py-[1.25rem] mx-[1rem] flex">
           {/* Logo */}
           <div className="flex w-[257px] h-full items-center ml-[1rem]">
