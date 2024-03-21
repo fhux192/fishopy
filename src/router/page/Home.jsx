@@ -12,7 +12,7 @@ const Home = () => {
         <Slider slides={slides} />
         <Products />
         <BigImage />
-        <InfoBox />
+        <InfoBox />     
       </main>
     </div>
   );

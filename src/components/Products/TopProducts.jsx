@@ -19,31 +19,31 @@ const ProductsData = [
   {
     id: 2,
     img: fish2,
-    title: "Ca Vang",
+    title: "Ca Xanh",
     price: "100.000đ",
   },
   {
     id: 3,
     img: fish3,
-    title: "Ca Vang",
+    title: "Ca Cam",
     price: "100.000đ",
   },
   {
     id: 4,
     img: fish4,
-    title: "Ca Vang",
+    title: "Ca Den",
     price: "100.000đ",
   },
   {
     id: 5,
     img: fish5,
-    title: "Ca Vang",
+    title: "Ca Bien",
     price: "100.000đ",
   },
   {
     id: 6,
     img: fish6,
-    title: "Ca Vang",
+    title: "Ca Trang",
     price: "100.000đ",
   },
 ];
@@ -56,8 +56,8 @@ const Products = () => {
   return (
     <div>
       {/*Header Section*/}
-      <div className=" text-lg mb-[5rem] mt-[2rem] h-[1.8rem] max-w-[1000rem]">
-        <h1 className="text-3xl shadow-md shadow-black text-center text-white w-full bg-primaryBlack rounded-b-2">
+      <div className=" text-lg mb-[5.5rem] mt-[2rem] h-[1.8rem] max-w-[1000rem]">
+        <h1 className="text-2xl shadow-md shadow-black text-center text-white w-full bg-primaryBlack rounded-b-2">
           Top Bán Chạy Nhất
         </h1>
       </div>
@@ -65,25 +65,25 @@ const Products = () => {
       <div className=" ">
         <div
           data-aos="zoom-in-up"
-          className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 place-items-center "
+          className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 place-items-center mx-[1.5rem] lg:mx-0"
         >
           {/*Card Section*/}
           {ProductsData.map((data) => (
             <div
               key={data.id}
-              className="group  mb-[2rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-900 rounded-3xl cursor-pointer"
+              className="group mb-[3rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-900 rounded-3xl cursor-pointer"
             >
               <img
                 transition={{ type: "spring", stiffness: 1000 }}
                 src={data.img}
                 alt=""
-                className="block -translate-y-[2rem] lg:h-[8rem] lg:w-[12rem] w-[10rem] h-[7rem] group-hover:scale-[1.2]  duration-500 object-contain"
+                className="block -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3]  duration-500 object-contain"
               />
               <div className="-translate-y-[0.5rem]">
-                <div className="flex-wrap group-hover:text-teal-600   text-center font-mono font-bold text-2xl text-primaryBlack ">
+                <div className="flex-wrap group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack ">
                   {data.title}
                 </div>
-                <div className="flex-wrap group-hover:text-teal-700  text-center font-mono font-bold text-xl text-primaryGrey h-[3rem]">
+                <div className="flex-wrap group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
                   {data.price}
                 </div>
               </div>

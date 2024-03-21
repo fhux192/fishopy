@@ -10,35 +10,35 @@ const BigImage = () => {
   }, []);
 
   return (
-    <div className=" w-max-[100rem] bg-white h-[45rem]">
+    <div className=" w-max-[100rem] bg-white h-[20rem] lg:h-[45rem]">
       <div data-aos="zoom-in-up">
-        <h1 className="font-mono font-bold text-2xl text-primaryBlack absolute ml-[22rem] mt-[15rem]">
+        <h1 className="font-mono font-bold lg:text-2xl text-primaryBlack absolute ml-[3rem] lg:ml-[22rem] mt-[3rem] lg:mt-[15rem]">
           Màu Sắc Rực Rỡ
         </h1>
-        <div className="absolute bg-black w-[7rem] h-[0.15rem] ml-[34rem] mt-[16rem]"></div>
+        <div className="absolute invisible lg:visible bg-black w-[7rem] h-[0.15rem]  lg:ml-[34rem] mt-[16rem]"></div>
       </div>
       <div data-aos="zoom-in-up">
-        <h1 className="font-mono font-bold text-2xl text-primaryBlack absolute ml-[19rem] mt-[28rem]">
+        <h1 className="font-mono font-bold lg:text-2xl text-primaryBlack absolute ml-[3rem] lg:ml-[19rem] mt-[16rem] lg:mt-[28rem]">
           Phối Giống Tốt
         </h1>
-        <div className="absolute bg-black w-[7rem] h-[0.15rem] ml-[31rem] mt-[29rem]"></div>
+        <div className="absolute invisible lg:visible bg-black w-[7rem] h-[0.15rem] lg:ml-[31rem] mt-[29rem]"></div>
       </div>
       <div data-aos="zoom-in-up">
-        <div className="absolute bg-black w-[7rem] h-[0.15rem] ml-[54rem] mt-[23rem]"></div>
-        <h1 className="font-mono font-bold text-2xl text-primaryBlack absolute ml-[61.5rem] mt-[22rem]">
+        <div className="absolute invisible lg:visible bg-black w-[7rem] h-[0.15rem] lg:ml-[54rem] mt-[22.5rem]"></div>
+        <h1 className="font-mono font-bold lg:text-2xl text-primaryBlack absolute ml-[2rem] lg:ml-[61.5rem] mt-[9.5rem] lg:mt-[21.5rem]">
           Sức Khỏe Ổn Định
         </h1>
       </div>
       <div className="grid items-center justify-items-center w-full h-full">
         <img
-          className="w-[25rem] h-[25rem]"
+          className="lg:w-[25rem] lg:h-[25rem] lg:ml-[0rem] ml-[8rem] w-[16rem] h-[16rem]"
           data-aos="zoom-in-up"
           src={Fish}
           alt=""
         />
 
         <button
-          className="text-black text-xl font-bold font-mono hover:text-teal-300 hover:bg-black hover:shadow-teal-700 shadow-md shadow-black w-[10rem] h-[3rem] bg-white absolute mt-[32rem] rounded-full"
+          className="text-black text-sm lg:text-xl font-bold font-mono hover:text-teal-300 hover:bg-black hover:shadow-teal-700 shadow-md shadow-black lg:w-[10rem] lg:h-[3rem] w-[6rem] h-[2rem] bg-white absolute mt-[22rem] lg:mt-[32rem] rounded-full"
           data-aos="zoom-in-up"
         >
           <Link to="product">Xem Thêm</Link>
