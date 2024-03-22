@@ -19,10 +19,13 @@ const ModalLogin = () => {
     const res = await callLogin(email, password);
 
     if (res.vcode == 0) {
-      console.log("check res.data", res.data);
+      console.log("check res", res);
       dispatch(setCredentials(res.data));
       toast.success(res.msg);
       dispatch(toggleModalLogin());
+      // Reset form
+      setEmail("");
+      setPassword("");
     } else {
       toast.error(res.msg);
     }
@@ -47,23 +50,23 @@ const ModalLogin = () => {
         className="absolute left-[40%] top-[25%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
       >
         <h2 className="text-center text-2xl text-white mb-4">Đăng Nhập</h2>
-        <label htmlFor="email" className="text-white ">
+        <label htmlFor="emailLogin" className="text-white ">
           Email:
           <input
             type="text"
             className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
-            id="email"
+            id="emailLogin"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-        <label htmlFor="password" className="text-white  ">
+        <label htmlFor="passwordLogin" className="text-white  ">
           Mật Khẩu:
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
               className="w-full p-2 outline-none text-primaryBlack rounded mb-[0.5rem]"
-              id="password"
+              id="passwordLogin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

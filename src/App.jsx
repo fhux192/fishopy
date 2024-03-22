@@ -9,7 +9,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./router/page/Home";
 import ProductPage from "./router/page/ProductPage";
 import { useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import ModalRegister from "./components/ModalRegister/ModalRegister";
 
 function App() {
   const { pathname } = useLocation();
@@ -30,6 +31,7 @@ function App() {
       <Footer />
       <ModalLogin />
       <ToastContainer />
+      <ModalRegister />
     </>
   );
 }

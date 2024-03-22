@@ -7,3 +7,8 @@ export const callLogin = async (email, password) => {
   });
   return response;
 };
+
+export const callRegister = async (data) => {
+  const response = await axios.post("users/register", data);
+  return response;
+};

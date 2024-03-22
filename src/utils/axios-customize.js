@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.BASE_URL + "/api";
+// const baseURL = import.meta.env.BASE_URL + "/api";
 
 const instance = axios.create({
   baseURL: "https://fish-web-be.onrender.com/api/",

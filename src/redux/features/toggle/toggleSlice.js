@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isShowModalLogin: false,
+  modalRegister: false,
 };
 
 export const toggleSlice = createSlice({
@@ -11,9 +12,12 @@ export const toggleSlice = createSlice({
     toggleModalLogin: (state) => {
       state.isShowModalLogin = !state.isShowModalLogin;
     },
+    toggleModalRegister: (state) => {
+      state.modalRegister = !state.modalRegister;
+    },
   },
 });
 
-export const { toggleModalLogin } = toggleSlice.actions;
+export const { toggleModalLogin, toggleModalRegister } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

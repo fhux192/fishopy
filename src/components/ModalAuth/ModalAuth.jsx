@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalLogin } from "../../redux/features/toggle/toggleSlice";
+import {
+  toggleModalLogin,
+  toggleModalRegister,
+} from "../../redux/features/toggle/toggleSlice";
 import { toast } from "react-toastify";
 import { logout } from "../../redux/features/user/userSlice";
 import { motion } from "framer-motion";
@@ -29,7 +32,10 @@ const ModalAuth = () => {
           >
             Đăng nhập
           </motion.button>
-          <button className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150">
+          <button
+            onClick={() => dispatch(toggleModalRegister())}
+            className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
+          >
             Đăng ký
           </button>
         </>
