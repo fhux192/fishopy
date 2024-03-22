@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import "aos/dist/aos.css";
 import Aos from "aos";
 import fish1 from "../../assets/fish1.png";
 import fish2 from "../../assets/fish4.png";
