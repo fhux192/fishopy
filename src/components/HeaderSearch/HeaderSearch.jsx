@@ -7,7 +7,7 @@ const HeaderSearch = () => {
 
   return (
     <motion.div
-      className={`flex justify-items-center shadow-md  shadow-black mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
+      className={`flex justify-items-center mr-[0.8rem] mt-[0.35rem] relative w-full overflow-hidden ${
         searchText && isActiveSearch ? "ml-[0rem]" : "ml-[48rem]"
       }`}
       animate={{
@@ -19,7 +19,7 @@ const HeaderSearch = () => {
           {!isActiveSearch && !searchText && (
             <label
               htmlFor="header-search"
-              className="absolute font-mono left-[1.1rem] top-[0.7rem] cursor-text"
+              className="absolute  font-mono left-[1.1rem] top-[0.7rem] cursor-text"
             >
               Tìm Kiếm...
             </label>
