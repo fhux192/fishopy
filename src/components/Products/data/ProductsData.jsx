@@ -54,7 +54,7 @@ export const ProductsData = [
     title: "Ca Vang 1",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -65,7 +65,7 @@ export const ProductsData = [
     title: "Ca Xanh 2",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -76,7 +76,7 @@ export const ProductsData = [
     title: "Ca Cam 3",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -87,7 +87,7 @@ export const ProductsData = [
     title: "Ca Den 4",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -98,7 +98,7 @@ export const ProductsData = [
     title: "Ca Bien 5",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -109,7 +109,7 @@ export const ProductsData = [
     title: "Ca Trang 6",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -120,7 +120,7 @@ export const ProductsData = [
     title: "Ca Vang 7",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -131,7 +131,7 @@ export const ProductsData = [
     title: "Ca Xanh 8",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -142,7 +142,7 @@ export const ProductsData = [
     title: "Ca Cam 9",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -153,7 +153,7 @@ export const ProductsData = [
     title: "Ca Den 10",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -164,7 +164,7 @@ export const ProductsData = [
     title: "Ca Bien 11",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -175,7 +175,7 @@ export const ProductsData = [
     title: "Ca Trang 12",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -186,7 +186,7 @@ export const ProductsData = [
     title: "Ca Vang 13",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -197,7 +197,7 @@ export const ProductsData = [
     title: "Ca Xanh 14",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -208,7 +208,7 @@ export const ProductsData = [
     title: "Ca Cam 15",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -219,7 +219,7 @@ export const ProductsData = [
     title: "Ca Den 16",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -230,7 +230,7 @@ export const ProductsData = [
     title: "Ca Bien 17",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -241,7 +241,7 @@ export const ProductsData = [
     title: "Ca Trang 18",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -252,7 +252,7 @@ export const ProductsData = [
     title: "Ca Vang 19",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -263,7 +263,7 @@ export const ProductsData = [
     title: "Ca Xanh 20",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -274,7 +274,7 @@ export const ProductsData = [
     title: "Ca Cam 21",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -285,7 +285,7 @@ export const ProductsData = [
     title: "Ca Den 22",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -296,7 +296,7 @@ export const ProductsData = [
     title: "Ca Bien 23",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -307,7 +307,7 @@ export const ProductsData = [
     title: "Ca Trang 24",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -318,7 +318,7 @@ export const ProductsData = [
     title: "Ca Vang 25",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -329,7 +329,7 @@ export const ProductsData = [
     title: "Ca Xanh 26",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -340,7 +340,7 @@ export const ProductsData = [
     title: "Ca Cam 27",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -351,7 +351,7 @@ export const ProductsData = [
     title: "Ca Den 28",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -362,7 +362,7 @@ export const ProductsData = [
     title: "Ca Bien 29",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -373,7 +373,7 @@ export const ProductsData = [
     title: "Ca Vang 31",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -384,7 +384,7 @@ export const ProductsData = [
     title: "Ca Xanh 32",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -395,7 +395,7 @@ export const ProductsData = [
     title: "Ca Cam 33",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -406,7 +406,7 @@ export const ProductsData = [
     title: "Ca Den 34",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -417,7 +417,7 @@ export const ProductsData = [
     title: "Ca Bien 35",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -428,7 +428,7 @@ export const ProductsData = [
     title: "Ca Trang 36",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -439,7 +439,7 @@ export const ProductsData = [
     title: "Ca Vang 37",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -450,7 +450,7 @@ export const ProductsData = [
     title: "Ca Xanh 38",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -461,7 +461,7 @@ export const ProductsData = [
     title: "Ca Cam 39",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -472,7 +472,7 @@ export const ProductsData = [
     title: "Ca Den 40",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -483,7 +483,7 @@ export const ProductsData = [
     title: "Ca Bien 41",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -494,7 +494,7 @@ export const ProductsData = [
     title: "Ca Trang 42",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -505,7 +505,7 @@ export const ProductsData = [
     title: "Ca Vang 43",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
@@ -516,7 +516,7 @@ export const ProductsData = [
     title: "Ca Xanh 44",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
@@ -527,7 +527,7 @@ export const ProductsData = [
     title: "Ca Cam 45",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -538,7 +538,7 @@ export const ProductsData = [
     title: "Ca Den 46",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
@@ -549,7 +549,7 @@ export const ProductsData = [
     title: "Ca Bien 47",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
@@ -560,7 +560,7 @@ export const ProductsData = [
     title: "Ca Trang 48",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
-    condition: "new",
+    status: "new",
     introduction:
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },

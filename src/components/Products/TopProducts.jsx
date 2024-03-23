@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Aos from "aos";
 import { ProductsData } from "./data/ProductsData";
+import { Link } from "react-router-dom";
 
 const TopProductsData = ProductsData.slice(0, 6);
 
@@ -25,7 +26,8 @@ const Products = () => {
         >
           {/*Card Section*/}
           {TopProductsData.map((data) => (
-            <div
+            <Link
+              to={"/fish/" + data.id}
               key={data.id}
               className="group mb-[3rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer"
             >
@@ -43,7 +45,7 @@ const Products = () => {
                   {data.price}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

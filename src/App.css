@@ -1,3 +1,5 @@
+@import "react-image-gallery/styles/css/image-gallery.css";
+
 * {
   padding: 0;
   margin: 0;
@@ -8,5 +10,5 @@
 }
 
 .main-body {
-  min-height: calc(100vh - 96px - 307px);
+  min-height: calc(100vh - 96px - 209px);
 }
