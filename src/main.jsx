@@ -10,6 +10,10 @@ import { BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
+import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
+import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
+import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +35,29 @@ const router = createBrowserRouter([
       {
         path: "infomation",
         element: <ProductPage />,
+      },
+    ],
+  },
+  {
+    path: "admin",
+    element: <AdminPage />,
+    children: [
+      {
+        index: true,
+        element: (
+          <ProtectedRoutes>
+            <DashBoard />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "manage-product",
+
+        element: (
+          <ProtectedRoutes>
+            <ManageProduct />
+          </ProtectedRoutes>
+        ),
       },
     ],
   },
