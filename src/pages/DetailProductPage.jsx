@@ -31,10 +31,13 @@ const DetailProductPage = () => {
     },
   ];
   return (
-    <div className="w-[1200px] mt-[150px] mx-auto">
+    <div className="w-[1200px] h-[50rem] mt-[150px] mx-auto">
       <div className="grid grid-cols-2 gap-4  ">
         <div class="">
           <ImageGallery items={images} />
+          <button className="bg-primaryBlack text-white py-2 ">
+            Thêm Vào Giỏ Hàng
+          </button>
         </div>
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl">{fish.title}</h1>
@@ -42,11 +45,10 @@ const DetailProductPage = () => {
             Giá: <span className="text-red-500">{fish.price}</span>
           </p>
           <p className="">Tình trạng: {fish.status}</p>
+          <span className="text-2xl">Giới Thiệu</span>
           <p>{fish.introduction}</p>
+          <span className="text-2xl"> Mô Tả</span>
           <p>{fish.description}</p>
-          <button className="bg-primaryBlack text-white py-2 ">
-            Thêm vào giỏ hàng
-          </button>
         </div>
       </div>
     </div>
