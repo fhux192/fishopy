@@ -3,12 +3,13 @@ import AllProducts from "../components/Products/AllProducts";
 
 const ProductPage = () => {
   return (
-    <div>
-      <div className="w-full mt-[7rem]">
+   
+      <div className="w-full">
+        <div className="h-10"></div>
         {" "}
         <AllProducts />
       </div>
-    </div>
+    
   );
 };
 

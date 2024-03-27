@@ -29,7 +29,7 @@ const Products = () => {
             <Link
               to={"/fish/" + data.id}
               key={data.id}
-              className="group mb-[3rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer"
+              className="group h-[14rem] mb-[3rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer"
             >
               <img
                 transition={{ type: "spring", stiffness: 1000 }}
@@ -38,7 +38,7 @@ const Products = () => {
                 className="block -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3]  duration-500 object-contain"
               />
               <div className="-translate-y-[0.5rem]">
-                <div className="flex-wrap group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack ">
+                <div className="flex-wrap whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack ">
                   {data.title}
                 </div>
                 <div className="flex-wrap group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">

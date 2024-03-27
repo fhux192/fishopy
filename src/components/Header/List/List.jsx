@@ -3,7 +3,7 @@ import { Link, useMatch, useResolvedPath } from "react-router-dom";
 export const List = () => {
   return (
     <nav>
-      <ul className="flex ml-[0.2rem] items-center justify-between w-[25rem] ">
+      <ul className="flex items-center justify-between w-[25rem] ">
         {/* Home */}
         <ul className="flex items-center border-r-[3px] border-r-secondGrey">
           <CustomLink to="/">Trang Chủ</CustomLink>

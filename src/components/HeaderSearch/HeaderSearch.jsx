@@ -14,12 +14,12 @@ const HeaderSearch = () => {
         x: searchText && isActiveSearch ? 5 : 0,
       }}
     >
-      <form className="group absolute flex w-full h-[45px] rounded-full overflow-hidden">
+      <form className="group absolute flex w-full h-[40px] rounded-full overflow-hidden">
         <div className="absolute w-full">
           {!isActiveSearch && !searchText && (
             <label
               htmlFor="header-search"
-              className="absolute  font-mono left-[1.1rem] top-[0.7rem] cursor-text"
+              className="absolute  font-mono left-[1.1rem] top-[0.5rem] cursor-text"
             >
               Tìm Kiếm...
             </label>

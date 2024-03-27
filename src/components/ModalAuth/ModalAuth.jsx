@@ -16,7 +16,7 @@ const ModalAuth = () => {
   };
 
   return (
-    <div className="absolute top-[150%] w-[8rem] right-[0] bg-primaryBlack text-white">
+    <div className="absolute top-[150%] z-[21] w-[8rem] right-[0] bg-primaryBlack text-white">
       {account?.name ? (
         <button
           onClick={handleLogout}

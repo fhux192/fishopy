@@ -38,7 +38,7 @@ const BigImage = () => {
         />
 
         <button
-          className="text-black text-sm lg:text-xl font-bold font-mono hover:text-teal-300 hover:bg-black hover:shadow-teal-700 shadow-md shadow-black lg:w-[10rem] lg:h-[3rem] w-[6rem] h-[2rem] bg-white absolute mt-[22rem] lg:mt-[32rem] rounded-full"
+          className="text-black text-sm lg:text-xl font-bold font-mono hover:text-teal-300 hover:bg-black hover:shadow-teal-700 duration-300 shadow-md shadow-black lg:w-[10rem] lg:h-[3rem] w-[6rem] h-[2rem] bg-white absolute mt-[22rem] lg:mt-[32rem] rounded-full"
           data-aos="zoom-in-up"
         >
           <Link to="product">Xem Thêm</Link>

@@ -1,7 +1,7 @@
 .header-search {
   width: calc(100% - 2.5rem);
   max-height: 3.5rem;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .header-search:focus {
