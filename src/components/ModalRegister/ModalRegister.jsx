@@ -57,7 +57,7 @@ const ModalRegister = () => {
           y: modalRegister ? 0 : 300,
         }}
         open
-        className="absolute left-[40%] top-[25%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
+        className="absolute left-[40%] top-[20%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
       >
         <h2 className="text-center text-2xl text-white mb-4">Đăng ký</h2>
         <label htmlFor="emailRegister" className="text-white ">

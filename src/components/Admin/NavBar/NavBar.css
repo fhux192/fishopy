@@ -1,0 +1,7 @@
+.nav-item {
+  transition: transform 0.3s;
+}
+
+.nav-item:hover {
+  transform: translateX(10px);
+}
