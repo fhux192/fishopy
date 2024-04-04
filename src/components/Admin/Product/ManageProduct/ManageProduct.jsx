@@ -1,43 +1,27 @@
 import { Card, Button, message, Popover } from "antd";
 import { useEffect, useState } from "react";
 import ModalAddProduct from "../ModalAddProduct/ModalAddProduct";
-import {
-  callCreateProduct,
-  callDeleteProduct,
-  callGetAllProduct,
-} from "../../../services/api";
+import { callDeleteProduct, callGetAllProduct } from "../../../../services/api";
 import { toast } from "react-toastify";
-const fishes = Array.from({ length: 20 }, (v, i) => ({
-  id: i + 1,
-  name: `Fish ${i + 1}`,
-  species: `Species ${i + 1}`,
-  size: `${i + 1} inches`,
-  weight: `${i + 1} lbs`,
-  location: `Location ${i + 1}`,
-}));
+import ModalEditProduct from "../ModalEditProduct/ModalEditProduct";
 
 const ManageProduct = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [activePopover, setActivePopover] = useState(null);
-  const [thumb, setThumb] = useState([]); // Biến này cập nhật UI
-  const [slider, setSlider] = useState([]); // Biến này cập nhật UI
-  const [data, setData] = useState({
+  const [selectedFish, setSelectedFish] = useState({
     name: "",
     thumb: "",
     slider: [],
     description: "",
     introduction: "",
+    price: "",
   });
 
-  const [isModalOpen, setIsModalOpen] = useState({
-    addProduct: false,
-    editProduct: false,
-    deleteProduct: false,
-  });
+  const [showModalAddProduct, setShowModalAddProduct] = useState(false);
+  const [showModalEditProduct, setShowModalEditProduct] = useState(false);
+  const [showPopRemoveProd, setShowPopRemoveProd] = useState(false);
 
-  const getAllProducts = async () => {
+  const fetchProducts = async () => {
     try {
       const res = await callGetAllProduct();
       if (res.vcode == 0) {
@@ -51,38 +35,8 @@ const ManageProduct = () => {
   };
 
   useEffect(() => {
-    getAllProducts();
+    fetchProducts();
   }, []);
-
-  const handleOk = async () => {
-    try {
-      const res = await callCreateProduct(data);
-      if (res.vcode == 0) {
-        setProducts((pre) => {
-          return [res.data, ...pre];
-        });
-        message.success("Thêm sản phẩm thành công");
-        setIsModalOpen(false);
-        setData({
-          name: "",
-          thumb: "",
-          slider: [],
-          description: "",
-          introduction: "",
-        });
-        setThumb([]);
-        setSlider([]);
-      } else {
-        message.error(res.msg);
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   const handleDeleteProduct = async (id) => {
     try {
@@ -93,7 +47,7 @@ const ManageProduct = () => {
         });
         message.success("Xóa sản phẩm thành công");
         // close Popover
-        setShowPopover(false);
+        setShowPopRemoveProd(false);
       } else {
         toast.error("Xóa sản phẩm thất bại");
         return;
@@ -110,14 +64,7 @@ const ManageProduct = () => {
       <Button
         type="primary"
         className="text-black bg-primaryTeal"
-        onClick={() =>
-          setIsModalOpen((pre) => {
-            return {
-              ...pre,
-              addProduct: true,
-            };
-          })
-        }
+        onClick={() => setShowModalAddProduct((pre) => (pre = !pre))}
       >
         Thêm sản phẩm
       </Button>
@@ -125,13 +72,16 @@ const ManageProduct = () => {
       <div className="grid grid-cols-3 gap-4 mt-4">
         {products.map((fish) => (
           <Card
-            key={fish.id}
+            key={fish._id}
             extra={
               <div className="flex gap-4">
                 <Button
                   type="primary"
                   className="text-black bg-primaryTeal"
-                  onClick={() => alert("t chưa làm sửa ")}
+                  onClick={() => {
+                    setSelectedFish(fish);
+                    setShowModalEditProduct((pre) => !pre);
+                  }}
                 >
                   Sửa
                 </Button>
@@ -139,7 +89,12 @@ const ManageProduct = () => {
                   open={activePopover === fish._id}
                   content={
                     <div className="flex justify-end gap-2">
-                      <Button className="text-black bg-primaryTeal">Hủy</Button>
+                      <Button
+                        onClick={() => setActivePopover(null)}
+                        className="text-black bg-primaryTeal"
+                      >
+                        Hủy
+                      </Button>
                       <Button
                         className="text-black bg-primaryTeal"
                         onClick={() => handleDeleteProduct(fish._id)}
@@ -174,15 +129,17 @@ const ManageProduct = () => {
       </div>
 
       <ModalAddProduct
-        visible={isModalOpen.addProduct}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        setData={setData}
-        data={data}
-        thumb={thumb}
-        setThumb={setThumb}
-        slider={slider}
-        setSlider={setSlider}
+        isOpen={showModalAddProduct}
+        setShowModalAddProduct={setShowModalAddProduct}
+        setProducts={setProducts}
+      />
+
+      <ModalEditProduct
+        isOpen={showModalEditProduct}
+        setShowModalEditProduct={setShowModalEditProduct}
+        fish={selectedFish}
+        setSelectedFish={setSelectedFish}
+        setProducts={setProducts}
       />
     </div>
   );

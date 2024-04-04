@@ -13,9 +13,9 @@ export const callRegister = async (data) => {
   return response;
 };
 
-export const callCreateProduct = async (data) => {
-  const response = await axios.post("products", data);
-  return response;
+export const callCreateProduct = async (values) => {
+  const res = await axios.post("products", values);
+  return res;
 };
 
 export const callGetAllProduct = async () => {
@@ -28,7 +28,13 @@ export const callDeleteProduct = async (id) => {
   return response;
 };
 
-export const callUploadImgeFish = async (fileImg) => {
+/**
+ * nếu upload thì truyền vào fileImg, sửa ảnh thì truyền vào oldImg để server không bị rác
+ * @param {*} fileImg
+ * @param {*} oldImg
+ * @returns
+ */
+export const callUploadImgFish = async (fileImg) => {
   const formData = new FormData();
   formData.append("fileImg", fileImg);
   return axios({
@@ -40,4 +46,14 @@ export const callUploadImgeFish = async (fileImg) => {
       "upload-type": "fish",
     },
   });
+};
+
+export const callDeleteImgFish = async (imgName) => {
+  const response = await axios.delete(`file/upload`, { data: { imgName } });
+  return response;
+};
+
+export const callUpdateProduct = async (id, data) => {
+  const response = await axios.put(`products/${id}`, data);
+  return response;
 };

@@ -6,12 +6,11 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
-import { BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
-import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
+import ManageProduct from "./components/Admin/Product/ManageProduct/ManageProduct.jsx";
 import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
 import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
@@ -52,7 +51,6 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-product",
-
         element: (
           <ProtectedRoutes>
             <ManageProduct />

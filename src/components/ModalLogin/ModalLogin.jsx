@@ -7,28 +7,33 @@ import { callLogin } from "../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../redux/features/user/userSlice";
 import { motion, transform } from "framer-motion";
+import { Button } from "antd";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { isShowModalLogin } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
 
   const handlelogin = async () => {
+    setIsLoading(true);
     const res = await callLogin(email, password);
 
-    if (res.vcode == 0) {
-      console.log("check res", res);
-      dispatch(setCredentials(res.data));
-      toast.success(res.msg);
-      dispatch(toggleModalLogin());
-      // Reset form
-      setEmail("");
-      setPassword("");
-    } else {
-      toast.error(res.msg);
-    }
+    setTimeout(() => {
+      if (res.vcode == 0) {
+        dispatch(setCredentials(res.data));
+        toast.success(res.msg);
+        dispatch(toggleModalLogin());
+        // Reset form
+        setEmail("");
+        setPassword("");
+        setIsLoading(false);
+      } else {
+        toast.error(res.msg);
+      }
+    }, 500);
   };
 
   return (
@@ -87,12 +92,13 @@ const ModalLogin = () => {
             )}
           </div>
         </label>
-        <button
+        <Button
           onClick={() => handlelogin()}
+          loading={isLoading}
           className="h-10 w-full px-2 text-center bg-teal-900  text-white mt-4 hover:bg-teal-700 rounded-full duration-150  "
         >
           Đăng Nhập
-        </button>
+        </Button>
       </motion.div>
     </div>
   );
