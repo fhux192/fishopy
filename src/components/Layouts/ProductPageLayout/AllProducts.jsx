@@ -8,7 +8,7 @@ import {useTypewriter} from 'react-simple-typewriter'
 const AllProducts = () => {
 
   const [ text ] = useTypewriter({
-    words: ["Guppy Hóc Môn Xin Chào", "Ở Đây Cá Đẹp - Giá Tốt" ,"Bạn Cần Cá Gì?"],
+    words: ["Guppy Hóc Môn","Bạn Cần Cá Gì?", "Mời Bạn Xem" ],
     loop: {},
     typeSpeed: 50,
   });
