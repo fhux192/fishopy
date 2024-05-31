@@ -6,15 +6,17 @@ export const ItemsContainer = () => {
   const CONTACT = [
     { text: "Số Điện Thoại: 0941087880", link: "#" },
     { text: "Email: hoangphuc395@gmail.com", link: "#" },
-    { text: "Zalo: Nguyễn Hoàng Phúc", link: "#" },
-    { text: "Facebook: Phúc Nguyễn", link: "#" },
   ];
   const COSTOMER = [
     { text: "Giỏ Hàng", link: "#" },
     { text: "Kiểm Tra Đơn Hàng", link: "#" },
   ];
+  const SOCIAL = [
+    { text: "Zalo: Nguyễn Hoàng Phúc", link: "#" },
+    { text: "Facebook: Phúc Nguyễn", link: "#" },
+  ];
   return (
-    <div className=" grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-16 ">
+    <div className=" grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-12 ">
       <ul>
         <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Khách Hàng
@@ -49,9 +51,9 @@ export const ItemsContainer = () => {
       </ul>
       <ul>
         <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
-          Liên Hệ
+          Mạng Xã Hội
         </h1>
-        {CONTACT.map((link) => (
+        {SOCIAL.map((link) => (
           <li key={link.text}>
             <a
               className="text-white font-mono hover:text-teal-400 duration-300

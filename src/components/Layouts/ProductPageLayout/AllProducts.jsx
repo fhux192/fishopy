@@ -26,12 +26,12 @@ const AllProducts = () => {
       </div>
       {/*Products Section*/}
       <div className="mx-0 lg:mx-[4.5rem] bg-white rounded">
-        <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[1.5rem] lg:mx-0 mb-[1.5rem]">
+        <div className=" grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[1.5rem] lg:mx-0 mb-[1.0rem]">
           {/*Card Section*/}
           {currentPageProducts.map((data) => (
             <div
               key={data.id}
-              className="group mt-[4rem] mb-[4rem] h-[11rem] lg:h-[14rem] md:h-[12rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer"
+              className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem]  border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer"
             >
               <LazyLoadImage
                 src={data.cardImg}
