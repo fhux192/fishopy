@@ -1,6 +1,4 @@
-import { current } from "@reduxjs/toolkit";
-import React from "react";
-
+/* eslint-disable react/prop-types */
 const Pagination = ({ totalPost, postPerPage ,setCurrentPage,currentPage}) => {
   let page = [];
   for (let i = 1; i <= Math.ceil(totalPost / postPerPage); i++) {

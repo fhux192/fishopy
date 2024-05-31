@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleModalLogin,
-  toggleModalRegister,
-} from "../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 import { toast } from "react-toastify";
-import { logout } from "../../redux/features/user/userSlice";
+import { logout } from "../../../redux/features/user/userSlice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+
 const ModalAuth = () => {
   const dispatch = useDispatch();
   const { account } = useSelector((state) => state.user);

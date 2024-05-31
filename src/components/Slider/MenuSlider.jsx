@@ -5,7 +5,6 @@ export const slides = [
     image2: "https://source.unsplash.com/1600x900/?nature,trees",
     image3: "https://source.unsplash.com/1600x900/?nature,green",
     caption: "",
-    caption: "",
   },
   {
     id: 2,

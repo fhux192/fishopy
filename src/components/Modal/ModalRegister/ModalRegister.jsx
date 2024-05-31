@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalRegister } from "../../redux/features/toggle/toggleSlice";
+import { toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { callRegister } from "../../services/api";
+import { callRegister } from "../../../services/api";
 import { toast } from "react-toastify";
-import { setCredentials } from "../../redux/features/user/userSlice";
+import { setCredentials } from "../../../redux/features/user/userSlice";
 import { motion } from "framer-motion";
 
 const ModalRegister = () => {

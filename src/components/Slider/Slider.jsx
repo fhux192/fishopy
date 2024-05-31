@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { IoArrowUndoOutline } from "react-icons/io5";
-import { IoArrowRedoOutline } from "react-icons/io5";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 
 const Slider = ({ slides }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,7 +27,7 @@ const Slider = ({ slides }) => {
     <div
       className={`group  flex justify-center lg:mb-[14.95rem] md:mb-[12.95rem] mb-[8.95rem]  `}
     >
-      <div className=" justify-items-center border-x-8 border-t-black border-y-8 border-x-white shadow-lg  relative w-full max-h-[10rem]">
+      <div className=" justify-items-center  border-x-white  relative w-full max-h-[10rem]">
         {slides.map((slide, index) => (
           <div
             key={slide.id}

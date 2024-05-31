@@ -4,7 +4,7 @@ import "./NavBar.css";
 const NavBar = () => {
   return (
     <div className="fixed bg-black text-white w-[10rem] flex flex-col h-full justify-between  px-2">
-      <ul className="mt-[5rem] flex flex-col gap-4">
+      <ul className="ml-[0.5] mt-[2rem] flex flex-col gap-5">
         <li className="nav-item">
           <Link to={"/admin"}>Tổng quan</Link>
         </li>

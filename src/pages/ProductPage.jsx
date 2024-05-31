@@ -1,15 +1,11 @@
-import React from "react";
-import AllProducts from "../components/Products/AllProducts";
+
+import AllProducts from "../components/Layouts/ProductPageLayout/AllProducts";
 
 const ProductPage = () => {
   return (
-   
-      <div className="w-full">
-        <div className="h-10"></div>
-        {" "}
-        <AllProducts />
-      </div>
-    
+    <div className="w-full">
+      <div className=""></div> <AllProducts />
+    </div>
   );
 };
 

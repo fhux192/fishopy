@@ -1,52 +1,52 @@
-import fish1 from "../../../assets/fishCardImg/fish (1).png";
-import fish2 from "../../../assets/fishCardImg/fish (2).png";
-import fish3 from "../../../assets/fishCardImg/fish (3).png";
-import fish4 from "../../../assets/fishCardImg/fish (4).png";
-import fish5 from "../../../assets/fishCardImg/fish (5).png";
-import fish6 from "../../../assets/fishCardImg/fish (6).png";
-import fish7 from "../../../assets/fishCardImg/fish (7).png";
-import fish8 from "../../../assets/fishCardImg/fish (8).png";
-import fish9 from "../../../assets/fishCardImg/fish (9).png";
-import fish10 from "../../../assets/fishCardImg/fish (10).png";
-import fish11 from "../../../assets/fishCardImg/fish (11).png";
-import fish12 from "../../../assets/fishCardImg/fish (12).png";
-import fish13 from "../../../assets/fishCardImg/fish (13).png";
-import fish14 from "../../../assets/fishCardImg/fish (14).png";
-import fish15 from "../../../assets/fishCardImg/fish (15).png";
-import fish16 from "../../../assets/fishCardImg/fish (16).png";
-import fish17 from "../../../assets/fishCardImg/fish (17).png";
-import fish18 from "../../../assets/fishCardImg/fish (18).png";
-import fish19 from "../../../assets/fishCardImg/fish (19).png";
-import fish20 from "../../../assets/fishCardImg/fish (20).png";
-import fish21 from "../../../assets/fishCardImg/fish (21).png";
-import fish22 from "../../../assets/fishCardImg/fish (22).png";
-import fish23 from "../../../assets/fishCardImg/fish (23).png";
-import fish24 from "../../../assets/fishCardImg/fish (24).png";
-import fish25 from "../../../assets/fishCardImg/fish (25).png";
-import fish26 from "../../../assets/fishCardImg/fish (26).png";
-import fish27 from "../../../assets/fishCardImg/fish (27).png";
-import fish28 from "../../../assets/fishCardImg/fish (28).png";
-import fish29 from "../../../assets/fishCardImg/fish (29).png";
-import fish31 from "../../../assets/fishCardImg/fish (31).png";
-import fish32 from "../../../assets/fishCardImg/fish (32).png";
-import fish33 from "../../../assets/fishCardImg/fish (33).png";
-import fish34 from "../../../assets/fishCardImg/fish (34).png";
-import fish35 from "../../../assets/fishCardImg/fish (35).png";
-import fish36 from "../../../assets/fishCardImg/fish (36).png";
-import fish37 from "../../../assets/fishCardImg/fish (37).png";
-import fish38 from "../../../assets/fishCardImg/fish (38).png";
-import fish39 from "../../../assets/fishCardImg/fish (39).png";
-import fish40 from "../../../assets/fishCardImg/fish (40).png";
-import fish41 from "../../../assets/fishCardImg/fish (41).png";
-import fish42 from "../../../assets/fishCardImg/fish (42).png";
-import fish43 from "../../../assets/fishCardImg/fish (43).png";
-import fish44 from "../../../assets/fishCardImg/fish (44).png";
-import fish45 from "../../../assets/fishCardImg/fish (45).png";
-import fish46 from "../../../assets/fishCardImg/fish (46).png";
-import fish47 from "../../../assets/fishCardImg/fish (47).png";
-import fish48 from "../../../assets/fishCardImg/fish (48).png";
+import fish1 from "../assets/fishCardImg/fish (1).png";
+import fish2 from "../assets/fishCardImg/fish (2).png";
+import fish3 from "../assets/fishCardImg/fish (3).png";
+import fish4 from "../assets/fishCardImg/fish (4).png";
+import fish5 from "../assets/fishCardImg/fish (5).png";
+import fish6 from "../assets/fishCardImg/fish (6).png";
+import fish7 from "../assets/fishCardImg/fish (7).png";
+import fish8 from "../assets/fishCardImg/fish (8).png";
+import fish9 from "../assets/fishCardImg/fish (9).png";
+import fish10 from "../assets/fishCardImg/fish (10).png";
+import fish11 from "../assets/fishCardImg/fish (11).png";
+import fish12 from "../assets/fishCardImg/fish (12).png";
+import fish13 from "../assets/fishCardImg/fish (13).png";
+import fish14 from "../assets/fishCardImg/fish (14).png";
+import fish15 from "../assets/fishCardImg/fish (15).png";
+import fish16 from "../assets/fishCardImg/fish (16).png";
+import fish17 from "../assets/fishCardImg/fish (17).png";
+import fish18 from "../assets/fishCardImg/fish (18).png";
+import fish19 from "../assets/fishCardImg/fish (19).png";
+import fish20 from "../assets/fishCardImg/fish (20).png";
+import fish21 from "../assets/fishCardImg/fish (21).png";
+import fish22 from "../assets/fishCardImg/fish (22).png";
+import fish23 from "../assets/fishCardImg/fish (23).png";
+import fish24 from "../assets/fishCardImg/fish (24).png";
+import fish25 from "../assets/fishCardImg/fish (25).png";
+import fish26 from "../assets/fishCardImg/fish (26).png";
+import fish27 from "../assets/fishCardImg/fish (27).png";
+import fish28 from "../assets/fishCardImg/fish (28).png";
+import fish29 from "../assets/fishCardImg/fish (29).png";
+import fish31 from "../assets/fishCardImg/fish (31).png";
+import fish32 from "../assets/fishCardImg/fish (32).png";
+import fish33 from "../assets/fishCardImg/fish (33).png";
+import fish34 from "../assets/fishCardImg/fish (34).png";
+import fish35 from "../assets/fishCardImg/fish (35).png";
+import fish36 from "../assets/fishCardImg/fish (36).png";
+import fish37 from "../assets/fishCardImg/fish (37).png";
+import fish38 from "../assets/fishCardImg/fish (38).png";
+import fish39 from "../assets/fishCardImg/fish (39).png";
+import fish40 from "../assets/fishCardImg/fish (40).png";
+import fish41 from "../assets/fishCardImg/fish (41).png";
+import fish42 from "../assets/fishCardImg/fish (42).png";
+import fish43 from "../assets/fishCardImg/fish (43).png";
+import fish44 from "../assets/fishCardImg/fish (44).png";
+import fish45 from "../assets/fishCardImg/fish (45).png";
+import fish46 from "../assets/fishCardImg/fish (46).png";
+import fish47 from "../assets/fishCardImg/fish (47).png";
+import fish48 from "../assets/fishCardImg/fish (48).png";
 
-export const ProductsData = [
+const ProductsData = [
   {
     id: 1,
     cardImg: fish1,
@@ -565,3 +565,5 @@ export const ProductsData = [
       "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
 ];
+
+export default ProductsData;

@@ -1,7 +1,7 @@
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
-import ModalAuth from "../ModalAuth/ModalAuth";
+import ModalAuth from "../../Modal/ModalAuth/ModalAuth";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";

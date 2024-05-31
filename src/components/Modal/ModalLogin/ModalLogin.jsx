@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalLogin } from "../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin } from "../../../redux/features/toggle/toggleSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { callLogin } from "../../services/api";
+import { callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
-import { setCredentials } from "../../redux/features/user/userSlice";
-import { motion, transform } from "framer-motion";
+import { setCredentials } from "../../../redux/features/user/userSlice";
 import { Button } from "antd";
+import { motion } from "framer-motion";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);

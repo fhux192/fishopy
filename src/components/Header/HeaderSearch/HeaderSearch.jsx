@@ -1,5 +1,5 @@
 import { useState } from "react";
-import search from "../../assets/Zoom.png";
+import search from "../../../assets/Zoom.png";
 import { motion } from "framer-motion";
 const HeaderSearch = () => {
   const [searchText, setSearchText] = useState("");

@@ -1,8 +1,6 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
@@ -13,6 +11,7 @@ import AdminPage from "./pages/AdminPage.jsx";
 import ManageProduct from "./components/Admin/Product/ManageProduct/ManageProduct.jsx";
 import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
 import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import Header from "./components/Header/Header.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,19 +20,31 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <ProductPage />
+        ),
       },
       {
         path: "fish/:id",
-        element: <DetailProductPage />,
+        element: (
+          <ProductPage />
+        ),
       },
       {
         path: "product",
-        element: <ProductPage />,
+        element: (
+          <Header>
+            <ProductPage />
+          </Header>
+        ),
       },
       {
         path: "infomation",
-        element: <ProductPage />,
+        element: (
+          <Header>
+            <ProductPage />
+          </Header>
+        ),
       },
     ],
   },
