@@ -4,8 +4,15 @@ import "aos/dist/aos.css";
 import ProductsData from "../../../data/ProductsData";
 import Pagination from "../../Pagination/Pagination";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
+import {useTypewriter} from 'react-simple-typewriter'
 const AllProducts = () => {
+
+  const [ text ] = useTypewriter({
+    words: ["Guppy Hóc Môn Xin Chào", "Ở Đây Cá Đẹp - Giá Tốt" ,"Bạn Cần Cá Gì?"],
+    loop: {},
+    typeSpeed: 50,
+  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(16);
 
@@ -20,8 +27,8 @@ const AllProducts = () => {
     <div className="bg-gray-100">
       {/*Header Section*/}
       <div className=" text-lg mb-[3.5rem] mt-[0.3rem] h-[1.8rem] max-w-[1000rem]">
-        <h1 className="bg-white p-[0.3rem] text-3xl text-center text-primaryTeal w-full rounded bg-primaryBlack rounded-b-2">
-          Tất Cả Sản Phẩm
+        <h1 className="bg-white h-[3.3rem] p-[0.3rem] lg:text-[3rem] text-3xl  text-center text-primaryTeal w-full rounded bg-primaryBlack rounded-b-2">
+          {text}
         </h1>
       </div>
       {/*Products Section*/}

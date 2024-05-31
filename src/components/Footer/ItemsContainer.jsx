@@ -4,16 +4,16 @@ export const ItemsContainer = () => {
     { text: "Địa chỉ: 10/5C, Đông Thạnh, Hóc Môn, HCM", link: "#" },
   ];
   const CONTACT = [
-    { text: "Số Điện Thoại: 0941087880", link: "#" },
-    { text: "Email: hoangphuc395@gmail.com", link: "#" },
+    { text: "Số Điện Thoại: 09410878xx", link: "#" },
+    { text: "Email: hoangquan@gmail.com", link: "#" },
   ];
   const COSTOMER = [
     { text: "Giỏ Hàng", link: "#" },
     { text: "Kiểm Tra Đơn Hàng", link: "#" },
   ];
   const SOCIAL = [
-    { text: "Zalo: Nguyễn Hoàng Phúc", link: "#" },
-    { text: "Facebook: Phúc Nguyễn", link: "#" },
+    { text: "Zalo: Nguyễn Hoàng Quân", link: "#" },
+    { text: "Facebook: Quân Nguyễn", link: "#" },
   ];
   return (
     <div className=" grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-12 ">
