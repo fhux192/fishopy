@@ -1,0 +1,55 @@
+.navbar {
+    color: #f8f7f9;
+  
+    .wrapper {
+      max-width: 2500px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      background-color: #111111;
+      z-index: 1000; /* Ensure it's above other elements */
+  
+      span {
+        font-weight: bold;
+      }
+  
+      .social {
+        display: flex;
+        gap: 10px;
+  
+        a {
+          display: inline-block;
+        }
+      }
+  
+      .icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+        transition: transform 0.2s;
+  
+        &:hover {
+          transform: scale(1.1);
+        }
+        
+      }
+      
+      .zalo-icon {
+        width: 45px;
+        height: 35px;
+        margin-right: 20px;
+        transition: transform 0.2s;
+  
+        &:hover {
+          transform: scale(1.1);
+        }
+        
+      }
+      .top-text {
+        font-size: 25px;
+      }
+    }
+  }
+  
