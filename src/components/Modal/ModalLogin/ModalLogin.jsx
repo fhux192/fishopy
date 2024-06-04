@@ -8,15 +8,15 @@ import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
 import { Button } from "antd";
 import { motion } from "framer-motion";
+import styles from "./ModalLogin.module.css";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { isShowModalLogin } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
-
+  const { isShowModalLogin } = useSelector((state) => state.toggle);
   const handlelogin = async () => {
     setIsLoading(true);
     const res = await callLogin(email, password);
@@ -38,24 +38,13 @@ const ModalLogin = () => {
   };
 
   return (
-    <div
-      className={`fixed  inset-0 z-[21] ${
-        isShowModalLogin ? "block" : "hidden"
-      }`}
-    >
+    <div className={styles.modal}>
       <div
-        className="w-full h-full  bg-overlay"
+        className={styles.modalOverlay}
         onClick={() => dispatch(toggleModalLogin())}
       ></div>
-      <motion.div
-        animate={{
-          opacity: isShowModalLogin ? 1 : 0,
-          y: isShowModalLogin ? 0 : 300,
-        }}
-        open
-        className="absolute left-[40%] top-[25%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
-      >
-        <h2 className="text-center text-2xl text-white mb-4">Đăng Nhập</h2>
+      <div className={styles.modalContent}>
+        <h2 className={styles.modalTitle}>Đăng Nhập</h2>
         <label htmlFor="emailLogin" className="text-white ">
           Email:
           <input
@@ -100,7 +89,7 @@ const ModalLogin = () => {
         >
           Đăng Nhập
         </Button>
-      </motion.div>
+      </div>
     </div>
   );
 };

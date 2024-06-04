@@ -8,10 +8,11 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ModalRegister from "./components/Modal/ModalRegister/ModalRegister";
-
+import { useSelector } from "react-redux";
 
 function App() {
   const { pathname } = useLocation();
+  const { isShowModalLogin } = useSelector((state) => state.toggle);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,7 +24,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
-      <ModalLogin />
+      {isShowModalLogin && <ModalLogin />}
       <ToastContainer />
       <MessageBox />
       <ModalRegister />
