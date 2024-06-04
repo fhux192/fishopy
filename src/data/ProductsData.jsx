@@ -45,7 +45,7 @@ import fish45 from "../assets/fishCardImg/fish (45).png";
 import fish46 from "../assets/fishCardImg/fish (46).png";
 import fish47 from "../assets/fishCardImg/fish (47).png";
 import fish48 from "../assets/fishCardImg/fish (48).png";
-
+import caBien from "../assets/caBien.jpeg";
 const ProductsData = [
   {
     id: 1,
@@ -94,7 +94,7 @@ const ProductsData = [
   {
     id: 5,
     cardImg: fish5,
-    proImg: fish5,
+    proImg: caBien,
     title: "Blue Tazan",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
