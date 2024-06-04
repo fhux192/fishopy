@@ -163,13 +163,13 @@ const InfoPay = () => {
                       name="discountCode"
                       value={formData.discountCode}
                       onChange={handleInputChange}
-                      className="shadow appearance-none border rounded-xl w-[70%] lg:text-md text-sm py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Mã giảm giá 4 kí tự"
+                      className="shadow appearance-none border rounded-xl w-[60%] lg:text-md text-sm py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Mã giảm giá"
                     />
                    
                     <button
                       type="button"
-                      className="bg-gray-500 w-[30%] lg:text-md text-sm hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl"
+                      className="bg-gray-500 w-[40%] lg:text-md text-sm hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl"
                     >
                       Áp dụng
                     </button>

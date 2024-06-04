@@ -72,12 +72,12 @@ const DetailProductPage = () => {
                 <p className="text-md">{product.introduction}</p>
               </div>
               <div className="grid justify-items-center gap-4">
-                <button className="bg-gray-500 w-[80%] lg:w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-lg transition duration-300">
+                <button className="bg-gray-500 w-[80%] lg:w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300">
                 THÊM VÀO GIỎ HÀNG
               </button>
               <button
                 onClick={handlePaymentClick}
-                className="bg-primaryBlack w-[80%] lg:w-full lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-lg transition duration-300"
+                className="bg-primaryBlack w-[80%] lg:w-full lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
               >
                 MUA NGAY
               </button>
