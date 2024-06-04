@@ -19,7 +19,6 @@ function App() {
 
   return (
     <>
-      
       <main className={`main-body`}>
         <Outlet />
       </main>

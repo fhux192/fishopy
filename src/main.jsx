@@ -1,17 +1,18 @@
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
-import Home from "./pages/Home.jsx";
+import App from "./App.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
-import DetailProductPage from "./pages/DetailProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import ManageProduct from "./components/Admin/Product/ManageProduct/ManageProduct.jsx";
 import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
 import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import Header from "./components/Header/Header.jsx";
+import InfoPay from "./pages/InfoPay.jsx";
+import DetailProductPage from "./pages/DetailProductPage.jsx";
+import AllProducts from "./components/Layouts/ProductPageLayout/AllProducts.jsx";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
@@ -20,15 +21,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: (
-          <ProductPage />
-        ),
+        element: <ProductPage />,
       },
       {
         path: "fish/:id",
-        element: (
-          <ProductPage />
-        ),
+        element: <DetailProductPage />,
       },
       {
         path: "product",
@@ -38,6 +35,7 @@ const router = createBrowserRouter([
           </Header>
         ),
       },
+      { path: "/payment", element: <InfoPay /> },
       {
         path: "infomation",
         element: (
@@ -74,6 +72,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={router}></RouterProvider>
+    <RouterProvider router={router} />
   </Provider>
 );
