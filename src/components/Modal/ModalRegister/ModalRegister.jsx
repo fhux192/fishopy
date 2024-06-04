@@ -16,6 +16,7 @@ const ModalRegister = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { modalRegister } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const ModalRegister = () => {
       return;
     }
 
-    const res = await callRegister({ email, name, password });
+    const res = await callRegister({ email, name, password, phone });
 
     if (res.vcode == 0) {
       dispatch(setCredentials(res.data));
@@ -78,6 +79,16 @@ const ModalRegister = () => {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name" className="text-white ">
+          Số điện thoại:
+          <input
+            type="text"
+            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </label>
         <label htmlFor="passwordRegister" className="text-white  ">

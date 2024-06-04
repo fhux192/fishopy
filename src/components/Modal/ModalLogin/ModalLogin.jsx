@@ -31,6 +31,7 @@ const ModalLogin = () => {
         setPassword("");
         setIsLoading(false);
       } else {
+        setIsLoading(false);
         toast.error(res.msg);
       }
     }, 500);
