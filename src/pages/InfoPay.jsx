@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import NavBar from "../components/Admin/NavBar/NavBar";
+
 
 const InfoPay = () => {
   const location = useLocation();
@@ -61,7 +61,7 @@ const InfoPay = () => {
                     name="recipientName"
                     value={formData.recipientName}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded-xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Tên người nhận"
                   />
                   {errors.recipientName && (
@@ -79,7 +79,7 @@ const InfoPay = () => {
                     name="phoneNumber"
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded-xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Số điện thoại"
                   />
                   {errors.phoneNumber && (
@@ -97,7 +97,7 @@ const InfoPay = () => {
                     name="address"
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded-xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Địa chỉ"
                   />
                   {errors.address && (
@@ -115,12 +115,12 @@ const InfoPay = () => {
                     name="paymentMethod"
                     value={formData.paymentMethod}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded-xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   >
                     <option value="">Chọn phương thức thanh toán</option>
                     <option>Thanh toán khi nhận hàng</option>
-                    <option>Thanh toán bằng thẻ</option>
-                    <option>Thanh toán qua ví điện tử</option>
+                    <option>Chuyển khoản ngân hàng</option>
+                    <option>Chuyển khoản qua Momo</option>
                   </select>
                   {errors.paymentMethod && (
                     <p className="text-red-500 text-xs italic">
@@ -136,13 +136,13 @@ const InfoPay = () => {
                     name="orderNote"
                     value={formData.orderNote}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className="shadow appearance-none border rounded-xl w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Ghi chú"
                   ></textarea>
                 </div>
               </div>
               <div>
-                <div className="border-t border-gray-300 mt-6 pt-4">
+                <div className="border-t border-gray-300 mt-[-1rem] lg:mt-6  pt-4">
                   <h3 className="text-xl font-bold mb-4">
                     Đơn hàng (1 cặp cá)
                   </h3>
@@ -154,26 +154,26 @@ const InfoPay = () => {
                     />
                   </div>
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-gray-700">{product?.title}</span>
-                    <span className="text-gray-700">{product?.price}</span>
+                    <span className="text-gray-700 text-md lg:text-xl">{product?.title}</span>
+                    <span className="text-gray-700 text-md lg:text-xl">{product?.price}/đôi(cặp)</span>
                   </div>
-                  <div className="flex items-center mb-4">
+                  <div className="flex gap-4 mb-7">
                     <input
                       type="text"
                       name="discountCode"
                       value={formData.discountCode}
                       onChange={handleInputChange}
-                      className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      placeholder="Mã giảm giá"
+                      className="shadow appearance-none border rounded-xl w-[70%] lg:text-md text-sm py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Mã giảm giá 4 kí tự"
                     />
-                  </div>
-                  <div className="flex items-center justify-between mb-4">
+                   
                     <button
                       type="button"
-                      className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-gray-500 w-[30%] lg:text-md text-sm hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl"
                     >
                       Áp dụng
                     </button>
+                  
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-700">Tạm tính:</span>
@@ -183,20 +183,20 @@ const InfoPay = () => {
                     <span className="text-gray-700">Giảm giá:</span>
                     <span className="text-gray-700">0đ</span>
                   </div>
-                  <div className="flex justify-between items-center font-bold mb-4">
+                  <div className="flex justify-between items-center font-bold mb-7">
                     <span className="text-gray-700">Tổng thanh toán:</span>
                     <span className="text-gray-700">{product?.price}</span>
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-black hover:bg-primaryTeal text-white font-bold py-3 px-4 rounded"
+                    className="w-full bg-black hover:bg-primaryTeal text-white font-bold py-3 px-4 rounded-xl"
                   >
                     THANH TOÁN
                   </button>
                   <button
                     type="button"
                     onClick={() => navigate(-1)}
-                    className="w-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded mt-4"
+                    className="w-full bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-xl mt-4"
                   >
                     QUAY LẠI
                   </button>
