@@ -5,8 +5,13 @@ import { IoLogoTiktok } from "react-icons/io5";
 import { FaFishFins } from "react-icons/fa6";
 import Slidebar from "../SliderBar/Slidebar.jsx";
 import "../../../scss/navbar.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.user.account.cart);
+
   return (
     <div className="navbar">
       <div className="wrapper">
@@ -26,12 +31,12 @@ const Navbar = () => {
           <a href="/">
             <IoLogoTiktok className="icon duration-500 hover:text-teal-500" />
           </a>
-          <a className="relative group" href="/">
+          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <FaFishFins className="zalo-icon duration-500 group-hover:text-teal-500 text-white" />
             <div className="w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 group-hover:text-white group-hover:bg-teal-500 text-black text-center bg-white rounded-full absolute">
-              0
+              {cart.length}
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
