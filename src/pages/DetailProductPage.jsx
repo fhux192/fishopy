@@ -5,6 +5,7 @@ import Navbar from "../components/Header/Navbar/Navbar.jsx"; // Import Navbar
 import ProductsData from "../data/ProductsData"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/customImageGallery.scss"; // Import custom CSS file
+import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
 
 const DetailProductPage = () => {
   const { id } = useParams();
@@ -24,14 +25,6 @@ const DetailProductPage = () => {
       original: product.proImg,
       thumbnail: product.proImg,
     },
-    {
-      original: product.proImg,
-      thumbnail: product.proImg,
-    },
-    {
-      original: product.proImg,
-      thumbnail: product.proImg,
-    },
   ];
 
   const handlePaymentClick = () => {
@@ -40,6 +33,7 @@ const DetailProductPage = () => {
 
   return (
     <>
+    
       <Navbar /> {/* Include Navbar */}
       <div className="bg-gray-200 min-h-screen flex justify-center py-10">
         <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl p-6">
@@ -98,6 +92,7 @@ const DetailProductPage = () => {
           </div>
         </div>
       </div>
+      <ProductSlider/>
     </>
   );
 };

@@ -21,14 +21,14 @@ const Navbar = () => {
           <Slidebar />
 
           <a href="/">
-            <FaFacebook className="icon" />
+            <FaFacebook className="icon duration-500 hover:text-teal-500" />
           </a>
           <a href="/">
-            <IoLogoTiktok className="icon" />
+            <IoLogoTiktok className="icon duration-500 hover:text-teal-500" />
           </a>
-          <a className="relative" href="/">
-            <FaFishFins className="zalo-icon text-white" />
-            <div className="w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] text-black text-center bg-white rounded-full absolute">
+          <a className="relative group" href="/">
+            <FaFishFins className="zalo-icon duration-500 group-hover:text-teal-500 text-white" />
+            <div className="w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 group-hover:text-white group-hover:bg-teal-500 text-black text-center bg-white rounded-full absolute">
               0
             </div>
           </a>

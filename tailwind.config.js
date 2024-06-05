@@ -17,7 +17,17 @@ export default {
       fontFamily: {
         body: ["Sacramento"],
       },
+      keyframes: {
+        pulse: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.1)' },
+        },
+      },
+      animation: {
+        pulse: 'pulse 2s infinite',
+      },
     },
   },
+  variants: {},
   plugins: [],
 };
