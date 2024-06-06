@@ -13,6 +13,7 @@ import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import AllProducts from "./components/Layouts/ProductPageLayout/AllProducts.jsx";
 import "./index.css";
+import OrderPage from "./pages/OrderPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,20 +30,16 @@ const router = createBrowserRouter([
       },
       {
         path: "product",
-        element: (
-          <Header>
-            <ProductPage />
-          </Header>
-        ),
+        element: <ProductPage />,
+      },
+      {
+        path: "order",
+        element: <OrderPage />,
       },
       { path: "/payment", element: <InfoPay /> },
       {
         path: "infomation",
-        element: (
-          <Header>
-            <ProductPage />
-          </Header>
-        ),
+        element: <ProductPage />,
       },
     ],
   },

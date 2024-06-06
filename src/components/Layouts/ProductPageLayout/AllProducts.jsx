@@ -29,8 +29,6 @@ const AllProducts = () => {
 
   return (
     <div className="bg-gray-100">
-      <Navbar /> {/* Use Navbar component */}
-      {/* Header Section */}
       <div className="text-lg mb-[3rem] mt-[1rem] h-[1.5rem] max-w-[1000rem]">
         <h1 className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded rounded-b-2">
           {text}

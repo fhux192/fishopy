@@ -32,6 +32,21 @@ export const userSlice = createSlice({
       );
       state.account = {};
     },
+    changeQuantityLocalCart: (state, action) => {
+      console.log("check action", action);
+      let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload.item.id);
+      console.log("check findItemIndex", findItemIndex);
+
+      if (findItemIndex !== -1) {
+        if (action.payload.type == "increase") {
+          state.account.cart[findItemIndex].quantity += 1;
+          localStorage.setItem("user", JSON.stringify(state.account));
+        } else if (action.payload.type == "decrease") {
+          if (state.account.cart[findItemIndex].quantity > 1) state.account.cart[findItemIndex].quantity -= 1;
+          localStorage.setItem("user", JSON.stringify(state.account));
+        }
+      }
+    },
     addLocalCart: (state, action) => {
       if (action.payload) {
         let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload.id);
@@ -56,6 +71,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout, addLocalCart, removeCartLocal } = userSlice.actions;
+export const { setCredentials, logout, addLocalCart, removeCartLocal, changeQuantityLocalCart } = userSlice.actions;
 
 export default userSlice.reducer;

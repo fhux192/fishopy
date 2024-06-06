@@ -44,7 +44,6 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <Navbar /> {/* Include Navbar */}
       <div className="bg-gray-200 min-h-screen flex justify-center py-10">
         <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -79,8 +78,8 @@ const DetailProductPage = () => {
                   value={quantity}
                   controls={false}
                   min={1}
-                  addonBefore={<div onClick={() => setQuantity((pre) => ++pre)}>+</div>}
-                  addonAfter={<div onClick={() => setQuantity((pre) => --pre)}>-</div>}
+                  addonBefore={<div onClick={() => setQuantity((pre) => (pre > 1 ? pre - 1 : pre))}>-</div>}
+                  addonAfter={<div onClick={() => setQuantity((pre) => ++pre)}>+</div>}
                   defaultValue={1}
                 />
                 <button
