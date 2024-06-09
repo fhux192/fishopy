@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ModalRegister from "./components/Modal/ModalRegister/ModalRegister";
 import { useSelector } from "react-redux";
+import CartDrawer from "./components/CartDrawer";
+import Navbar from "./components/Header/Navbar/Navbar";
 
 function App() {
   const { pathname } = useLocation();
@@ -20,11 +22,13 @@ function App() {
 
   return (
     <>
+      <Navbar /> {/* Use Navbar component */}
       <main className={`main-body`}>
         <Outlet />
       </main>
       <Footer />
       {isShowModalLogin && <ModalLogin />}
+      <CartDrawer />
       <ToastContainer />
       <MessageBox />
       <ModalRegister />

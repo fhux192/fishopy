@@ -41,7 +41,7 @@ const ToggleButton = ({ setOpen, open }) => {
         <FaList
           fontWeight="bold"
           className="icon"
-          style={{ color: clicked ? "#2dd4bf" : scrolled ? "#141414" : "#f8f7f9" }} // Green when clicked, red on scroll
+          style={{ color: clicked ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} // Green when clicked, red on scroll
         />
       </motion.div>
     </button>

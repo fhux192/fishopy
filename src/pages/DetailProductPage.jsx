@@ -1,17 +1,25 @@
 /* eslint-disable no-unused-vars */
 import { useParams, useNavigate } from "react-router-dom";
 import ImageGallery from "react-image-gallery";
-import Navbar from "../components/Header/Navbar/Navbar.jsx"; // Import Navbar
 import ProductsData from "../data/ProductsData"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/customImageGallery.scss"; // Import custom CSS file
 import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
+import { InputNumber, Input, Button } from "antd";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addLocalCart } from "../redux/features/user/userSlice.js";
 
 const DetailProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const product = ProductsData.find((item) => item.id === parseInt(id));
+  const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState('details'); // State for active tab
+  const [reviews, setReviews] = useState([]); // State for managing reviews
+  const [reviewText, setReviewText] = useState(''); // State for new review text
 
+  const dispatch = useDispatch();
   if (!product) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -31,9 +39,20 @@ const DetailProductPage = () => {
     navigate("/payment", { state: { product } });
   };
 
+  const handleAddToCart = () => {
+    product.quantity = quantity;
+    dispatch(addLocalCart(product));
+  };
+
+  const handleReviewSubmit = () => {
+    if (reviewText.trim()) {
+      setReviews([...reviews, reviewText]);
+      setReviewText('');
+    }
+  };
+
   return (
     <>
-      <Navbar /> {/* Include Navbar */}
       <div className="bg-gray-200 min-h-screen flex justify-center py-10">
         <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -49,8 +68,8 @@ const DetailProductPage = () => {
             </div>
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl font-bold">{product.title}</h1>
-              <p className="text-[1.4rem] font-bold text-teal-500">
-              {product.price}
+              <p className="text-3xl font-bold text-teal-500">
+                Giá: {product.price}
               </p>
               <div className="flex items-center gap-2">
                 <span className="text-lg">Tình trạng:</span>
@@ -62,33 +81,122 @@ const DetailProductPage = () => {
                   {product.status}
                 </span>
               </div>
-              <div className="bg-gray-100 p-4 rounded-lg shadow-inner overflow-y-auto h-40">
-                <h2 className="lg:text-3xl text-2xl font-semibold mb-2">
-                  Giới Thiệu
-                </h2>
-                <p className="text-[1rem]">{product.introduction}</p>
+              <div className="flex items-center gap-2">
+                <span className="text-lg">Số lượng:</span>
+                <div className="flex items-center rounded">
+                  <button
+                    className="px-3 py-1"
+                    onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
+                  >
+                    -
+                  </button>
+                  <InputNumber
+                    className="w-16 text-center"
+                    value={quantity}
+                    controls={false}
+                    min={1}
+                    onChange={(value) => setQuantity(value)}
+                  />
+                  <button
+                    className="px-3 py-1 border-l"
+                    onClick={() => setQuantity((prev) => prev + 1)}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
-              <div className="grid justify-items-center gap-4">
-                <button className="bg-gray-500 w-[100%] lg:w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300">
-                  THÊM VÀO GIỎ HÀNG
-                </button>
-                <button
-                  onClick={handlePaymentClick}
-                  className="bg-primaryBlack w-[100%] lg:w-full lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
-                >
-                  MUA NGAY
-                </button>
-              </div>
+              <button
+                onClick={handleAddToCart}
+                className="bg-gray-500 w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+              >
+                THÊM VÀO GIỎ HÀNG
+              </button>
+              <button
+                onClick={handlePaymentClick}
+                className="bg-primaryBlack w-full lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+              >
+                MUA NGAY
+              </button>
             </div>
           </div>
-          <div className="mt-4 border-2 border-gray-300 p-6 rounded-lg">
-            <h2 className="lg:text-3xl text-2xl font-bold mb-4 text-center">
-              Mô Tả
-            </h2>
-            <div
-              className="text-lg text-gray-700 leading-relaxed product-description"
-              dangerouslySetInnerHTML={{ __html: product.description }}
-            />
+          <div className="mt-8">
+            <div className="border-b border-gray-300">
+              <nav className="flex justify-center space-x-4">
+                <button
+                  className={`py-2 px-4 ${activeTab === 'details' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
+                  onClick={() => setActiveTab('details')}
+                >
+                  DETAILS
+                </button>
+                <button
+                  className={`py-2 px-4 ${activeTab === 'introduction' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
+                  onClick={() => setActiveTab('introduction')}
+                >
+                  INTRODUCTION
+                </button>
+                <button
+                  className={`py-2 px-4 ${activeTab === 'reviews' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
+                  onClick={() => setActiveTab('reviews')}
+                >
+                  REVIEWS
+                </button>
+              </nav>
+            </div>
+            {activeTab === 'details' && (
+              <div className="p-6">
+                <h2 className="lg:text-3xl text-2xl font-bold mb-4 text-center">
+                  Mô Tả
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {product.description}
+                </p>
+              </div>
+            )}
+            {activeTab === 'introduction' && (
+              <div className="p-6">
+                <h2 className="lg:text-3xl text-2xl font-semibold mb-4 text-center">
+                  Giới Thiệu
+                </h2>
+                <p className="text-md text-gray-700 leading-relaxed">
+                  {product.introduction}
+                </p>
+              </div>
+            )}
+            {activeTab === 'reviews' && (
+              <div className="p-6">
+                <h2 className="lg:text-3xl text-2xl font-semibold mb-4 text-center">
+                  Đánh Giá
+                </h2>
+                <div className="mb-4">
+                  <Input.TextArea
+                    rows={4}
+                    value={reviewText}
+                    onChange={(e) => setReviewText(e.target.value)}
+                    placeholder="Viết đánh giá của bạn..."
+                    className="border-teal-500 rounded-xl w-[100%] hover:border-teal-700 focus:border-teal-700"
+                  />
+                  <button
+                    onClick={handleReviewSubmit}
+                    className="mt-2 h-10 w-[10rem] bg-gray-500 rounded-xl border-teal-500 text-white hover:bg-teal-700"
+                  >
+                    Gửi Đánh Giá
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  {reviews.length > 0 ? (
+                    reviews.map((review, index) => (
+                      <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                        <p className="text-md text-gray-700">{review}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-md text-gray-700">
+                      Chưa có đánh giá nào.
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
