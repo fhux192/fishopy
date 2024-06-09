@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
+
 const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
   account: user || {
@@ -47,6 +48,20 @@ export const userSlice = createSlice({
         }
       }
     },
+    updateCartQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const findItemIndex = state.account.cart.findIndex((item) => item.id === id);
+
+      if (findItemIndex !== -1) {
+        if (quantity <= 0) {
+          state.account.cart.splice(findItemIndex, 1);
+          message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
+        } else {
+          state.account.cart[findItemIndex].quantity = quantity;
+        }
+        localStorage.setItem("user", JSON.stringify(state.account));
+      }
+    },
     addLocalCart: (state, action) => {
       if (action.payload) {
         let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload.id);
@@ -71,6 +86,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout, addLocalCart, removeCartLocal, changeQuantityLocalCart } = userSlice.actions;
+export const {
+  setCredentials,
+  logout,
+  addLocalCart,
+  removeCartLocal,
+  changeQuantityLocalCart,
+  updateCartQuantity,
+} = userSlice.actions;
 
 export default userSlice.reducer;

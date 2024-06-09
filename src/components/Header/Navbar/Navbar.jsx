@@ -50,7 +50,13 @@ const Navbar = () => {
             >
               <FaFishFins className="zalo-icon duration-500 group-hover:text-teal-500 text-white" />
             </motion.div>
-            <div className="w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 group-hover:text-white group-hover:bg-teal-500 text-black text-center bg-white rounded-full absolute">
+            <div
+              className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
+                cart.length > 0
+                  ? 'text-white bg-teal-500'
+                  : 'text-black bg-white group-hover:text-white group-hover:bg-teal-500'
+              }`}
+            >
               {cart.length}
             </div>
           </div>

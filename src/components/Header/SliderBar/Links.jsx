@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   toggleModalLogin,
   toggleModalRegister,
 } from "../../../redux/features/toggle/toggleSlice";
-import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/features/user/userSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -37,6 +38,8 @@ const itemVariants = {
 const Links = () => {
   const items = ["Trang Chủ", "Sản Phẩm", "Chi Nhánh"];
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     dispatch(logout());
     toast.success("Đăng xuất thành công");
@@ -45,14 +48,21 @@ const Links = () => {
   // Get the user from Redux state
   const user = useSelector((state) => state.user.account);
 
+  const handleNavigation = (item) => {
+    if (item === "Trang Chủ") {
+      navigate("/");
+    }
+  };
+
   return (
     <motion.div className="links" variants={variants}>
       {items.map((item) => (
         <motion.p
-          className="links-item"
+          className="links-item cursor-pointer hover:text-teal-700"
           key={item}
           variants={itemVariants}
-          whileHover={{ scale: 1.1 }}
+          whileHover={{ scale: 1.1 } }
+          onClick={() => handleNavigation(item)}
         >
           {item}
         </motion.p>
@@ -61,7 +71,7 @@ const Links = () => {
       {!user?.id && (
         <>
           <motion.p
-            className="links-item"
+            className="links-item cursor-pointer hover:text-teal-700"
             onClick={() => dispatch(toggleModalLogin())}
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
@@ -69,7 +79,7 @@ const Links = () => {
             Đăng nhập
           </motion.p>
           <motion.p
-            className="links-item"
+            className="links-item cursor-pointer hover:text-teal-700"
             onClick={() => dispatch(toggleModalRegister())}
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
@@ -81,8 +91,8 @@ const Links = () => {
 
       {user?.id && (
         <motion.p
-          className="links-item"
-          onClick={() => handleLogout()}
+          className="links-item cursor-pointer"
+          onClick={handleLogout}
           variants={itemVariants}
           whileHover={{ scale: 1.1 }}
         >

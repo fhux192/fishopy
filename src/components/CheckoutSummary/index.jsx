@@ -40,7 +40,7 @@ const CheckoutSummary = ({ setStep, cart }) => {
         </Col>
       </Row>
       <Divider />
-      <Button onClick={() => setStep(2)} className="w-full bg-black " type="primary">
+      <Button onClick={() => setStep(2)} className="w-full h-14 rounded-xl lg:text-xl bg-black " type="primary">
         Mua hàng
       </Button>
     </Card>

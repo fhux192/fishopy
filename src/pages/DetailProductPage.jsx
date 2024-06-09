@@ -53,8 +53,8 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className="bg-gray-200 min-h-screen flex justify-center py-10">
-        <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl p-6">
+      <div className="bg-gray-200 min-h-screen flex justify-center lg:px-0 px-4 lg:py-10 py-4">
+        <div className="bg-white  shadow-lg rounded-lg w-full max-w-6xl p-6 lg:py-[3rem]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
               <ImageGallery
@@ -68,20 +68,20 @@ const DetailProductPage = () => {
             </div>
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl font-bold">{product.title}</h1>
-              <p className="text-3xl font-bold text-teal-500">
+              <p className="text-2xl font-bold text-teal-700">
                 Giá: {product.price}
               </p>
               <div className="flex items-center gap-2">
                 <span className="text-lg">Tình trạng:</span>
                 <span
                   className={`${
-                    product.status === "new" ? "text-teal-400" : "text-red-500"
+                    product.status === "new" ? "text-teal-500" : "text-red-500"
                   } text-lg font-semibold`}
                 >
                   {product.status}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center lg:mt-[5%] gap-2">
                 <span className="text-lg">Số lượng:</span>
                 <div className="flex items-center rounded">
                   <button
@@ -107,13 +107,13 @@ const DetailProductPage = () => {
               </div>
               <button
                 onClick={handleAddToCart}
-                className="bg-gray-500 w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                className="bg-gray-500 w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
               >
                 THÊM VÀO GIỎ HÀNG
               </button>
               <button
                 onClick={handlePaymentClick}
-                className="bg-primaryBlack w-full lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                className="bg-primaryBlack w-[90%] lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
               >
                 MUA NGAY
               </button>

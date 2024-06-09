@@ -51,5 +51,23 @@
         font-size: 25px;
       }
     }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        height: 62px;
+        .icon{
+          width: 30px;
+          height: 30px;
+        }
+        .zalo-icon {
+          width: 33px;
+          height: 33px;
+        }
+  
+        .top-text {
+          font-size: 18px;
+        }
+      }
+    }
   }
   

@@ -8,6 +8,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTypewriter } from "react-simple-typewriter";
 import Navbar from "../../../components/Header/Navbar/Navbar";
 import "../../../scss/navbar.scss";
+import { motion } from "framer-motion";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const AllProducts = () => {
   const [text] = useTypewriter({
@@ -28,9 +30,9 @@ const AllProducts = () => {
   }, [currentPage]);
 
   return (
-    <div className="bg-gray-100">
-      <div className="text-lg mb-[3rem] mt-[1rem] h-[1.5rem] max-w-[1000rem]">
-        <h1 className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded rounded-b-2">
+    <div className="bg-gray-100 min-h-screen">
+      <div className="text-lg mb-[3rem]  mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[1000rem]">
+        <h1 className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded-b-2">
           {text}
         </h1>
       </div>
@@ -40,23 +42,23 @@ const AllProducts = () => {
           {/* Card Section */}
           {currentPageProducts.map((data) => (
             <Link to={`/fish/${data.id}`} key={data.id}>
-              <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
-                <LazyLoadImage
-                  src={data.cardImg}
-                  alt={data.title}
-                  effect="black-and-white"
-                  className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
-                />
-                <div className="-translate-y-2">
-                  <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
-                    {data.title}
-                  </div>
-                  <div className="group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
-                    {data.price}
-                  </div>
+            <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
+              <LazyLoadImage
+                src={data.cardImg}
+                alt={data.title}
+                effect="blur"
+                className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
+              />
+              <div className="-translate-y-2">
+                <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+                  {data.title}
+                </div>
+                <div className="group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
+                  {data.price}
                 </div>
               </div>
-            </Link>
+            </div>
+          </Link>
           ))}
         </div>
       </div>

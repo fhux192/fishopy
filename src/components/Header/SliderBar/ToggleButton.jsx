@@ -1,19 +1,15 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaList } from "react-icons/fa6";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ToggleButton = ({ setOpen, open }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  const buttonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) { // Adjust this value as needed
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50); // Adjust this value as needed
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -22,29 +18,50 @@ const ToggleButton = ({ setOpen, open }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (buttonRef.current && !buttonRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setOpen]);
+
   const handleClick = () => {
-    setClicked(true);
     setOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    if (open) {
-      setClicked(true);
-    } else {
-      setClicked(false);
-    }
-  }, [open]);
-
   return (
-    <button onClick={handleClick}>
-      <motion.div>
-        <FaList
-          fontWeight="bold"
-          className="icon"
-          style={{ color: clicked ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} // Green when clicked, red on scroll
-        />
-      </motion.div>
-    </button>
+    <>
+      <button
+        ref={buttonRef}
+        onClick={handleClick}
+        style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+      >
+        <motion.div whileTap={{ scale: 0.9 }}>
+          <FaList
+            className="icon"
+            style={{ color: open ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} // Green when open, black on scroll, white default
+          />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
