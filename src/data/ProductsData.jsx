@@ -51,18 +51,46 @@ const ProductsData = [
     id: 1,
     cardImg: fish1,
     proImg: fish1,
-    title: `Ca Vang 1`,
-    price: "100.000đ",
-    description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
+    title: `Dumbo Tai Voi`,
+    price: "100.000₫",
+    description: `
+      <h2>Giới Thiệu</h2>
+      <p>Cá Dumbo tai voi, còn được gọi là cá Betta Dumbo, là một biến thể đặc biệt của loài cá Betta (Betta splendens). Đặc điểm nổi bật nhất của cá Dumbo là hai vây ngực lớn, trông giống như tai của chú voi Dumbo trong bộ phim hoạt hình nổi tiếng, từ đó cái tên "Dumbo" xuất hiện.</p>
+
+      <h2>Đặc điểm và Ngoại hình</h2>
+      <p><strong>Ngoại hình:</strong> Cá Betta Dumbo có đôi vây ngực to, xoè ra giống như cánh quạt. Những chiếc vây này không chỉ làm cho cá trở nên hấp dẫn mà còn giúp chúng bơi lội uyển chuyển trong nước. Cá có thể có nhiều màu sắc khác nhau, từ đỏ, xanh ngọc, tím đến đen, và khi được chiếu sáng, màu sắc của chúng càng thêm phần rực rỡ.</p>
+      <p><strong>Kích thước:</strong> Thông thường, cá Dumbo có kích thước nhỏ, với chiều dài cơ thể khoảng 5-7 cm.</p>
+
+      <h2>Tập tính và Sinh hoạt</h2>
+      <p><strong>Tập tính:</strong> Cá Betta Dumbo nổi tiếng là loài có tính cách lãnh thổ mạnh mẽ, đặc biệt là các con đực. Chúng thường không nên được nuôi cùng với các con đực khác hoặc các loài cá có tính hiếu chiến tương tự để tránh xung đột.</p>
+      <p><strong>Tuổi thọ:</strong> Tuổi thọ trung bình của cá Betta Dumbo là khoảng 3-5 năm nếu được chăm sóc đúng cách.</p>
+
+      <h2>Môi trường Sống và Cách Chăm Sóc</h2>
+      <p><strong>Bể nuôi:</strong> Cá Dumbo cần một bể cá đủ rộng, tối thiểu khoảng 20 lít nước, với nhiều cây thủy sinh để tạo môi trường sống gần gũi với tự nhiên. Nhiệt độ nước lý tưởng cho cá là từ 24-28 độ C và độ pH từ 6-8.</p>
+      <p><strong>Thức ăn:</strong> Cá Betta Dumbo ăn các loại thức ăn giàu đạm như trùn chỉ, loăng quăng và các loại cám chuyên dụng cho cá Betta. Nên cho cá ăn 1-2 lần mỗi ngày trước 5 giờ chiều.</p>
+      <p><strong>Chăm sóc:</strong> Để duy trì sức khỏe cho cá, cần thay nước bể cá ít nhất hai lần một tuần và giữ cho nước luôn sạch. Tránh đặt các vật sắc nhọn trong bể để không làm tổn thương vây của cá.</p>
+
+      <h2>Các Loại Phổ Biến</h2>
+      <ul>
+        <li><strong>Betta Dumbo Full Red:</strong> Có màu đỏ rực rỡ toàn thân.</li>
+        <li><strong>Betta Dumbo Halfmoon:</strong> Đuôi xoè 180 độ với màu sắc đa dạng.</li>
+        <li><strong>Betta Dumbo Lavender:</strong> Màu sắc hồng đậm, đỏ, cam rực rỡ.</li>
+        <li><strong>Betta Dumbo Dragon:</strong> Màu vàng óng ánh, thường được chọn vì ý nghĩa phong thuỷ.</li>
+      </ul>
+
+      <p>Cá Betta Dumbo là lựa chọn tuyệt vời cho những người yêu thích cá cảnh bởi vẻ đẹp độc đáo và cách chăm sóc tương đối đơn giản.</p>
+    `,
     status: "new",
     introduction:
-      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+      ` 
+        Cá cảnh là các loài cá được nuôi để làm cảnh trong bể cá gia đình hoặc trưng bày công cộng. Chúng được yêu thích vì màu sắc rực rỡ và vẻ đẹp thẩm mỹ.
+      `,
   },
   {
     id: 2,
     cardImg: fish2,
     proImg: fish2,
-    title: "Ca Xanh 2",
+    title: "HB White",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -73,7 +101,7 @@ const ProductsData = [
     id: 3,
     cardImg: fish3,
     proImg: fish3,
-    title: "Ca Cam 3",
+    title: "Topaz Red Tail",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -106,7 +134,7 @@ const ProductsData = [
     id: 6,
     cardImg: fish6,
     proImg: fish6,
-    title: "Ca Trang 6",
+    title: "Full Black",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -117,7 +145,7 @@ const ProductsData = [
     id: 7,
     cardImg: fish7,
     proImg: fish7,
-    title: "Ca Vang 7",
+    title: "Full Gold",
     price: "100.000đ",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -128,7 +156,7 @@ const ProductsData = [
     id: 8,
     cardImg: fish8,
     proImg: fish8,
-    title: "Ca Xanh 8",
+    title: "Tỳ Bà Dọn Hồ",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -139,7 +167,7 @@ const ProductsData = [
     id: 9,
     cardImg: fish9,
     proImg: fish9,
-    title: "Ca Cam 9",
+    title: "White Mosaic",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -150,7 +178,7 @@ const ProductsData = [
     id: 10,
     cardImg: fish10,
     proImg: fish10,
-    title: "Ca Den 10",
+    title: "Metal Red Lace",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -161,7 +189,7 @@ const ProductsData = [
     id: 11,
     cardImg: fish11,
     proImg: fish11,
-    title: "Ca Bien 11",
+    title: "Cá Lau Kính",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -172,7 +200,7 @@ const ProductsData = [
     id: 12,
     cardImg: fish12,
     proImg: fish12,
-    title: "Full Red BDS",
+    title: "Full Red RB",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -194,7 +222,7 @@ const ProductsData = [
     id: 14,
     cardImg: fish14,
     proImg: fish14,
-    title: "Ca Xanh 14",
+    title: "HB Red Rose",
     price: "100.000đ",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -205,7 +233,7 @@ const ProductsData = [
     id: 15,
     cardImg: fish15,
     proImg: fish15,
-    title: "Ca Cam 15",
+    title: "HB Blue RB",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -216,7 +244,7 @@ const ProductsData = [
     id: 16,
     cardImg: fish16,
     proImg: fish16,
-    title: "Ca Den 16",
+    title: "HB Blue",
     price: "100.000đ",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -227,7 +255,7 @@ const ProductsData = [
     id: 17,
     cardImg: fish17,
     proImg: fish17,
-    title: "Ca Bien 17",
+    title: "Tì Bà Bướm",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -238,7 +266,7 @@ const ProductsData = [
     id: 18,
     cardImg: fish18,
     proImg: fish18,
-    title: "Ca Trang 18",
+    title: "Koi Red Ear*",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -271,7 +299,7 @@ const ProductsData = [
     id: 21,
     cardImg: fish21,
     proImg: fish21,
-    title: "Ca Cam 21",
+    title: "Koi Red*",
     price: "100.000đ",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -293,7 +321,7 @@ const ProductsData = [
     id: 23,
     cardImg: fish23,
     proImg: fish23,
-    title: "Ca Bien 23",
+    title: "Dumbo",
     price: "100.000đ",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "new",
@@ -304,7 +332,7 @@ const ProductsData = [
     id: 24,
     cardImg: fish24,
     proImg: fish24,
-    title: "Ca Trang 24",
+    title: "Koi Den RB",
     price: "100.000đ",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "new",

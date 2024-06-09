@@ -33,7 +33,6 @@ const DetailProductPage = () => {
 
   return (
     <>
-    
       <Navbar /> {/* Include Navbar */}
       <div className="bg-gray-200 min-h-screen flex justify-center py-10">
         <div className="bg-white shadow-lg rounded-lg w-full max-w-6xl p-6">
@@ -50,8 +49,8 @@ const DetailProductPage = () => {
             </div>
             <div className="flex flex-col gap-4">
               <h1 className="text-3xl font-bold">{product.title}</h1>
-              <p className="text-3xl font-bold text-teal-500">
-                Giá: {product.price}
+              <p className="text-[1.4rem] font-bold text-teal-500">
+              {product.price}
               </p>
               <div className="flex items-center gap-2">
                 <span className="text-lg">Tình trạng:</span>
@@ -67,7 +66,7 @@ const DetailProductPage = () => {
                 <h2 className="lg:text-3xl text-2xl font-semibold mb-2">
                   Giới Thiệu
                 </h2>
-                <p className="text-md">{product.introduction}</p>
+                <p className="text-[1rem]">{product.introduction}</p>
               </div>
               <div className="grid justify-items-center gap-4">
                 <button className="bg-gray-500 w-[100%] lg:w-full lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300">
@@ -83,16 +82,17 @@ const DetailProductPage = () => {
             </div>
           </div>
           <div className="mt-4 border-2 border-gray-300 p-6 rounded-lg">
-            <h2 className="lg:text-3xl text-2xl  font-bold mb-4 text-center">
+            <h2 className="lg:text-3xl text-2xl font-bold mb-4 text-center">
               Mô Tả
             </h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              {product.description}
-            </p>
+            <div
+              className="text-lg text-gray-700 leading-relaxed product-description"
+              dangerouslySetInnerHTML={{ __html: product.description }}
+            />
           </div>
         </div>
       </div>
-      <ProductSlider/>
+      <ProductSlider />
     </>
   );
 };
