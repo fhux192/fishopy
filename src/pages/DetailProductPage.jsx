@@ -107,13 +107,13 @@ const DetailProductPage = () => {
               </div>
               <button
                 onClick={handleAddToCart}
-                className="bg-gray-500 w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                className="bg-gray-500 lg:w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
               >
                 THÊM VÀO GIỎ HÀNG
               </button>
               <button
                 onClick={handlePaymentClick}
-                className="bg-primaryBlack w-[90%] lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                className="bg-primaryBlack lg:w-[90%] lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
               >
                 MUA NGAY
               </button>
@@ -121,30 +121,30 @@ const DetailProductPage = () => {
           </div>
           <div className="mt-8">
             <div className="border-b border-gray-300">
-              <nav className="flex justify-center space-x-4">
+              <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
                 <button
                   className={`py-2 px-4 ${activeTab === 'details' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
                   onClick={() => setActiveTab('details')}
                 >
-                  DETAILS
+                  MÔ TẢ
                 </button>
                 <button
                   className={`py-2 px-4 ${activeTab === 'introduction' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
                   onClick={() => setActiveTab('introduction')}
                 >
-                  INTRODUCTION
+                  CHI TIẾT
                 </button>
                 <button
                   className={`py-2 px-4 ${activeTab === 'reviews' ? 'border-b-2 border-teal-500 text-teal-500' : 'text-gray-500'}`}
                   onClick={() => setActiveTab('reviews')}
                 >
-                  REVIEWS
+                  ĐÁNH GIÁ
                 </button>
               </nav>
             </div>
             {activeTab === 'details' && (
-              <div className="p-6">
-                <h2 className="lg:text-3xl text-2xl font-bold mb-4 text-center">
+              <div className="py-6 px-4 lg:px-10">
+                <h2 className="lg:text-4xl text-2xl font-bold mb-4">
                   Mô Tả
                 </h2>
                 <p className="text-lg text-gray-700 leading-relaxed">
@@ -153,8 +153,8 @@ const DetailProductPage = () => {
               </div>
             )}
             {activeTab === 'introduction' && (
-              <div className="p-6">
-                <h2 className="lg:text-3xl text-2xl font-semibold mb-4 text-center">
+              <div className="p-6 px-4 lg:px-10">
+                <h2 className="lg:text-3xl text-2xl font-semibold mb-4">
                   Giới Thiệu
                 </h2>
                 <p className="text-md text-gray-700 leading-relaxed">
@@ -163,8 +163,8 @@ const DetailProductPage = () => {
               </div>
             )}
             {activeTab === 'reviews' && (
-              <div className="p-6">
-                <h2 className="lg:text-3xl text-2xl font-semibold mb-4 text-center">
+              <div className="p-6 px-4 lg:px-10">
+                <h2 className="lg:text-3xl text-2xl font-semibold mb-4">
                   Đánh Giá
                 </h2>
                 <div className="mb-4">
@@ -177,7 +177,7 @@ const DetailProductPage = () => {
                   />
                   <button
                     onClick={handleReviewSubmit}
-                    className="mt-2 h-10 w-[10rem] bg-gray-500 rounded-xl border-teal-500 text-white hover:bg-teal-700"
+                    className="mt-4 h-10 w-[10rem] bg-gray-500 rounded-xl border-teal-500 text-white hover:bg-teal-700"
                   >
                     Gửi Đánh Giá
                   </button>
