@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "aos/dist/aos.css";
@@ -10,6 +9,7 @@ import Navbar from "../../../components/Header/Navbar/Navbar";
 import "../../../scss/navbar.scss";
 import { motion } from "framer-motion";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { FaSortAmountDown, FaSortAmountUp, FaPercentage, FaEye } from "react-icons/fa"; // Importing the icons
 
 const AllProducts = () => {
   const [text] = useTypewriter({
@@ -20,48 +20,85 @@ const AllProducts = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 16;
+  const [sortOption, setSortOption] = useState("default");
 
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
-  const currentPageProducts = ProductsData.slice(firstPostIndex, lastPostIndex);
+  const sortedProducts = [...ProductsData].sort((a, b) => {
+    if (sortOption === "priceAsc") {
+      return a.price - b.price;
+    } else if (sortOption === "priceDesc") {
+      return b.price - a.price;
+    } else if (sortOption === "titleAsc") {
+      return a.title.localeCompare(b.title);
+    } else if (sortOption === "titleDesc") {
+      return b.title.localeCompare(a.title);
+    }
+    return 0;
+  });
+
+  const currentPageProducts = sortedProducts.slice(firstPostIndex, lastPostIndex);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [currentPage]);
 
+  const handleSortChange = (option) => {
+    setSortOption(option);
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="text-lg mb-[3rem]  mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[1000rem]">
+      <div className="text-lg mb-[3rem] mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[1000rem]">
         <h1 className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded-b-2">
           {text}
         </h1>
       </div>
+      
+      {/* Sort Section */}
+      <div className=" mx-0 lg:mx-[4.5rem] bg-white rounded px-6 lg:pt-10 pt-7 pb-2 flex justify-center lg:justify-end items-center">
+        <button
+          className={`flex h-[2rem] w-[9rem] shadow-md shadow-gray-500 mr-[5%] text-sm items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "priceDesc" ? "bg-teal-500 text-white" : "bg-gray-200 text-black"}`}
+          onClick={() => handleSortChange("priceDesc")}
+        >
+          <FaSortAmountDown className="mr-2" /> Cao - Thấp
+        </button>
+        <button
+          className={`flex h-[2rem] w-[9rem] shadow-md shadow-gray-500 text-sm items-center px-4 py-2 border rounded-xl lg:mr-[7rem] ${sortOption === "priceAsc" ? "bg-teal-500 text-white" : "bg-gray-200 text-black"}`}
+          onClick={() => handleSortChange("priceAsc")}
+        >
+          <FaSortAmountUp className="mr-2" /> Thấp - Cao
+        </button>
+        
+      </div>
+      
       {/* Products Section */}
       <div className="mx-0 lg:mx-[4.5rem] bg-white rounded">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[1.5rem] lg:mx-0 mb-[1.0rem]">
           {/* Card Section */}
           {currentPageProducts.map((data) => (
             <Link to={`/fish/${data.id}`} key={data.id}>
-            <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
-              <LazyLoadImage
-                src={data.cardImg}
-                alt={data.title}
-                effect="blur"
-                className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
-              />
-              <div className="-translate-y-2">
-                <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
-                  {data.title}
-                </div>
-                <div className="group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
-                  {data.price}
+              <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
+                <LazyLoadImage
+                  src={data.cardImg}
+                  alt={data.title}
+                  effect="blur"
+                  className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
+                />
+                <div className="-translate-y-2">
+                  <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+                    {data.title}
+                  </div>
+                  <div className="group-hover:text-teal-800 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
+                    {data.price}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
+            </Link>
           ))}
         </div>
       </div>
+      
       <Pagination
         totalPost={ProductsData.length}
         postPerPage={productsPerPage}
