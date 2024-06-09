@@ -1,7 +1,7 @@
 .slidebar {
   display: flex;
   background-color: white;
-  color: #ffffff;
+  color: #000000;
 
   .bg {
     position: fixed;
@@ -9,7 +9,7 @@
     left: 0;
     bottom: 0;
     width: 300px;
-    background: #111111;
+    background: #ffffff;
     z-index: 999;
 
     .links {
@@ -22,6 +22,7 @@
       justify-content: center;
       gap: 20px;
       z-index: 999;
+
       .links-item {
         font-size: 30px;
         font-weight: bold;
@@ -39,5 +40,23 @@
     border: none;
     cursor: pointer;
     z-index: 999;
+  }
+
+
+  @media (max-width: 480px) {
+    .bg {
+      width: 250px;
+
+      .links {
+        .links-item {
+          font-size: 26px;
+        }
+      }
+    }
+
+    button {
+      width: 30px;
+      height: 30px;
+    }
   }
 }

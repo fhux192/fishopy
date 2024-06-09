@@ -29,7 +29,7 @@ const itemVariants = {
     opacity: 1,
   },
   closed: {
-    y: 50,
+    y: 150,
     opacity: 0,
   },
 };
