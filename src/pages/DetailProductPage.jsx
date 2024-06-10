@@ -30,7 +30,7 @@ const DetailProductPage = () => {
   const originalPrice = Math.floor(product.price * 1.2);
 
   const handlePaymentClick = () => {
-    navigate("/payment", { state: { product } });
+    navigate("/payment", { state: { product , quantity } });
   };
 
   const handleAddToCart = () => {

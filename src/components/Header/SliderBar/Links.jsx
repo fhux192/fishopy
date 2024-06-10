@@ -52,6 +52,9 @@ const Links = () => {
     if (item === "Trang Chủ") {
       navigate("/");
     }
+    if (item === "Sản Phẩm") {
+      navigate("/");
+    }
   };
 
   return (
