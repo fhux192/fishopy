@@ -1,10 +1,9 @@
 import { useParams, useNavigate } from "react-router-dom";
-import ImageGallery from "react-image-gallery";
 import ProductsData from "../data/ProductsData"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/customImageGallery.scss"; // Import custom CSS file
 import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
-import { InputNumber, Input, Button } from "antd";
+import { Input } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLocalCart } from "../redux/features/user/userSlice.js";
@@ -30,12 +29,12 @@ const DetailProductPage = () => {
   const originalPrice = Math.floor(product.price * 1.2);
 
   const handlePaymentClick = () => {
-    navigate("/payment", { state: { product , quantity } });
+    navigate("/payment", { state: { product, quantity } });
   };
 
   const handleAddToCart = () => {
-    product.quantity = quantity;
-    dispatch(addLocalCart(product));
+    const newProd = { ...product, quantity };
+    dispatch(addLocalCart(newProd));
   };
 
   const handleReviewSubmit = () => {
@@ -57,12 +56,8 @@ const DetailProductPage = () => {
               <div className="flex flex-col gap-4">
                 <h1 className="text-3xl lg:ml-[5rem] font-bold">{product.title}</h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <p className="text-2xl font-bold text-teal-700 mr-4">
-                    {product.price}₫
-                  </p>
-                  <p className="text-xl text-gray-500 line-through">
-                    {originalPrice}.000₫
-                  </p>
+                  <p className="text-2xl font-bold text-teal-700 mr-4">{product.price}₫</p>
+                  <p className="text-xl text-gray-500 line-through">{originalPrice}.000₫</p>
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg">Tình trạng:</span>
@@ -89,10 +84,7 @@ const DetailProductPage = () => {
                       min={1}
                       onChange={(e) => setQuantity(e.target.value)}
                     />
-                    <button
-                      className="px-3 py-1 text-xl"
-                      onClick={() => setQuantity((prev) => prev + 1)}
-                    >
+                    <button className="px-3 py-1 text-xl" onClick={() => setQuantity((prev) => prev + 1)}>
                       +
                     </button>
                   </div>
@@ -116,9 +108,7 @@ const DetailProductPage = () => {
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "details"
-                        ? "border-b-2 border-teal-500 text-teal-500"
-                        : "text-gray-500"
+                      activeTab === "details" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("details")}
                   >
@@ -126,9 +116,7 @@ const DetailProductPage = () => {
                   </button>
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "introduction"
-                        ? "border-b-2 border-teal-500 text-teal-500"
-                        : "text-gray-500"
+                      activeTab === "introduction" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("introduction")}
                   >
@@ -136,9 +124,7 @@ const DetailProductPage = () => {
                   </button>
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "reviews"
-                        ? "border-b-2 border-teal-500 text-teal-500"
-                        : "text-gray-500"
+                      activeTab === "reviews" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("reviews")}
                   >
@@ -149,19 +135,13 @@ const DetailProductPage = () => {
               {activeTab === "details" && (
                 <div className="py-6 px-4 lg:px-10">
                   <h2 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h2>
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    {product.description}
-                  </p>
+                  <p className="text-lg text-gray-700 leading-relaxed">{product.description}</p>
                 </div>
               )}
               {activeTab === "introduction" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h2 className="lg:text-3xl text-2xl font-semibold mb-4">
-                    Giới Thiệu
-                  </h2>
-                  <p className="text-md text-gray-700 leading-relaxed">
-                    {product.introduction}
-                  </p>
+                  <h2 className="lg:text-3xl text-2xl font-semibold mb-4">Giới Thiệu</h2>
+                  <p className="text-md text-gray-700 leading-relaxed">{product.introduction}</p>
                 </div>
               )}
               {activeTab === "reviews" && (
@@ -200,7 +180,9 @@ const DetailProductPage = () => {
           <div className="invisible absolute lg:static lg:visible flex flex-col ml-10">
             {/* Khuyến mãi đặc biệt */}
             <div className="shadow-gray-700 w-[20rem] bg-primaryBlack p-4 rounded-xl shadow-md">
-              <h3 className="text-xl font-bold text-teal-500 flex items-center"> {/* Thêm icon */}
+              <h3 className="text-xl font-bold text-teal-500 flex items-center">
+                {" "}
+                {/* Thêm icon */}
                 Khuyến mãi đặc biệt
               </h3>
               <ul className="list-disc text-md text-white pl-6">
@@ -212,7 +194,8 @@ const DetailProductPage = () => {
             </div>
             {/* Chính sách */}
             <div className="shadow-gray-700 mt-10 w-[20rem] bg-white p-4 rounded-xl shadow-md">
-              <h3 className="text-xl font-bold text-primaryBlack flex items-center">{/* Thêm icon */}
+              <h3 className="text-xl font-bold text-primaryBlack flex items-center">
+                {/* Thêm icon */}
                 Chính sách Guppy Hóc Môn
               </h3>
               <ul className="list-disc text-gray-700 text-md pl-6">

@@ -44,30 +44,31 @@ const OrderPage = () => {
                   className="w-[10rem] bg-gray-500 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-xl mt-4"
                   type="primary"
                 >
-                  Tiếp tục mua{" "}
+                  Tiếp tục mua
                 </button>
               </Link>
             }
           />
         )}
 
-        {cart.length == 0 && (
+        {cart.length == 0 ? (
           <Empty description="Không có sản phẩm nào trong giỏ hàng">
             <Link to="/">
               <Button>Tiếp tục mua</Button>
             </Link>
           </Empty>
+        ) : (
+          <Row gutter={42}>
+            <Col xs={24} sm={24} md={24} lg={24} xl={16}>
+              {step == 1 && <Cart cart={cart} />}
+              {step == 2 && <CartPayment cart={cart} />}
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={24} xl={8}>
+              {step == 1 && <CheckoutSummary setStep={setStep} cart={cart} />}
+              {step == 2 && <Payment setStep={setStep} cart={cart} />}
+            </Col>
+          </Row>
         )}
-        <Row gutter={42}>
-          <Col xs={24} sm={24} md={24} lg={24} xl={16}>
-            {step == 1 && <Cart cart={cart} />}
-            {step == 2 && <CartPayment cart={cart} />}
-          </Col>
-          <Col xs={24} sm={24} md={24} lg={24} xl={8}>
-            {step == 1 && <CheckoutSummary setStep={setStep} cart={cart} />}
-            {step == 2 && <Payment setStep={setStep} cart={cart} />}
-          </Col>
-        </Row>
       </Card>
     </div>
   );
