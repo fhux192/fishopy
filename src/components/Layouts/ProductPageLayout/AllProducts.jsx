@@ -58,32 +58,32 @@ const AllProducts = () => {
       <div className="mx-0 lg:mx-[4.5rem] rounded pt-[5px]  lg:pt-[1.5rem] mb-[1.3rem] flex justify-center lg:justify-end items-center overflow-hidden">
         <div style={{ display: 'flex' ,paddingBottom:'10px', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <button
-            className={`flex h-[2rem] min-w-[8.5rem] shadow-md shadow-gray-500 lg:ml-0 ml-[5%] mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "default" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
+            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 lg:ml-0 ml-[5%] mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "default" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
             onClick={() => handleSortChange("default")}
           >
             Mặc định
             
           </button>
           <button
-            className={`flex h-[2rem] min-w-[8.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "priceDesc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
+            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "priceDesc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
             onClick={() => handleSortChange("priceDesc")}
           >
             <FaSortAmountDown className="mr-2" /> Cao - Thấp
           </button>
           <button
-            className={`flex h-[2rem] min-w-[8.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "priceAsc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
+            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "priceAsc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
             onClick={() => handleSortChange("priceAsc")}
           >
             <FaSortAmountUp className="mr-2" /> Thấp - Cao
           </button>
           <button
-            className={`flex h-[2rem] min-w-[8.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "titleAsc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
+            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "titleAsc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
             onClick={() => handleSortChange("titleAsc")}
           >
             Tên từ A - Z
           </button>
           <button
-            className={`flex h-[2rem] min-w-[8.5rem] mr-[5%] shadow-md shadow-gray-500 text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "titleDesc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
+            className={`flex h-[2rem] min-w-[9.5rem] mr-[5%] shadow-md shadow-gray-500 text-sm justify-center items-center px-4 py-2 border rounded-xl lg:mr-[1rem] ${sortOption === "titleDesc" ? "bg-teal-600 text-white" : "bg-gray-200 text-black"}`}
             onClick={() => handleSortChange("titleDesc")}
           >
             Tên từ Z - A
