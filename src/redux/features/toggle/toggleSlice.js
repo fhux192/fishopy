@@ -4,6 +4,7 @@ const initialState = {
   isShowModalLogin: false,
   isShowDawerCart: false,
   isShowVerify: false,
+  isShowSlideBar: false,
   modalRegister: false,
 };
 
@@ -23,9 +24,12 @@ export const toggleSlice = createSlice({
     toggleModalRegister: (state) => {
       state.modalRegister = !state.modalRegister;
     },
+    toggleSlideBar: (state) => {
+      state.isShowSlideBar = !state.isShowSlideBar;
+    }
   },
 });
 
-export const { toggleModalLogin, toggleModalRegister, toggleDrawerCart, toggleVerify } = toggleSlice.actions;
+export const { toggleModalLogin, toggleModalRegister, toggleDrawerCart, toggleVerify,toggleSlideBar } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

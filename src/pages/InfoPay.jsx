@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Input, Select} from "antd";
-import { vietnamData } from "../data/VietNamData.jsx";
+
 
 const { Option } = Select;
 
@@ -23,27 +23,6 @@ const InfoPay = () => {
   const handleFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  const cityOptions = Object.keys(vietnamData).map((city) => ({
-    value: city,
-    label: city,
-  }));
-
-  const getDistrictOptions = (city) =>
-    city
-      ? Object.keys(vietnamData[city] || {}).map((district) => ({
-          value: district,
-          label: district,
-        }))
-      : [];
-
-  const getWardOptions = (city, district) =>
-    city && district
-      ? (vietnamData[city][district] || []).map((ward) => ({
-          value: ward,
-          label: ward,
-        }))
-      : [];
 
   const handleCityChange = (value) => {
     setSelectedCity(value);

@@ -9,7 +9,7 @@ const ToggleButton = ({ setOpen, open }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50); // Adjust this value as needed
+      setScrolled(window.scrollY > 48);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -45,7 +45,7 @@ const ToggleButton = ({ setOpen, open }) => {
         <motion.div whileTap={{ scale: 0.9 }}>
           <FaList
             className="icon"
-            style={{ color: open ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} // Green when open, black on scroll, white default
+            style={{ color: open ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} 
           />
         </motion.div>
       </button>

@@ -30,18 +30,17 @@ const CartDrawer = () => {
       className=""
     >
       <div></div>
-      <div className="w-full h-10 mx-auto p-4">
-        <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 100px)' }}>
+      <div className="w-full h-10 mx-auto py-4">
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(30vh - 100px)' }}>
           {cart?.map((item) => (
             <div key={item.id} className="flex items-center py-4 border-b border-gray-200">
-              <Image width={150} src={item.proImg} className="mr-4" />
+              
+              <Image width={100} src={item.proImg} className="mr-4" />
               <div className="flex-grow">
+                
                 <div className="flex justify-between items-start">
                   <p className="font-bold text-xl">{item.title}</p>
-                  <CloseCircleOutlined
-                    onClick={() => dispatch(removeCartLocal(item.id))}
-                    className="text-red-500 cursor-pointer text-2xl"
-                  />
+                  
                 </div>
                 <p className="text-teal-700 text-lg">{item.price.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
@@ -65,6 +64,10 @@ const CartDrawer = () => {
                   />
                 </div>
               </div>
+              <CloseCircleOutlined
+                    onClick={() => dispatch(removeCartLocal(item.id))}
+                    className="text-red-500 cursor-pointer text-3xl"
+                  />
             </div>
           ))}
         </div>

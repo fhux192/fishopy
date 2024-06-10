@@ -69,5 +69,15 @@
         }
       }
     }
+    .sort-section {
+      overflow-x: auto;
+      scrollbar-width: none; /* For Firefox */
+      -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    }
+    
+    .sort-section::-webkit-scrollbar {
+      display: none; /* For Chrome, Safari, and Opera */
+    }
+    
   }
   
