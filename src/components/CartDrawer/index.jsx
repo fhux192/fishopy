@@ -31,7 +31,7 @@ const CartDrawer = () => {
     >
       <div></div>
       <div className="w-full h-10 mx-auto py-4">
-        <div className="overflow-y-auto" style={{ maxHeight: 'calc(30vh - 100px)' }}>
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 100px)' }}>
           {cart?.map((item) => (
             <div key={item.id} className="flex items-center py-4 border-b border-gray-200">
               
