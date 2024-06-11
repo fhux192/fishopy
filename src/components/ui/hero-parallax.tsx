@@ -95,10 +95,10 @@ export const Header = () => {
   };
   return (
     <div className="max-w-6xl relative z-[100] mx-auto py-20 md:py-40 px-4 w-full left-0 top-0">
-      <h1 className="text-3xl text-teal-700 md:text-7xl font-bold dark:text-white">
+      <h1 className="text-3xl text-teal-700 md:text-7xl font-bold text-primaryBlack">
         Guppy Hóc Môn <br />
       </h1>
-      <p className="max-w-2xl lg:text-2xl text-md md:text-xl mt-4 dark:text-neutral-200">
+      <p className="max-w-2xl lg:text-2xl text-md md:text-xl mt-4 text-primaryBlack ">
         Trại cá cảnh là một nơi chuyên nuôi dưỡng, chăm sóc và nhân giống các
         loại cá cảnh phục vụ nhu cầu chơi cá cảnh của người yêu thích thủy sinh.
       </p>
