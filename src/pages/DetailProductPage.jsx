@@ -7,6 +7,8 @@ import { Input } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLocalCart } from "../redux/features/user/userSlice.js";
+import { CardContainer} from "../components/ui/3d-card.tsx";
+import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
 
 const DetailProductPage = () => {
   const { id } = useParams();
@@ -47,10 +49,10 @@ const DetailProductPage = () => {
   return (
     <>
       <div className="bg-gray-200 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
-        <div className="flex w-full max-w-5xl">
+        <div className="flex w-full max-w-6xl">
           <div className="bg-white shadow-xl rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-7rem]">
+            <CardContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-9rem]">
                 <img className="rounded-xl" src={product.proImg} alt={product.title} />
               </div>
               <div className="flex flex-col gap-4">
@@ -91,18 +93,18 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="bg-gray-500 shadow-md shadow-gray-700 hover:shadow-teal-700 lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                  className="bg-gray-500  hover:scale-[1.1] hover:shadow-md hover:shadow-gray-700 lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="bg-primaryBlack shadow-md shadow-black lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:shadow-md hover:shadow-gray-700 hover:scale-[1.05] hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
                 >
                   MUA NGAY
                 </button>
               </div>
-            </div>
+            </CardContainer>
             <div className="mt-8">
               <div className="border-b border-gray-300">
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
@@ -177,9 +179,9 @@ const DetailProductPage = () => {
               )}
             </div>
           </div>
-          <div className="invisible absolute lg:static lg:visible flex flex-col ml-10">
+          <div className="invisible items-center absolute lg:static lg:visible flex flex-col ml-10">
             {/* Khuyến mãi đặc biệt */}
-            <div className="shadow-gray-700 w-[20rem] bg-primaryBlack p-4 rounded-xl shadow-md">
+            <BackgroundGradient className=" w-[20rem] bg-primaryBlack p-4 rounded-xl">
               <h3 className="text-xl font-bold text-teal-500 flex items-center">
                 {" "}
                 {/* Thêm icon */}
@@ -191,9 +193,9 @@ const DetailProductPage = () => {
                 <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>
-            </div>
+            </BackgroundGradient>
             {/* Chính sách */}
-            <div className="shadow-gray-700 mt-10 w-[20rem] bg-white p-4 rounded-xl shadow-md">
+            <div className="shadow-gray-700  mt-10 w-[20rem] border-4 border-gray-700 bg-white p-4 rounded-xl shadow-md">
               <h3 className="text-xl font-bold text-primaryBlack flex items-center">
                 {/* Thêm icon */}
                 Chính sách Guppy Hóc Môn

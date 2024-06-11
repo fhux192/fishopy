@@ -5,7 +5,6 @@ import ProductsData from "../../../data/ProductsData";
 import Pagination from "../../Pagination/Pagination";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useTypewriter } from "react-simple-typewriter";
-
 import "../../../scss/navbar.scss";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa"; // Importing the icons
@@ -49,9 +48,9 @@ const AllProducts = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="text-lg round lg:mb-[2rem] mb-[2.5rem] mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[10000rem]">
-        <h1 className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded-b-2">
+        <div className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded-b-2">
           {text}
-        </h1>
+        </div>
       </div>
       
       {/* Sort Section */}
@@ -93,7 +92,7 @@ const AllProducts = () => {
       </div>
       
       {/* Products Section */}
-      <div className="mx-0 pb-[0.5rem] mb-6 lg:mb-4 lg:mx-[4.5rem] bg-white rounded-xl">
+      <div className="mx-0 pb-[0.5rem] mb-6 lg:mb-4 lg:mx-[5rem] bg-white rounded-xl">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[1.5rem] lg:mx-0 mb-[2.0rem]">
           {/* Card Section */}
           {currentPageProducts.map((data) => (
@@ -103,7 +102,7 @@ const AllProducts = () => {
                   src={data.cardImg}
                   alt={data.title}
                   effect="black-and-white"
-                  className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
+                  className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2]  duration-500 object-contain"
                 />
                 <div className="-translate-y-2">
                   <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">

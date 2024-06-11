@@ -1,14 +1,9 @@
-/* eslint-disable no-unused-vars */
+"use client";
+import ProductsData from "../data/ProductsData";
+import { HeroParallax } from "../components/ui/hero-parallax";
+ 
+ function HeroParallaxDemo() {
+  return <HeroParallax products={ProductsData} />;
+}
 
-import Slider from "../components/Slider/Slider";
-import { slides } from "../components/Slider/MenuSlider";
-
-const Home = () => {
-  return (
-    <div>
-     
-    </div>
-  );
-};
-
-export default Home;
+export default HeroParallaxDemo;

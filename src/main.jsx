@@ -8,11 +8,10 @@ import AdminPage from "./pages/AdminPage.jsx";
 import ManageProduct from "./components/Admin/Product/ManageProduct/ManageProduct.jsx";
 import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
 import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import Header from "./components/Header/Header.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
-import AllProducts from "./components/Layouts/ProductPageLayout/AllProducts.jsx";
 import "./index.css";
+import Home from "./pages/Home.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 
 const router = createBrowserRouter([
@@ -22,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProductPage />,
+        element: <Home />,
       },
       {
         path: "fish/:id",

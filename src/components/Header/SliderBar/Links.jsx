@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   toggleModalLogin,
   toggleModalRegister,
@@ -39,6 +39,7 @@ const Links = () => {
   const items = ["Trang Chủ", "Sản Phẩm", "Chi Nhánh"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to get the current path
 
   const handleLogout = () => {
     dispatch(logout());
@@ -53,7 +54,7 @@ const Links = () => {
       navigate("/");
     }
     if (item === "Sản Phẩm") {
-      navigate("/");
+      navigate("/product");
     }
   };
 
@@ -61,10 +62,15 @@ const Links = () => {
     <motion.div className="links" variants={variants}>
       {items.map((item) => (
         <motion.p
-          className="links-item cursor-pointer hover:text-teal-700"
+          className={`links-item cursor-pointer hover:text-teal-700 ${
+            (item === "Trang Chủ" && location.pathname === "/") ||
+            (item === "Sản Phẩm" && location.pathname === "/product")
+              ? "text-teal-700 font-bold"
+              : ""
+          }`}
           key={item}
           variants={itemVariants}
-          whileHover={{ scale: 1.1 } }
+          whileHover={{ scale: 1.1 }}
           onClick={() => handleNavigation(item)}
         >
           {item}

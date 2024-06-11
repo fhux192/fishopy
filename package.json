@@ -15,8 +15,9 @@
     "antd": "^5.15.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
-    "firebase": "^10.12.2",
+    "clsx": "^2.1.1",
     "emailjs-com": "^3.2.0",
+    "firebase": "^10.12.2",
     "framer-motion": "^11.2.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -32,7 +33,9 @@
     "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
-    "slick-carousel": "^1.8.1"
+    "simplex-noise": "^4.0.1",
+    "slick-carousel": "^1.8.1",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
