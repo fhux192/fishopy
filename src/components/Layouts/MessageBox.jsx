@@ -48,13 +48,14 @@ const MessageBox = () => {
         whileHover={{ scale: 1.5 }}
         href="#"
         target="_blank"
-        className={`w-[50px] h-[50px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer ${
+        className={`relative w-[50px] h-[50px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer ${
           animateWave ? "waving-icon" : ""
         }`}
       >
         <div className="rounded-full border-white border-4">
           <SiZalo className="w-[40px] h-[40px] text-blue-500 animate-pulse" />
         </div>
+        <div className="light-rays"></div>
       </motion.a>
       <style>
         {`
@@ -70,6 +71,34 @@ const MessageBox = () => {
           }
           .waving-icon {
             animation: wave 2s 1;
+          }
+          .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, transparent 60%, rgba(0, 100, 250, 0.5) 80%);
+            pointer-events: none;
+            animation: light-ray-animation 2s infinite;
+          }
+          @keyframes light-ray-animation {
+            0% {
+              box-shadow: 0 0 10px 12px rgba(0, 100, 250, 0.5),
+                          0 0 10px 7px rgba(0, 100, 250, 0.3),
+                          0 0 10px 4px rgba(0, 100, 250, 0.1);
+            }
+            50% {
+              box-shadow: 0 0 10px 2px rgba(0, 100, 250, 0.5),
+                          0 0 10px 5px rgba(0, 100, 250, 0.3),
+                          0 0 10px 6px rgba(0, 100, 250, 0.1);
+            }
+            100% {
+              box-shadow: 0 0 10px 6px rgba(0, 100, 250, 0.5),
+                          0 0 10px 8px rgba(0, 100, 250, 0.3),
+                          0 0 10px 10px rgba(0, 100, 250, 0.1);
+            }
           }
         `}
       </style>

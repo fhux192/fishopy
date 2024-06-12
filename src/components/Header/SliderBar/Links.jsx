@@ -65,7 +65,7 @@ const Links = () => {
           className={`links-item cursor-pointer hover:text-teal-700 ${
             (item === "Trang Chủ" && location.pathname === "/") ||
             (item === "Sản Phẩm" && location.pathname === "/product")
-              ? "text-teal-700 font-bold"
+              ? "text-teal-500 font-bold"
               : ""
           }`}
           key={item}

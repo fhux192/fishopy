@@ -7,10 +7,17 @@ import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import { useEffect } from "react";
+import "../../../scss/bubble.scss";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.user.account.cart);
+
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    navigate("/");
+  };
 
   const fishIconVariants = {
     initial: { scale: 1 },
@@ -28,11 +35,14 @@ const Navbar = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={0.5}
-          className="top-text"
-        ></motion.span>
-
+          className="top-text min-[320px]:ml-12  lg:ml-14 sm:ml-14"
+        >
+          <button onClick={handleNavigation}>
+            <BubbleText />
+          </button>
+        </motion.span>
         <div className="social">
-          <Slidebar />
+          <Slidebar className="" />
 
           <a href="/">
             <FaFacebook className="icon duration-500 hover:text-teal-500" />
@@ -40,7 +50,10 @@ const Navbar = () => {
           <a href="/">
             <IoLogoTiktok className="icon duration-500 hover:text-teal-500" />
           </a>
-          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
+          <div
+            className="relative group"
+            onClick={() => dispatch(toggleDrawerCart())}
+          >
             <motion.div
               variants={fishIconVariants}
               initial="initial"
@@ -53,8 +66,8 @@ const Navbar = () => {
             <div
               className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
                 cart.length > 0
-                  ? 'text-white bg-teal-500'
-                  : 'text-black bg-white group-hover:text-white group-hover:bg-teal-500'
+                  ? "text-white bg-teal-500"
+                  : "text-black bg-white group-hover:text-white group-hover:bg-teal-500"
               }`}
             >
               {cart.length}
@@ -63,6 +76,18 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const BubbleText = () => {
+  return (
+    <h2 className="text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin text-white">
+      {"GUPPY HÓC MÔN".split("").map((child, idx) => (
+        <span className="cursor-pointer hoverText" key={idx}>
+          {child}
+        </span>
+      ))}
+    </h2>
   );
 };
 

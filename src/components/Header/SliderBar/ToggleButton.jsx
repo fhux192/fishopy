@@ -44,8 +44,8 @@ const ToggleButton = ({ setOpen, open }) => {
       >
         <motion.div whileTap={{ scale: 0.9 }}>
           <FaList
-            className="icon"
-            style={{ color: open ? "#0A6C62" : scrolled ? "#141414" : "#f8f7f9" }} 
+            className="icon mt-[-3px]"
+            style={{ color: open ? "#2dd4bf" : scrolled ? "#141414" : "#f8f7f9" }} 
           />
         </motion.div>
       </button>
