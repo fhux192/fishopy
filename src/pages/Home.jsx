@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useAnimate } from "framer-motion";
-import  { useRef } from "react";
+import { useRef } from "react";
 import ProductsData from "../data/ProductsData";
 import { useNavigate } from "react-router-dom";
 
@@ -10,21 +10,20 @@ const Home = () => {
     navigate("/product");
   };
   return (
-    <MouseImageTrail
-      renderImageBuffer={50}
-      rotationRange={25}
-      images={ProductsData.map((product) => product.cardImg)}
-    >
+    <MouseImageTrail renderImageBuffer={50} rotationRange={25} images={ProductsData.map((product) => product.cardImg)}>
       <section className="grid h-screen w-full place-content-center bg-gray-100">
-        <p className="flex  items-center gap-2 text-3xl font-bold uppercase text-black">
+        <div className="flex  items-center gap-2 text-3xl font-bold uppercase text-black">
           <div>
             <span className="text-2xl lg:text-5xl">Nhấn Vào Màn Hình</span>
             <div className="text-center mt-4 lg:text-4xl text-xl">Hoặc</div>
-            <button onClick={handleNavigation} className="w-[100%]  lg:h-[4rem] h-11 mt-4 text-xl lg:text-4xl shadow-md shadow-black rounded-xl hover:bg-primaryBlack hover:text-white hover:shadow-teal-500 duration-300 border-primaryBlack">
+            <button
+              onClick={handleNavigation}
+              className="w-[100%]  lg:h-[4rem] h-11 mt-4 text-xl lg:text-4xl shadow-md shadow-black rounded-xl hover:bg-primaryBlack hover:text-white hover:shadow-teal-500 duration-300 border-primaryBlack"
+            >
               Xem Tất Cả Sản Phẩm
             </button>
           </div>
-        </p>
+        </div>
       </section>
     </MouseImageTrail>
   );
@@ -45,17 +44,10 @@ const MouseImageTrail = ({
   const lastRenderPosition = useRef({ x: 0, y: 0 });
   const imageRenderCount = useRef(0);
 
-  
-
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;
 
-    const distance = calculateDistance(
-      clientX,
-      clientY,
-      lastRenderPosition.current.x,
-      lastRenderPosition.current.y
-    );
+    const distance = calculateDistance(clientX, clientY, lastRenderPosition.current.x, lastRenderPosition.current.y);
 
     if (distance >= renderImageBuffer) {
       lastRenderPosition.current.x = clientX;
@@ -92,16 +84,8 @@ const MouseImageTrail = ({
       {
         opacity: [0, 1],
         transform: [
-          `translate(-50%, -25%) scale(0.5) ${
-            imageIndex % 2
-              ? `rotate(${rotation}deg)`
-              : `rotate(-${rotation}deg)`
-          }`,
-          `translate(-50%, -50%) scale(1) ${
-            imageIndex % 2
-              ? `rotate(-${rotation}deg)`
-              : `rotate(${rotation}deg)`
-          }`,
+          `translate(-50%, -25%) scale(0.5) ${imageIndex % 2 ? `rotate(${rotation}deg)` : `rotate(-${rotation}deg)`}`,
+          `translate(-50%, -50%) scale(1) ${imageIndex % 2 ? `rotate(-${rotation}deg)` : `rotate(${rotation}deg)`}`,
         ],
       },
       { type: "spring", damping: 15, stiffness: 200 }
@@ -119,11 +103,7 @@ const MouseImageTrail = ({
   };
 
   return (
-    <div
-      ref={scope}
-      className="relative overflow-hidden"
-      onClick={handleMouseMove}
-    >
+    <div ref={scope} className="relative overflow-hidden" onClick={handleMouseMove}>
       {children}
 
       {images.map((img, index) => (

@@ -37,16 +37,9 @@ const ToggleButton = ({ setOpen, open }) => {
 
   return (
     <>
-      <button
-        ref={buttonRef}
-        onClick={handleClick}
-        style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-      >
+      <button ref={buttonRef} onClick={handleClick} style={{ background: "none", border: "none", cursor: "pointer" }}>
         <motion.div whileTap={{ scale: 0.9 }}>
-          <FaList
-            className="icon mt-[-3px]"
-            style={{ color: open ? "#2dd4bf" : scrolled ? "#141414" : "#f8f7f9" }} 
-          />
+          <FaList className="icon mt-[-3px]" style={{ color: open ? "#2dd4bf" : scrolled ? "#141414" : "#ffffff" }} />
         </motion.div>
       </button>
       <AnimatePresence>
