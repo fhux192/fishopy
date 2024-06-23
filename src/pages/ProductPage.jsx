@@ -1,4 +1,3 @@
-
 import AllProducts from "../components/Layouts/ProductPageLayout/AllProducts";
 
 const ProductPage = () => {

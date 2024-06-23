@@ -1,83 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Jaro:opsz@6..72&family=Lobster&family=Rowdies:wght@300;400;700&display=swap");
+
 .navbar {
-    color: #f8f7f9;
-  
-    .wrapper {
-      max-width: 2700px;
-      margin: auto;
+  color: #f8f7f9;
+
+  .wrapper {
+    max-width: 2700px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background-color: #111111;
+    z-index: 1000; /* Ensure it's above other elements */
+
+    span {
+      font-weight: bold;
+    }
+
+    .social {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 70px;
-      background-color: #111111;
-      z-index: 1000; /* Ensure it's above other elements */
-  
-      span {
-        font-weight: bold;
-      }
-  
-      .social {
-        display: flex;
-        gap: 0px;
-  
-        a {
-          display: inline-block;
-        }
-      }
-  
-      .icon {
-        width: 35px;
-        height: 35px;
-        margin-right: 10px;
-        transition: transform 0.2s;
-  
-        &:hover {
-          transform: scale(1.1);
-        }
-        
-      }
-      
-      .zalo-icon {
-        width: 45px;
-        height: 35px;
-        margin-right: 20px;
-        transition: transform 0.2s;
-  
-        &:hover {
-          transform: scale(1.1);
-        }
-        
-      }
-      .top-text {
-        font-size: 25px;
+      gap: 0px;
+
+      a {
+        display: inline-block;
       }
     }
 
-    @media (max-width: 480px) {
-      .wrapper {
-        height: 62px;
-        .icon{
-          width: 30px;
-          height: 30px;
-        }
-        .zalo-icon {
-          width: 33px;
-          height: 33px;
-        }
-  
-        .top-text {
-          font-size: 18px;
-        }
+    .icon {
+      width: 35px;
+      height: 35px;
+      margin-right: 10px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
       }
     }
-    .sort-section {
-      overflow-x: auto;
-      scrollbar-width: none; /* For Firefox */
-      -ms-overflow-style: none; /* For Internet Explorer and Edge */
+
+    .zalo-icon {
+      width: 45px;
+      height: 35px;
+      margin-right: 20px;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
-    
-    .sort-section::-webkit-scrollbar {
-      display: none; /* For Chrome, Safari, and Opera */
+    .top-text {
+      font-size: 25px;
     }
-    
   }
-  
+
+  @media (max-width: 480px) {
+    .wrapper {
+      height: 62px;
+      .icon {
+        width: 30px;
+        height: 30px;
+      }
+      .zalo-icon {
+        width: 33px;
+        height: 33px;
+      }
+
+      .top-text {
+        font-size: 18px;
+      }
+    }
+  }
+  .sort-section {
+    overflow-x: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  }
+
+  .sort-section::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+}
+
+@keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+h2 {
+  background: linear-gradient(90deg,  #20a69f, #95cbc4, #b4c2c2, #f1f1f1, #5F9EA0, #66CDAA, #5F9EA0, #f1f1f1, #b4c2c2, #95cbc4, #20a69f); 
+  background-size: 400% 400%;
+  color: #141414;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: rotateGradient 10s 1s infinite;
+}
+
+

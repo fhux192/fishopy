@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useAnimate } from "framer-motion";
-import  { useRef } from "react";
+import { useRef } from "react";
 import ProductsData from "../data/ProductsData";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,10 @@ const Home = () => {
           <div>
             <span className="text-2xl lg:text-5xl">Nhấn Vào Màn Hình</span>
             <div className="text-center mt-4 lg:text-4xl text-xl">Hoặc</div>
-            <button onClick={handleNavigation} className="w-[100%]  lg:h-[4rem] h-11 mt-4 text-xl lg:text-4xl shadow-md shadow-black rounded-xl hover:bg-primaryBlack hover:text-white hover:shadow-teal-500 duration-300 border-primaryBlack">
+            <button
+              onClick={handleNavigation}
+              className="w-[100%]  lg:h-[4rem] h-11 mt-4 text-xl lg:text-4xl shadow-md shadow-black rounded-xl hover:bg-primaryBlack hover:text-white hover:shadow-teal-500 duration-300 border-primaryBlack"
+            >
               Xem Tất Cả Sản Phẩm
             </button>
           </div>
@@ -44,8 +47,6 @@ const MouseImageTrail = ({
 
   const lastRenderPosition = useRef({ x: 0, y: 0 });
   const imageRenderCount = useRef(0);
-
-  
 
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;

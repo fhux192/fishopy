@@ -5,9 +5,9 @@ import "../scss/customImageGallery.scss"; // Import custom CSS file
 import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
 import { Input } from "antd";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addLocalCart } from "../redux/features/user/userSlice.js";
-import { CardContainer} from "../components/ui/3d-card.tsx";
+import { CardContainer } from "../components/ui/3d-card.tsx";
 import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
 
 const DetailProductPage = () => {
@@ -53,19 +53,31 @@ const DetailProductPage = () => {
           <div className="bg-white shadow-xl rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
             <CardContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-9rem]">
-                <img className="rounded-xl" src={product.proImg} alt={product.title} />
+                <img
+                  className="rounded-xl"
+                  src={product.proImg}
+                  alt={product.title}
+                />
               </div>
               <div className="flex flex-col gap-4">
-                <h1 className="text-3xl lg:ml-[5rem] font-bold">{product.title}</h1>
+                <h1 className="text-3xl lg:ml-[5rem] font-bold">
+                  {product.title}
+                </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <p className="text-2xl font-bold text-teal-700 mr-4">{product.price}₫</p>
-                  <p className="text-xl text-gray-500 line-through">{originalPrice}.000₫</p>
+                  <p className="text-2xl font-bold text-teal-700 mr-4">
+                    {product.price}₫
+                  </p>
+                  <p className="text-xl text-gray-500 line-through">
+                    {originalPrice}.000₫
+                  </p>
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg">Tình trạng:</span>
                   <span
                     className={`${
-                      product.status === "Còn hàng" ? "text-teal-500" : "text-red-500"
+                      product.status === "Còn hàng"
+                        ? "text-teal-500"
+                        : "text-red-500"
                     } text-lg font-semibold`}
                   >
                     {product.status}
@@ -76,7 +88,9 @@ const DetailProductPage = () => {
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
-                      onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
+                      onClick={() =>
+                        setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
+                      }
                     >
                       -
                     </button>
@@ -86,7 +100,10 @@ const DetailProductPage = () => {
                       min={1}
                       onChange={(e) => setQuantity(e.target.value)}
                     />
-                    <button className="px-3 py-1 text-xl" onClick={() => setQuantity((prev) => prev + 1)}>
+                    <button
+                      className="px-3 py-1 text-xl"
+                      onClick={() => setQuantity((prev) => prev + 1)}
+                    >
                       +
                     </button>
                   </div>
@@ -110,7 +127,9 @@ const DetailProductPage = () => {
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "details" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
+                      activeTab === "details"
+                        ? "border-b-2 border-teal-500 text-teal-500"
+                        : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("details")}
                   >
@@ -118,7 +137,9 @@ const DetailProductPage = () => {
                   </button>
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "introduction" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
+                      activeTab === "introduction"
+                        ? "border-b-2 border-teal-500 text-teal-500"
+                        : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("introduction")}
                   >
@@ -126,7 +147,9 @@ const DetailProductPage = () => {
                   </button>
                   <button
                     className={`py-2 px-4 ${
-                      activeTab === "reviews" ? "border-b-2 border-teal-500 text-teal-500" : "text-gray-500"
+                      activeTab === "reviews"
+                        ? "border-b-2 border-teal-500 text-teal-500"
+                        : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("reviews")}
                   >
@@ -136,19 +159,27 @@ const DetailProductPage = () => {
               </div>
               {activeTab === "details" && (
                 <div className="py-6 px-4 lg:px-10">
-                  <h2 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h2>
-                  <p className="text-lg text-gray-700 leading-relaxed">{product.description}</p>
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h1>
+                  <p className="text-lg text-gray-700 leading-relaxed">
+                    {product.description}
+                  </p>
                 </div>
               )}
               {activeTab === "introduction" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h2 className="lg:text-3xl text-2xl font-semibold mb-4">Giới Thiệu</h2>
-                  <p className="text-md text-gray-700 leading-relaxed">{product.introduction}</p>
+                  <h1 className="lg:text-4xl text-2xl font-semibold mb-4">
+                    Giới Thiệu
+                  </h1>
+                  <p className="text-md text-gray-700 leading-relaxed">
+                    {product.introduction}
+                  </p>
                 </div>
               )}
               {activeTab === "reviews" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h2 className="lg:text-3xl text-2xl font-semibold mb-4">Hỏi Đáp</h2>
+                  <h1 className="lg:text-4xl text-2xl font-semibold mb-4">
+                    Hỏi Đáp
+                  </h1>
                   <div className="mb-4">
                     <Input.TextArea
                       rows={4}
@@ -172,7 +203,9 @@ const DetailProductPage = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-md text-gray-700">Chưa có câu hỏi nào.</p>
+                      <p className="text-md text-gray-700">
+                        Chưa có câu hỏi nào.
+                      </p>
                     )}
                   </div>
                 </div>
@@ -189,7 +222,10 @@ const DetailProductPage = () => {
               </h3>
               <ul className="list-disc text-md text-white pl-6">
                 <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
-                <li>Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1 triệu đồng.</li>
+                <li>
+                  Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1
+                  triệu đồng.
+                </li>
                 <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>

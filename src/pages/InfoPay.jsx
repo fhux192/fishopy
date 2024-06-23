@@ -250,7 +250,11 @@ const InfoPay = ({ setStep }) => {
             </div>
             <p className="text-lg mb-8 text-end  text-gray-900">
               Tổng thanh toán:
-              <div className="flex justify-end w-full text-white text-lg"><div className="bg-teal-700 rounded px-2 w-[10rem]">{product.price * quantity}.000₫</div></div> 
+              <div className="flex justify-end w-full text-white text-lg">
+                <div className="bg-teal-700 rounded px-2 w-[10rem]">
+                  {product.price * quantity}.000₫
+                </div>
+              </div>
             </p>
             <Form.Item>
               <button

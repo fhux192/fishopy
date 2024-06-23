@@ -24,7 +24,7 @@ const MessageBox = () => {
       setAnimateWave(true);
       const stopWaveTimer = setTimeout(() => {
         setAnimateWave(false);
-      }, 2000);
+      }, 5000);
 
       return () => clearTimeout(stopWaveTimer);
     }, 5000); 
