@@ -29,7 +29,6 @@ const CartDrawer = () => {
       width=""
       className=""
     >
-      <div></div>
       <div className="w-full h-10 mx-auto py-4">
         <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 100px)' }}>
           {cart?.map((item) => (

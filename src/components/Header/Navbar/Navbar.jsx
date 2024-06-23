@@ -78,13 +78,13 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-      <h2 className="w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
+      <div className="gradientText w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
         {"GUPPY ĐÔNG THẠNH".split("").map((child, idx) => (
           <span className="cursor-pointer hoverText" key={idx}>
             {child}
           </span>
         ))}
-      </h2>
+      </div>
   );
 };
 

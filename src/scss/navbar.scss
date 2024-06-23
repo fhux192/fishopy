@@ -82,55 +82,20 @@
   }
 }
 
-@keyframes rotateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-h2 {
-  background: linear-gradient(
-    90deg,
-  
-    #95cbc4,
-    #b4c2c2,
-    #f1f1f1,
-    #5f9ea0,
-    #66cdaa,
-    #5f9ea0,
-    #f1f1f1,
-    #b4c2c2,
-    #95cbc4,
-
-  );
-  background-size: 400% 400%;
-  color: #141414;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  animation: rotateGradient 10s 1s infinite;
-}
-
-p{
+/* MyComponent.module.css */
+.animatedText {
   position: relative;
   color: transparent;
-  
-  
   padding: 5px 10px;
-  animation: displayText 12s infinite;
-  animation-delay: calc(var(--i) * -3s);
+  animation: displayText 18s infinite; /* Slowed down */
+  animation-delay: calc(var(--i) * -6s); /* Adjusted for slower animation */
 }
 
-p::before {
+.animatedText::before {
   position: absolute;
   content: attr(data-text);
-  top:-1px;
-  left:-1px;
+  top: 0;
+  left: 0;
   width: 0;
   height: 3.2rem;
   color: #0A6C62;
@@ -138,24 +103,24 @@ p::before {
   white-space: nowrap;
   border-right: 5px solid #0A6C62;
   padding: 5px 10px;
-  animation: animates 3s linear infinite;
-  
+  animation: animates 5s linear reverse infinite; /* Slowed down */
 }
 
 @keyframes animates {
-  0%,10%, 100% {
+  0%, 10%, 100% {
     width: 0;
   }
-  70%,90% {
+  70%, 90% {
     width: 100%;
   }
 }
 
 @keyframes displayText {
-  0% {
-   display: inline-block;
+  0%, 25% {
+    display: inline-block;
   }
-  25%, 100% {
+  26%, 100% {
     display: none;
   }
 }
+
