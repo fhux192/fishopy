@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ProductsData from "../../../data/ProductsData.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../../scss/navbar.scss";
 
 const ProductSlider = () => {
   const [randomProducts, setRandomProducts] = useState([]);
@@ -76,7 +77,7 @@ const ProductSlider = () => {
 
   return (
     <div className="mb-[3rem] rounded bg-transparent">
-      <h2 className="flex lg:h-[4rem] h-[3.4rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
+      <h2 className="gradientText flex lg:h-[4rem] h-[3.4rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
        Các Sản Phẩm Khác
       </h2>
       <Slider {...settings}>

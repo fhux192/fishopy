@@ -12,7 +12,6 @@
     height: 70px;
     background: #111111;
 
-
     z-index: 1000; /* Ensure it's above other elements */
 
     span {
@@ -83,6 +82,38 @@
 }
 
 /* MyComponent.module.css */
+.gradientText {
+  background: linear-gradient(
+    90deg,
+    #95cbc4,
+    #b4c2c2,
+    #f1f1f1,
+    #5f9ea0,
+    #66cdaa,
+    #5f9ea0,
+    #f1f1f1,
+    #b4c2c2,
+    #95cbc4
+  );
+  background-size: 400% 400%;
+  color: #141414;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: rotateGradient 10s 1s infinite;
+}
+
+@keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .animatedText {
   position: relative;
   color: transparent;
@@ -98,29 +129,33 @@
   left: 0;
   width: 0;
   height: 3.2rem;
-  color: #0A6C62;
+  color: #0a6c62;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 5px solid #0A6C62;
+  border-right: 5px solid #0a6c62;
   padding: 5px 10px;
   animation: animates 5s linear reverse infinite; /* Slowed down */
 }
 
 @keyframes animates {
-  0%, 10%, 100% {
+  0%,
+  10%,
+  100% {
     width: 0;
   }
-  70%, 90% {
+  70%,
+  90% {
     width: 100%;
   }
 }
 
 @keyframes displayText {
-  0%, 25% {
+  0%,
+  25% {
     display: inline-block;
   }
-  26%, 100% {
+  26%,
+  100% {
     display: none;
   }
 }
-
