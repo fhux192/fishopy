@@ -63,9 +63,9 @@ const AllProducts = () => {
     setSortOption(option);
   };
 
-  const calculateOriginalPrice = (price, discount) => {
-    const originalPrice = price / (1 - discount / 100);
-    return Math.round(originalPrice / 1000) * 1000;
+  const calculateDiscountPercentage = (price, discount) => {
+    if (price === 0) return 0; // Prevent division by zero
+    return ((price - discount) / price) * 100;
   };
 
   const formatPrice = (price) => {
@@ -75,8 +75,12 @@ const AllProducts = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="text-lg round lg:mb-[2rem] mb-[2.5rem] mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[10000rem]">
-        <div className="bg-white h-[3rem] lg:h-[3.5rem] p-[0.3rem] lg:text-[3rem] text-3xl text-center text-primaryTeal w-full shadow-lg rounded-b-2">
-          {text}
+        <div className="bg-white h-[3rem] lg:h-[3.5rem] p-[0rem] lg:text-[3rem] text-3xl text-center w-full shadow-lg rounded-b-2">
+          <p data-text="Guppy Đông Thạnh" style={{ "--i": 0 }}>Guppy Đông Thạnh</p>
+
+          <p data-text="Bạn Cần Cá Gì?"  style={{ "--i": 1 }}>Bạn Cần Cá Gì?</p>
+
+          <p data-text="Mời Bạn Xem Qua" style={{ "--i": 2 }}>Mời Bạn Xem Qua</p>
         </div>
       </div>
 
@@ -147,42 +151,57 @@ const AllProducts = () => {
 
       {/* Products Section */}
       <div className="mx-0 pb-[0.5rem] mb-6 lg:mb-4 lg:mx-[5rem] bg-white rounded-xl">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[1.5rem] lg:mx-0 mb-[2.0rem]">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-[0.8rem] lg:mx-0 mb-[2.0rem]">
           {/* Card Section */}
-          {currentPageProducts.map((data) => (
-            <Link to={`/fish/${data.id}`} key={data.id}>
-              <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer relative">
-                <LazyLoadImage
-                  src={data.cardImg}
-                  alt={data.title}
-                  effect="black-and-white"
-                  className="shadow-black rounded-t-3xl -translate-y-[1.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] duration-500 object-contain"
-                />
-                <div className="-translate-y-2">
-                  <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
-                    {data.title}
+          {currentPageProducts.map((data) => {
+            const discountPercentage = calculateDiscountPercentage(
+              data.price,
+              data.discount
+            );
+            return (
+              <Link to={`/fish/${data.id}`} key={data.id}>
+                <div className="group mt-[4rem] mb-[2rem] h-[10rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer relative">
+                  <LazyLoadImage
+                    src={data.cardImg}
+                    alt={data.title}
+                    effect="black-and-white"
+                    className="shadow-black rounded-t-3xl lg:-translate-y-[3.0rem] -translate-y-[2rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] duration-500 object-contain"
+                  />
+                  <div className="-translate-y-2">
+                    <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+                      {data.title}
+                    </div>
+                    <div className="group-hover:text-teal-900 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
+                      {data.price === data.discount && (
+                        <span>{data.price}₫</span>
+                      )}
+                      {data.price !== data.discount && (
+                        <>
+                          {priceStage === 0 && <span>{data.price}₫</span>}
+                          {priceStage === 1 && (
+                            <span style={{ textDecoration: "line-through" }}>
+                              {data.price}₫
+                            </span>
+                          )}
+                          {priceStage === 2 && (
+                            <span>{formatPrice(data.discount)}₫</span>
+                          )}
+                        </>
+                      )}
+                    </div>
                   </div>
-                  <div className="group-hover:text-teal-900 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
-                    {priceStage === 0 && (
-                      <span>{formatPrice(calculateOriginalPrice(data.price, data.discount).toFixed(0))}₫</span>
-                    )}
-                    {priceStage === 1 && (
-                      <span style={{ textDecoration: "line-through" }}>
-                        {formatPrice(calculateOriginalPrice(data.price, data.discount).toFixed(0))}₫
-                      </span>
-                    )}
-                    {priceStage === 2 && <span>{formatPrice(data.price)}₫</span>}
-                  </div>
+                  {data.price !== data.discount && (
+                    <div
+                      className="absolute  bottom-[50%] lg:right-[-15%] right-[-10%] bg-gradient text-black lg:text-sm text-[10px] p-[4px] px-[8px] h:p-1 h:px-2 rounded-md shadow-gray-500 shadow-md"
+                      style={{ transform: "rotate(-10deg)" }}
+                    >
+                      Giảm {Math.round(discountPercentage)}%
+                    </div>
+                  )}
                 </div>
-                <div
-                  className="absolute bottom-[7%] right-[-30px] bg-teal-700 text-white lg:text-sm text-[10px] p-[4px] px-[8px] h:p-1 h:px-2 rounded-md shadow-md"
-                  style={{ transform: "rotate(-10deg)" }}
-                >
-                  Giảm {data.discount}%
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
 

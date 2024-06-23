@@ -64,12 +64,12 @@ const DetailProductPage = () => {
                   {product.title}
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <p className="text-2xl font-bold text-teal-700 mr-4">
+                  <h3 className="text-2xl font-bold text-teal-700 mr-4">
                     {product.price}₫
-                  </p>
-                  <p className="text-xl text-gray-500 line-through">
+                  </h3>
+                  <h3 className="text-xl text-gray-500 line-through">
                     {originalPrice}.000₫
-                  </p>
+                  </h3>
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg">Tình trạng:</span>
@@ -160,9 +160,9 @@ const DetailProductPage = () => {
               {activeTab === "details" && (
                 <div className="py-6 px-4 lg:px-10">
                   <h1 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h1>
-                  <p className="text-lg text-gray-700 leading-relaxed">
+                  <h3 className="text-md text-gray-700 leading-relaxed">
                     {product.description}
-                  </p>
+                  </h3>
                 </div>
               )}
               {activeTab === "introduction" && (
@@ -170,9 +170,9 @@ const DetailProductPage = () => {
                   <h1 className="lg:text-4xl text-2xl font-semibold mb-4">
                     Giới Thiệu
                   </h1>
-                  <p className="text-md text-gray-700 leading-relaxed">
+                  <h3 className="text-md text-gray-700 leading-relaxed">
                     {product.introduction}
-                  </p>
+                  </h3>
                 </div>
               )}
               {activeTab === "reviews" && (
@@ -199,13 +199,13 @@ const DetailProductPage = () => {
                     {reviews.length > 0 ? (
                       reviews.map((review, index) => (
                         <div key={index} className="bg-gray-100 p-4 rounded-lg">
-                          <p className="text-md text-gray-700">{review}</p>
+                          <h3 className="text-md text-gray-700">{review}</h3>
                         </div>
                       ))
                     ) : (
-                      <p className="text-md text-gray-700">
+                      <h3 className="text-md text-gray-700">
                         Chưa có câu hỏi nào.
-                      </p>
+                      </h3>
                     )}
                   </div>
                 </div>

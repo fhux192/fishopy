@@ -11,8 +11,8 @@ import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import "./index.css";
-import Home from "./pages/Home.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
+import AddressPage from "./pages/AddressPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,11 +21,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <AddressPage />,
       },
       {
         path: "fish/:id",
         element: <DetailProductPage />,
+      },
+      {
+        path: "address",
+        element: <AddressPage />,
       },
       {
         path: "product",

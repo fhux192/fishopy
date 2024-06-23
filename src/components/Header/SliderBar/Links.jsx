@@ -56,15 +56,19 @@ const Links = () => {
     if (item === "Sản Phẩm") {
       navigate("/product");
     }
+    if (item === "Chi Nhánh") {
+      navigate("/address");
+    }
   };
 
   return (
     <motion.div className="links" variants={variants}>
       {items.map((item) => (
-        <motion.p
+        <motion.h3
           className={`links-item cursor-pointer hover:text-teal-700 ${
             (item === "Trang Chủ" && location.pathname === "/") ||
-            (item === "Sản Phẩm" && location.pathname === "/product")
+            (item === "Sản Phẩm" && location.pathname === "/product") ||
+            (item === "Chi Nhánh" && location.pathname === "/address")
               ? "text-teal-500 font-bold"
               : ""
           }`}
@@ -74,39 +78,39 @@ const Links = () => {
           onClick={() => handleNavigation(item)}
         >
           {item}
-        </motion.p>
+        </motion.h3>
       ))}
 
       {!user?.id && (
         <>
-          <motion.p
+          <motion.h3
             className="links-item cursor-pointer hover:text-teal-700"
             onClick={() => dispatch(toggleModalLogin())}
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
             Đăng nhập
-          </motion.p>
-          <motion.p
+          </motion.h3>
+          <motion.h3
             className="links-item cursor-pointer hover:text-teal-700"
             onClick={() => dispatch(toggleModalRegister())}
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
             Đăng ký
-          </motion.p>
+          </motion.h3>
         </>
       )}
 
       {user?.id && (
-        <motion.p
+        <motion.h3
           className="links-item cursor-pointer"
           onClick={handleLogout}
           variants={itemVariants}
           whileHover={{ scale: 1.1 }}
         >
           Đăng xuất
-        </motion.p>
+        </motion.h3>
       )}
     </motion.div>
   );
