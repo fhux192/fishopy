@@ -10,13 +10,9 @@ const Home = () => {
     navigate("/product");
   };
   return (
-    <MouseImageTrail
-      renderImageBuffer={50}
-      rotationRange={25}
-      images={ProductsData.map((product) => product.cardImg)}
-    >
+    <MouseImageTrail renderImageBuffer={50} rotationRange={25} images={ProductsData.map((product) => product.cardImg)}>
       <section className="grid h-screen w-full place-content-center bg-gray-100">
-        <p className="flex  items-center gap-2 text-3xl font-bold uppercase text-black">
+        <div className="flex  items-center gap-2 text-3xl font-bold uppercase text-black">
           <div>
             <span className="text-2xl lg:text-5xl">Nhấn Vào Màn Hình</span>
             <div className="text-center mt-4 lg:text-4xl text-xl">Hoặc</div>
@@ -27,7 +23,7 @@ const Home = () => {
               Xem Tất Cả Sản Phẩm
             </button>
           </div>
-        </p>
+        </div>
       </section>
     </MouseImageTrail>
   );
@@ -51,12 +47,7 @@ const MouseImageTrail = ({
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;
 
-    const distance = calculateDistance(
-      clientX,
-      clientY,
-      lastRenderPosition.current.x,
-      lastRenderPosition.current.y
-    );
+    const distance = calculateDistance(clientX, clientY, lastRenderPosition.current.x, lastRenderPosition.current.y);
 
     if (distance >= renderImageBuffer) {
       lastRenderPosition.current.x = clientX;
@@ -93,16 +84,8 @@ const MouseImageTrail = ({
       {
         opacity: [0, 1],
         transform: [
-          `translate(-50%, -25%) scale(0.5) ${
-            imageIndex % 2
-              ? `rotate(${rotation}deg)`
-              : `rotate(-${rotation}deg)`
-          }`,
-          `translate(-50%, -50%) scale(1) ${
-            imageIndex % 2
-              ? `rotate(-${rotation}deg)`
-              : `rotate(${rotation}deg)`
-          }`,
+          `translate(-50%, -25%) scale(0.5) ${imageIndex % 2 ? `rotate(${rotation}deg)` : `rotate(-${rotation}deg)`}`,
+          `translate(-50%, -50%) scale(1) ${imageIndex % 2 ? `rotate(-${rotation}deg)` : `rotate(${rotation}deg)`}`,
         ],
       },
       { type: "spring", damping: 15, stiffness: 200 }
@@ -120,11 +103,7 @@ const MouseImageTrail = ({
   };
 
   return (
-    <div
-      ref={scope}
-      className="relative overflow-hidden"
-      onClick={handleMouseMove}
-    >
+    <div ref={scope} className="relative overflow-hidden" onClick={handleMouseMove}>
       {children}
 
       {images.map((img, index) => (

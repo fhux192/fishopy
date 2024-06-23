@@ -42,7 +42,7 @@ const Navbar = () => {
           </button>
         </motion.span>
         <div className="social">
-          <Slidebar className="" />
+          <Slidebar />
 
           <a href="/">
             <FaFacebook className="icon duration-500 hover:text-teal-500" />
@@ -50,10 +50,7 @@ const Navbar = () => {
           <a href="/">
             <IoLogoTiktok className="icon duration-500 hover:text-teal-500" />
           </a>
-          <div
-            className="relative group"
-            onClick={() => dispatch(toggleDrawerCart())}
-          >
+          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <motion.div
               variants={fishIconVariants}
               initial="initial"

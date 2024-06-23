@@ -27,7 +27,7 @@ const MessageBox = () => {
       }, 5000);
 
       return () => clearTimeout(stopWaveTimer);
-    }, 5000); 
+    }, 5000);
 
     return () => clearTimeout(waveTimer);
   }, []);
@@ -44,7 +44,7 @@ const MessageBox = () => {
           Chào bạn! Bạn cần giúp gì không?
         </motion.div>
       )}
-      <motion.a
+      <motion.div
         whileHover={{ scale: 1.5 }}
         href="#"
         target="_blank"
@@ -56,7 +56,7 @@ const MessageBox = () => {
           <SiZalo className="w-[40px] h-[40px] text-blue-500 animate-pulse" />
         </div>
         <div className="light-rays"></div>
-      </motion.a>
+      </motion.div>
       <style>
         {`
           @keyframes wave {
