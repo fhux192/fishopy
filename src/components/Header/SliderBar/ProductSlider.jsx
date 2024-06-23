@@ -69,14 +69,14 @@ const ProductSlider = () => {
   if (!imagesLoaded) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Loading...</p>
+        <h3>Loading...</h3>
       </div>
     );
   }
 
   return (
     <div className="mb-[3rem] rounded bg-transparent">
-      <h2 className="flex lg:h-[4rem] h-[2.6rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
+      <h2 className="flex lg:h-[4rem] h-[3.4rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
        Các Sản Phẩm Khác
       </h2>
       <Slider {...settings}>

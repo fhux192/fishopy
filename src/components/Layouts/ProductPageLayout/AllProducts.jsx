@@ -74,8 +74,8 @@ const AllProducts = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="text-lg round lg:mb-[2rem] mb-[2.5rem] mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[10000rem]">
-        <div className="bg-white h-[3rem] lg:h-[3.5rem] p-[0rem] lg:text-[3rem] text-3xl text-center w-full shadow-lg rounded-b-2">
+      <div className="text-lg lg:mb-[2rem] items-center mb-[2.5rem] mt-[0]  lg:mt-[0.5rem] h-[1.5rem] max-w-[10000rem]">
+        <div className="bg-white h-[2.6rem] lg:h-[3.5rem] p-[0rem] lg:text-[3rem] text-3xl text-center w-full shadow-lg rounded-b-2">
           <p className="lg:block md:hidden hidden" data-text="Guppy Đông Thạnh" style={{ "--i": 0 }}>Guppy Đông Thạnh</p>
 
           <p className=" lg:block md:hidden hidden"  data-text="Bạn Cần Cá Gì?"  style={{ "--i": 1 }}>Bạn Cần Cá Gì?</p>
