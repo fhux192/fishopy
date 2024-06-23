@@ -76,11 +76,12 @@ const AllProducts = () => {
     <div className="bg-gray-100 min-h-screen">
       <div className="text-lg round lg:mb-[2rem] mb-[2.5rem] mt-0 lg:mt-[0.5rem] h-[1.5rem] max-w-[10000rem]">
         <div className="bg-white h-[3rem] lg:h-[3.5rem] p-[0rem] lg:text-[3rem] text-3xl text-center w-full shadow-lg rounded-b-2">
-          <p data-text="Guppy Đông Thạnh" style={{ "--i": 0 }}>Guppy Đông Thạnh</p>
+          <p className="lg:block md:hidden hidden" data-text="Guppy Đông Thạnh" style={{ "--i": 0 }}>Guppy Đông Thạnh</p>
 
-          <p data-text="Bạn Cần Cá Gì?"  style={{ "--i": 1 }}>Bạn Cần Cá Gì?</p>
+          <p className=" lg:block md:hidden hidden"  data-text="Bạn Cần Cá Gì?"  style={{ "--i": 1 }}>Bạn Cần Cá Gì?</p>
 
-          <p data-text="Mời Bạn Xem Qua" style={{ "--i": 2 }}>Mời Bạn Xem Qua</p>
+          <p className=" lg:block md:hidden hidden" data-text="Mời Bạn Xem Qua" style={{ "--i": 2 }}>Mời Bạn Xem Qua</p>
+          <div className="text-teal-700 lg:hidden mt-[5px]">{text} </div>
         </div>
       </div>
 
@@ -165,7 +166,7 @@ const AllProducts = () => {
                     src={data.cardImg}
                     alt={data.title}
                     effect="black-and-white"
-                    className="shadow-black rounded-t-3xl lg:-translate-y-[3.0rem] -translate-y-[2rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] duration-500 object-contain"
+                    className="shadow-black group-hover:scale-[1.5] rounded-t-3xl lg:-translate-y-[3.0rem] -translate-y-[2.2rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.2] duration-500 object-contain"
                   />
                   <div className="-translate-y-2">
                     <div className="whitespace-pre-line group-hover:text-teal-600 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">

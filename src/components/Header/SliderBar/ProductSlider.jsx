@@ -76,9 +76,9 @@ const ProductSlider = () => {
 
   return (
     <div className="mb-[3rem] rounded bg-transparent">
-      <div className="flex text-primaryBlack justify-center pt-[1.5rem] text-3xl lg:text-[2.5rem] w-full">
-        Các Sản Phẩm Khác
-      </div>
+      <h2 className="flex lg:h-[4rem] h-[2.6rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
+       Các Sản Phẩm Khác
+      </h2>
       <Slider {...settings}>
         {randomProducts.map((data) => (
           <Link to={`/fish/${data.id}`} key={data.id}>

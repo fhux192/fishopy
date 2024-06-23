@@ -234,10 +234,10 @@ const InfoPay = ({ setStep }) => {
               <Select options={paymentMethods} />
             </Form.Item>
             <div className="flex text-lg justify-between mb-2">
-              <p className="text-xl ml-4 font-bold">{product.title}</p>
+              <h3 className="text-xl ml-4 font-bold">{product.title}</h3>
               <div className="flex text-gray-600 gap-4">
-                <p>{product.price}₫</p>
-                <p>x{quantity}</p>
+                <h3>{product.discount}₫</h3>
+                <h3>x{quantity}</h3>
               </div>
             </div>
 
@@ -248,14 +248,14 @@ const InfoPay = ({ setStep }) => {
                 className="w-[10rem] h-[10rem] object-contain mr-4"
               />
             </div>
-            <p className="text-lg mb-8 text-end  text-gray-900">
+            <h3 className="text-lg mb-8 text-end  text-gray-900">
               Tổng thanh toán:
               <div className="flex justify-end w-full text-white text-lg">
                 <div className="bg-teal-700 rounded px-2 w-[10rem]">
-                  {product.price * quantity}.000₫
+                  {product.discount * quantity}.000₫
                 </div>
               </div>
-            </p>
+            </h3>
             <Form.Item>
               <button
                 type="submit"

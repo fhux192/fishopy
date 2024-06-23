@@ -28,8 +28,6 @@ const DetailProductPage = () => {
     );
   }
 
-  const originalPrice = Math.floor(product.price * 1.2);
-
   const handlePaymentClick = () => {
     navigate("/payment", { state: { product, quantity } });
   };
@@ -65,10 +63,10 @@ const DetailProductPage = () => {
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
                   <h3 className="text-2xl font-bold text-teal-700 mr-4">
-                    {product.price}₫
+                    {product.discount}₫
                   </h3>
                   <h3 className="text-xl text-gray-500 line-through">
-                    {originalPrice}.000₫
+                    {product.price}₫
                   </h3>
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
@@ -215,11 +213,11 @@ const DetailProductPage = () => {
           <div className="invisible items-center absolute lg:static lg:visible flex flex-col ml-10">
             {/* Khuyến mãi đặc biệt */}
             <BackgroundGradient className=" w-[20rem] bg-primaryBlack p-4 rounded-xl">
-              <h3 className="text-xl font-bold text-teal-500 flex items-center">
+              <h2 className="text-xl font-bold text-teal-500 flex items-center">
                 {" "}
                 {/* Thêm icon */}
                 Khuyến mãi đặc biệt
-              </h3>
+              </h2>
               <ul className="list-disc text-md text-white pl-6">
                 <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
                 <li>
