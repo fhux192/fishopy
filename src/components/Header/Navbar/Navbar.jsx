@@ -64,7 +64,7 @@ const Navbar = () => {
               className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
                 cart.length > 0
                   ? "text-white bg-teal-500"
-                  : "text-black bg-white group-hover:text-white group-hover:bg-teal-500"
+                  : "text-primaryGrey bg-gray-100 group-hover:text-white group-hover:bg-teal-500"
               }`}
             >
               {cart.length}
