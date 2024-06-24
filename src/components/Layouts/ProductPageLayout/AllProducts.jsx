@@ -157,7 +157,7 @@ const AllProducts = () => {
                     src={data.cardImg}
                     alt={data.title}
                     effect="black-and-white"
-                    className="   drop-shadow-xl shadow-teal-900 lg:group-hover:translate-y-[-2.4rem] rounded-3xl lg:-translate-y-[1.5rem] -translate-y-[0.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.3] duration-500 object-contain"
+                    className="    shadow-teal-900 lg:group-hover:translate-y-[-2.4rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:-translate-y-[1.5rem] -translate-y-[0.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.3] duration-500 object-contain"
                   />
                   <div className="-translate-y-2">
                     <div className="whitespace-pre-line group-hover:text-teal-700 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
