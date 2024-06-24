@@ -5,13 +5,10 @@
 
   .wrapper {
     max-width: 2700px;
-    margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 70px;
-    background: #111111;
-
     z-index: 1000; /* Ensure it's above other elements */
 
     span {
@@ -32,7 +29,7 @@
       height: 35px;
       margin-right: 10px;
       transition: transform 0.2s;
-
+      color: #666666;
       &:hover {
         transform: scale(1.1);
       }
@@ -43,6 +40,7 @@
       height: 35px;
       margin-right: 20px;
       transition: transform 0.2s;
+      color: #666666;
 
       &:hover {
         transform: scale(1.1);

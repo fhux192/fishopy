@@ -8,7 +8,7 @@ export default {
         "custom-grid":
           "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
         "gradient":
-          "linear-gradient(45deg, #20a69f, #95cbc4, #b4c2c2, #f1f1f1,  #f1f1f1, #b4c2c2, #95cbc4, #20a69f)",
+          "linear-gradient(45deg,#0A6C62, #20a69f,  #95cbc4, #20a69f ,#0A6C62)",
       },
       backgroundSize: {
         "4vh-4vh": "4vh 4vh",

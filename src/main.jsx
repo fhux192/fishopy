@@ -13,6 +13,7 @@ import DetailProductPage from "./pages/DetailProductPage.jsx";
 import "./index.css";
 import OrderPage from "./pages/OrderPage.jsx";
 import AddressPage from "./pages/AddressPage.jsx";
+import Home from "./pages/Home.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <AddressPage />,
+        element: <ProductPage />,
       },
       {
         path: "fish/:id",

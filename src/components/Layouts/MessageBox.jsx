@@ -44,10 +44,11 @@ const MessageBox = () => {
           Chào bạn! Bạn cần giúp gì không?
         </motion.div>
       )}
-      <motion.div
-        whileHover={{ scale: 1.5 }}
-        href="#"
+      <motion.a
+        whileHover={{ scale: 1.3 }}
+        href="https://zalo.me/0388811160"
         target="_blank"
+        rel="noopener noreferrer"
         className={`relative w-[50px] h-[50px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer ${
           animateWave ? "waving-icon" : ""
         }`}
@@ -56,7 +57,7 @@ const MessageBox = () => {
           <SiZalo className="w-[40px] h-[40px] text-blue-500 animate-pulse" />
         </div>
         <div className="light-rays"></div>
-      </motion.div>
+      </motion.a>
       <style>
         {`
           @keyframes wave {

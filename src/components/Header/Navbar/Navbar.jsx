@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="wrapper">
+      <div className="wrapper lg:mx-[10%] lg:ml-[7%]">
         <motion.span
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -45,10 +45,10 @@ const Navbar = () => {
           <Slidebar />
 
           <a href="/">
-            <FaFacebook className="icon duration-500 hover:text-teal-500" />
+            <FaFacebook className="icon duration-500 " />
           </a>
           <a href="/">
-            <IoLogoTiktok className="icon duration-500 hover:text-teal-500" />
+            <IoLogoTiktok className="icon duration-500 " />
           </a>
           <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <motion.div
@@ -58,7 +58,7 @@ const Navbar = () => {
               transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
               key={cart.length} // Ensure the animation triggers when cart length changes
             >
-              <FaFishFins className="zalo-icon duration-500 group-hover:text-teal-500 text-white" />
+              <FaFishFins className="zalo-icon duration-500  text-white" />
             </motion.div>
             <div
               className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
