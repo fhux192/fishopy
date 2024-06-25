@@ -36,7 +36,7 @@ const ProductCard = ({ product, priceStage }) => {
 
   return (
     <Link to={`/fish/${product.id}`} key={product.id}>
-      <div className="group lg:mt-12 mt-auto h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+      <div className="group lg:mt-12 mt-2 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
@@ -97,7 +97,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
   ];
 
   return (
-    <div className="ml-0 lg:mx-[8%] pt-[1rem] pb-[0.5rem] flex justify-center lg:justify-end items-center overflow-hidden">
+    <div className="ml-0 lg:mx-[8%] pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
       <div className="flex pb-2 overflow-x-auto scrollbar-hide">
         {sortButtons.map(({ option, label, icon }) => (
           <button
@@ -121,7 +121,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
 // Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className="mx-auto mb-4 lg:mx-[5rem] bg-gray-100 rounded-xl">
+    <div className="mx-auto lg:mx-[5rem] bg-gray-100 rounded-xl">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 place-items-center mx-2 lg:mx-0">
         {currentPageProducts.map((product) => (
           <ProductCard
