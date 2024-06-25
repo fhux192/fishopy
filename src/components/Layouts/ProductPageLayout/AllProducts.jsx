@@ -36,7 +36,7 @@ const ProductCard = ({ product, priceStage }) => {
 
   return (
     <Link to={`/fish/${product.id}`} key={product.id}>
-      <div className="group lg:mt-12 mt-2 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+      <div className="group lg:mt-12 mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
