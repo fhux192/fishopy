@@ -9,6 +9,7 @@ const CartDrawer = () => {
   const dispatch = useDispatch();
   const { isShowDawerCart } = useSelector((state) => state.toggle);
   const cart = useSelector((state) => state.user.account.cart);
+  console.log(cart);
 
   const handleQuantityChange = (id, value) => {
     if (value <= 0) {

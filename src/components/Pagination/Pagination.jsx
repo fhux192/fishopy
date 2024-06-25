@@ -6,7 +6,7 @@ const Pagination = ({ totalPost, postPerPage ,setCurrentPage,currentPage}) => {
   }
 
   return (
-    <div className="flex items-center justify-center w-max-[100rem]">
+    <div className="flex items-center mt-4 justify-center w-max-[100rem]">
       {page.map((number) => (
         <div
           key={number}

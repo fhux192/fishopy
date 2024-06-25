@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProductPage />,
+        element: <Home />,
       },
       {
         path: "fish/:id",

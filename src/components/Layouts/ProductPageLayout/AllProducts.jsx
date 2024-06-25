@@ -41,10 +41,10 @@ const ProductCard = ({ product, priceStage }) => {
           src={product.cardImg}
           alt={product.title}
           effect="black-and-white"
-          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[9rem] h-[7rem]  duration-500 object-contain"
+          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[10rem] h-[7rem]  duration-500 object-contain"
         />
         <div className="-translate-y-2">
-          <div className="whitespace-pre-line border-t-2 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-teal-700">
+          <div className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
           </div>
           <div className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
