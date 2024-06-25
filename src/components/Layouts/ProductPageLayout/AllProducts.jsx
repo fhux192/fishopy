@@ -1,202 +1,191 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import "aos/dist/aos.css";
+import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { FaCartPlus } from "react-icons/fa";
+
 import ProductsData from "../../../data/ProductsData";
 import Pagination from "../../Pagination/Pagination";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { useTypewriter } from "react-simple-typewriter";
-import "../../../scss/navbar.scss";
+
+import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa"; // Importing the icons
+import "../../../scss/navbar.scss";
+
+// Hàm sắp xếp sản phẩm dựa trên tùy chọn sắp xếp
+const sortProducts = (products, option) => {
+  const sortFunctions = {
+    default: (a, b) => 0,
+    priceAsc: (a, b) => a.price - b.price,
+    priceDesc: (a, b) => b.price - a.price,
+    titleAsc: (a, b) => a.title.localeCompare(b.title),
+    titleDesc: (a, b) => b.title.localeCompare(a.title),
+  };
+  return products.sort(sortFunctions[option]);
+};
+
+// Hàm định dạng giá tiền với dấu phân cách hàng nghìn
+const formatPrice = (price) =>
+  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+// Component hiển thị từng thẻ sản phẩm
+const ProductCard = ({ product, priceStage }) => {
+  const discountPercentage =
+    ((product.price - product.discount) / product.price) * 100;
+
+  return (
+    <Link to={`/fish/${product.id}`} key={product.id}>
+      <div className="group lg:mt-12 mt-6 mb-4 h-[14rem] w-[10rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+        <LazyLoadImage
+          src={product.cardImg}
+          alt={product.title}
+          effect="black-and-white"
+          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[9rem] h-[5rem]  duration-500 object-contain"
+        />
+        <div className="-translate-y-2">
+          <div className="whitespace-pre-line border-t-2 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-teal-700">
+            {product.title}
+          </div>
+          <div className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
+            {product.price === product.discount ? (
+              <span>{product.price}₫</span>
+            ) : (
+              <>
+                {priceStage === 0 && <span>{product.price}₫</span>}
+                {priceStage === 1 && (
+                  <span className="line-through decoration-teal-700">{product.price}₫</span>
+                )}
+                {priceStage === 2 && (
+                  <span>{formatPrice(product.discount)}₫</span>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+
+          {product.price !== product.discount && (
+            <div className="absolute bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+              Giảm {Math.round(discountPercentage)}%
+            </div>
+          )}
+          <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.7rem] w-[2.2rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
+            <FaCartPlus />
+          </div>
+        </div>
+  
+    </Link>
+  );
+};
+
+// Component xử lý tùy chọn sắp xếp
+const SortSection = ({ sortOption, setSortOption }) => {
+  const sortButtons = [
+    { option: "default", label: "Mặc định" },
+    {
+      option: "priceDesc",
+      label: "Cao - Thấp",
+      icon: <FaSortAmountDown className="mr-2" />,
+    },
+    {
+      option: "priceAsc",
+      label: "Thấp - Cao",
+      icon: <FaSortAmountUp className="mr-2" />,
+    },
+    { option: "titleAsc", label: "Tên từ A - Z" },
+    { option: "titleDesc", label: "Tên từ Z - A" },
+  ];
+
+  return (
+    <div className="ml-0 lg:mx-[8%] pt-[1rem] flex justify-center lg:justify-end items-center overflow-hidden">
+      <div className="flex pb-2 overflow-x-auto scrollbar-hide">
+        {sortButtons.map(({ option, label, icon }) => (
+          <button
+            key={option}
+            className={`flex h-[2rem] min-w-[9.5rem] border-2 border-primaryGrey text-sm justify-center items-center px-4 py-2 rounded-xl lg:mt-4 lg:mx-0 mx-2 lg:mr-2 ${
+              sortOption === option
+                ? "bg-teal-700 text-white border-grey-100"
+                : "bg-white text-primaryGrey"
+            }`}
+            onClick={() => setSortOption(option)}
+          >
+            {icon}
+            {label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Component hiển thị danh sách sản phẩm
+const ProductsSection = ({ currentPageProducts, priceStage }) => {
+  return (
+    <div className="mx-4 mb-4 lg:mx-[5rem] bg-gray-100 rounded-xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 place-items-center mx-2 lg:mx-0">
+        {currentPageProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            priceStage={priceStage}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const AllProducts = () => {
-  const [text] = useTypewriter({
-    words: ["Guppy Đông Thạnh", "Bạn Cần Cá Gì?", "Mời Bạn Xem Qua"],
-    loop: {},
-    typeSpeed: 50,
-  });
-
+  // State quản lý trang hiện tại
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  // State quản lý tùy chọn sắp xếp đã chọn
   const [sortOption, setSortOption] = useState("default");
+  // State quản lý giai đoạn hiển thị giá (0: mặc định, 1: gạch ngang, 2: giảm giá)
   const [priceStage, setPriceStage] = useState(0);
 
+  // Số lượng sản phẩm mỗi trang
+  const productsPerPage = 15;
+  // Chỉ số của sản phẩm cuối cùng trên trang hiện tại
   const lastPostIndex = currentPage * productsPerPage;
+  // Chỉ số của sản phẩm đầu tiên trên trang hiện tại
   const firstPostIndex = lastPostIndex - productsPerPage;
-  const sortedProducts = [...ProductsData].sort((a, b) => {
-    if (sortOption === "priceAsc") {
-      return a.price - b.price;
-    } else if (sortOption === "priceDesc") {
-      return b.price - a.price;
-    } else if (sortOption === "titleAsc") {
-      return a.title.localeCompare(b.title);
-    } else if (sortOption === "titleDesc") {
-      return b.title.localeCompare(a.title);
-    }
-    return 0;
-  });
 
-  const currentPageProducts = sortedProducts.slice(
-    firstPostIndex,
-    lastPostIndex
+  // Memo hóa sản phẩm đã sắp xếp dựa trên tùy chọn sắp xếp đã chọn
+  const sortedProducts = useMemo(
+    () => sortProducts([...ProductsData], sortOption),
+    [sortOption]
   );
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentPage]);
+  // Memo hóa sản phẩm trên trang hiện tại cho phân trang
+  const currentPageProducts = useMemo(
+    () => sortedProducts.slice(firstPostIndex, lastPostIndex),
+    [sortedProducts, firstPostIndex, lastPostIndex]
+  );
 
+  // Cuộn lên đầu khi trang hiện tại thay đổi
+  useEffect(() => window.scrollTo(0, 0), [currentPage]);
+
+  // Chu kỳ hiển thị giai đoạn giá
   useEffect(() => {
     const cyclePrices = () => {
       setPriceStage(0);
-      setTimeout(() => setPriceStage(1), 1000); // Original price for 1 second
-      setTimeout(() => setPriceStage(2), 2000); // Strikethrough price for 1 second
-      setTimeout(() => setPriceStage(0), 7000); // Discounted price for 1 second, then cycle back
+      setTimeout(() => setPriceStage(1), 1000);
+      setTimeout(() => setPriceStage(2), 2000);
+      setTimeout(() => setPriceStage(0), 7000);
     };
 
     cyclePrices();
     const interval = setInterval(cyclePrices, 7000);
-
     return () => clearInterval(interval);
   }, []);
 
-  const handleSortChange = (option) => {
-    setSortOption(option);
-  };
-
-  const calculateDiscountPercentage = (price, discount) => {
-    if (price === 0) return 0; // Prevent division by zero
-    return ((price - discount) / price) * 100;
-  };
-
-  const formatPrice = (price) => {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
   return (
     <div className="bg-gray-100 min-h-screen">
-   
-
-      {/* Sort Section */}
-      <div className="mx-0 lg:mx-[10%] rounded pt-[2rem]  lg:pt-[1.5rem] lg:mb-[0.3rem] mb-0  flex justify-center lg:justify-end items-center overflow-hidden">
-        <div
-          style={{
-            display: "flex",
-            paddingBottom: "10px",
-            overflowX: "auto",
-            WebkitOverflowScrolling: "touch",
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
-        >
-          <button
-            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 lg:ml-0 ml-[5%] mr-[5%] text-sm justify-center items-center px-4 py-2 rounded-xl lg:mr-[1rem] ${
-              sortOption === "default"
-                ? "bg-gradient text-white"
-                : "bg-white text-primaryGrey"
-            }`}
-            onClick={() => handleSortChange("default")}
-          >
-            Mặc định
-          </button>
-          <button
-            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 rounded-xl lg:mr-[1rem] ${
-              sortOption === "priceDesc"
-                ? "bg-gradient text-white"
-                : "bg-white text-primaryGrey"
-            }`}
-            onClick={() => handleSortChange("priceDesc")}
-          >
-            <FaSortAmountDown className="mr-2" /> Cao - Thấp
-          </button>
-          <button
-            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 rounded-xl lg:mr-[1rem] ${
-              sortOption === "priceAsc"
-                ? "bg-gradient text-white"
-                : "bg-white text-primaryGrey"
-            }`}
-            onClick={() => handleSortChange("priceAsc")}
-          >
-            <FaSortAmountUp className="mr-2" /> Thấp - Cao
-          </button>
-          <button
-            className={`flex h-[2rem] min-w-[9.5rem] shadow-md shadow-gray-500 mr-[5%] text-sm justify-center items-center px-4 py-2 rounded-xl lg:mr-[1rem] ${
-              sortOption === "titleAsc"
-                ? "bg-gradient text-white"
-                : "bg-white text-primaryGrey"
-            }`}
-            onClick={() => handleSortChange("titleAsc")}
-          >
-            Tên từ A - Z
-          </button>
-          <button
-            className={`flex h-[2rem] min-w-[9.5rem] mr-[5%] shadow-md shadow-gray-500 text-sm justify-center items-center px-4 py-2 rounded-xl lg:mr-[1rem] ${
-              sortOption === "titleDesc"
-                ? "bg-gradient text-white"
-                : "bg-white text-primaryGrey"
-            }`}
-            onClick={() => handleSortChange("titleDesc")}
-          >
-            Tên từ Z - A
-          </button>
-        </div>
-      </div>
-
-      {/* Products Section */}
-      <div className="mx-4  mb-0 lg:mb-4 lg:mx-[5rem] bg-gray-100 rounded-xl">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 place-items-center mx-2 lg:mx-0 mb-[0.0rem]">
-          {/* Card Section */}
-          {currentPageProducts.map((data) => {
-            const discountPercentage = calculateDiscountPercentage(
-              data.price,
-              data.discount
-            );
-            return (
-              <Link to={`/fish/${data.id}`} key={data.id}>
-                <div className="group mt-[3rem] mb-[1rem] h-[11rem] lg:h-[15rem] md:h-[13rem] bg-white rounded-3xl cursor-pointer relative">
-                  <LazyLoadImage
-                    src={data.cardImg}
-                    alt={data.title}
-                    effect="black-and-white"
-                    className="    shadow-teal-900 lg:group-hover:translate-y-[-2.4rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:-translate-y-[1.5rem] -translate-y-[0.9rem] lg:h-[8rem] lg:w-[12rem] w-[9rem] h-[5.5rem] scale-[1.3] duration-500 object-contain"
-                  />
-                  <div className="-translate-y-2">
-                    <div className="whitespace-pre-line group-hover:text-teal-700 text-center font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
-                      {data.title}
-                    </div>
-                    <div className="group-hover:text-teal-900 text-center font-mono font-bold text-md lg:text-xl text-primaryGrey h-[3rem]">
-                      {data.price === data.discount && (
-                        <span>{data.price}₫</span>
-                      )}
-                      {data.price !== data.discount && (
-                        <>
-                          {priceStage === 0 && <span>{data.price}₫</span>}
-                          {priceStage === 1 && (
-                            <span style={{ textDecoration: "line-through" }}>
-                              {data.price}₫
-                            </span>
-                          )}
-                          {priceStage === 2 && (
-                            <span>{formatPrice(data.discount)}₫</span>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                  {data.price !== data.discount && (
-                    <div
-                      className="absolute bottom-0 right-0 bg-gradient lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-[10px] p-[4px] px-[8px] h:p-1 h:px-2 rounded-3xl "
-                  
-                    >
-                      Giảm {Math.round(discountPercentage)}%
-                    </div>
-                  )}
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
+      <SortSection sortOption={sortOption} setSortOption={setSortOption} />
+      <ProductsSection
+        currentPageProducts={currentPageProducts}
+        priceStage={priceStage}
+      />
       <Pagination
         totalPost={ProductsData.length}
         postPerPage={productsPerPage}

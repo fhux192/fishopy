@@ -30,18 +30,18 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="wrapper lg:mx-[10%] lg:ml-[7%]">
+      <div className="wrapper lg:border-0 border-b-2 border-grey-100  lg:mx-[7.5%]">
         <motion.span
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={0.5}
-          className="top-text min-[320px]:ml-12  lg:ml-14 sm:ml-14"
+          className="top-text min-[320px]:ml-12  lg:ml-0 sm:ml-14"
         >
           <button onClick={handleNavigation}>
             <BubbleText />
           </button>
         </motion.span>
-        <div className="social">
+        <div className="border-l-2 border-primaryGrey pl-4 social">
           <Slidebar />
 
           <a href="/">
@@ -63,8 +63,8 @@ const Navbar = () => {
             <div
               className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
                 cart.length > 0
-                  ? "text-white bg-teal-500"
-                  : "text-primaryGrey bg-gray-100 group-hover:text-white group-hover:bg-teal-500"
+                  ? "text-white bg-teal-700"
+                  : " bg-teal-700 text-white group-hover:bg-teal-700"
               }`}
             >
               {cart.length}
@@ -78,8 +78,8 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-      <div className="gradientText w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
-        {"GUPPY ĐÔNG THẠNH".split("").map((child, idx) => (
+      <div className="text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
+        {"GUPPY MIỀN NAM".split("").map((child, idx) => (
           <span className="cursor-pointer hoverText" key={idx}>
             {child}
           </span>

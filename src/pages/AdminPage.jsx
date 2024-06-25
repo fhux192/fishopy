@@ -5,7 +5,6 @@ const AdminPage = () => {
   return (
     <div>
       <NavBar />
-
       <main className="ml-[10rem]">
         <Outlet />
       </main>
