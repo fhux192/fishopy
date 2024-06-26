@@ -265,7 +265,7 @@ const ProductsData = [
     price: "100.000",
     discount: "80.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
-    status: "Còn hàng",
+    status: "Hết hàng",
     introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {

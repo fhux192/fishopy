@@ -46,9 +46,9 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className="bg-gray-200 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className="bg-gray-100 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
-          <div className="bg-white shadow-xl rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
+          <div className="bg-white border-2 border-gray-200 rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
             <CardContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-9rem]">
                 <img
@@ -65,9 +65,11 @@ const DetailProductPage = () => {
                   <h3 className="text-2xl font-bold text-teal-700 mr-4">
                     {product.discount}₫
                   </h3>
-                  <h3 className="text-xl text-gray-500 line-through">
-                    {product.price}₫
-                  </h3>
+                  {product.price !== product.discount && (
+                    <h3 className="text-xl text-gray-500 line-through">
+                      {product.price}₫
+                    </h3>
+                  )}
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg">Tình trạng:</span>
@@ -108,13 +110,13 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="bg-gray-500  hover:scale-[1.1] hover:shadow-md hover:shadow-gray-700 lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:bg-gray-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                  className="border-2 border-primaryGrey bg-white  hover:scale-[1.1] lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:shadow-md hover:shadow-gray-700 hover:scale-[1.05] hover:bg-teal-700 text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:scale-[1.05] text-white font-bold py-3 px-3 rounded-xl transition duration-300"
                 >
                   MUA NGAY
                 </button>
@@ -126,7 +128,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "details"
-                        ? "border-b-2 border-teal-500 text-teal-500"
+                        ? "border-b-2 border-teal-700 text-teal-700"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("details")}
@@ -136,7 +138,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "introduction"
-                        ? "border-b-2 border-teal-500 text-teal-500"
+                        ? "border-b-2 border-teal-700 text-teal-700"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("introduction")}
@@ -146,7 +148,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "reviews"
-                        ? "border-b-2 border-teal-500 text-teal-500"
+                        ? "border-b-2 border-teal-700 text-teal-700"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("reviews")}
@@ -213,7 +215,7 @@ const DetailProductPage = () => {
           <div className="invisible items-center absolute lg:static lg:visible flex flex-col ml-10">
             {/* Khuyến mãi đặc biệt */}
             <BackgroundGradient className=" w-[20rem] bg-primaryBlack p-4 rounded-xl">
-              <h2 className="text-xl font-bold text-teal-500 flex items-center">
+              <h2 className="text-xl gradientText font-bold text-teal-500 flex items-center">
                 {" "}
                 {/* Thêm icon */}
                 Khuyến mãi đặc biệt
@@ -229,7 +231,7 @@ const DetailProductPage = () => {
               </ul>
             </BackgroundGradient>
             {/* Chính sách */}
-            <div className="shadow-gray-700  mt-10 w-[20rem] border-4 border-gray-700 bg-white p-4 rounded-xl shadow-md">
+            <div className="  mt-10 w-[20rem] border-4 border-gray-700 bg-white p-4 rounded-xl ">
               <h3 className="text-xl font-bold text-primaryBlack flex items-center">
                 {/* Thêm icon */}
                 Chính sách Guppy Hóc Môn

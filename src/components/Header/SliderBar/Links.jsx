@@ -65,11 +65,11 @@ const Links = () => {
     <motion.div className="links" variants={variants}>
       {items.map((item) => (
         <motion.h3
-          className={`links-item cursor-pointer hover:text-teal-700 ${
+          className={`links-item cursor-pointer hover:text-teal-500 ${
             (item === "Trang Chủ" && location.pathname === "/") ||
             (item === "Sản Phẩm" && location.pathname === "/product") ||
             (item === "Chi Nhánh" && location.pathname === "/address")
-              ? "text-teal-500 font-bold"
+              ? "text-teal-700 font-bold"
               : ""
           }`}
           key={item}

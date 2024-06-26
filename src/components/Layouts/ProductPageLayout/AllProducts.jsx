@@ -36,12 +36,12 @@ const ProductCard = ({ product, priceStage }) => {
 
   return (
     <Link to={`/fish/${product.id}`} key={product.id}>
-      <div className="group lg:mt-12 mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+      <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
           effect="black-and-white"
-          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[10rem] h-[7rem]  duration-500 object-contain"
+          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-500 object-contain"
         />
         <div className="-translate-y-2">
           <div className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
@@ -54,7 +54,9 @@ const ProductCard = ({ product, priceStage }) => {
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
                 {priceStage === 1 && (
-                  <span className="line-through decoration-teal-700">{product.price}₫</span>
+                  <span className="line-through decoration-teal-700">
+                    {product.price}₫
+                  </span>
                 )}
                 {priceStage === 2 && (
                   <span>{formatPrice(product.discount)}₫</span>
@@ -64,16 +66,15 @@ const ProductCard = ({ product, priceStage }) => {
           </div>
         </div>
 
-          {product.price !== product.discount && (
-            <div className="absolute bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
-              Giảm {Math.round(discountPercentage)}%
-            </div>
-          )}
-          <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.7rem] w-[2.2rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
-            <FaCartPlus />
+        {product.price !== product.discount && (
+          <div className="absolute bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+            Giảm {Math.round(discountPercentage)}%
           </div>
+        )}
+        <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.7rem] w-[2.2rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
+          <FaCartPlus />
         </div>
-  
+      </div>
     </Link>
   );
 };

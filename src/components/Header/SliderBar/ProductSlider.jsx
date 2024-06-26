@@ -77,13 +77,13 @@ const ProductSlider = () => {
 
   return (
     <div className="mb-[3rem] rounded bg-transparent">
-      <h2 className="gradientText flex lg:h-[4rem] h-[3.4rem] lg:border-[10px] border-[5px] shadow-md bg-black items-center text-primaryBlack justify-center  text-3xl lg:text-[2.5rem] w-full">
+      <h2 className=" flex lg:h-[6rem] h-[4rem] lg:border-[10px] border-[5px] border-gray-100 bg-white items-center text-teal-700 justify-center  text-3xl lg:text-[2.5rem] w-full">
        Các Sản Phẩm Khác
       </h2>
       <Slider {...settings}>
         {randomProducts.map((data) => (
           <Link to={`/fish/${data.id}`} key={data.id}>
-            <div className="group mx-auto mt-[2rem] lg:mt-[3rem] mb-[2rem] lg:w-[12rem] w-[10rem] h-[11rem] lg:h-[14rem] md:h-[12rem] border-b-primaryBlack shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
+            <div className="group mx-auto mt-[2rem] lg:mt-[3rem] mb-[2rem] lg:w-[12rem] w-[10rem] h-[11rem] lg:h-[14rem] md:h-[12rem]  shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
               <img
                 src={data.cardImg}
                 alt={data.title}

@@ -42,7 +42,7 @@ const CartDrawer = () => {
                   <p className="font-bold text-xl">{item.title}</p>
                   
                 </div>
-                <p className="text-teal-700 text-lg">{item.price.toLocaleString()}</p>
+                <p className="text-teal-700 text-lg">{item?.price?.toLocaleString()}</p>
                 <div className="flex items-center mt-2">
                   <Button
                     type="link"
