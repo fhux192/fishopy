@@ -36,7 +36,7 @@ const itemVariants = {
 };
 
 const Links = () => {
-  const items = ["Trang Chủ", "Sản Phẩm", "Chi Nhánh"];
+  const items = ["Trang Chủ", "Sản Phẩm", "Địa Chỉ"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation(); // Hook to get the current path
@@ -56,7 +56,7 @@ const Links = () => {
     if (item === "Sản Phẩm") {
       navigate("/product");
     }
-    if (item === "Chi Nhánh") {
+    if (item === "Địa Chỉ") {
       navigate("/address");
     }
   };

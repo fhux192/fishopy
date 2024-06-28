@@ -46,7 +46,7 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className="bg-gray-100 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className="bg-gray-100 lg:mt-[4.3rem] flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
           <div className="bg-white border-2 border-gray-200 rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
             <CardContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -62,17 +62,17 @@ const DetailProductPage = () => {
                   {product.title}
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <h3 className="text-2xl font-bold text-teal-700 mr-4">
+                  <h2 className="text-2xl font-bold text-teal-700 mr-4">
                     {product.discount}₫
-                  </h3>
+                  </h2>
                   {product.price !== product.discount && (
-                    <h3 className="text-xl text-gray-500 line-through">
+                    <h2 className="text-xl font-semibold  text-gray-500 line-through">
                       {product.price}₫
-                    </h3>
+                    </h2>
                   )}
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
-                  <span className="text-lg">Tình trạng:</span>
+                  <span className="text-lg font-semibold">Tình trạng:</span>
                   <span
                     className={`${
                       product.status === "Còn hàng"
@@ -84,7 +84,7 @@ const DetailProductPage = () => {
                   </span>
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-1">
-                  <span className="text-lg">Số lượng:</span>
+                  <span className="text-lg font-semibold">Số lượng:</span>
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
@@ -110,20 +110,20 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 border-primaryGrey bg-white  hover:scale-[1.1] lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-300"
+                  className="border-2 border-primaryGrey bg-white  hover:scale-[1.1] lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-700"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:scale-[1.05] text-white font-bold py-3 px-3 rounded-xl transition duration-300"
+                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:scale-[1.05] text-white font-bold py-3 px-3 rounded-xl transition duration-700"
                 >
                   MUA NGAY
                 </button>
               </div>
             </CardContainer>
             <div className="mt-8">
-              <div className="border-b border-gray-300">
+              <div className="border-b font-semibold border-gray-300">
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
                   <button
                     className={`py-2 px-4 ${

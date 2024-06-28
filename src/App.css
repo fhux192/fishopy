@@ -5,11 +5,11 @@
   margin: 0;
   box-sizing: border-box;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-weight: bold;
 }
 
 .main-body {
   min-height: calc(100vh - 96px - 209px);
   overflow: hidden;
+  background-color: #F3F4F6;
 }
 

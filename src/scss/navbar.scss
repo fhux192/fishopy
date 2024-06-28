@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 70px;
+    height: 60px;
     z-index: 1000; /* Ensure it's above other elements */
 
     span {
@@ -27,7 +27,6 @@
     .icon {
       width: 35px;
       height: 35px;
-      margin-right: 10px;
       transition: transform 0.2s;
       color: #666666;
       &:hover {

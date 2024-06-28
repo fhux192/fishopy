@@ -1,20 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Home = () => {
   return (
-    <div className="sketchfab-embed-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <iframe
-        title="Betta Splendens"
-        frameBorder="0"
-        allowFullScreen
-        mozallowfullscreen="true"
-        webkitallowfullscreen="true"
-        allow="autoplay; fullscreen; xr-spatial-tracking"
-        src="https://sketchfab.com/models/f4eeb7f50ad24873842bd954ad27d23b/embed?ui_infos=0&ui_controls=0&ui_stop=0&ui_watermark=0"
-        style={{ width: '80%', height: '80%' }}
-      ></iframe>
+    <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+      <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+        Trang Chủ
+      </h1>
     </div>
   );
-}
+};
 
 export default Home;

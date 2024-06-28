@@ -9,6 +9,10 @@ import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js"
 import { useEffect } from "react";
 import "../../../scss/bubble.scss";
 import { useNavigate } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
+import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaUserTag } from "react-icons/fa";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -30,27 +34,48 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <div className="wrapper lg:border-0 border-b-2 border-grey-100  lg:mx-[7.5%]">
-        <motion.span
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={0.5}
-          className="top-text min-[320px]:ml-12  lg:ml-0 sm:ml-14"
-        >
-          <button onClick={handleNavigation}>
+      <motion.div
+        className="wrapper  bg-white lg:fixed lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-0 border-b-2 border-primaryGrey lg:mx-[7.5%]"
+      >
+        <motion.span className="lg:flex lg:w-full min-[320px]:ml-12  lg:ml-0 sm:ml-14">
+          <button className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
             <BubbleText />
           </button>
+          <div className="group duration-1000  lg:flex hidden flex-[2] items-center mx-[2%] ">
+            <input
+              type=" text"
+              className=" w-full bg-gray-100  p-[2px] pl-4 font-semibold text-xl text-primaryBlack  border-2 border-gray-100 rounded-full"
+            ></input>
+            <button className="flex  justify-center items-center duration-1000 ml-4 border-2 border-gray-100 rounded-full w-20 h-9">
+              <FaSearch className="text-secondGrey" />
+            </button>
+          </div>
+          <div className=" mt-[3px] border-primaryGrey social">
+            <a href="/product">
+              <FaHome className="lg:block hidden icon mr-[17px] duration-500 " />
+            </a>
+            <a href="/address">
+              <FaMapMarkedAlt className="lg:block hidden icon mr-[17px] duration-500 " />
+            </a>
+            <a href="/">
+              <FaUserTag className="lg:block hidden icon mr-[16px] duration-500 " />
+            </a>
+          </div>
         </motion.span>
+
         <div className="border-l-2 border-primaryGrey pl-4 social">
           <Slidebar />
 
           <a href="/">
-            <FaFacebook className="icon duration-500 " />
+            <FaFacebook className="icon mr-[10px] duration-500 " />
           </a>
           <a href="/">
-            <IoLogoTiktok className="icon duration-500 " />
+            <IoLogoTiktok className="icon mr-[8px] duration-500 " />
           </a>
-          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
+          <div
+            className="relative group"
+            onClick={() => dispatch(toggleDrawerCart())}
+          >
             <motion.div
               variants={fishIconVariants}
               initial="initial"
@@ -71,20 +96,20 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
 
 const BubbleText = () => {
   return (
-      <div className="text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
-        {"GUPPY MIỀN NAM".split("").map((child, idx) => (
-          <span className="cursor-pointer hoverText" key={idx}>
-            {child}
-          </span>
-        ))}
-      </div>
+    <div className=" text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin ">
+      {"GUPPY HÓC MÔN".split("").map((child, idx) => (
+        <span className="cursor-pointer hoverText" key={idx}>
+          {child}
+        </span>
+      ))}
+    </div>
   );
 };
 

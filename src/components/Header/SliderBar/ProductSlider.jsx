@@ -77,7 +77,7 @@ const ProductSlider = () => {
 
   return (
     <div className="mb-[3rem] rounded bg-transparent">
-      <h2 className=" flex lg:h-[6rem] h-[4rem] lg:border-[10px] border-[5px] border-gray-100 bg-white items-center text-teal-700 justify-center  text-3xl lg:text-[2.5rem] w-full">
+      <h2 className=" flex font-semibold lg:h-[6rem] h-[4rem] lg:border-[10px] border-[5px] border-gray-100 bg-white items-center text-teal-700 justify-center  text-3xl lg:text-[2.5rem] w-full">
        Các Sản Phẩm Khác
       </h2>
       <Slider {...settings}>
