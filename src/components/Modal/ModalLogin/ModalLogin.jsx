@@ -7,7 +7,6 @@ import { callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
 import { Button } from "antd";
-import { motion } from "framer-motion";
 import styles from "./ModalLogin.module.css";
 
 const ModalLogin = () => {
@@ -44,7 +43,7 @@ const ModalLogin = () => {
         onClick={() => dispatch(toggleModalLogin())}
       ></div>
       <div className={styles.modalContent}>
-        <h2 className={styles.modalTitle}>Đăng Nhập</h2>
+        <h1 className={styles.modalTitle}>Đăng Nhập</h1>
         <label htmlFor="emailLogin" className="text-white ">
           Email:
           <input

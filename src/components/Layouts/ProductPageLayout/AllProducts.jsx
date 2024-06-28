@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaCartPlus } from "react-icons/fa";
+import { BiSolidDiscount } from "react-icons/bi";
 
 import ProductsData from "../../../data/ProductsData";
 import Pagination from "../../Pagination/Pagination";
@@ -44,10 +45,10 @@ const ProductCard = ({ product, priceStage }) => {
           className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
         />
         <div className="-translate-y-2">
-          <div className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+          <p className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
-          </div>
-          <div className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
+          </p>
+          <p className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
             ) : (
@@ -63,15 +64,18 @@ const ProductCard = ({ product, priceStage }) => {
                 )}
               </>
             )}
-          </div>
+          </p>
         </div>
 
         {product.price !== product.discount && (
-          <div className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
-            Giảm {Math.round(discountPercentage)}%
-          </div>
+          <p className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+            <div className="flex gap-[1px] items-center">
+              -{Math.round(discountPercentage)}
+              <BiSolidDiscount className="scale-110" />
+            </div>
+          </p>
         )}
-        <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.7rem] w-[2.2rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
+        <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
           <FaCartPlus />
         </div>
       </div>
@@ -183,7 +187,9 @@ const AllProducts = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">Tất Cả Sản Phẩm</h1>
+        <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+          Tất Cả Sản Phẩm
+        </h1>
       </div>
 
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
