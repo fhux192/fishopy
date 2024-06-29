@@ -31,6 +31,15 @@
   margin-bottom: 1rem;
 }
 
+.smallText {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.smallText span {
+  color: white;
+}
+
 @keyframes bound {
   70% {
     transform: translateY(-15px);

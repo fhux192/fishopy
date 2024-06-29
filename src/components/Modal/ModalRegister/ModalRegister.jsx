@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
@@ -7,13 +7,14 @@ import { callRegister } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
 import { motion } from "framer-motion";
+import { Typography } from "antd";
+import styles from "./ModalRegister.module.css";
 
 const ModalRegister = () => {
   const [isShowPassword, setIsShowPassword] = useState({
     showConfirmPassword: false,
     showPassword: false,
   });
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -22,32 +23,34 @@ const ModalRegister = () => {
   const dispatch = useDispatch();
 
   const handlelogin = async () => {
-    if (password !== confirmPassword) {
-      toast.error("Mật khẩu không trùng khớp");
-      return;
-    }
+    try {
+      if (password !== confirmPassword) {
+        toast.error("Mật khẩu không trùng khớp");
+        return;
+      }
 
-    const res = await callRegister({ email, name, password, phone });
+      const res = await callRegister({ name, password, phone });
 
-    if (res.vcode == 0) {
-      dispatch(setCredentials(res.data));
-      toast.success(res.msg);
-      dispatch(toggleModalRegister());
+      if (res.vcode == 0) {
+        dispatch(setCredentials(res.data));
+        toast.success(res.message);
+        dispatch(toggleModalRegister());
 
-      // Reset form
-      setEmail("");
-      setName("");
-      setPassword("");
-      setConfirmPassword("");
-    } else {
-      toast.error(res.msg);
+        // Reset form
+        setEmail("");
+        setName("");
+        setPassword("");
+        setConfirmPassword("");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      message.error(error.message);
     }
   };
 
   return (
-    <div
-      className={`fixed  inset-0 z-[21] ${modalRegister ? "block" : "hidden"}`}
-    >
+    <div className={`fixed  inset-0 z-[21] ${modalRegister ? "block" : "hidden"}`}>
       <div
         className="w-full h-full  bg-overlay"
         onClick={() => dispatch(toggleModalRegister())}
@@ -61,18 +64,8 @@ const ModalRegister = () => {
         className="absolute left-[40%] top-[20%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
       >
         <h2 className="text-center text-2xl text-white mb-4">Đăng ký</h2>
-        <label htmlFor="emailRegister" className="text-white ">
-          Email:
-          <input
-            type="text"
-            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
-            id="emailRegister"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
         <label htmlFor="name" className="text-white ">
-          Name:
+          Họ và tên:
           <input
             type="text"
             className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
@@ -180,6 +173,17 @@ const ModalRegister = () => {
         >
           Đăng ký
         </button>
+        <div className={styles.smallText}>
+          <span>Bạn đã có tài khoản? </span>
+          <Typography.Link
+            onClick={() => {
+              dispatch(toggleModalRegister());
+              dispatch(toggleModalLogin());
+            }}
+          >
+            Đăng nhập
+          </Typography.Link>
+        </div>
       </motion.div>
     </div>
   );

@@ -9,7 +9,7 @@ import CartPayment from "../components/CartPayment";
 import Payment from "../components/Payment";
 
 const OrderPage = () => {
-  const cart = useSelector((state) => state.user.account.cart);
+  const cart = useSelector((state) => state.user.cart);
 
   const [step, setStep] = useState(1);
 

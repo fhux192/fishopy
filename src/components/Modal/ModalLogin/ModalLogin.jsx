@@ -1,57 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalLogin } from "../../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
-import { Button } from "antd";
+import { Button, Typography, message } from "antd";
 import styles from "./ModalLogin.module.css";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const { isShowModalLogin } = useSelector((state) => state.toggle);
   const handlelogin = async () => {
-    setIsLoading(true);
-    const res = await callLogin(email, password);
-
-    setTimeout(() => {
+    try {
+      const res = await callLogin({ phone, password });
       if (res.vcode == 0) {
         dispatch(setCredentials(res.data));
-        toast.success(res.msg);
+        toast.success(res.message);
         dispatch(toggleModalLogin());
-        // Reset form
-        setEmail("");
+        setPhone("");
         setPassword("");
-        setIsLoading(false);
       } else {
-        setIsLoading(false);
-        toast.error(res.msg);
+        toast.error(res.message);
       }
-    }, 500);
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   return (
     <div className={styles.modal}>
-      <div
-        className={styles.modalOverlay}
-        onClick={() => dispatch(toggleModalLogin())}
-      ></div>
+      <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalLogin())}></div>
       <div className={styles.modalContent}>
         <h1 className={styles.modalTitle}>Đăng Nhập</h1>
-        <label htmlFor="emailLogin" className="text-white ">
-          Email:
+        <label htmlFor="phone" className="text-white ">
+          Số điện thoại:
           <input
             type="text"
             className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
-            id="emailLogin"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </label>
         <label htmlFor="passwordLogin" className="text-white  ">
@@ -83,11 +75,22 @@ const ModalLogin = () => {
         </label>
         <Button
           onClick={() => handlelogin()}
-          loading={isLoading}
           className="h-10 w-full px-2 text-center bg-teal-900  text-white mt-4 hover:bg-teal-700 rounded-full duration-150  "
         >
           Đăng Nhập
         </Button>
+
+        <div className={styles.smallText}>
+          <span>Bạn chưa có tài khoản?</span>{" "}
+          <Typography.Link
+            onClick={() => {
+              dispatch(toggleModalLogin());
+              dispatch(toggleModalRegister());
+            }}
+          >
+            Đăng ký
+          </Typography.Link>
+        </div>
       </div>
     </div>
   );

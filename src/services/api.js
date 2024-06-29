@@ -1,31 +1,27 @@
 import axios from "../utils/axios-customize";
 
-export const callLogin = async (email, password) => {
-  const response = await axios.post("users/login", {
-    email,
-    password,
-  });
-  return response;
+export const callLogin = async (data) => {
+  return await axios.post("auth/login", data);
 };
 
 export const callRegister = async (data) => {
-  const response = await axios.post("users/register", data);
-  return response;
+  return await axios.post("auth/register", data);
+};
+
+export const callLogout = async () => {
+  return await axios.post("auth/logout");
 };
 
 export const callCreateProduct = async (values) => {
-  const res = await axios.post("products", values);
-  return res;
+  return await axios.post("products", values);
 };
 
 export const callGetAllProduct = async () => {
-  const response = await axios.get("products");
-  return response;
+  return await axios.get("products");
 };
 
 export const callDeleteProduct = async (id) => {
-  const response = await axios.delete(`products/${id}`);
-  return response;
+  return await axios.delete(`products/${id}`);
 };
 
 /**
@@ -49,11 +45,9 @@ export const callUploadImgFish = async (fileImg) => {
 };
 
 export const callDeleteImgFish = async (imgName) => {
-  const response = await axios.delete(`file/upload`, { data: { imgName } });
-  return response;
+  return await axios.delete(`file/upload`, { data: { imgName } });
 };
 
 export const callUpdateProduct = async (id, data) => {
-  const response = await axios.put(`products/${id}`, data);
-  return response;
+  return await axios.put(`products/${id}`, data);
 };

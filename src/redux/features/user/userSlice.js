@@ -1,15 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
 
-const user = JSON.parse(localStorage.getItem("user"));
 const initialState = {
-  account: user || {
-    id: "",
-    email: "",
-    isAdmin: false,
-    name: "",
-    cart: user?.cart || [],
-  },
+  userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
+  cartLocal: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
 };
 
 export const userSlice = createSlice({
@@ -17,69 +11,59 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      localStorage.setItem("user", JSON.stringify(action.payload));
-      state.account = action.payload;
+      state.userInfo = action.payload;
+      localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
     logout: (state) => {
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          id: "",
-          email: "",
-          isAdmin: false,
-          name: "",
-          cart: [],
-        })
-      );
-      state.account = {};
+      localStorage.setItem("userInfo", null);
+      state.userInfo = null;
     },
     changeQuantityLocalCart: (state, action) => {
-      console.log("check action", action);
-      let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload.item.id);
-      console.log("check findItemIndex", findItemIndex);
+      let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload.item.id);
 
       if (findItemIndex !== -1) {
         if (action.payload.type == "increase") {
-          state.account.cart[findItemIndex].quantity += 1;
-          localStorage.setItem("user", JSON.stringify(state.account));
+          state.cartLocal[findItemIndex].quantity += 1;
+          localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
         } else if (action.payload.type == "decrease") {
-          if (state.account.cart[findItemIndex].quantity > 1) state.account.cart[findItemIndex].quantity -= 1;
-          localStorage.setItem("user", JSON.stringify(state.account));
+          if (state.cartLocal[findItemIndex].quantity > 1)
+            state.cartLocal[findItemIndex].quantity -= 1;
+          localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
         }
       }
     },
     updateCartQuantity: (state, action) => {
       const { id, quantity } = action.payload;
-      const findItemIndex = state.account.cart.findIndex((item) => item.id === id);
+      const findItemIndex = state.cartLocal.findIndex((item) => item.id === id);
 
       if (findItemIndex !== -1) {
         if (quantity <= 0) {
-          state.account.cart.splice(findItemIndex, 1);
+          state.cartLocal.splice(findItemIndex, 1);
           message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
         } else {
-          state.account.cart[findItemIndex].quantity = quantity;
+          state.cartLocal[findItemIndex].quantity = quantity;
         }
-        localStorage.setItem("user", JSON.stringify(state.account));
+        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
       }
     },
     addLocalCart: (state, action) => {
       if (action.payload) {
-        let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload.id);
+        let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload.id);
         if (findItemIndex !== -1) {
-          state.account.cart[findItemIndex].quantity += action.payload.quantity;
-          localStorage.setItem("user", JSON.stringify(state.account));
+          state.cartLocal[findItemIndex].quantity += action.payload.quantity;
+          localStorage.setItem("user", JSON.stringify(state.cartLocal));
         } else {
-          state.account.cart = [...state.account.cart, action.payload];
+          state.cartLocal = [...state.cartLocal, action.payload];
         }
-        localStorage.setItem("user", JSON.stringify(state.account));
+        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
         message.success("Thêm sản phẩm vào giỏ hàng thành công!");
       }
     },
     removeCartLocal: (state, action) => {
-      let findItemIndex = state.account.cart.findIndex((item) => item.id === action.payload);
+      let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload);
       if (findItemIndex !== -1) {
-        state.account.cart.splice(findItemIndex, 1);
-        localStorage.setItem("user", JSON.stringify(state.account));
+        state.cartLocal.splice(findItemIndex, 1);
+        localStorage.setItem("cartLocal", JSON.stringify(state.user));
         message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
       }
     },

@@ -14,14 +14,11 @@ import { FaHome } from "react-icons/fa";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { FaUserTag } from "react-icons/fa";
 import { toast } from "react-toastify";
-import {
-  toggleModalLogin,
-  toggleModalRegister,
-} from "../../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.user.account.cart);
+  const cartLocal = useSelector((state) => state.user.cartLocal);
 
   const navigate = useNavigate();
   const handleNavigation = () => {
@@ -33,25 +30,14 @@ const Navbar = () => {
     toast.success("Đăng xuất thành công");
   };
 
-  // Get the user from Redux state
-  const user = useSelector((state) => state.user.account);
-
   const fishIconVariants = {
     initial: { scale: 1 },
     animate: { scale: [1, 0.9, 1] },
   };
 
-  useEffect(() => {
-    // Trigger animation when cart length changes
-  }, [cart.length]);
-
   return (
-
-    
     <div className="navbar">
-      <motion.div
-        className="wrapper  bg-white lg:fixed lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-0 border-b-2 border-primaryGrey lg:mx-[7.5%]"
-      >
+      <motion.div className="wrapper  bg-white lg:fixed lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-0 border-b-2 border-primaryGrey lg:mx-[7.5%]">
         <motion.span className="lg:flex lg:w-full min-[320px]:ml-12  lg:ml-0 sm:ml-14">
           <button className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
             <BubbleText />
@@ -72,9 +58,11 @@ const Navbar = () => {
             <a href="/address">
               <FaMapMarkedAlt className="lg:block hidden icon mr-[17px] duration-500 " />
             </a>
-            
-              <FaUserTag onClick={() => dispatch(toggleModalLogin())} className="lg:block hidden icon mr-[16px] duration-500 " />
-          
+
+            <FaUserTag
+              onClick={() => dispatch(toggleModalLogin())}
+              className="lg:block hidden icon mr-[16px] duration-500 "
+            />
           </div>
         </motion.span>
 
@@ -87,27 +75,24 @@ const Navbar = () => {
           <a href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1">
             <IoLogoTiktok className="icon mr-[8px] duration-500 " />
           </a>
-          <div
-            className="relative group"
-            onClick={() => dispatch(toggleDrawerCart())}
-          >
+          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <motion.div
               variants={fishIconVariants}
               initial="initial"
-              animate={cart.length > 0 ? "animate" : "initial"}
+              animate={cartLocal.length > 0 ? "animate" : "initial"}
               transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
-              key={cart.length} // Ensure the animation triggers when cart length changes
+              key={cartLocal.length}
             >
               <FaFishFins className="zalo-icon duration-500  text-white" />
             </motion.div>
             <div
               className={`w-[1.5rem] h-[1.5rem] right-[7%] top-[-30%] duration-300 text-center rounded-full absolute ${
-                cart.length > 0
+                cartLocal.length > 0
                   ? "text-white bg-teal-700"
                   : " bg-teal-700 text-white group-hover:bg-teal-700"
               }`}
             >
-              {cart.length}
+              {cartLocal.length}
             </div>
           </div>
         </div>
