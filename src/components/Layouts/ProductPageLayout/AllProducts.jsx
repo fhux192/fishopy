@@ -68,12 +68,12 @@ const ProductCard = ({ product, priceStage }) => {
         </div>
 
         {product.price !== product.discount && (
-          <p className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+          <div className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
             <div className="flex gap-[1px] items-center">
               -{Math.round(discountPercentage)}
               <BiSolidDiscount className="scale-110" />
             </div>
-          </p>
+          </div>
         )}
         <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
           <FaCartPlus />
