@@ -1,4 +1,4 @@
-import { Col, Form, Input, Modal, Row, Tabs, Upload, message } from "antd";
+import { Button, Col, Form, Input, Modal, Row, Tabs, Upload, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import { useState } from "react";
@@ -34,6 +34,7 @@ const ModalAddProduct = () => {
   const { modalAddProduct } = useSelector((state) => state.toggle);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
+  const [descProductValue, setDescProductValue] = useState("");
   const handleChange = async ({ file }) => {
     console.log("file", file);
     const res = await callUploadImgFish(file);
@@ -67,14 +68,30 @@ const ModalAddProduct = () => {
     {
       key: "1",
       label: "Mô tả",
-      children: <DescProduct />,
+      children: (
+        <Form.Item name="descProduct">
+          <DescProduct onDescChange={setDescProductValue} />
+        </Form.Item>
+      ),
     },
     {
       key: "2",
       label: "Chi tiết",
-      children: <DetailDescProduct />,
+      children: (
+        <Form.Item name="detailDescProduct">
+          <DetailDescProduct />
+        </Form.Item>
+      ),
     },
   ];
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    console.log("form", form.getFieldsValue());
+    console.log("descProductValue", descProductValue);
+  };
+
+  const [form] = Form.useForm();
   return (
     <Modal
       title="Thêm sản phẩm"
@@ -85,7 +102,7 @@ const ModalAddProduct = () => {
         minWidth: "80%",
       }}
     >
-      <Form className={styles.form}>
+      <Form className={styles.form} form={form} onFinish={onFinish}>
         <Form.Item valuePropName="fileList" getValueFromEvent={normFile}>
           <div style={{ textAlign: "center" }}>
             <Upload
@@ -103,7 +120,7 @@ const ModalAddProduct = () => {
                     width: "100%",
                   }}
                 />
-              ) : (``
+              ) : (
                 uploadButton
               )}
             </Upload>
@@ -112,32 +129,38 @@ const ModalAddProduct = () => {
 
         <Row gutter={[16, 24]}>
           <Col span={12}>
-            <Form.Item label="Tên sản phẩm" labelCol={{ span: 24 }}>
+            <Form.Item label="Tên sản phẩm" name="name" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Giá bán" labelCol={{ span: 24 }}>
+            <Form.Item label="Giá bán" name="price" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={[16, 24]}>
           <Col span={12}>
-            <Form.Item label="Tình trạng" labelCol={{ span: 24 }}>
+            <Form.Item label="Tình trạng" name="status" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Giá khuyến mãi" labelCol={{ span: 24 }}>
+            <Form.Item label="Giá khuyến mãi" name="discountedPrice" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>
         </Row>
 
-        <Row>
+        <Form.Item>
           <Tabs style={{ width: "100%" }} defaultActiveKey="1" items={items} onChange={onChange} />
-        </Row>
+        </Form.Item>
+
+        <div className="text-right mt-2">
+          <Form.Item>
+            <Button htmlType="submit">Thêm sản phẩm</Button>
+          </Form.Item>
+        </div>
       </Form>
     </Modal>
   );
