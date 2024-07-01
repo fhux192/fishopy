@@ -44,10 +44,6 @@ export const callUploadImgFish = async (fileImg) => {
   });
 };
 
-export const callDeleteImgFish = async (imgName) => {
-  return await axios.delete(`file/upload`, { data: { imgName } });
-};
-
 export const callUpdateProduct = async (id, data) => {
   return await axios.put(`products/${id}`, data);
 };

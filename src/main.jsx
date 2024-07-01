@@ -5,8 +5,8 @@ import { store } from "./redux/store.js";
 import App from "./App.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
-import ManageProduct from "./components/Admin/Product/ManageProduct/ManageProduct.jsx";
-import DashBoard from "./components/Admin/DashBoard/DashBoard.jsx";
+import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
+import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
 import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
@@ -14,6 +14,8 @@ import "./index.css";
 import OrderPage from "./pages/OrderPage.jsx";
 import AddressPage from "./pages/AddressPage.jsx";
 import Home from "./pages/Home.jsx";
+import Dashboard from "./components/Admin/Dashboard/Dashboard.jsx";
+import "ckeditor5/ckeditor5.css";
 
 const router = createBrowserRouter([
   {
@@ -55,15 +57,23 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <ProtectedRoutes>
-            <DashBoard />
+            <Dashboard />
           </ProtectedRoutes>
         ),
       },
       {
-        path: "manage-product",
+        path: "product",
         element: (
           <ProtectedRoutes>
             <ManageProduct />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "order",
+        element: (
+          <ProtectedRoutes>
+            <ManageOrder />
           </ProtectedRoutes>
         ),
       },

@@ -1,0 +1,15 @@
+.form {
+  height: 550px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Ẩn thanh cuộn cho WebKit browsers */
+.form::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ẩn thanh cuộn cho Firefox */
+.form {
+  scrollbar-width: none;
+}

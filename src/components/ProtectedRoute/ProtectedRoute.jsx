@@ -4,16 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const ProtectedRoutes = ({ children }) => {
-  const account = useSelector((state) => state.user.account);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!account?.isAdmin) {
+    if (userInfo?.role != "ADMIN") {
       navigate("/");
     }
-  }, [account, navigate]);
+  }, [userInfo, navigate]);
 
-  return <div>{account?.isAdmin ? children : null}</div>;
+  return <div>{userInfo?.role ? children : null}</div>;
 };
 
 export default ProtectedRoutes;

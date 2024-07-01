@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ckeditor/ckeditor5-build-classic": "^42.0.0",
+    "@ckeditor/ckeditor5-react": "^8.0.0",
     "@reduxjs/toolkit": "^2.2.1",
     "antd": "^5.15.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",
+    "ckeditor5": "^42.0.0",
     "clsx": "^2.1.1",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.12.2",
