@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.js";
 import App from "./App.jsx";
-import ProductPage from "./pages/ProductPage.jsx";
+import AllProductPage from "./pages/AllProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
 import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
@@ -14,8 +14,9 @@ import "./index.css";
 import OrderPage from "./pages/OrderPage.jsx";
 import AddressPage from "./pages/AddressPage.jsx";
 import Home from "./pages/Home.jsx";
-import Dashboard from "./components/Admin/Dashboard/Dashboard.jsx";
+import Dashboard from "./components/Admin/DashBoard/DashBoard.jsx";
 import "ckeditor5/ckeditor5.css";
+import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,16 +37,20 @@ const router = createBrowserRouter([
       },
       {
         path: "product",
-        element: <ProductPage />,
+        element: <AllProductPage />,
       },
       {
         path: "order",
         element: <OrderPage />,
       },
+      {
+        path:"/order-history",
+        element:<OrderHistoryPage/>
+      },
       { path: "/payment", element: <InfoPay /> },
       {
         path: "infomation",
-        element: <ProductPage />,
+        element: <AllProductPage />,
       },
     ],
   },

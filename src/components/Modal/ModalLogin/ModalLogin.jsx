@@ -36,22 +36,22 @@ const ModalLogin = () => {
       <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalLogin())}></div>
       <div className={styles.modalContent}>
         <h1 className={styles.modalTitle}>Đăng Nhập</h1>
-        <label htmlFor="phone" className="text-white ">
+        <label htmlFor="phone" className="text-black ">
           Số điện thoại:
           <input
             type="text"
-            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
+            className="w-full mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-[1rem]"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </label>
-        <label htmlFor="passwordLogin" className="text-white  ">
+        <label htmlFor="passwordLogin" className="text-black ">
           Mật Khẩu:
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
-              className="w-full p-2 outline-none text-primaryBlack rounded mb-[0.5rem]"
+              className="w-full mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-[0.5rem]"
               id="passwordLogin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -59,37 +59,37 @@ const ModalLogin = () => {
             {isShowPassword ? (
               <FaEye
                 onClick={() => setIsShowPassword(!isShowPassword)}
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-white cursor-pointer"
                 color="black"
                 size={20}
               />
             ) : (
               <FaEyeSlash
                 onClick={() => setIsShowPassword(!isShowPassword)}
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-white cursor-pointer"
                 color="black"
                 size={20}
               />
             )}
           </div>
         </label>
-        <Button
-          onClick={() => handlelogin()}
-          className="h-10 w-full px-2 text-center bg-teal-900  text-white mt-4 hover:bg-teal-700 rounded-full duration-150  "
+        <button
+          onClick={handlelogin}
+          className="h-10 w-full px-2 text-center font-semibold bg-primaryBlack text-white mt-8 rounded-lg duration-150"
         >
           Đăng Nhập
-        </Button>
+        </button>
 
         <div className={styles.smallText}>
           <span>Bạn chưa có tài khoản?</span>{" "}
-          <Typography.Link
+          <a className="text-teal-500 cursor-pointer"
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());
             }}
           >
             Đăng ký
-          </Typography.Link>
+          </a>
         </div>
       </div>
     </div>

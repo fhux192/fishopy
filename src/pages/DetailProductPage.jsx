@@ -48,9 +48,9 @@ const DetailProductPage = () => {
     <>
       <div className="bg-gray-100 lg:mt-[4.3rem] flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
-          <div className="bg-white border-2 border-gray-200 rounded-lg w-full max-w-3xl p-6 lg:py-[3rem]">
-            <CardContainer className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-9rem]">
+          <div className="bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem]">
                 <img
                   className="rounded-xl"
                   src={product.proImg}
@@ -110,18 +110,18 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 border-primaryGrey bg-white  hover:scale-[1.1] lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-700"
+                  className="border-2 border-primaryGrey bg-white   lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-700"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl hover:scale-[1.05] text-white font-bold py-3 px-3 rounded-xl transition duration-700"
+                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-white font-bold py-3 px-3 rounded-xl transition duration-700"
                 >
                   MUA NGAY
                 </button>
               </div>
-            </CardContainer>
+            </div>
             <div className="mt-8">
               <div className="border-b font-semibold border-gray-300">
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">

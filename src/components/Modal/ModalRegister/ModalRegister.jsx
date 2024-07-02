@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { callRegister } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
-import { motion } from "framer-motion";
-import { Typography } from "antd";
+import { Typography, message } from "antd";
 import styles from "./ModalRegister.module.css";
 
 const ModalRegister = () => {
@@ -22,7 +20,7 @@ const ModalRegister = () => {
   const { modalRegister } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
 
-  const handlelogin = async () => {
+  const handleRegister = async () => {
     try {
       if (password !== confirmPassword) {
         toast.error("Mật khẩu không trùng khớp");
@@ -31,14 +29,14 @@ const ModalRegister = () => {
 
       const res = await callRegister({ name, password, phone });
 
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
         toast.success(res.message);
         dispatch(toggleModalRegister());
 
         // Reset form
-        setEmail("");
         setName("");
+        setPhone("");
         setPassword("");
         setConfirmPassword("");
       } else {
@@ -50,46 +48,39 @@ const ModalRegister = () => {
   };
 
   return (
-    <div className={`fixed  inset-0 z-[21] ${modalRegister ? "block" : "hidden"}`}>
+    <div className={`${styles.modal} ${modalRegister ? styles.fixed : styles.hidden}`}>
       <div
-        className="w-full h-full  bg-overlay"
+        className={styles.modalOverlay}
         onClick={() => dispatch(toggleModalRegister())}
       ></div>
-      <motion.div
-        animate={{
-          opacity: modalRegister ? 1 : 0,
-          y: modalRegister ? 0 : 300,
-        }}
-        open
-        className="absolute left-[40%] top-[20%] -translate-y-1/2 -translate-x-1/2 w-[20rem] h-[20rem] p-4 rounded "
-      >
-        <h2 className="text-center text-2xl text-white mb-4">Đăng ký</h2>
-        <label htmlFor="name" className="text-white ">
+      <div className={styles.modalContent}>
+        <h1 className={styles.modalTitle}>Đăng ký</h1>
+        <label htmlFor="name" className="text-black">
           Họ và tên:
           <input
             type="text"
-            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
+            className="w-full   mt-2 p-2 outline-none outline-gray-100 text-primaryBlack rounded-xl mb-4"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <label htmlFor="name" className="text-white ">
+        <label htmlFor="phone" className="text-black">
           Số điện thoại:
           <input
             type="text"
-            className="w-full p-2 outline-none text-primaryBlack rounded mb-[1rem]"
+            className="w-full  mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-4"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </label>
-        <label htmlFor="passwordRegister" className="text-white  ">
+        <label htmlFor="passwordRegister" className="text-black">
           Mật Khẩu:
           <div className="relative">
             <input
               type={isShowPassword.showPassword ? "text" : "password"}
-              className="w-full p-2 outline-none text-primaryBlack rounded mb-[0.5rem]"
+              className="w-full  mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-2"
               id="passwordRegister"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -97,28 +88,24 @@ const ModalRegister = () => {
             {isShowPassword.showPassword ? (
               <FaEye
                 onClick={() =>
-                  setIsShowPassword((pre) => {
-                    return {
-                      ...pre,
-                      showPassword: !pre.showPassword,
-                    };
-                  })
+                  setIsShowPassword((prev) => ({
+                    ...prev,
+                    showPassword: !prev.showPassword,
+                  }))
                 }
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-black cursor-pointer"
                 color="black"
                 size={20}
               />
             ) : (
               <FaEyeSlash
-                onClick={() => {
-                  setIsShowPassword((pre) => {
-                    return {
-                      ...pre,
-                      showPassword: !pre.showPassword,
-                    };
-                  });
-                }}
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                onClick={() =>
+                  setIsShowPassword((prev) => ({
+                    ...prev,
+                    showPassword: !prev.showPassword,
+                  }))
+                }
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-black cursor-pointer"
                 color="black"
                 size={20}
               />
@@ -126,12 +113,12 @@ const ModalRegister = () => {
           </div>
         </label>
 
-        <label htmlFor="confirmPassword" className="text-white  ">
+        <label htmlFor="confirmPassword" className="text-black">
           Xác nhận mật khẩu:
           <div className="relative">
             <input
               type={isShowPassword.showConfirmPassword ? "text" : "password"}
-              className="w-full p-2 outline-none text-primaryBlack rounded mb-[0.5rem]"
+              className="w-full  mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-2"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -139,28 +126,24 @@ const ModalRegister = () => {
             {isShowPassword.showConfirmPassword ? (
               <FaEye
                 onClick={() =>
-                  setIsShowPassword((pre) => {
-                    return {
-                      ...pre,
-                      showConfirmPassword: !pre.showConfirmPassword,
-                    };
-                  })
+                  setIsShowPassword((prev) => ({
+                    ...prev,
+                    showConfirmPassword: !prev.showConfirmPassword,
+                  }))
                 }
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-black cursor-pointer"
                 color="black"
                 size={20}
               />
             ) : (
               <FaEyeSlash
                 onClick={() =>
-                  setIsShowPassword((pre) => {
-                    return {
-                      ...pre,
-                      showConfirmPassword: !pre.showConfirmPassword,
-                    };
-                  })
+                  setIsShowPassword((prev) => ({
+                    ...prev,
+                    showConfirmPassword: !prev.showConfirmPassword,
+                  }))
                 }
-                className="absolute right-2 top-[42%] -translate-y-1/2 text-white cursor-pointer"
+                className="absolute right-2 top-[42%] -translate-y-1/4 text-black cursor-pointer"
                 color="black"
                 size={20}
               />
@@ -168,24 +151,25 @@ const ModalRegister = () => {
           </div>
         </label>
         <button
-          onClick={() => handlelogin()}
-          className="h-10 w-full px-2 text-center bg-teal-900  text-white mt-4 hover:bg-teal-700 rounded-full duration-150  "
+          onClick={handleRegister}
+          className="h-10 w-full  px-2 text-center font-semibold bg-primaryBlack text-white mt-4  rounded-lg duration-150"
         >
-          Đăng ký
+          Đăng Ký
         </button>
         <div className={styles.smallText}>
           <span>Bạn đã có tài khoản? </span>
-          <Typography.Link
+          <a className="text-teal-500 cursor-pointer"
             onClick={() => {
-              dispatch(toggleModalRegister());
               dispatch(toggleModalLogin());
+              dispatch(toggleModalRegister());
             }}
           >
             Đăng nhập
-          </Typography.Link>
+          </a>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
+
 export default ModalRegister;

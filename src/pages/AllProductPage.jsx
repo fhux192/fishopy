@@ -7,12 +7,12 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FaCartPlus } from "react-icons/fa";
 import { BiSolidDiscount } from "react-icons/bi";
 
-import ProductsData from "../../../data/ProductsData";
-import Pagination from "../../Pagination/Pagination";
+import ProductsData from "../data/ProductsData";
+import Pagination from "../components/Pagination/Pagination";
 
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import "../../../scss/navbar.scss";
+import "../scss/navbar.scss";
 
 // Hàm sắp xếp sản phẩm dựa trên tùy chọn sắp xếp
 const sortProducts = (products, option) => {
@@ -45,7 +45,7 @@ const ProductCard = ({ product, priceStage }) => {
           className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
         />
         <div className="-translate-y-2">
-          <p className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 group-hover:text-teal-500 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+          <p className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
           </p>
           <p className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
@@ -69,9 +69,8 @@ const ProductCard = ({ product, priceStage }) => {
 
         {product.price !== product.discount && (
           <div className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
-            <div className="flex gap-[1px] items-center">
-              -{Math.round(discountPercentage)}
-              <BiSolidDiscount className="scale-110" />
+            <div className="flex px-1 gap-[1px] items-center">
+              Giảm {Math.round(discountPercentage)}%
             </div>
           </div>
         )}
@@ -140,7 +139,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   );
 };
 
-const AllProducts = () => {
+const AllProductPage = () => {
   // State quản lý trang hiện tại
   const [currentPage, setCurrentPage] = useState(1);
   // State quản lý tùy chọn sắp xếp đã chọn
@@ -207,4 +206,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllProductPage;

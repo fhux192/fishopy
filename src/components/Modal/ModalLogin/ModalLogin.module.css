@@ -22,12 +22,20 @@
   position: relative;
   z-index: 1;
   animation: bound 0.4s;
+  background: #ffffff;
+  border-radius: 9px;
+  padding: 20px;
+  max-width: 400px;
+  width: 90%;
+  margin: 0 auto;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .modalTitle {
   text-align: center;
   font-size: 2rem;
-  color: white;
+  font-weight: 700;
+  color: #141414;
   margin-bottom: 1rem;
 }
 
@@ -37,7 +45,7 @@
 }
 
 .smallText span {
-  color: white;
+  color: black;
 }
 
 @keyframes bound {
