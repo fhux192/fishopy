@@ -259,7 +259,7 @@ const InfoPay = ({ setStep }) => {
             <Form.Item>
               <button
                 type="submit"
-                className="w-full text-xl shadow-md shadow-gray-400 bg-black hover:bg-primaryTeal text-white font-bold py-2 px-4 rounded-xl"
+                className="w-full text-lg  bg-primaryBlack text-white font-bold py-1 px-3 rounded-lg"
               >
                 THANH TOÁN
               </button>

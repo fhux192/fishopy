@@ -153,7 +153,7 @@ const Navbar = () => {
                   : "bg-white border-2 "
               }`}
             >
-              {cartLocal.length}
+              <div className="mt-[3px] lg:ml-[1px]">{cartLocal.length}</div>
             </div>
           </div>
         </div>

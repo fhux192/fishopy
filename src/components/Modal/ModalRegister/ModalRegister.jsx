@@ -80,7 +80,7 @@ const ModalRegister = () => {
           <div className="relative">
             <input
               type={isShowPassword.showPassword ? "text" : "password"}
-              className="w-full  mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-2"
+              className="w-full  mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-4"
               id="passwordRegister"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
