@@ -1,7 +1,7 @@
 const AddressPage = () => {
   return (
     <div>
-      <div className="rounded-xl lg:m-20 m-4 ">
+      <div className=" ">
         <div className="flex lg:mt-16 mb-4 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
           <h1 className="w-[30rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
             Địa Chỉ Guppy Hóc Môn
