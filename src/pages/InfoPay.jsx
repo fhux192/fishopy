@@ -132,7 +132,7 @@ const InfoPay = ({ setStep }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center bg-gray-100">
+    <div className="w-full lg:mt-20 flex items-center justify-center bg-gray-100">
       <div className="p-4 w-full max-w-lg">
         <Card style={{ width: "100%" }}>
           <h2 className="text-xl font-bold mb-4">Thông tin thanh toán</h2>

@@ -106,7 +106,7 @@ const Navbar = () => {
                     <>
                       <button
                         onClick={() => dispatch(toggleModalLogin())}
-                        className="block px-4 py-2 text-primaryBlack hover:bg-teal-800 hover:text-white rounded-t-xl w-full text-left"
+                        className=" block px-4 py-2 text-primaryBlack hover:bg-teal-800 hover:text-white rounded-t-xl w-full text-left"
                       >
                         Đăng Nhập
                       </button>
@@ -164,7 +164,7 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-    <div className="text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl font-body z-10 lg:text-4xl font-thin">
+    <div className= "font-sans text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
         <span className="cursor-pointer hoverText" key={idx}>
           {child}

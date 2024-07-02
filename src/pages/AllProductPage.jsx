@@ -45,9 +45,9 @@ const ProductCard = ({ product, priceStage }) => {
           className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
         />
         <div className="-translate-y-2">
-          <p className="whitespace-pre-line border-t-2 pt-1 border-primaryGrey mt-2 mx-2 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+          <h2 className="whitespace-pre-line border-t-2 pt-2 border-primaryGrey mt-2 mx-2 font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
-          </p>
+          </h2>
           <p className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
@@ -85,7 +85,7 @@ const ProductCard = ({ product, priceStage }) => {
 // Component xử lý tùy chọn sắp xếp
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
-    { option: "default", label: "Mặc định" },
+    { option: "default", label: "Mặc Định" },
     {
       option: "priceDesc",
       label: "Cao - Thấp",

@@ -78,7 +78,7 @@ const ProductSlider = () => {
   return (
     <div className="mb-[3rem] rounded bg-transparent">
       <h2 className=" flex font-semibold lg:h-[6rem] h-[4rem] lg:border-[10px] border-[5px] border-gray-100 bg-white items-center text-teal-700 justify-center  text-3xl lg:text-[2.5rem] w-full">
-       Các Sản Phẩm Khác
+        Các Sản Phẩm Khác
       </h2>
       <Slider {...settings}>
         {randomProducts.map((data) => (
@@ -90,11 +90,11 @@ const ProductSlider = () => {
                 className="shadow-black rounded-t-3xl mx-auto lg:h-[8rem] lg:w-[12rem] w-[10rem] h-[6.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
               />
               <div className="text-center mt-3">
-                <div className="whitespace-pre-line group-hover:text-teal-600 font-mono font-bold text-lg lg:text-2xl text-primaryBlack">
+                <div className="whitespace-pre-line group-hover:text-teal-600  font-bold text-lg lg:text-2xl text-primaryBlack">
                   {data.title}
                 </div>
-                <div className="group-hover:text-teal-800 font-mono font-bold text-md lg:text-xl text-primaryGrey">
-                  {data.price}
+                <div className="group-hover:text-teal-800  font-bold text-md lg:text-xl text-primaryGrey">
+                  {data.discount}
                 </div>
               </div>
             </div>

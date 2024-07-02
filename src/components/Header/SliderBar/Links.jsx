@@ -46,9 +46,9 @@ const itemVariants = {
 
 const Links = () => {
   const items = [
-    { name: "Trang Chủ", icon: <FaHome /> },
-    { name: "Sản Phẩm", icon: <FaProductHunt /> },
-    { name: "Địa Chỉ", icon: <FaMapMarkedAlt /> },
+    { name: "Trang Chủ", icon: <FaHome className="mb-2"/> },
+    { name: "Sản Phẩm", icon: <FaProductHunt className="mb-2"/> },
+    { name: "Địa Chỉ", icon: <FaMapMarkedAlt className="mb-2"/> },
   ];
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -96,12 +96,12 @@ const Links = () => {
       {!user ? (
         <>
           <motion.p
-            className="flex items-center gap-2 links-item cursor-pointer hover:text-teal-700"
+            className="flex text- items-center gap-2 links-item cursor-pointer hover:text-teal-700"
             onClick={() => dispatch(toggleModalLogin())}
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaSignInAlt /> Đăng nhập
+            <FaSignInAlt className="mb-2"/> Đăng nhập
           </motion.p>
           <motion.p
             className="flex items-center gap-2 links-item cursor-pointer hover:text-teal-700"
@@ -109,7 +109,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaUserPlus /> Đăng ký
+            <FaUserPlus className="mb-2"/> Đăng ký
           </motion.p>
         </>
       ) : (
@@ -120,7 +120,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaHistory /> Đơn Hàng
+            <FaHistory className="mb-2"/> Đơn Hàng
           </motion.p>
           <motion.p
             className="flex items-center gap-2 links-item cursor-pointer"
@@ -128,7 +128,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaSignOutAlt /> Đăng xuất
+            <FaSignOutAlt className="mb-2"/> Đăng xuất
           </motion.p>
         </>
       )}

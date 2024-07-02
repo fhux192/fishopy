@@ -26,7 +26,8 @@ export default {
         "button-search": "#f8f7f9",
       },
       fontFamily: {
-        body: ["Rowdies", "sans-serif"],
+        body: ["Playwrite GB S", "sans-serif"],
+        polska: ["Polska", "cursive"],
       },
       keyframes: {
         pulse: {

@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Jaro:opsz@6..72&family=Lobster&family=Rowdies:wght@300;400;700&display=swap");
 
 .navbar {
   color: #f8f7f9;
@@ -10,7 +9,7 @@
     justify-content: space-between;
     height: 60px;
     z-index: 1000; /* Ensure it's above other elements */
-
+    
     span {
       font-weight: bold;
     }
@@ -77,8 +76,6 @@
     display: none; /* For Chrome, Safari, and Opera */
   }
 }
-
-
 
 /* MyComponent.module.css */
 .gradientText {
@@ -158,3 +155,4 @@
     display: none;
   }
 }
+
