@@ -20,6 +20,7 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+
   return (
     <>
       <Navbar /> {/* Use Navbar component */}

@@ -168,7 +168,9 @@ const AllProductPage = () => {
 
   // Cuộn lên đầu khi trang hiện tại thay đổi
   useEffect(() => window.scrollTo(0, 0), [currentPage]);
-
+  useEffect(() => {
+    document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
+  }, []);
   // Chu kỳ hiển thị giai đoạn giá
   useEffect(() => {
     const cyclePrices = () => {
