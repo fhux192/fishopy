@@ -2,10 +2,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { FaCartPlus } from "react-icons/fa";
+import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { BiSolidDiscount } from "react-icons/bi";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductsData from "../data/ProductsData";
 import Pagination from "../components/Pagination/Pagination";
@@ -168,6 +167,11 @@ const AllProductPage = () => {
 
   // Cuộn lên đầu khi trang hiện tại thay đổi
   useEffect(() => window.scrollTo(0, 0), [currentPage]);
+
+  // Đặt tiêu đề trang
+  useEffect(() => {
+    document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
+  }, []);
 
   // Chu kỳ hiển thị giai đoạn giá
   useEffect(() => {

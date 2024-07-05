@@ -19,7 +19,7 @@ import "ckeditor5/ckeditor5.css";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
 const router = createBrowserRouter([
-  {z
+  {
     path: "/",
     element: <App />,
     children: [

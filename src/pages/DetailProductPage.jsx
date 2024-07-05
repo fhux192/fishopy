@@ -110,13 +110,13 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 border-primaryGrey bg-white   lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-700"
+                  className="border-2 hover:scale-105 border-primaryGrey bg-white   lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl  text-primaryBlack font-bold p-3 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-white font-bold py-3 px-3 rounded-xl transition duration-700"
+                  className="bg-primaryBlack hover:scale-105  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-white font-bold py-3 px-3 rounded-xl transition duration-300"
                 >
                   MUA NGAY
                 </button>
@@ -167,7 +167,7 @@ const DetailProductPage = () => {
               )}
               {activeTab === "introduction" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-semibold mb-4">
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
                     Giới Thiệu
                   </h1>
                   <h3 className="text-md text-gray-700 leading-relaxed">
@@ -177,7 +177,7 @@ const DetailProductPage = () => {
               )}
               {activeTab === "reviews" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-semibold mb-4">
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
                     Hỏi Đáp
                   </h1>
                   <div className="mb-4">

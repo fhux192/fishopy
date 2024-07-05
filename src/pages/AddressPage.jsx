@@ -1,4 +1,8 @@
+import  { useEffect } from "react";
 const AddressPage = () => {
+  useEffect(() => {
+    document.title = "Địa Chỉ | Guppy Hóc Môn ";
+  }, []);
   return (
     <div>
       <div className="mx-4  ">
