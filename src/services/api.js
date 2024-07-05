@@ -24,6 +24,10 @@ export const callDeleteProduct = async (id) => {
   return await axios.delete(`products/${id}`);
 };
 
+export const callFetchProduct = async (current, pageSize) => {
+  return await axios.get("products?current=" + current + "&pageSize=" + pageSize);
+};
+
 /**
  * nếu upload thì truyền vào fileImg, sửa ảnh thì truyền vào oldImg để server không bị rác
  * @param {*} fileImg

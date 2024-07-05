@@ -1,4 +1,16 @@
-import { Button, Col, Form, Input, Modal, Row, Tabs, Upload, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Row,
+  Select,
+  Tabs,
+  Upload,
+  message,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import { useState } from "react";
@@ -6,7 +18,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalAddProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callUploadImgFish } from "../../../services/api";
+import { callCreateProduct, callUploadImgFish } from "../../../services/api";
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
@@ -29,12 +41,13 @@ const normFile = (e) => {
   }
   return e?.fileList;
 };
-const ModalAddProduct = () => {
+const ModalAddProduct = ({ setProducts }) => {
   const dispatch = useDispatch();
   const { modalAddProduct } = useSelector((state) => state.toggle);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [descProductValue, setDescProductValue] = useState("");
+  const [detailDescProductValue, setDetailDescProductValue] = useState("");
   const handleChange = async ({ file }) => {
     console.log("file", file);
     const res = await callUploadImgFish(file);
@@ -79,16 +92,49 @@ const ModalAddProduct = () => {
       label: "Chi tiết",
       children: (
         <Form.Item name="detailDescProduct">
-          <DetailDescProduct />
+          <DetailDescProduct onDetailDescChange={setDetailDescProductValue} />
         </Form.Item>
       ),
     },
   ];
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    console.log("form", form.getFieldsValue());
-    console.log("descProductValue", descProductValue);
+  const onFinish = async (values) => {
+    const imageProduct = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+    let dataProduct = {
+      image: imageProduct,
+      name: form.getFieldValue("name"),
+      price: form.getFieldValue("price"),
+      status: form.getFieldValue("status"),
+      discountedPrice: form.getFieldValue("discountedPrice"),
+      desc: descProductValue,
+      detailDesc: detailDescProductValue,
+    };
+
+    try {
+      const res = await callCreateProduct(dataProduct);
+
+      if (res.vcode == 0) {
+        setProducts((pre) => [
+          ...pre,
+          {
+            ...res.data,
+            image: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.image,
+            key: res.data._id,
+          },
+        ]);
+        message.success(res.message);
+        form.resetFields();
+        setDescProductValue("");
+        setDetailDescProductValue("");
+        setImageUrl("");
+        dispatch(toggleModalAddProduct());
+      } else {
+        message.error(res.message);
+        dispatch(toggleModalAddProduct());
+      }
+    } catch (error) {
+      console.error("error", error.message);
+    }
   };
 
   const [form] = Form.useForm();
@@ -102,7 +148,14 @@ const ModalAddProduct = () => {
         minWidth: "80%",
       }}
     >
-      <Form className={styles.form} form={form} onFinish={onFinish}>
+      <Form
+        className={styles.form}
+        form={form}
+        onFinish={onFinish}
+        initialValues={{
+          status: true,
+        }}
+      >
         <Form.Item valuePropName="fileList" getValueFromEvent={normFile}>
           <div style={{ textAlign: "center" }}>
             <Upload
@@ -135,14 +188,20 @@ const ModalAddProduct = () => {
           </Col>
           <Col span={12}>
             <Form.Item label="Giá bán" name="price" labelCol={{ span: 24 }}>
-              <Input />
+              <InputNumber style={{ width: "100%" }} />
             </Form.Item>
           </Col>
         </Row>
         <Row gutter={[16, 24]}>
           <Col span={12}>
             <Form.Item label="Tình trạng" name="status" labelCol={{ span: 24 }}>
-              <Input />
+              <Select
+                style={{ width: "100%" }}
+                options={[
+                  { value: true, label: "Còn hàng" },
+                  { value: false, label: "Hết hàng" },
+                ]}
+              />
             </Form.Item>
           </Col>
           <Col span={12}>
