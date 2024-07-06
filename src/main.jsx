@@ -14,7 +14,8 @@ import "./index.css";
 import OrderPage from "./pages/OrderPage.jsx";
 import AddressPage from "./pages/AddressPage.jsx";
 import Home from "./pages/Home.jsx";
-import Dashboard from "./components/Admin/DashBoard/DashBoard.jsx";
+// import Dashboard from "./components/Admin/DashBoard/DashBoard.jsx";
+import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
 import "ckeditor5/ckeditor5.css";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 
@@ -44,8 +45,8 @@ const router = createBrowserRouter([
         element: <OrderPage />,
       },
       {
-        path:"/order-history",
-        element:<OrderHistoryPage/>
+        path: "/order-history",
+        element: <OrderHistoryPage />,
       },
       { path: "/payment", element: <InfoPay /> },
       {
