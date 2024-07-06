@@ -83,11 +83,11 @@ const ProductSlider = () => {
       <Slider {...settings}>
         {randomProducts.map((data) => (
           <Link to={`/fish/${data.id}`} key={data.id}>
-            <div className="group mx-auto mt-[2rem] lg:mt-[3rem] mb-[2rem] lg:w-[12rem] w-[10rem] h-[11rem] lg:h-[14rem] md:h-[12rem]  shadow-lg shadow-primaryGrey hover:shadow-teal-700 rounded-3xl cursor-pointer">
+            <div className="group mx-auto mt-[2rem] lg:mt-[3rem] mb-[2rem] lg:w-[12rem] w-[10rem] h-[11rem] lg:h-[14rem] md:h-[12rem]  shadow-lg shadow-primaryGrey duration-300 hover:shadow-teal-700 rounded-3xl cursor-pointer">
               <img
                 src={data.cardImg}
                 alt={data.title}
-                className="shadow-black rounded-t-3xl mx-auto lg:h-[8rem] lg:w-[12rem] w-[10rem] h-[6.5rem] scale-[1.2] group-hover:scale-[1.3] duration-500 object-contain"
+                className="shadow-black rounded-t-3xl mx-auto lg:h-[9rem] lg:w-[12rem] w-[10rem] h-[6.5rem] scale-[1.2] group-hover:scale-[1.4] duration-500 object-contain"
               />
               <div className="text-center mt-3">
                 <div className="whitespace-pre-line group-hover:text-teal-600  font-bold text-lg lg:text-2xl text-primaryBlack">

@@ -1,9 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { message } from "antd";
+import { notification } from "antd";
 
 const initialState = {
-  userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
-  cartLocal: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+  userInfo: localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null,
+  cartLocal: localStorage.getItem("cartLocal")
+    ? JSON.parse(localStorage.getItem("cartLocal"))
+    : [],
 };
 
 export const userSlice = createSlice({
@@ -19,13 +23,15 @@ export const userSlice = createSlice({
       state.userInfo = null;
     },
     changeQuantityLocalCart: (state, action) => {
-      let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload.item.id);
+      let findItemIndex = state.cartLocal.findIndex(
+        (item) => item.id === action.payload.item.id
+      );
 
       if (findItemIndex !== -1) {
-        if (action.payload.type == "increase") {
+        if (action.payload.type === "increase") {
           state.cartLocal[findItemIndex].quantity += 1;
           localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        } else if (action.payload.type == "decrease") {
+        } else if (action.payload.type === "decrease") {
           if (state.cartLocal[findItemIndex].quantity > 1)
             state.cartLocal[findItemIndex].quantity -= 1;
           localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
@@ -38,8 +44,13 @@ export const userSlice = createSlice({
 
       if (findItemIndex !== -1) {
         if (quantity <= 0) {
+          const removedItem = state.cartLocal[findItemIndex];
           state.cartLocal.splice(findItemIndex, 1);
-          message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
+          notification.success({
+            message: "Xóa thành công!",
+            description: ` ${removedItem.title}`,
+            duration: 2,
+          });
         } else {
           state.cartLocal[findItemIndex].quantity = quantity;
         }
@@ -48,23 +59,35 @@ export const userSlice = createSlice({
     },
     addLocalCart: (state, action) => {
       if (action.payload) {
-        let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload.id);
+        let findItemIndex = state.cartLocal.findIndex(
+          (item) => item.id === action.payload.id
+        );
         if (findItemIndex !== -1) {
           state.cartLocal[findItemIndex].quantity += action.payload.quantity;
-          localStorage.setItem("user", JSON.stringify(state.cartLocal));
         } else {
           state.cartLocal = [...state.cartLocal, action.payload];
         }
         localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        message.success("Thêm sản phẩm vào giỏ hàng thành công!");
+        notification.success({
+          message: "Thêm thành công!",
+          description: `${action.payload.title}`,
+          duration: 2,
+        });
       }
     },
     removeCartLocal: (state, action) => {
-      let findItemIndex = state.cartLocal.findIndex((item) => item.id === action.payload);
+      let findItemIndex = state.cartLocal.findIndex(
+        (item) => item.id === action.payload
+      );
       if (findItemIndex !== -1) {
+        const removedItem = state.cartLocal[findItemIndex];
         state.cartLocal.splice(findItemIndex, 1);
-        localStorage.setItem("cartLocal", JSON.stringify(state.user));
-        message.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
+        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
+        notification.success({
+          message: "Xóa thành công!",
+          description: `${removedItem.title}`,
+          duration: 2,
+        });
       }
     },
   },

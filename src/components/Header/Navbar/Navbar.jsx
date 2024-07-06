@@ -5,7 +5,11 @@ import { FaFishFins } from "react-icons/fa6";
 import Slidebar from "../SliderBar/Slidebar.jsx";
 import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDrawerCart, toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice.js";
+import {
+  toggleDrawerCart,
+  toggleModalLogin,
+  toggleModalRegister,
+} from "../../../redux/features/toggle/toggleSlice.js";
 import { useEffect, useState, useRef } from "react";
 import "../../../scss/bubble.scss";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +22,7 @@ const Navbar = () => {
   const cartLocal = useSelector((state) => state.user.cartLocal);
   const userInfo = useSelector((state) => state.user.userInfo);
   const navigate = useNavigate();
-  
+
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -57,13 +61,14 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <motion.div className="wrapper bg-white lg:fixed lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-2 border-b-2 border-gray-150 lg:mx-[7.5%]">
-        <motion.span className="lg:flex lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
-          <button
-            className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]"
-            onClick={handleNavigation}
-          >
-            <BubbleText />
-          </button>
+        <motion.span className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
+            <button
+              className="flex  mb-[3px] lg:flex-0 lg:mr-[4.5%]"
+              onClick={handleNavigation}
+            >
+              <BubbleText />
+            </button>
+
           <div className="group duration-1000 lg:flex hidden flex-[2] items-center mx-[2%]">
             <input
               type="text"
@@ -124,7 +129,7 @@ const Navbar = () => {
           </div>
         </motion.span>
 
-        <div className="border-l-2 border-primaryGrey pl-4 social">
+        <div className="border-l-2 border-primaryGrey pl-2 social">
           <Slidebar />
 
           <a href="https://www.facebook.com/traicaguppysaigon?mibextid=LQQJ4d">
@@ -164,9 +169,9 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-    <div className= "font-sans text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-xl min-[425px]:text-2xl min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
+    <div className="font-sans text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-[24px] min-[425px]:text-2xl min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
-        <span className="cursor-pointer hoverText" key={idx}>
+        <span className=" cursor-pointer hoverText" key={idx}>
           {child}
         </span>
       ))}

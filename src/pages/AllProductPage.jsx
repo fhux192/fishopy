@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { addLocalCart } from "../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { BiSolidDiscount } from "react-icons/bi";
@@ -9,6 +11,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ProductsData from "../data/ProductsData";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
+
 
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -32,12 +35,26 @@ const formatPrice = (price) =>
 
 // Component hiển thị từng thẻ sản phẩm
 const ProductCard = ({ product, priceStage }) => {
+  const dispatch = useDispatch();
+
   const discountPercentage =
     ((product.price - product.discount) / product.price) * 100;
 
+  const handleAddToCart = (event) => {
+    event.preventDefault();
+    dispatch(addLocalCart({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      discount: product.discount,
+      quantity: 1,
+      proImg: product.cardImg
+    }));
+  };
+
   return (
-    <Link to={`/fish/${product.id}`} key={product.id}>
-      <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+      <Link to={`/fish/${product.id}`} key={product.id} className="block h-full">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
@@ -74,11 +91,14 @@ const ProductCard = ({ product, priceStage }) => {
             </div>
           </div>
         )}
-        <div className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full">
-          <FaCartPlus />
-        </div>
+      </Link>
+      <div
+        onClick={handleAddToCart}
+        className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-sky-500 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full cursor-pointer"
+      >
+        <FaCartPlus />
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -101,14 +121,14 @@ const SortSection = ({ sortOption, setSortOption }) => {
   ];
 
   return (
-    <div className="ml-0 lg:mx-[8%] pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
+    <div className="ml-0 lg:mx-[18%] pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
       <div className="flex pb-2 overflow-x-auto scrollbar-hide">
         {sortButtons.map(({ option, label, icon }) => (
           <button
             key={option}
             className={`flex h-[2rem] font-semibold min-w-[9.5rem] border-2 border-primaryGrey text-sm justify-center items-center px-4 py-2 rounded-xl lg:mt-4 lg:mx-0 mx-2 lg:mr-2 ${
               sortOption === option
-                ? "bg-teal-700 text-white border-grey-100"
+                ?  "  bg-primaryBlack text-white border-grey-100"
                 : "bg-white text-primaryGrey"
             }`}
             onClick={() => setSortOption(option)}
@@ -125,7 +145,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
 // Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className="mx-auto lg:mx-[5rem] bg-gray-100 rounded-xl">
+    <div className="mx-auto lg:mx-[20rem] bg-gray-100 rounded-xl">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 place-items-center mx-2 lg:mx-0">
         {currentPageProducts.map((product) => (
           <ProductCard

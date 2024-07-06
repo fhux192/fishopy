@@ -8,6 +8,7 @@ import { toggleVerify } from "../redux/features/toggle/toggleSlice.js";
 import OTPInput from "react-otp-input";
 import { CloseOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom"; // Import useLocation
+import "../scss/navbar.scss";
 
 const { Option } = Select;
 
@@ -259,9 +260,10 @@ const InfoPay = ({ setStep }) => {
             <Form.Item>
               <button
                 type="submit"
-                className="w-full text-lg  bg-primaryBlack text-white font-bold py-1 px-3 rounded-lg"
+                className="w-full lg:text-xl text-lg  bg-primaryBlack text-white font-bold lg:py-2 py-1 px-3 rounded-xl"
               >
-                THANH TOÁN
+                <p className="Text">THANH TOÁN</p>
+                
               </button>
             </Form.Item>
             <div id="recaptcha-container"></div>
