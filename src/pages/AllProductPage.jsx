@@ -8,6 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductsData from "../data/ProductsData";
 import Pagination from "../components/Pagination/Pagination";
+import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
 
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -67,7 +68,7 @@ const ProductCard = ({ product, priceStage }) => {
         </div>
 
         {product.price !== product.discount && (
-          <div className="absolute font-semibold bottom-0  right-0 bg-teal-700 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+          <div className="absolute font-semibold bottom-0  right-0  bg-gradient-to-r from-sky-500 to-indigo-500 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
             <div className="flex px-1 gap-[1px] items-center">
               Giảm {Math.round(discountPercentage)}%
             </div>
@@ -189,12 +190,16 @@ const AllProductPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
+    
       <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+ 
         <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
+          
         </h1>
+        
       </div>
-
+      <ShiftingCountdown/>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
       <ProductsSection
         currentPageProducts={currentPageProducts}

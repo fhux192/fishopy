@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { addLocalCart } from "../redux/features/user/userSlice.js";
 import { CardContainer } from "../components/ui/3d-card.tsx";
 import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
+import ShiftingCountdown from "../components/CountDown/ShiftingCountdown.jsx";
 
 const DetailProductPage = () => {
   const { id } = useParams();
@@ -48,6 +49,7 @@ const DetailProductPage = () => {
     <>
       <div className="bg-gray-100 lg:mt-[4.3rem] flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
+         
           <div className="bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem]">

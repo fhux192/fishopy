@@ -20,7 +20,30 @@ function App() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  useEffect(() => {
+    const originalTitle = document.title;
+    const titles = [
+      "Đừng đi mà 🥺 | Guppy Hóc Môn",
+      "Quay lại đi 😢 | Guppy Hóc Môn",
+      "Nhớ bạn quá 😢 | Guppy Hóc Môn",
+      "Chờ bạn trở lại 🥺 | Guppy Hóc Môn"
+    ];
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        const randomIndex = Math.floor(Math.random() * titles.length);
+        document.title = titles[randomIndex];
+      } else {
+        document.title = originalTitle;
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
   return (
     <>
       <Navbar /> {/* Use Navbar component */}
