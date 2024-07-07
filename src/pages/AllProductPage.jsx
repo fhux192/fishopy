@@ -16,6 +16,7 @@ import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../scss/navbar.scss";
+import "../scss/allProduct.scss";
 
 // Hàm sắp xếp sản phẩm dựa trên tùy chọn sắp xếp
 const sortProducts = (products, option) => {
@@ -121,7 +122,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
   ];
 
   return (
-    <div className="ml-0 lg:mx-[18%] pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
+    <div className="sort-section ml-0 pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
       <div className="flex pb-2 overflow-x-auto scrollbar-hide">
         {sortButtons.map(({ option, label, icon }) => (
           <button
@@ -145,8 +146,8 @@ const SortSection = ({ sortOption, setSortOption }) => {
 // Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className="mx-auto lg:mx-[20rem] bg-gray-100 rounded-xl">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 place-items-center mx-2 lg:mx-0">
+    <div className="product-section bg-gray-100 rounded-xl">
+      <div className="product-grid grid  place-items-center mx-2 lg:mx-0">
         {currentPageProducts.map((product) => (
           <ProductCard
             key={product.id}
