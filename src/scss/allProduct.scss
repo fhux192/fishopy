@@ -14,6 +14,22 @@
   }
 }
 
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .countdown-container {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+  .product-container {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 @media (min-width: 1024px) {
   .sort-section {
     margin-right: 7rem;
@@ -32,14 +48,15 @@
     padding-right: 10px;
   }
   .banner{
+    width: 7rem;
+    height: 24rem;
     display: block;
-    width: 8rem;
   }
 }
 
 @media (min-width: 1440px) {
   .sort-section {
-    margin-right: 16rem;
+    margin-right: 15rem;
   }
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -55,37 +72,50 @@
     padding-right: 10px;
   }
   .banner{
-    width: 10rem;
+    width: 12rem;
+    height: 36rem;
     display: block;
   }
 }
 
 @media (min-width: 1920px) {
-  .product-section {
-    margin-left: 20rem;
-    margin-right: 20rem;
+  .product-section{
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
+  .product-container {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   .sort-section {
-    margin-right: 21rem;
+    margin-right: 20rem;
   }
   .product-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .countdown-container {
-    margin-left: 35rem;
-    margin-right: 35rem;
+    margin-left: 40rem;
+    margin-right: 40rem;
   }
   .banner{
+    width: 12rem;
+    height: 36rem;
     display: block;
   }
 }
 
 .banner {
-  height: 30rem;
+  cursor: pointer;
   position: -webkit-sticky;
   position: sticky;
-  top: 10rem;
+  top: 8rem;
   margin-top: 1.5rem;
   margin-left: 1rem;
   margin-right: 1rem;
+}
+.banner:hover{
+transition-duration: 700ms;
+  padding: 5px;
 }

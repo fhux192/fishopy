@@ -29,13 +29,15 @@ const sortProducts = (products, option) => {
 };
 
 // Hàm định dạng giá tiền với dấu phân cách hàng nghìn
-const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) =>
+  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 // Component hiển thị từng thẻ sản phẩm
 const ProductCard = ({ product, priceStage }) => {
   const dispatch = useDispatch();
 
-  const discountPercentage = ((product.price - product.discount) / product.price) * 100;
+  const discountPercentage =
+    ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     event.preventDefault();
@@ -43,7 +45,11 @@ const ProductCard = ({ product, priceStage }) => {
 
   return (
     <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
-      <Link to={`/fish/${product._id}`} key={product._id} className="block h-full">
+      <Link
+        to={`/fish/${product._id}`}
+        key={product._id}
+        className="block  h-full"
+      >
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
@@ -65,7 +71,9 @@ const ProductCard = ({ product, priceStage }) => {
                     {product.price}₫
                   </span>
                 )}
-                {priceStage === 2 && <span>{formatPrice(product.discount)}₫</span>}
+                {priceStage === 2 && (
+                  <span>{formatPrice(product.discount)}₫</span>
+                )}
               </>
             )}
           </p>
@@ -133,14 +141,32 @@ const SortSection = ({ sortOption, setSortOption }) => {
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="product-section rounded-xl">
-      <div className=" product-container ">
-        <div className=" banner rounded-3xl bg-primaryBlack "> </div>
+      <div className=" product-container">
+        <div className=" banner rounded-3xl bg-gradient-to-tr to-teal-700 from-indigo-700  ">
+          {" "}
+          <img
+            className="w-full h-full rounded-3xl object-fill "
+            src="https://i.redd.it/z4wp2dsb9su11.jpg"
+            alt=""
+          />
+        </div>
         <div className="flex-[2] product-grid grid  place-items-center mx-2 lg:mx-0">
           {currentPageProducts.map((product) => (
-            <ProductCard key={product._id} product={product} priceStage={priceStage} />
+            <ProductCard
+              key={product._id}
+              product={product}
+              priceStage={priceStage}
+            />
           ))}
         </div>
-        <div className=" banner rounded-3xl bg-primaryBlack"> </div>
+        <div className=" banner rounded-3xl bg-gradient-to-br to-teal-700 from-indigo-700 ">
+          {" "}
+          <img
+            className="w-full h-full rounded-3xl object-fill "
+            src="https://i.redd.it/b2x57ltacsu11.jpg"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   );
@@ -162,7 +188,10 @@ const AllProductPage = () => {
   const firstPostIndex = lastPostIndex - productsPerPage;
 
   // Memo hóa sản phẩm đã sắp xếp dựa trên tùy chọn sắp xếp đã chọn
-  const sortedProducts = useMemo(() => sortProducts([...ProductsData], sortOption), [sortOption]);
+  const sortedProducts = useMemo(
+    () => sortProducts([...ProductsData], sortOption),
+    [sortOption]
+  );
 
   // Memo hóa sản phẩm trên trang hiện tại cho phân trang
   const currentPageProducts = useMemo(
@@ -201,7 +230,10 @@ const AllProductPage = () => {
       </div>
       <ShiftingCountdown />
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
+      <ProductsSection
+        currentPageProducts={currentPageProducts}
+        priceStage={priceStage}
+      />
       <Pagination
         totalPost={ProductsData.length}
         postPerPage={productsPerPage}

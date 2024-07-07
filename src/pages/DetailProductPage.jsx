@@ -124,7 +124,7 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 hover:scale-105 border-primaryGrey bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                  className="border-2 hover:p-1 border-primaryGrey bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
