@@ -5,6 +5,10 @@
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  .countdown-container{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -13,7 +17,7 @@
     margin-right: 15rem;
   }
   .sort-section {
-    margin-right: 16.5rem;
+    margin-right: 16rem;
   }
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
