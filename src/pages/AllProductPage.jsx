@@ -134,16 +134,10 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="product-section bg-blue-100 rounded-xl">
       <div className="flex bg-red-100  w-full px-10">
-        <div className="banner w-[10rem] h-[30rem] bg-primaryBlack ">
-          {" "}
-        </div>
+        <div className="banner w-[10rem] h-[30rem] bg-primaryBlack "> </div>
         <div className="flex-[2] product-grid grid  place-items-center mx-2 lg:mx-0">
           {currentPageProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              priceStage={priceStage}
-            />
+            <ProductCard key={product._id} product={product} priceStage={priceStage} />
           ))}
         </div>
         <div className="banner w-[10rem] h-[30rem] bg-primaryBlack"> </div>
@@ -200,7 +194,7 @@ const AllProductPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+      <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
         <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
         </h1>
