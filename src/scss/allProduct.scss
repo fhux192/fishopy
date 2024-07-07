@@ -1,4 +1,4 @@
-@media (max-width: 420px) {
+@media (min-width: 320px) {
   .product-section {
     margin: auto;
   }
@@ -9,11 +9,35 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
+  .banner{
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sort-section {
+    margin-right: 7rem;
+  }
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .countdown-container {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+  .product-container {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .banner{
+    display: block;
+    width: 8rem;
+  }
 }
 
 @media (min-width: 1440px) {
-  .product-section {
-  }
   .sort-section {
     margin-right: 16rem;
   }
@@ -23,6 +47,16 @@
   .countdown-container {
     margin-left: 25rem;
     margin-right: 25rem;
+  }
+  .product-container {
+    display: flex;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .banner{
+    width: 10rem;
+    display: block;
   }
 }
 
@@ -41,10 +75,17 @@
     margin-left: 35rem;
     margin-right: 35rem;
   }
+  .banner{
+    display: block;
+  }
 }
 
 .banner {
+  height: 30rem;
   position: -webkit-sticky;
   position: sticky;
-  top: 100px;
+  top: 10rem;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }

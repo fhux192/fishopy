@@ -12,8 +12,8 @@ const OrderHistoryPage = () => {
 
   return (
     <div className="container mx-auto">
-        <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+        <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+        <h1 className="w-[20rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
             Lịch Sử Đơn Hàng
         </h1>
       </div>

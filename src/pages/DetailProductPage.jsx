@@ -60,17 +60,25 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className="bg-gray-100 lg:mt-[4.3rem] flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className="bg-gray-100  flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
-          <div className="bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
+          <div className="lg:mt-[4.3rem] bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem]">
-                <img className="rounded-xl" src={product.proImg} alt={product.title} />
+                <img
+                  className="rounded-xl"
+                  src={product.proImg}
+                  alt={product.title}
+                />
               </div>
               <div className="flex flex-col gap-4">
-                <h1 className="text-3xl lg:ml-[5rem] font-bold">{product.title}</h1>
+                <h1 className="text-3xl lg:ml-[5rem] font-bold">
+                  {product.title}
+                </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <h2 className="text-2xl font-bold text-teal-700 mr-4">{product.discount}₫</h2>
+                  <h2 className="text-2xl font-bold text-teal-700 mr-4">
+                    {product.discount}₫
+                  </h2>
                   {product.price !== product.discount && (
                     <h2 className="text-xl font-semibold  text-gray-500 line-through">
                       {product.price}₫
@@ -81,7 +89,9 @@ const DetailProductPage = () => {
                   <span className="text-lg font-semibold">Tình trạng:</span>
                   <span
                     className={`${
-                      product.status === "Còn hàng" ? "text-teal-500" : "text-red-500"
+                      product.status === "Còn hàng"
+                        ? "text-teal-500"
+                        : "text-red-500"
                     } text-lg font-semibold`}
                   >
                     {product.status}
@@ -92,7 +102,9 @@ const DetailProductPage = () => {
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
-                      onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
+                      onClick={() =>
+                        setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
+                      }
                     >
                       -
                     </button>
@@ -112,7 +124,7 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 hover:scale-105 border-primaryGrey bg-white   lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                  className="border-2 hover:scale-105 border-primaryGrey bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
@@ -162,18 +174,26 @@ const DetailProductPage = () => {
               {activeTab === "details" && (
                 <div className="py-6 px-4 lg:px-10">
                   <h1 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">{product.description}</h3>
+                  <h3 className="text-md text-gray-700 leading-relaxed">
+                    {product.description}
+                  </h3>
                 </div>
               )}
               {activeTab === "introduction" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Giới Thiệu</h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">{product.introduction}</h3>
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
+                    Giới Thiệu
+                  </h1>
+                  <h3 className="text-md text-gray-700 leading-relaxed">
+                    {product.introduction}
+                  </h3>
                 </div>
               )}
               {activeTab === "reviews" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Hỏi Đáp</h1>
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
+                    Hỏi Đáp
+                  </h1>
                   <div className="mb-4">
                     <Input.TextArea
                       rows={4}
@@ -197,14 +217,16 @@ const DetailProductPage = () => {
                         </div>
                       ))
                     ) : (
-                      <h3 className="text-md text-gray-700">Chưa có câu hỏi nào.</h3>
+                      <h3 className="text-md text-gray-700">
+                        Chưa có câu hỏi nào.
+                      </h3>
                     )}
                   </div>
                 </div>
               )}
             </div>
           </div>
-          <div className="invisible items-center absolute lg:static lg:visible flex flex-col ml-10">
+          <div className="invisible items-center absolute lg:mt-[4.3rem] lg:static lg:visible flex flex-col ml-10">
             {/* Khuyến mãi đặc biệt */}
             <BackgroundGradient className=" w-[20rem] bg-primaryBlack p-4 rounded-xl">
               <h2 className="text-xl gradientText font-bold text-teal-500 flex items-center">
@@ -214,7 +236,10 @@ const DetailProductPage = () => {
               </h2>
               <ul className="list-disc text-md text-white pl-6">
                 <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
-                <li>Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1 triệu đồng.</li>
+                <li>
+                  Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1
+                  triệu đồng.
+                </li>
                 <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>

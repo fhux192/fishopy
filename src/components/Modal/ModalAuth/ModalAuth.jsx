@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
+import { useNavigate } from "react-router-dom";
 
 import { logout } from "../../../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
@@ -9,7 +10,7 @@ import { callLogout } from "../../../services/api.js";
 const ModalAuth = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.user);
-
+  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       const res = await callLogout();
@@ -27,15 +28,15 @@ const ModalAuth = () => {
       {userInfo ? (
         <>
           {userInfo.role == "ADMIN" && (
-            <Link to={"/admin"}>
-              <button className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150">
+            <Link className="block px-4 py-2 text-primaryBlack  hover:bg-teal-700 hover:text-white rounded-t-xl w-full text-left" to={"/admin"}>
+              <button >
                 Admin
               </button>
             </Link>
           )}
           <button
             onClick={() => navigate("/order-history")}
-            className="block px-4 py-2 text-primaryBlack hover:bg-teal-700 hover:text-white rounded-t-xl w-full text-left"
+            className="block px-4 py-2 text-primaryBlack border-t-2 hover:bg-teal-700 hover:text-white w-full text-left"
           >
             Lịch Sử Đơn Hàng
           </button>
