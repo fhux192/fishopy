@@ -1,10 +1,7 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Divider, Empty, Image, InputNumber, Row, Steps } from "antd";
+import { Card, Col, Divider, Empty, Image, InputNumber, Row, Steps } from "antd";
 import Title from "antd/es/typography/Title";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { changeQuantityLocalCart, removeCartLocal } from "../../redux/features/user/userSlice";
 
 const Cart = ({ cart }) => {
   const convertPrice = (price) => {
@@ -49,9 +46,6 @@ const Cart = ({ cart }) => {
                       style={{
                         cursor: "pointer",
                       }}
-                      onClick={() => {
-                        dispatch(changeQuantityLocalCart({ item, type: "decrease" }));
-                      }}
                     >
                       -
                     </div>
@@ -60,9 +54,6 @@ const Cart = ({ cart }) => {
                     <div
                       style={{
                         cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        dispatch(changeQuantityLocalCart({ item, type: "increase" }));
                       }}
                     >
                       +
@@ -83,7 +74,7 @@ const Cart = ({ cart }) => {
               </Col>
 
               <Col span={1} style={{ textAlign: "center" }}>
-                <DeleteOutlined onClick={() => dispatch(removeCartLocal(item.id))} />
+                <DeleteOutlined />
               </Col>
             </Row>
           </Card>

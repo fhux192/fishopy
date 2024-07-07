@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { DesktopOutlined, FileOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { setCredentials, setIsLoading } from "../redux/features/user/userSlice";
+import { useDispatch } from "react-redux";
+import { callFetchAccount } from "../services/api";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -27,6 +30,28 @@ const items = [
 
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const status_login = localStorage.getItem("status_login");
+  const dispatch = useDispatch();
+
+  const handleFetchAccount = async () => {
+    try {
+      const res = await callFetchAccount();
+      if (res.vcode === 0) {
+        dispatch(setCredentials(res.data));
+      }
+    } catch (error) {
+      console.error("Lỗi khi tải tài khoản:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (status_login == 0) {
+      handleFetchAccount();
+    } else {
+      dispatch(setIsLoading(false));
+    }
+  }, []);
+
   return (
     <Layout
       style={{

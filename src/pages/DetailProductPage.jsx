@@ -5,20 +5,20 @@ import "../scss/customImageGallery.scss"; // Import custom CSS file
 import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
 import { Input } from "antd";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addLocalCart } from "../redux/features/user/userSlice.js";
-import { CardContainer } from "../components/ui/3d-card.tsx";
+import { useDispatch, useSelector } from "react-redux";
 import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
-import ShiftingCountdown from "../components/CountDown/ShiftingCountdown.jsx";
+import { callAddToCart } from "../services/api.js";
+import { addToCart } from "../redux/features/user/userSlice.js";
 
 const DetailProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = ProductsData.find((item) => item.id === parseInt(id));
+  const product = ProductsData.find((item) => item._id === parseInt(id));
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("details"); // State for active tab
   const [reviews, setReviews] = useState([]); // State for managing reviews
   const [reviewText, setReviewText] = useState(""); // State for new review text
+  const userInfo = useSelector((state) => state.user.userInfo);
 
   const dispatch = useDispatch();
   if (!product) {
@@ -33,9 +33,21 @@ const DetailProductPage = () => {
     navigate("/payment", { state: { product, quantity } });
   };
 
-  const handleAddToCart = () => {
-    const newProd = { ...product, quantity };
-    dispatch(addLocalCart(newProd));
+  const handleAddToCart = async () => {
+    console.log("product", product);
+    if (userInfo) {
+      try {
+        const res = await callAddToCart({ productId: product._id, quantity });
+        if (res.vcode === 0) {
+          toast.success(res.message);
+          dispatch(addToCart({ product, quantity }));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleReviewSubmit = () => {
@@ -49,24 +61,15 @@ const DetailProductPage = () => {
     <>
       <div className="bg-gray-100 lg:mt-[4.3rem] flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
-         
           <div className="bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem]">
-                <img
-                  className="rounded-xl"
-                  src={product.proImg}
-                  alt={product.title}
-                />
+                <img className="rounded-xl" src={product.proImg} alt={product.title} />
               </div>
               <div className="flex flex-col gap-4">
-                <h1 className="text-3xl lg:ml-[5rem] font-bold">
-                  {product.title}
-                </h1>
+                <h1 className="text-3xl lg:ml-[5rem] font-bold">{product.title}</h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <h2 className="text-2xl font-bold text-teal-700 mr-4">
-                    {product.discount}₫
-                  </h2>
+                  <h2 className="text-2xl font-bold text-teal-700 mr-4">{product.discount}₫</h2>
                   {product.price !== product.discount && (
                     <h2 className="text-xl font-semibold  text-gray-500 line-through">
                       {product.price}₫
@@ -77,9 +80,7 @@ const DetailProductPage = () => {
                   <span className="text-lg font-semibold">Tình trạng:</span>
                   <span
                     className={`${
-                      product.status === "Còn hàng"
-                        ? "text-teal-500"
-                        : "text-red-500"
+                      product.status === "Còn hàng" ? "text-teal-500" : "text-red-500"
                     } text-lg font-semibold`}
                   >
                     {product.status}
@@ -90,9 +91,7 @@ const DetailProductPage = () => {
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
-                      onClick={() =>
-                        setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
-                      }
+                      onClick={() => setQuantity((prev) => (prev > 1 ? prev - 1 : prev))}
                     >
                       -
                     </button>
@@ -162,26 +161,18 @@ const DetailProductPage = () => {
               {activeTab === "details" && (
                 <div className="py-6 px-4 lg:px-10">
                   <h1 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">
-                    {product.description}
-                  </h3>
+                  <h3 className="text-md text-gray-700 leading-relaxed">{product.description}</h3>
                 </div>
               )}
               {activeTab === "introduction" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
-                    Giới Thiệu
-                  </h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">
-                    {product.introduction}
-                  </h3>
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Giới Thiệu</h1>
+                  <h3 className="text-md text-gray-700 leading-relaxed">{product.introduction}</h3>
                 </div>
               )}
               {activeTab === "reviews" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
-                    Hỏi Đáp
-                  </h1>
+                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Hỏi Đáp</h1>
                   <div className="mb-4">
                     <Input.TextArea
                       rows={4}
@@ -205,9 +196,7 @@ const DetailProductPage = () => {
                         </div>
                       ))
                     ) : (
-                      <h3 className="text-md text-gray-700">
-                        Chưa có câu hỏi nào.
-                      </h3>
+                      <h3 className="text-md text-gray-700">Chưa có câu hỏi nào.</h3>
                     )}
                   </div>
                 </div>
@@ -224,10 +213,7 @@ const DetailProductPage = () => {
               </h2>
               <ul className="list-disc text-md text-white pl-6">
                 <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
-                <li>
-                  Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1
-                  triệu đồng.
-                </li>
+                <li>Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1 triệu đồng.</li>
                 <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>

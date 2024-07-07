@@ -99,7 +99,7 @@ const ModalAddProduct = ({ setProducts }) => {
   ];
 
   const onFinish = async (values) => {
-    const imageProduct = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+    const imageProduct = imageUrl?.substring(imageUrl.lastIndexOf("/") + 1) ?? "";
     let dataProduct = {
       image: imageProduct,
       name: form.getFieldValue("name"),
@@ -130,7 +130,6 @@ const ModalAddProduct = ({ setProducts }) => {
         dispatch(toggleModalAddProduct());
       } else {
         message.error(res.message);
-        dispatch(toggleModalAddProduct());
       }
     } catch (error) {
       console.error("error", error.message);

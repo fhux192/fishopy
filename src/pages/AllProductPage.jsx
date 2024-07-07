@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { addLocalCart } from "../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { BiSolidDiscount } from "react-icons/bi";
@@ -11,7 +10,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import ProductsData from "../data/ProductsData";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
-
 
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -31,31 +29,21 @@ const sortProducts = (products, option) => {
 };
 
 // Hàm định dạng giá tiền với dấu phân cách hàng nghìn
-const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 // Component hiển thị từng thẻ sản phẩm
 const ProductCard = ({ product, priceStage }) => {
   const dispatch = useDispatch();
 
-  const discountPercentage =
-    ((product.price - product.discount) / product.price) * 100;
+  const discountPercentage = ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     event.preventDefault();
-    dispatch(addLocalCart({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      discount: product.discount,
-      quantity: 1,
-      proImg: product.cardImg
-    }));
   };
 
   return (
     <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
-      <Link to={`/fish/${product.id}`} key={product.id} className="block h-full">
+      <Link to={`/fish/${product._id}`} key={product._id} className="block h-full">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
@@ -77,9 +65,7 @@ const ProductCard = ({ product, priceStage }) => {
                     {product.price}₫
                   </span>
                 )}
-                {priceStage === 2 && (
-                  <span>{formatPrice(product.discount)}₫</span>
-                )}
+                {priceStage === 2 && <span>{formatPrice(product.discount)}₫</span>}
               </>
             )}
           </p>
@@ -129,7 +115,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
             key={option}
             className={`flex h-[2rem] font-semibold min-w-[9.5rem] border-2 border-primaryGrey text-sm justify-center items-center px-4 py-2 rounded-xl lg:mt-4 lg:mx-0 mx-2 lg:mr-2 ${
               sortOption === option
-                ?  "  bg-primaryBlack text-white border-grey-100"
+                ? "  bg-primaryBlack text-white border-grey-100"
                 : "bg-white text-primaryGrey"
             }`}
             onClick={() => setSortOption(option)}
@@ -149,11 +135,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
     <div className="product-section bg-gray-100 rounded-xl">
       <div className="product-grid grid  place-items-center mx-2 lg:mx-0">
         {currentPageProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            priceStage={priceStage}
-          />
+          <ProductCard key={product.id} product={product} priceStage={priceStage} />
         ))}
       </div>
     </div>
@@ -176,10 +158,7 @@ const AllProductPage = () => {
   const firstPostIndex = lastPostIndex - productsPerPage;
 
   // Memo hóa sản phẩm đã sắp xếp dựa trên tùy chọn sắp xếp đã chọn
-  const sortedProducts = useMemo(
-    () => sortProducts([...ProductsData], sortOption),
-    [sortOption]
-  );
+  const sortedProducts = useMemo(() => sortProducts([...ProductsData], sortOption), [sortOption]);
 
   // Memo hóa sản phẩm trên trang hiện tại cho phân trang
   const currentPageProducts = useMemo(
@@ -211,21 +190,14 @@ const AllProductPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-    
       <div className="flex lg:mt-20 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
- 
         <h1 className="w-[20rem] font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
-          
         </h1>
-        
       </div>
-      <ShiftingCountdown/>
+      <ShiftingCountdown />
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={currentPageProducts}
-        priceStage={priceStage}
-      />
+      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
       <Pagination
         totalPost={ProductsData.length}
         postPerPage={productsPerPage}

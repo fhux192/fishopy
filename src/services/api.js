@@ -8,8 +8,16 @@ export const callRegister = async (data) => {
   return await axios.post("auth/register", data);
 };
 
+export const callFetchAccount = async () => {
+  return await axios.post("auth/account");
+};
+
 export const callLogout = async () => {
   return await axios.post("auth/logout");
+};
+
+export const callAddToCart = async (data) => {
+  return await axios.post("cart", data);
 };
 
 export const callCreateProduct = async (values) => {

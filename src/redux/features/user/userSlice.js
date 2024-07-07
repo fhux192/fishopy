@@ -2,12 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notification } from "antd";
 
 const initialState = {
-  userInfo: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
-    : null,
-  cartLocal: localStorage.getItem("cartLocal")
-    ? JSON.parse(localStorage.getItem("cartLocal"))
-    : [],
+  userInfo: null,
+  isLoading: true,
 };
 
 export const userSlice = createSlice({
@@ -16,90 +12,36 @@ export const userSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
-      localStorage.setItem("userInfo", JSON.stringify(action.payload));
+      state.isLoading = false;
+      localStorage.setItem("status_login", 0);
     },
     logout: (state) => {
-      localStorage.setItem("userInfo", null);
       state.userInfo = null;
+      state.isLoading = false;
+      localStorage.setItem("status_login", 1);
     },
-    changeQuantityLocalCart: (state, action) => {
-      let findItemIndex = state.cartLocal.findIndex(
-        (item) => item.id === action.payload.item.id
-      );
+    addToCart: (state, action) => {
+      if (!state.userInfo) {
+        notification.error({ message: "Vui lòng đăng nhập" });
+        return;
+      }
 
-      if (findItemIndex !== -1) {
-        if (action.payload.type === "increase") {
-          state.cartLocal[findItemIndex].quantity += 1;
-          localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        } else if (action.payload.type === "decrease") {
-          if (state.cartLocal[findItemIndex].quantity > 1)
-            state.cartLocal[findItemIndex].quantity -= 1;
-          localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        }
-      }
-    },
-    updateCartQuantity: (state, action) => {
-      const { id, quantity } = action.payload;
-      const findItemIndex = state.cartLocal.findIndex((item) => item.id === id);
+      const { product, quantity } = action.payload;
 
-      if (findItemIndex !== -1) {
-        if (quantity <= 0) {
-          const removedItem = state.cartLocal[findItemIndex];
-          state.cartLocal.splice(findItemIndex, 1);
-          notification.success({
-            message: "Xóa thành công!",
-            description: ` ${removedItem.title}`,
-            duration: 2,
-          });
-        } else {
-          state.cartLocal[findItemIndex].quantity = quantity;
-        }
-        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
+      const productExist = state.userInfo.cart.find((item) => item._id == product._id);
+
+      if (productExist) {
+        productExist.quantity += quantity;
+      } else {
+        state.userInfo.cart.push({ ...product, quantity });
       }
     },
-    addLocalCart: (state, action) => {
-      if (action.payload) {
-        let findItemIndex = state.cartLocal.findIndex(
-          (item) => item.id === action.payload.id
-        );
-        if (findItemIndex !== -1) {
-          state.cartLocal[findItemIndex].quantity += action.payload.quantity;
-        } else {
-          state.cartLocal = [...state.cartLocal, action.payload];
-        }
-        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        notification.success({
-          message: "Thêm thành công!",
-          description: `${action.payload.title}`,
-          duration: 2,
-        });
-      }
-    },
-    removeCartLocal: (state, action) => {
-      let findItemIndex = state.cartLocal.findIndex(
-        (item) => item.id === action.payload
-      );
-      if (findItemIndex !== -1) {
-        const removedItem = state.cartLocal[findItemIndex];
-        state.cartLocal.splice(findItemIndex, 1);
-        localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
-        notification.success({
-          message: "Xóa thành công!",
-          description: `${removedItem.title}`,
-          duration: 2,
-        });
-      }
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
     },
   },
 });
 
-export const {
-  setCredentials,
-  logout,
-  addLocalCart,
-  removeCartLocal,
-  changeQuantityLocalCart,
-  updateCartQuantity,
-} = userSlice.actions;
+export const { setCredentials, logout, setIsLoading, addToCart } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -3,17 +3,16 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const ProtectedRoutes = ({ children }) => {
+const AuthRoute = ({ children }) => {
   const userInfo = useSelector((state) => state.user.userInfo);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (userInfo?.role != "ADMIN") {
-      navigate("/");
+    if (!userInfo) {
+      useNavigate().navigate("/");
     }
-  }, [userInfo, navigate]);
+  }, [userInfo]);
 
   return <div>{userInfo?.role ? children : null}</div>;
 };
 
-export default ProtectedRoutes;
+export default AuthRoute;

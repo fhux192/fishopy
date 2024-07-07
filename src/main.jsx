@@ -7,7 +7,6 @@ import AllProductPage from "./pages/AllProductPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
 import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
-import ProtectedRoutes from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import "./index.css";
@@ -18,6 +17,7 @@ import Home from "./pages/Home.jsx";
 import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
 import "ckeditor5/ckeditor5.css";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
+import AdminRoute from "./components/AdminRoute/AdminRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -56,32 +56,24 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "admin",
-    element: <AdminPage />,
+    path: "/admin",
+    element: (
+      <AdminRoute>
+        <AdminPage />
+      </AdminRoute>
+    ),
     children: [
       {
         index: true,
-        element: (
-          <ProtectedRoutes>
-            <Dashboard />
-          </ProtectedRoutes>
-        ),
+        element: <Dashboard />,
       },
       {
         path: "product",
-        element: (
-          <ProtectedRoutes>
-            <ManageProduct />
-          </ProtectedRoutes>
-        ),
+        element: <ManageProduct />,
       },
       {
         path: "order",
-        element: (
-          <ProtectedRoutes>
-            <ManageOrder />
-          </ProtectedRoutes>
-        ),
+        element: <ManageOrder />,
       },
     ],
   },

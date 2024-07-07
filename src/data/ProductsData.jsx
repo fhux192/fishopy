@@ -48,7 +48,7 @@ import fish48 from "../assets/fishCardImg/fish (48).png";
 import caBien from "../assets/caBien.jpeg";
 const ProductsData = [
   {
-    id: 1,
+    _id: 1,
     cardImg: fish1,
     proImg: fish1,
     title: `DUMBO TAI VOI`,
@@ -56,11 +56,10 @@ const ProductsData = [
     discount: "90.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: 
-  `Cá cảnh là các loài cá được nuôi để làm cảnh trong bể cá gia đình hoặc trưng bày công cộng. Chúng được yêu thích vì màu sắc rực rỡ và vẻ đẹp thẩm mỹ.`,
+    introduction: `Cá cảnh là các loài cá được nuôi để làm cảnh trong bể cá gia đình hoặc trưng bày công cộng. Chúng được yêu thích vì màu sắc rực rỡ và vẻ đẹp thẩm mỹ.`,
   },
   {
-    id: 2,
+    _id: 2,
     cardImg: fish2,
     proImg: fish2,
     title: "HB WHITE",
@@ -68,10 +67,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 3,
+    _id: 3,
     cardImg: fish3,
     proImg: fish3,
     title: "TOPAZ RED TAIL",
@@ -79,10 +79,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 4,
+    _id: 4,
     cardImg: fish4,
     proImg: fish4,
     title: "BETTA HALFMOON",
@@ -90,10 +91,11 @@ const ProductsData = [
     discount: "100.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 5,
+    _id: 5,
     cardImg: fish5,
     proImg: caBien,
     title: "BLUE TAZAN",
@@ -101,10 +103,11 @@ const ProductsData = [
     discount: "50.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 6,
+    _id: 6,
     cardImg: fish6,
     proImg: fish6,
     title: "FULL BLACK",
@@ -112,10 +115,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 7,
+    _id: 7,
     cardImg: fish7,
     proImg: fish7,
     title: "FULL GOLD",
@@ -123,10 +127,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 8,
+    _id: 8,
     cardImg: fish8,
     proImg: fish8,
     title: "TỲ BÀ DỌN HỒ",
@@ -134,10 +139,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 9,
+    _id: 9,
     cardImg: fish9,
     proImg: fish9,
     title: "FULL RED",
@@ -145,10 +151,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 10,
+    _id: 10,
     cardImg: fish10,
     proImg: fish10,
     title: "METAL RED LACE",
@@ -156,10 +163,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 11,
+    _id: 11,
     cardImg: fish11,
     proImg: fish11,
     title: "Ca Bien 11",
@@ -167,10 +175,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 12,
+    _id: 12,
     cardImg: fish12,
     proImg: fish12,
     title: "FULL RED BDS",
@@ -178,10 +187,11 @@ const ProductsData = [
     discount: "100.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 13,
+    _id: 13,
     cardImg: fish13,
     proImg: fish13,
     title: "Ca Vang 13",
@@ -189,10 +199,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 14,
+    _id: 14,
     cardImg: fish14,
     proImg: fish14,
     title: "HB RED ROSE",
@@ -200,10 +211,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 15,
+    _id: 15,
     cardImg: fish15,
     proImg: fish15,
     title: "HB BLUE RB",
@@ -211,10 +223,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 16,
+    _id: 16,
     cardImg: fish16,
     proImg: fish16,
     title: "Ca Den 16",
@@ -222,10 +235,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 17,
+    _id: 17,
     cardImg: fish17,
     proImg: fish17,
     title: "Ca Bien 17",
@@ -233,10 +247,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 18,
+    _id: 18,
     cardImg: fish18,
     proImg: fish18,
     title: "Ca Trang 18",
@@ -244,10 +259,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 19,
+    _id: 19,
     cardImg: fish19,
     proImg: fish19,
     title: "Ca Vang 19",
@@ -255,10 +271,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 20,
+    _id: 20,
     cardImg: fish20,
     proImg: fish20,
     title: "Ca Xanh 20",
@@ -266,10 +283,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Hết hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 21,
+    _id: 21,
     cardImg: fish21,
     proImg: fish21,
     title: "Ca Cam 21",
@@ -277,10 +295,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 22,
+    _id: 22,
     cardImg: fish22,
     proImg: fish22,
     title: "Ca Den 22",
@@ -288,10 +307,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 23,
+    _id: 23,
     cardImg: fish23,
     proImg: fish23,
     title: "Ca Bien 23",
@@ -299,10 +319,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 24,
+    _id: 24,
     cardImg: fish24,
     proImg: fish24,
     title: "Ca Trang 24",
@@ -310,10 +331,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 25,
+    _id: 25,
     cardImg: fish25,
     proImg: fish25,
     title: "Ca Vang 25",
@@ -321,10 +343,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 26,
+    _id: 26,
     cardImg: fish26,
     proImg: fish26,
     title: "Ca Xanh 26",
@@ -332,10 +355,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 27,
+    _id: 27,
     cardImg: fish27,
     proImg: fish27,
     title: "Ca Cam 27",
@@ -343,10 +367,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 28,
+    _id: 28,
     cardImg: fish28,
     proImg: fish28,
     title: "Ca Den 28",
@@ -354,10 +379,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 29,
+    _id: 29,
     cardImg: fish29,
     proImg: fish29,
     title: "Ca Bien 29",
@@ -365,11 +391,12 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
 
   {
-    id: 31,
+    _id: 31,
     cardImg: fish31,
     proImg: fish31,
     title: "Ca Xanh 31",
@@ -377,10 +404,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 32,
+    _id: 32,
     cardImg: fish32,
     proImg: fish32,
     title: "Ca Cam 32",
@@ -388,10 +416,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 33,
+    _id: 33,
     cardImg: fish33,
     proImg: fish33,
     title: "Ca Den 33",
@@ -399,10 +428,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 34,
+    _id: 34,
     cardImg: fish34,
     proImg: fish34,
     title: "Ca Bien 34",
@@ -410,10 +440,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 35,
+    _id: 35,
     cardImg: fish35,
     proImg: fish35,
     title: "Ca Trang 35",
@@ -421,10 +452,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 36,
+    _id: 36,
     cardImg: fish36,
     proImg: fish36,
     title: "Ca Vang 36",
@@ -432,10 +464,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 37,
+    _id: 37,
     cardImg: fish37,
     proImg: fish37,
     title: "Ca Xanh 37",
@@ -443,10 +476,11 @@ const ProductsData = [
     discount: "8%.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 38,
+    _id: 38,
     cardImg: fish38,
     proImg: fish38,
     title: "Ca Cam 38",
@@ -454,10 +488,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 39,
+    _id: 39,
     cardImg: fish39,
     proImg: fish39,
     title: "Ca Den 39",
@@ -465,10 +500,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 40,
+    _id: 40,
     cardImg: fish40,
     proImg: fish40,
     title: "Ca Bien 40",
@@ -476,10 +512,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 41,
+    _id: 41,
     cardImg: fish41,
     proImg: fish41,
     title: "Ca Trang 41",
@@ -487,10 +524,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 42,
+    _id: 42,
     cardImg: fish42,
     proImg: fish42,
     title: "Ca Vang 42",
@@ -498,10 +536,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
   {
-    id: 43,
+    _id: 43,
     cardImg: fish43,
     proImg: fish43,
     title: "Ca Xanh 43",
@@ -509,10 +548,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá xanh tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
+    introduction:
+      "Cá xanh là loài cá biển có màu da đặc trưng, có thể được nướng, hấp hoặc luộc với nhiều loại gia vị khác nhau.",
   },
   {
-    id: 44,
+    _id: 44,
     cardImg: fish44,
     proImg: fish44,
     title: "Ca Cam 44",
@@ -520,10 +560,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá các tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá các là loài cá biển có vẻ đẹp, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 45,
+    _id: 45,
     cardImg: fish45,
     proImg: fish45,
     title: "Ca Den 45",
@@ -531,10 +572,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá đen tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá đen là loài cá biển có màu da đen đậm, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 46,
+    _id: 46,
     cardImg: fish46,
     proImg: fish46,
     title: "Ca Bien 46",
@@ -542,10 +584,11 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
+    introduction:
+      "Cá biển là một loại cá rất phổ biến, có thể được chế biến thành nhiều món ăn ngon tuyệt vời.",
   },
   {
-    id: 47,
+    _id: 47,
     cardImg: fish47,
     proImg: fish47,
     title: "Ca Trang 47",
@@ -553,10 +596,11 @@ const ProductsData = [
     discount: "85.000",
     description: "Cá trắng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
+    introduction:
+      "Cá trắng là loài cá biển có màu da trắng tuyệt đẹp, có thể được chế biến thành nhiều món ăn hấp dẫn.",
   },
   {
-    id: 48,
+    _id: 48,
     cardImg: fish48,
     proImg: fish48,
     title: "Ca Vang 48",
@@ -564,10 +608,9 @@ const ProductsData = [
     discount: "80.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    introduction: "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
+    introduction:
+      "Cá vằng là loài cá biển phổ biến, có thân hình dài và ít xương, thích hợp với nhiều món ăn khác nhau.",
   },
 ];
-
-
 
 export default ProductsData;
