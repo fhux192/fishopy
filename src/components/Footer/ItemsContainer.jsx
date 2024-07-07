@@ -16,7 +16,7 @@ export const ItemsContainer = () => {
     { text: "Facebook: Quân Nguyễn", link: "#" },
   ];
   return (
-    <div className=" grid bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-12 ">
+    <div className=" grid   bg-primaryBlack grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:px-8 px-5 py-12 ">
       <ul>
         <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Khách Hàng

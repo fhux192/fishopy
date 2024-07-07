@@ -38,6 +38,7 @@ export const userSlice = createSlice({
         }
       }
     },
+    
     updateCartQuantity: (state, action) => {
       const { id, quantity } = action.payload;
       const findItemIndex = state.cartLocal.findIndex((item) => item.id === id);
@@ -57,6 +58,7 @@ export const userSlice = createSlice({
         localStorage.setItem("cartLocal", JSON.stringify(state.cartLocal));
       }
     },
+
     addLocalCart: (state, action) => {
       if (action.payload) {
         let findItemIndex = state.cartLocal.findIndex(
@@ -75,6 +77,7 @@ export const userSlice = createSlice({
         });
       }
     },
+
     removeCartLocal: (state, action) => {
       let findItemIndex = state.cartLocal.findIndex(
         (item) => item.id === action.payload
