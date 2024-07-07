@@ -82,7 +82,7 @@ const ProductSlider = () => {
       </h2>
       <Slider {...settings}>
         {randomProducts.map((data) => (
-          <Link to={`/fish/${data.id}`} key={data.id}>
+          <Link to={`/fish/${data._id}`} key={data._id}>
             <div className="group mx-auto mt-[2rem] lg:mt-[3rem] mb-[2rem] lg:w-[12rem] w-[10rem] h-[11rem] lg:h-[14rem] md:h-[12rem]  shadow-lg shadow-primaryGrey duration-300 hover:shadow-teal-700 rounded-3xl cursor-pointer">
               <img
                 src={data.cardImg}

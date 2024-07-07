@@ -1,51 +1,64 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
-import { toast } from "react-toastify";
+
 import { logout } from "../../../redux/features/user/userSlice";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { message } from "antd";
+import { callLogout } from "../../../services/api.js";
 
 const ModalAuth = () => {
   const dispatch = useDispatch();
-  const { account } = useSelector((state) => state.user);
+  const { userInfo } = useSelector((state) => state.user);
 
-  const handleLogout = () => {
-    dispatch(logout());
-    toast.success("Đăng xuất thành công");
+  const handleLogout = async () => {
+    try {
+      const res = await callLogout();
+      if (res.vcode == 0) {
+        dispatch(logout());
+        message.success(res.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div className="absolute top-[150%] z-[21] w-[8rem] right-[0] bg-primaryBlack text-white">
-      {account?.name ? (
+    <div className="absolute top-full right-0 mt-4 w-48 bg-white border-2 border-gray-100 rounded-xl">
+      {userInfo ? (
         <>
-          <button
-            onClick={handleLogout}
-            className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
-          >
-            Đăng Xuất
-          </button>
-
-          {account.isAdmin && (
+          {userInfo.role == "ADMIN" && (
             <Link to={"/admin"}>
               <button className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150">
                 Admin
               </button>
             </Link>
           )}
+          <button
+            onClick={() => navigate("/order-history")}
+            className="block px-4 py-2 text-primaryBlack hover:bg-teal-700 hover:text-white rounded-t-xl w-full text-left"
+          >
+            Lịch Sử Đơn Hàng
+          </button>
+          <button
+            onClick={handleLogout}
+            className="block px-4 py-2 text-primaryBlack border-t-2 border-gray-100 hover:bg-teal-700 hover:text-white rounded-b-xl w-full text-left"
+          >
+            Đăng Xuất
+          </button>
         </>
       ) : (
         <>
-          <motion.button
+          <button
             onClick={() => dispatch(toggleModalLogin())}
-            className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
+            className=" block px-4 py-2 text-primaryBlack hover:bg-teal-800 hover:text-white rounded-t-xl w-full text-left"
           >
-            Đăng nhập
-          </motion.button>
+            Đăng Nhập
+          </button>
           <button
             onClick={() => dispatch(toggleModalRegister())}
-            className="p-4 text-center text-md font-bold hover:text-secondTeal duration-150"
+            className="block px-4 py-2 text-primaryBlack border-t-2 border-gray-100 hover:bg-teal-800 hover:text-white rounded-b-xl w-full text-left"
           >
-            Đăng ký
+            Đăng Ký
           </button>
         </>
       )}

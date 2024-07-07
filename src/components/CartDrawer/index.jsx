@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleDrawerCart } from "../../redux/features/toggle/toggleSlice";
 import { Button, Drawer, Image, InputNumber } from "antd";
 import { CloseCircleOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { removeCartLocal, updateCartQuantity } from "../../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 
 const CartDrawer = () => {
@@ -12,9 +11,7 @@ const CartDrawer = () => {
 
   const handleQuantityChange = (id, value) => {
     if (value <= 0) {
-      dispatch(removeCartLocal(id));
     } else {
-      dispatch(updateCartQuantity({ id, quantity: value }));
     }
   };
 
@@ -61,10 +58,7 @@ const CartDrawer = () => {
                     />
                   </div>
                 </div>
-                <CloseCircleOutlined
-                  onClick={() => dispatch(removeCartLocal(item.id))}
-                  className="text-red-500 cursor-pointer text-3xl"
-                />
+                <CloseCircleOutlined className="text-red-500 cursor-pointer text-3xl" />
               </div>
             ))}
         </div>

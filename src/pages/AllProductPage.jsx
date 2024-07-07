@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { addLocalCart } from "../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { BiSolidDiscount } from "react-icons/bi";
@@ -30,37 +29,21 @@ const sortProducts = (products, option) => {
 };
 
 // Hàm định dạng giá tiền với dấu phân cách hàng nghìn
-const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 // Component hiển thị từng thẻ sản phẩm
 const ProductCard = ({ product, priceStage }) => {
   const dispatch = useDispatch();
 
-  const discountPercentage =
-    ((product.price - product.discount) / product.price) * 100;
+  const discountPercentage = ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     event.preventDefault();
-    dispatch(
-      addLocalCart({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        discount: product.discount,
-        quantity: 1,
-        proImg: product.cardImg,
-      })
-    );
   };
 
   return (
     <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
-      <Link
-        to={`/fish/${product.id}`}
-        key={product.id}
-        className="block h-full"
-      >
+      <Link to={`/fish/${product._id}`} key={product._id} className="block h-full">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
@@ -82,9 +65,7 @@ const ProductCard = ({ product, priceStage }) => {
                     {product.price}₫
                   </span>
                 )}
-                {priceStage === 2 && (
-                  <span>{formatPrice(product.discount)}₫</span>
-                )}
+                {priceStage === 2 && <span>{formatPrice(product.discount)}₫</span>}
               </>
             )}
           </p>
@@ -187,10 +168,7 @@ const AllProductPage = () => {
   const firstPostIndex = lastPostIndex - productsPerPage;
 
   // Memo hóa sản phẩm đã sắp xếp dựa trên tùy chọn sắp xếp đã chọn
-  const sortedProducts = useMemo(
-    () => sortProducts([...ProductsData], sortOption),
-    [sortOption]
-  );
+  const sortedProducts = useMemo(() => sortProducts([...ProductsData], sortOption), [sortOption]);
 
   // Memo hóa sản phẩm trên trang hiện tại cho phân trang
   const currentPageProducts = useMemo(
@@ -229,10 +207,7 @@ const AllProductPage = () => {
       </div>
       <ShiftingCountdown />
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={currentPageProducts}
-        priceStage={priceStage}
-      />
+      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
       <Pagination
         totalPost={ProductsData.length}
         postPerPage={productsPerPage}
