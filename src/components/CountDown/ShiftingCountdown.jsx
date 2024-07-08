@@ -15,11 +15,11 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="countdown-container lg:mt-4 border-2 border-gray-200 mt-2 bg-gradient-to-br h-[8rem] lg:h-[11rem] rounded-2xl from-teal-700 to-indigo-600 p-3 lg:p-3">
+    <div className="countdown-container lg:mt-4 mt-2 bg-gradient-to-br h-[8rem] shadow-md lg:h-[11rem] border-2 border-primaryGrey from-teal-700 to-indigo-600 p-3 lg:p-3">
         <p className="text-center  text-white text-[1rem] lg:text-[1.5rem]">
             Kết Thúc Ưu Đãi Sau:
         </p>
-      <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center bg-white">
+      <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center shadow-xl bg-white">
         <CountdownItem unit="Day" text="ngày" />
         <CountdownItem unit="Hour" text="giờ" />
         <CountdownItem unit="Minute" text="phút" />

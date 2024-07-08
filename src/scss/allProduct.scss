@@ -6,10 +6,11 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .countdown-container {
+    border-radius: 15px;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
-  .banner{
+  .banner {
     display: none;
   }
 }
@@ -38,6 +39,7 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .countdown-container {
+    border-radius: 0px;
     margin-left: 10rem;
     margin-right: 10rem;
   }
@@ -47,7 +49,7 @@
     padding-left: 10px;
     padding-right: 10px;
   }
-  .banner{
+  .banner {
     width: 7rem;
     height: 24rem;
     display: block;
@@ -56,14 +58,14 @@
 
 @media (min-width: 1440px) {
   .sort-section {
-    margin-right: 15rem;
+    margin-right: 17rem;
   }
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .countdown-container {
-    margin-left: 25rem;
-    margin-right: 25rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
   }
   .product-container {
     display: flex;
@@ -71,15 +73,15 @@
     padding-left: 10px;
     padding-right: 10px;
   }
-  .banner{
-    width: 12rem;
+  .banner {
+    width: 13.5rem;
     height: 36rem;
     display: block;
   }
 }
 
 @media (min-width: 1920px) {
-  .product-section{
+  .product-section {
     margin-left: 4rem;
     margin-right: 4rem;
   }
@@ -90,32 +92,34 @@
     padding-right: 10px;
   }
   .sort-section {
-    margin-right: 20rem;
+    margin-right: 21rem;
   }
   .product-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .countdown-container {
-    margin-left: 40rem;
-    margin-right: 40rem;
+    margin-left: 0rem;
+    margin-right: 0rem;
   }
-  .banner{
-    width: 12rem;
+  .banner {
+    width: 13.5rem;
     height: 36rem;
     display: block;
   }
 }
 
 .banner {
-  cursor: pointer;
+  cursor: default;
   position: -webkit-sticky;
   position: sticky;
   top: 8rem;
   margin-top: 1.5rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  border-width: 2px;
 }
-.banner:hover{
-transition-duration: 700ms;
+.banner:hover {
+  border-width: 0px;
+  transition-duration: 700ms;
   padding: 5px;
 }

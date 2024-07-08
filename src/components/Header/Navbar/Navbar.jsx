@@ -5,19 +5,13 @@ import { FaFishFins } from "react-icons/fa6";
 import Slidebar from "../SliderBar/Slidebar.jsx";
 import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  toggleDrawerCart,
-  toggleModalLogin,
-  toggleModalRegister,
-} from "../../../redux/features/toggle/toggleSlice.js";
 import { useEffect, useState, useRef } from "react";
 import "../../../scss/bubble.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { FaSearch, FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { message } from "antd";
 import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
-import { message } from "antd";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 
 const Navbar = () => {
@@ -25,9 +19,10 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const [cartLocal, setCartLocal] = useState([]);
   const navigate = useNavigate();
-
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   const handleNavigation = () => {
     navigate("/");
@@ -56,23 +51,36 @@ const Navbar = () => {
     }
   };
 
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+      setIsNavbarVisible(false);
+    } else {
+      setIsNavbarVisible(true);
+    }
+    lastScrollY.current = currentScrollY;
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("scroll", handleScroll);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const fishIconVariants = {
-    initial: { scale: 1 },
-    animate: { scale: [1, 0.9, 1] },
-  };
-
   return (
-    <div className="navbar">
-      <motion.div className="wrapper bg-white lg:fixed lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-2 border-b-2 border-gray-150 lg:mx-[7.5%]">
-        <motion.span className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
-          <button className="flex  mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
+    <motion.div
+      className="navbar"
+      initial={{ y: -100 }}
+      animate={{ y: isNavbarVisible ? 0 : -100 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      style={{ position: 'fixed', width: '100%', top: 0, zIndex: 1000 }}
+    >
+      <div className="wrapper bg-white lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-2 border-b-2 border-gray-150 lg:mx-[7.5%]">
+        <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
+          <button className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
             <BubbleText />
           </button>
 
@@ -100,9 +108,9 @@ const Navbar = () => {
               {isDropdownVisible && <ModalAuth />}
             </div>
           </div>
-        </motion.span>
+        </div>
 
-        <div className="border-l-2 border-primaryGrey pl-2 social">
+        <div className="border-l-2 border-primaryGrey pl-2 mr-[1.6rem] social">
           <Slidebar />
 
           <a href="https://www.facebook.com/traicaguppysaigon?mibextid=LQQJ4d">
@@ -113,16 +121,15 @@ const Navbar = () => {
           </a>
           <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <motion.div
-              variants={fishIconVariants}
-              initial="initial"
-              animate={cartLocal.length > 0 ? "animate" : "initial"}
+              initial={{ scale: 1 }}
+              animate={{ scale: cartLocal.length > 0 ? [1, 0.9, 1] : 1 }}
               transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
               key={cartLocal.length}
             >
               <FaFishFins className="zalo-icon duration-500 text-white" />
             </motion.div>
             <div
-              className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center right-[7%] lg:top-[-25%] top-[-35%] duration-300 text-center rounded-full absolute ${
+              className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center right-[7%] lg:right-[4%] lg:top-[-20%] top-[-35%] duration-300 text-center rounded-full absolute ${
                 cartLocal.length > 0 ? "text-white bg-teal-700 border-0" : "bg-white border-2 "
               }`}
             >
@@ -130,8 +137,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 };
 

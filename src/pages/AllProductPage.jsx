@@ -4,12 +4,14 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 import { BiSolidDiscount } from "react-icons/bi";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductsData from "../data/ProductsData";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
+import saleGift from "../assets/gif/SALE.gif";
 
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -44,7 +46,7 @@ const ProductCard = ({ product, priceStage }) => {
   };
 
   return (
-    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 border-Grey bg-white rounded-3xl relative">
+    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 shadow-xl hover:border-primaryGrey bg-white rounded-3xl relative">
       <Link
         to={`/fish/${product._id}`}
         key={product._id}
@@ -137,18 +139,87 @@ const SortSection = ({ sortOption, setSortOption }) => {
   );
 };
 
+const SaleGiftModal = () => {
+  const [visible, setVisible] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  useEffect(() => {
+    // Kiểm tra localStorage để xem modal đã được hiển thị chưa
+    const hasSeenModal = localStorage.getItem('hasSeenModal');
+    if (!hasSeenModal) {
+      setVisible(true);
+
+      const timer = setTimeout(() => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setVisible(false);
+          // Đánh dấu modal đã được hiển thị
+          localStorage.setItem('hasSeenModal', 'true');
+        }, 500); // Thời gian hiệu ứng trùng khớp với thời gian trong CSS
+      }, 5000); // 5000ms = 5s
+
+      const handleScroll = () => {
+        setFadeOut(true);
+        setTimeout(() => {
+          setVisible(false);
+          // Đánh dấu modal đã được hiển thị
+          localStorage.setItem('hasSeenModal', 'true');
+        }, 500);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
+
+  const handleClose = () => {
+    setFadeOut(true);
+    setTimeout(() => {
+      setVisible(false);
+      // Đánh dấu modal đã được hiển thị
+      localStorage.setItem('hasSeenModal', 'true');
+    }, 500);
+  };
+
+  const handleOutsideClick = (e) => {
+    if (e.target.id === "modal-container") {
+      handleClose();
+    }
+  };
+
+  return (
+    visible && (
+      <div
+        id="modal-container"
+        className={`fixed lg:hidden justify-center items-center top-[3rem] flex w-full h-full bg-black bg-opacity-0 transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
+        onClick={handleOutsideClick}
+      >
+        <div className={`relative w-max-screen h-[100%] mx-auto transition-transform duration-500 ${fadeOut ? 'transform -translate-y-full' : ''}`}>
+          <img
+            className="object-cover w-full h-full"
+            src={saleGift}
+            alt="Sale Gift"
+          />
+          <IoClose onClick={handleClose} className="absolute text-primaryBlack w-[2rem] h-[2rem] right-2 top-4 cursor-pointer" />
+        </div>
+      </div>
+    )
+  );
+};
+
 // Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
+  
   return (
     <div className="product-section rounded-xl">
       <div className=" product-container">
-        <div className=" banner rounded-3xl bg-gradient-to-tr to-teal-700 from-indigo-700  ">
+        <div className=" banner shadow-xl bg-gradient-to-tr to-teal-700 from-indigo-700  ">
           {" "}
-          <img
-            className="w-full h-full rounded-3xl object-fill "
-            src="https://i.redd.it/z4wp2dsb9su11.jpg"
-            alt=""
-          />
+          <img className="w-full h-full  object-cover " src={saleGift} alt="" />
         </div>
         <div className="flex-[2] product-grid grid  place-items-center mx-2 lg:mx-0">
           {currentPageProducts.map((product) => (
@@ -159,14 +230,11 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
             />
           ))}
         </div>
-        <div className=" banner rounded-3xl bg-gradient-to-br to-teal-700 from-indigo-700 ">
+        <div className=" banner shadow-xl bg-gradient-to-br to-teal-700 from-indigo-700 ">
           {" "}
-          <img
-            className="w-full h-full rounded-3xl object-fill "
-            src="https://i.redd.it/b2x57ltacsu11.jpg"
-            alt=""
-          />
+          <img className="w-full h-full object-cover " src={saleGift} alt="" />
         </div>
+        <SaleGiftModal />
       </div>
     </div>
   );
@@ -224,7 +292,7 @@ const AllProductPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="w-[20rem]  lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+        <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
         </h1>
       </div>
