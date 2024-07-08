@@ -110,7 +110,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="border-l-2 border-primaryGrey pl-2 mr-[1.6rem] social">
+        <div className="border-l-2 border-primaryGrey pl-2 mr-[0rem] social">
           <Slidebar />
 
           <a href="https://www.facebook.com/traicaguppysaigon?mibextid=LQQJ4d">
@@ -129,7 +129,7 @@ const Navbar = () => {
               <FaFishFins className="zalo-icon duration-500 text-white" />
             </motion.div>
             <div
-              className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center right-[7%] lg:right-[4%] lg:top-[-20%] top-[-35%] duration-300 text-center rounded-full absolute ${
+              className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-20%] top-[-35%] duration-300 text-center rounded-full absolute ${
                 cartLocal.length > 0 ? "text-white bg-teal-700 border-0" : "bg-white border-2 "
               }`}
             >
