@@ -13,6 +13,21 @@
   .banner {
     display: none;
   }
+  @keyframes deal {
+    0% {
+      transform: translate(0, 100vh);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(0, 0);
+      opacity: 1;
+    }
+  }
+
+  .product-card {
+    animation: deal 2s ease-in-out forwards;
+    opacity: 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -28,6 +43,10 @@
     width: 100%;
     padding-left: 10px;
     padding-right: 10px;
+  }
+  .product-card {
+    animation: none;
+    opacity: 1;
   }
 }
 

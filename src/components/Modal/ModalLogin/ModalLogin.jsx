@@ -75,14 +75,14 @@ const ModalLogin = () => {
         </label>
         <button
           onClick={handlelogin}
-          className="h-10 w-full px-2 text-center font-semibold bg-primaryBlack text-white mt-8 rounded-lg duration-150"
+          className="h-10 w-full hover:border-2 hover:border-teal-500 px-2 text-center font-semibold bg-primaryBlack text-white mt-8 rounded-lg duration-150"
         >
-          Đăng Nhập
+          Đăng Nhập 
         </button>
 
         <div className={styles.smallText}>
-          <span>Bạn chưa có tài khoản?</span>{" "}
-          <a className="text-teal-500 cursor-pointer"
+          <span>Bạn chưa có tài khoản? </span>{" "}
+          <a className="pl-1 text-teal-500 cursor-pointer"
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());

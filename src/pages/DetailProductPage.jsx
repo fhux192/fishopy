@@ -71,12 +71,12 @@ const DetailProductPage = () => {
                   alt={product.title}
                 />
               </div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col lg:gap-2 gap-2">
                 <h1 className="text-3xl lg:ml-[5rem] font-bold">
                   {product.title}
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <h2 className="text-2xl font-bold text-teal-700 mr-4">
+                  <h2 className="text-2xl justify-center items-center rounded-xl font-bold text-primaryTeal mr-4">
                     {product.discount}₫
                   </h2>
                   {product.price !== product.discount && (
@@ -87,13 +87,7 @@ const DetailProductPage = () => {
                 </div>
                 <div className="flex lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg font-semibold">Tình trạng:</span>
-                  <span
-                    className={`${
-                      product.status === "Còn hàng"
-                        ? "text-teal-500 px-2 rounded bg-primaryBlack"
-                        : "text-red-700 px-2 rounded bg-primaryBlack"
-                    } text-lg font-semibold`}
-                  >
+                  <span className="text-lg font-semibold">
                     {product.status}
                   </span>
                 </div>
@@ -124,15 +118,15 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="border-2 hover:p-1 border-primaryGrey bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                  className="group hover:border-primaryBlack border-2 hover:p-1 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
                   THÊM VÀO GIỎ HÀNG
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="group bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
+                  className="group hover:border-teal-500 hover:border-2 bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                 >
-                  <p className=" text-teal-500">MUA NGAY</p>
+                  <p className="group-hover:scale-95 text-white">MUA NGAY</p>
                 </button>
               </div>
             </div>

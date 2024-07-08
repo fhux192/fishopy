@@ -35,7 +35,7 @@ const formatPrice = (price) =>
   price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 // Component hiển thị từng thẻ sản phẩm
-const ProductCard = ({ product, priceStage }) => {
+const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
 
   const discountPercentage =
@@ -46,23 +46,26 @@ const ProductCard = ({ product, priceStage }) => {
   };
 
   return (
-    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 hover:border-primaryGrey bg-white rounded-3xl relative">
+    <div
+      className="product-card group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 hover:border-primaryGrey bg-white rounded-3xl relative"
+      style={{ animationDelay: `${animationDelay}s` }}
+    >
       <Link
         to={`/fish/${product._id}`}
         key={product._id}
-        className="block  h-full"
+        className="block h-full"
       >
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
-          effect="black-and-white"
-          className=" lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
+          effect="blur"
+          className="lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem] duration-700 object-contain"
         />
         <div className="-translate-y-2">
           <h2 className="whitespace-pre-line border-t-2 pt-2 border-primaryGrey mt-2 mx-2 font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
           </h2>
-          <p className=" mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
+          <p className="mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
             ) : (
@@ -82,7 +85,7 @@ const ProductCard = ({ product, priceStage }) => {
         </div>
 
         {product.price !== product.discount && (
-          <div className="absolute font-semibold bottom-0  right-0  bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+          <div className="absolute font-semibold bottom-0 right-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
             <div className="flex px-1 gap-[1px] items-center">
               Giảm {Math.round(discountPercentage)}%
             </div>
@@ -91,13 +94,14 @@ const ProductCard = ({ product, priceStage }) => {
       </Link>
       <div
         onClick={handleAddToCart}
-        className="absolute flex duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full cursor-pointer"
+        className="absolute flex duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0 left-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] rounded-full cursor-pointer"
       >
         <FaCartPlus />
       </div>
     </div>
   );
 };
+
 
 // Component xử lý tùy chọn sắp xếp
 const SortSection = ({ sortOption, setSortOption }) => {
@@ -143,28 +147,28 @@ const SortSection = ({ sortOption, setSortOption }) => {
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="product-section rounded-xl">
-      <div className=" product-container">
-        <div className=" banner">
-          {" "}
-          <img className="w-full h-full  object-cover " src={saleGift} alt="" />
+      <div className="product-container">
+        <div className="banner">
+          <img className="w-full h-full object-cover" src={saleGift} alt="" />
         </div>
-        <div className="flex-[2] product-grid grid  place-items-center mx-2 lg:mx-0">
-          {currentPageProducts.map((product) => (
+        <div className="flex-[2] product-grid grid place-items-center mx-2 lg:mx-0">
+          {currentPageProducts.map((product, index) => (
             <ProductCard
               key={product._id}
               product={product}
               priceStage={priceStage}
+              animationDelay={index * 0.1} // Thêm delay cho từng thẻ
             />
           ))}
         </div>
-        <div className=" banner ">
-          {" "}
-          <img className="w-full h-full object-cover " src={saleGift} alt="" />
+        <div className="banner">
+          <img className="w-full h-full object-cover" src={saleGift} alt="" />
         </div>
       </div>
     </div>
   );
 };
+
 
 const AllProductPage = () => {
   // State quản lý trang hiện tại
