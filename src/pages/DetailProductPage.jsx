@@ -90,8 +90,8 @@ const DetailProductPage = () => {
                   <span
                     className={`${
                       product.status === "Còn hàng"
-                        ? "text-teal-500"
-                        : "text-red-500"
+                        ? "text-teal-500 px-2 rounded bg-primaryBlack"
+                        : "text-red-700 px-2 rounded bg-primaryBlack"
                     } text-lg font-semibold`}
                   >
                     {product.status}
@@ -109,7 +109,7 @@ const DetailProductPage = () => {
                       -
                     </button>
                     <input
-                      className="flex w-[3rem] border-2 rounded-xl text-xl border-gray-400 text-center justify-center"
+                      className="flex w-[3rem] border-2 rounded-xl text-xl border-gray-200 text-center justify-center"
                       value={quantity}
                       min={1}
                       onChange={(e) => setQuantity(e.target.value)}
@@ -130,9 +130,9 @@ const DetailProductPage = () => {
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className=" bg-primaryBlack hover:scale-105  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
+                  className="group bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                 >
-                  <p className="Text">MUA NGAY</p>
+                  <p className=" text-teal-500">MUA NGAY</p>
                 </button>
               </div>
             </div>

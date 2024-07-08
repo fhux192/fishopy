@@ -46,7 +46,7 @@ const ProductCard = ({ product, priceStage }) => {
   };
 
   return (
-    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 shadow-xl hover:border-primaryGrey bg-white rounded-3xl relative">
+    <div className="group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 hover:border-primaryGrey bg-white rounded-3xl relative">
       <Link
         to={`/fish/${product._id}`}
         key={product._id}
@@ -56,20 +56,20 @@ const ProductCard = ({ product, priceStage }) => {
           src={product.cardImg}
           alt={product.title}
           effect="black-and-white"
-          className="shadow-teal-900 lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
+          className=" lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem]  duration-1000 object-contain"
         />
         <div className="-translate-y-2">
           <h2 className="whitespace-pre-line border-t-2 pt-2 border-primaryGrey mt-2 mx-2 font-bold text-lg lg:text-2xl text-primaryBlack">
             {product.title}
           </h2>
-          <p className="group-hover:text-teal-900 mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
+          <p className=" mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
             ) : (
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
                 {priceStage === 1 && (
-                  <span className="line-through font-semibold  decoration-teal-700">
+                  <span className="line-through font-semibold  decoration-black">
                     {product.price}₫
                   </span>
                 )}
@@ -82,7 +82,7 @@ const ProductCard = ({ product, priceStage }) => {
         </div>
 
         {product.price !== product.discount && (
-          <div className="absolute font-semibold bottom-0  right-0  bg-gradient-to-r from-sky-500 to-indigo-500 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
+          <div className="absolute font-semibold bottom-0  right-0  bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
             <div className="flex px-1 gap-[1px] items-center">
               Giảm {Math.round(discountPercentage)}%
             </div>
@@ -91,7 +91,7 @@ const ProductCard = ({ product, priceStage }) => {
       </Link>
       <div
         onClick={handleAddToCart}
-        className="absolute flex hover:bg-teal-600 duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-sky-500 lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full cursor-pointer"
+        className="absolute flex duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0  left-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px]  rounded-full cursor-pointer"
       >
         <FaCartPlus />
       </div>
@@ -125,7 +125,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
             key={option}
             className={`flex h-[2rem] font-semibold min-w-[9.5rem] border-2 border-primaryGrey text-sm justify-center items-center px-4 py-2 rounded-xl lg:mt-4 lg:mx-0 mx-2 lg:mr-2 ${
               sortOption === option
-                ? "  bg-primaryBlack text-white border-grey-100"
+                ? "  bg-primaryBlack text-white border-teal-500"
                 : "bg-white text-primaryGrey"
             }`}
             onClick={() => setSortOption(option)}
@@ -139,85 +139,12 @@ const SortSection = ({ sortOption, setSortOption }) => {
   );
 };
 
-const SaleGiftModal = () => {
-  const [visible, setVisible] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    // Kiểm tra localStorage để xem modal đã được hiển thị chưa
-    const hasSeenModal = localStorage.getItem('hasSeenModal');
-    if (!hasSeenModal) {
-      setVisible(true);
-
-      const timer = setTimeout(() => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setVisible(false);
-          // Đánh dấu modal đã được hiển thị
-          localStorage.setItem('hasSeenModal', 'true');
-        }, 500); // Thời gian hiệu ứng trùng khớp với thời gian trong CSS
-      }, 5000); // 5000ms = 5s
-
-      const handleScroll = () => {
-        setFadeOut(true);
-        setTimeout(() => {
-          setVisible(false);
-          // Đánh dấu modal đã được hiển thị
-          localStorage.setItem('hasSeenModal', 'true');
-        }, 500);
-      };
-
-      window.addEventListener('scroll', handleScroll);
-
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
-
-  const handleClose = () => {
-    setFadeOut(true);
-    setTimeout(() => {
-      setVisible(false);
-      // Đánh dấu modal đã được hiển thị
-      localStorage.setItem('hasSeenModal', 'true');
-    }, 500);
-  };
-
-  const handleOutsideClick = (e) => {
-    if (e.target.id === "modal-container") {
-      handleClose();
-    }
-  };
-
-  return (
-    visible && (
-      <div
-        id="modal-container"
-        className={`fixed lg:hidden justify-center items-center top-[3rem] flex w-full h-full bg-black bg-opacity-0 transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
-        onClick={handleOutsideClick}
-      >
-        <div className={`relative w-max-screen h-[100%] mx-auto transition-transform duration-500 ${fadeOut ? 'transform -translate-y-full' : ''}`}>
-          <img
-            className="object-cover w-full h-full"
-            src={saleGift}
-            alt="Sale Gift"
-          />
-          <IoClose onClick={handleClose} className="absolute text-primaryBlack w-[2rem] h-[2rem] right-2 top-4 cursor-pointer" />
-        </div>
-      </div>
-    )
-  );
-};
-
 // Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
-  
   return (
     <div className="product-section rounded-xl">
       <div className=" product-container">
-        <div className=" banner shadow-xl bg-gradient-to-tr to-teal-700 from-indigo-700  ">
+        <div className=" banner">
           {" "}
           <img className="w-full h-full  object-cover " src={saleGift} alt="" />
         </div>
@@ -230,11 +157,10 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
             />
           ))}
         </div>
-        <div className=" banner shadow-xl bg-gradient-to-br to-teal-700 from-indigo-700 ">
+        <div className=" banner ">
           {" "}
           <img className="w-full h-full object-cover " src={saleGift} alt="" />
         </div>
-        <SaleGiftModal />
       </div>
     </div>
   );

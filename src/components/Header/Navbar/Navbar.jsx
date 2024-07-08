@@ -84,16 +84,16 @@ const Navbar = () => {
             <BubbleText />
           </button>
 
-          <div className="group duration-1000 lg:flex hidden flex-[2] items-center mx-[2%]">
+          <div className=" duration-1000 lg:flex hidden flex-[2] items-center mx-[2%]">
             <input
               type="text"
-              className="w-full bg-gray-100 p-[2px] pl-4 font-semibold text-xl text-primaryGrey border-2 border-gray-100 rounded-full focus:outline-gray-200"
+              className="w-full  bg-white p-[2px] pl-4 font-semibold text-xl text-primaryBlack border-2 border-gray-150 rounded-full focus:outline-primaryBlack"
             />
-            <button className="flex justify-center items-center duration-1000 ml-4 border-2 border-gray-100 rounded-full w-20 h-9">
-              <FaSearch className="text-secondGrey" />
+            <button className="group flex hover:bg-primaryBlack justify-center items-center duration-300 ml-4 border-2  border-gray-200 rounded-full w-20 h-9">
+              <FaSearch className="group-hover:text-white text-secondBlack" />
             </button>
           </div>
-          <div className="mt-[3px] border-primaryGrey social">
+          <div className=" border-primaryGrey social">
             <Link to="/product">
               <FaHome className="lg:block hidden icon mr-[17px] duration-500" />
             </Link>
@@ -110,9 +110,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="border-l-2 border-primaryGrey pl-2 mr-[0rem] social">
+        <div className="border-l-2 border-primaryBlack pl-2 mr-[0rem] social">
           <Slidebar />
-
           <a href="https://www.facebook.com/traicaguppysaigon?mibextid=LQQJ4d">
             <FaFacebook className="icon mr-[10px] duration-500" />
           </a>
@@ -144,7 +143,7 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-    <div className="font-sans text-teal-700 w-full text-xl min-[320px]:text-lg min-[321px]:text-[24px] min-[425px]:text-2xl min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
+    <div className="font-sans text-primaryTeal w-full text-xl min-[320px]:text-lg min-[321px]:text-[24px] min-[425px]:text-2xl min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
         <span className=" cursor-pointer hoverText" key={idx}>
           {child}

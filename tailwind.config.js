@@ -15,7 +15,7 @@ export default {
       },
       colors: {
         // Configure your color palette here
-        primaryBlack: "#141414",
+        primaryBlack: "#191919",
         secondBlack: "#111111",
         thirdBlack: "#4a4a4a",
         primaryGrey: "#666666",

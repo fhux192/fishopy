@@ -15,8 +15,8 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="countdown-container lg:mt-4 mt-2 bg-gradient-to-br h-[8rem] shadow-md lg:h-[11rem] border-2 border-primaryGrey from-teal-700 to-indigo-600 p-3 lg:p-3">
-        <p className="text-center  text-white text-[1rem] lg:text-[1.5rem]">
+    <div className="countdown-container lg:mt-4 mt-2  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
+        <p className="text-center  text-teal-500 text-[1rem] lg:text-[1.5rem]">
             Kết Thúc Ưu Đãi Sau:
         </p>
       <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center shadow-xl bg-white">
@@ -33,7 +33,7 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-primaryGrey rounded-xl  font-mono md:h-[7rem] md:gap-2">
+    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-primaryBlack rounded-xl  font-mono md:h-[7rem] md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}

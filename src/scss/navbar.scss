@@ -16,7 +16,8 @@
     .social {
       display: flex;
       gap: 0px;
-
+      justify-items: center;
+      align-items: center;
       a {
         display: inline-block;
       }
@@ -25,11 +26,14 @@
     .icon {
       width: 35px;
       height: 35px;
+      
       transition: transform 0.2s;
-      color: #4a4a4a;
-      &:hover {
-        transform: scale(1.1);
-      }
+      color: #191919;
+    }
+    
+    .icon:hover {
+      color: #0a6c62;
+      transform: rotate(360deg);
     }
 
     .zalo-icon {
@@ -37,11 +41,11 @@
       height: 35px;
       margin-right: 20px;
       transition: transform 0.2s;
-      color: #4a4a4a;
-
-      &:hover {
-        transform: scale(1.1);
-      }
+      color: #191919;
+    }
+    .zalo-icon:hover {
+      color: #0a6c62;
+      transform: rotate(360deg);
     }
     .top-text {
       font-size: 25px;
@@ -59,7 +63,10 @@
         width: 33px;
         height: 33px;
       }
-
+      .social{
+        align-items:normal ;
+      }
+   
       .top-text {
         font-size: 18px;
       }
@@ -90,7 +97,7 @@
     #95cbc4
   );
   background-size: 400% 400%;
-  color: #141414;
+  color: #191919;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   animation: rotateGradient 10s 1s infinite;
@@ -103,38 +110,19 @@
     #d5e0e0,
     #d5e0e0,
     #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #f6f6f6,
-    #f6f6f6,
-    #f6f6f6,
-    #d5e0e0,
-    #d5e0e0,
-    #e6e6e6,
-    #f6f6f6,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
-    #d5e0e0,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffffff,
     #d5e0e0,
     #d5e0e0,
     #d5e0e0,
     #d5e0e0
   );
   background-size: 400% 400%;
-  color: #141414;
+  color: #191919;
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   animation: rotateGradient 10s 1s infinite;

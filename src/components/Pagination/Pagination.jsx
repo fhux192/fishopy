@@ -11,7 +11,7 @@ const Pagination = ({ totalPost, postPerPage ,setCurrentPage,currentPage}) => {
         <div
           key={number}
           onClick={() => setCurrentPage(number) }
-          className={`flex font-semibold items-center justify-center ${ number == currentPage? " bg-primaryBlack text-white" : "bg-white border-2 border-primaryGrey text-primaryBlack"}  w-8 h-8 mb-10 mt-[1.5rem] rounded-md mx-[1rem] bg-primaryBlack  cursor-pointer`}
+          className={`flex font-semibold items-center justify-center ${ number == currentPage? " bg-primaryBlack border-2 text-white border-teal-500" : "bg-white border-2 border-primaryGrey text-primaryBlack"}  w-8 h-8 mb-10 mt-[1.5rem] rounded-md mx-[1rem] bg-primaryBlack  cursor-pointer`}
         >
           {number}
         </div>
