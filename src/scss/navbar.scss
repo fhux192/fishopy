@@ -26,11 +26,10 @@
     .icon {
       width: 35px;
       height: 35px;
-      
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
       color: #191919;
     }
-    
+
     .icon:hover {
       color: #0a6c62;
       transform: rotate(360deg);
@@ -40,7 +39,8 @@
       width: 45px;
       height: 35px;
       margin-right: 20px;
-      transition: transform 0.2s;
+      cursor: pointer;
+      transition: all 0.3s ease;
       color: #191919;
     }
     .zalo-icon:hover {
@@ -63,10 +63,10 @@
         width: 33px;
         height: 33px;
       }
-      .social{
-        align-items:normal ;
+      .social {
+        align-items: normal;
       }
-   
+
       .top-text {
         font-size: 18px;
       }

@@ -1,11 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import { BiSolidDiscount } from "react-icons/bi";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductsData from "../data/ProductsData";
@@ -18,7 +15,6 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "../scss/navbar.scss";
 import "../scss/allProduct.scss";
 
-// Hàm sắp xếp sản phẩm dựa trên tùy chọn sắp xếp
 const sortProducts = (products, option) => {
   const sortFunctions = {
     default: (a, b) => 0,
@@ -30,16 +26,10 @@ const sortProducts = (products, option) => {
   return products.sort(sortFunctions[option]);
 };
 
-// Hàm định dạng giá tiền với dấu phân cách hàng nghìn
-const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-// Component hiển thị từng thẻ sản phẩm
 const ProductCard = ({ product, priceStage, animationDelay }) => {
-  const dispatch = useDispatch();
-
-  const discountPercentage =
-    ((product.price - product.discount) / product.price) * 100;
+  const discountPercentage = ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     event.preventDefault();
@@ -47,34 +37,26 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   return (
     <div
-      className="product-card group lg:mt-[1.5rem] mt-4 h-[15rem] w-[11rem] lg:w-[14rem] lg:h-[20rem] md:h-52 border-2 hover:border-primaryGrey bg-white rounded-3xl relative"
+      className="product-card"
       style={{ animationDelay: `${animationDelay}s` }}
     >
-      <Link
-        to={`/fish/${product._id}`}
-        key={product._id}
-        className="block h-full"
-      >
+      <Link to={`/fish/${product._id}`} key={product._id} className="image-wrapper">
         <LazyLoadImage
           src={product.cardImg}
           alt={product.title}
           effect="blur"
-          className="lg:group-hover:translate-y-[-2.2rem] group-hover:translate-y-[-1.4rem] rounded-3xl lg:translate-y-[-0rem] -translate-y-[-0.2rem] lg:h-[10rem] lg:w-[14rem] w-[11rem] h-[7rem] duration-700 object-contain"
+          className=""
         />
-        <div className="-translate-y-2">
-          <h2 className="whitespace-pre-line border-t-2 pt-2 border-primaryGrey mt-2 mx-2 font-bold text-lg lg:text-2xl text-primaryBlack">
-            {product.title}
-          </h2>
-          <p className="mx-2 font-mono font-bold text-md lg:text-xl text-primaryGrey h-12">
+        <div className="text-content">
+          <h2>{product.title}</h2>
+          <p>
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
             ) : (
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
                 {priceStage === 1 && (
-                  <span className="line-through font-semibold  decoration-black">
-                    {product.price}₫
-                  </span>
+                  <span className="line-through">{product.price}₫</span>
                 )}
                 {priceStage === 2 && (
                   <span>{formatPrice(product.discount)}₫</span>
@@ -83,55 +65,59 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             )}
           </p>
         </div>
-
         {product.price !== product.discount && (
-          <div className="absolute font-semibold bottom-0 right-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] p-1 rounded-3xl">
-            <div className="flex px-1 gap-[1px] items-center">
+          <div className="discount">
+            <div className="flex">
               Giảm {Math.round(discountPercentage)}%
             </div>
           </div>
         )}
       </Link>
-      <div
-        onClick={handleAddToCart}
-        className="absolute flex duration-300 justify-center items-center lg:h-[2.7rem] lg:w-[2.8rem] w-[2.3rem] h-[2.2rem] bottom-0 left-0 bg-primaryBlack lg:border-8 border-4 border-gray-100 text-white lg:text-sm text-sm m-[1px] rounded-full cursor-pointer"
-      >
+      <div onClick={handleAddToCart} className="add-to-cart">
         <FaCartPlus />
       </div>
     </div>
   );
 };
 
-
-// Component xử lý tùy chọn sắp xếp
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
-    { option: "default", label: "Mặc Định" },
+    { option: 'default', label: 'Mặc Định' },
     {
-      option: "priceDesc",
-      label: "Cao - Thấp",
+      option: 'priceDesc',
+      label: 'Cao - Thấp',
       icon: <FaSortAmountDown className="mr-2" />,
     },
     {
-      option: "priceAsc",
-      label: "Thấp - Cao",
+      option: 'priceAsc',
+      label: 'Thấp - Cao',
       icon: <FaSortAmountUp className="mr-2" />,
     },
-    { option: "titleAsc", label: "Tên từ A - Z" },
-    { option: "titleDesc", label: "Tên từ Z - A" },
+    { option: 'titleAsc', label: 'Tên từ A - Z' },
+    { option: 'titleDesc', label: 'Tên từ Z - A' },
   ];
 
+  const [activeStyle, setActiveStyle] = useState({});
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const activeButton = containerRef.current.querySelector('.selected');
+    if (activeButton) {
+      setActiveStyle({
+        transform: `translateX(${activeButton.offsetLeft}px)`,
+        width: `${activeButton.clientWidth}px`,
+      });
+    }
+  }, [sortOption]);
+
   return (
-    <div className="sort-section ml-0 pt-[1rem]  flex justify-center lg:justify-end items-center overflow-hidden">
-      <div className="flex pb-2 overflow-x-auto scrollbar-hide">
+    <div className="sort-section">
+      <div className="sort-buttons" ref={containerRef}>
+        <div className="active-background" style={activeStyle}></div>
         {sortButtons.map(({ option, label, icon }) => (
           <button
             key={option}
-            className={`flex h-[2rem] font-semibold min-w-[9.5rem] border-2 border-primaryGrey text-sm justify-center items-center px-4 py-2 rounded-xl lg:mt-4 lg:mx-0 mx-2 lg:mr-2 ${
-              sortOption === option
-                ? "  bg-primaryBlack text-white border-teal-500"
-                : "bg-white text-primaryGrey"
-            }`}
+            className={`sort-button ${sortOption === option ? 'selected' : 'unselected'}`}
             onClick={() => setSortOption(option)}
           >
             {icon}
@@ -143,7 +129,6 @@ const SortSection = ({ sortOption, setSortOption }) => {
   );
 };
 
-// Component hiển thị danh sách sản phẩm
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="product-section rounded-xl">
@@ -157,7 +142,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
               key={product._id}
               product={product}
               priceStage={priceStage}
-              animationDelay={index * 0.1} // Thêm delay cho từng thẻ
+              animationDelay={index * 0.1}
             />
           ))}
         </div>
@@ -169,43 +154,31 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   );
 };
 
-
 const AllProductPage = () => {
-  // State quản lý trang hiện tại
   const [currentPage, setCurrentPage] = useState(1);
-  // State quản lý tùy chọn sắp xếp đã chọn
   const [sortOption, setSortOption] = useState("default");
-  // State quản lý giai đoạn hiển thị giá (0: mặc định, 1: gạch ngang, 2: giảm giá)
   const [priceStage, setPriceStage] = useState(0);
 
-  // Số lượng sản phẩm mỗi trang
   const productsPerPage = 15;
-  // Chỉ số của sản phẩm cuối cùng trên trang hiện tại
   const lastPostIndex = currentPage * productsPerPage;
-  // Chỉ số của sản phẩm đầu tiên trên trang hiện tại
   const firstPostIndex = lastPostIndex - productsPerPage;
 
-  // Memo hóa sản phẩm đã sắp xếp dựa trên tùy chọn sắp xếp đã chọn
   const sortedProducts = useMemo(
     () => sortProducts([...ProductsData], sortOption),
     [sortOption]
   );
 
-  // Memo hóa sản phẩm trên trang hiện tại cho phân trang
   const currentPageProducts = useMemo(
     () => sortedProducts.slice(firstPostIndex, lastPostIndex),
     [sortedProducts, firstPostIndex, lastPostIndex]
   );
 
-  // Cuộn lên đầu khi trang hiện tại thay đổi
   useEffect(() => window.scrollTo(0, 0), [currentPage]);
 
-  // Đặt tiêu đề trang
   useEffect(() => {
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
   }, []);
 
-  // Chu kỳ hiển thị giai đoạn giá
   useEffect(() => {
     const cyclePrices = () => {
       setPriceStage(0);
@@ -221,7 +194,7 @@ const AllProductPage = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+      <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
         <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
         </h1>

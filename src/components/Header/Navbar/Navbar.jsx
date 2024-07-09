@@ -13,7 +13,7 @@ import { message } from "antd";
 import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
-
+import { FaBagShopping } from "react-icons/fa6";
 const Navbar = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -84,26 +84,29 @@ const Navbar = () => {
             <BubbleText />
           </button>
 
-          <div className=" duration-1000 lg:flex hidden flex-[2] items-center mx-[2%]">
+          <div className=" duration-1000 lg:flex hidden flex-[2] items-center mr-[6%] mx-[2%]">
             <input
               type="text"
               className="w-full  bg-white p-[2px] pl-4 font-semibold text-xl text-primaryBlack border-2 border-gray-150 rounded-full focus:outline-primaryBlack"
             />
-            <button className="group flex hover:bg-primaryBlack justify-center items-center duration-300 ml-4 border-2  border-gray-200 rounded-full w-20 h-9">
-              <FaSearch className="group-hover:text-white text-secondBlack" />
+            <button className="group flex hover:border-primaryBlack justify-center items-center duration-300 ml-4 border-2  border-gray-200 rounded-full w-20 h-9">
+              <FaSearch className="group-hover:scale-95 text-secondBlack" />
             </button>
           </div>
           <div className=" border-primaryGrey social">
+            <Link to="/">
+              <FaHome title="Trang Chủ " className="lg:block hidden icon mr-[17px] duration-500" />
+            </Link>
             <Link to="/product">
-              <FaHome className="lg:block hidden icon mr-[17px] duration-500" />
+            <FaBagShopping title="Sản Phẩm" className="lg:block hidden icon mr-[17px] duration-500" />
             </Link>
             <Link to="/address">
-              <FaMapMarkedAlt className="lg:block hidden icon mr-[17px] duration-500" />
+              <FaMapMarkedAlt title="Địa Chỉ" className="lg:block hidden icon mr-[17px] duration-500" />
             </Link>
             <div className="relative" ref={dropdownRef}>
-              <FaUserTag
+              <FaUserTag title="Tài Khoản"
                 onClick={handleUserTagClick}
-                className="lg:block hidden icon mr-[16px] duration-500 cursor-pointer"
+                className="lg:block hidden icon mr-2 duration-500 cursor-pointer"
               />
               {isDropdownVisible && <ModalAuth />}
             </div>

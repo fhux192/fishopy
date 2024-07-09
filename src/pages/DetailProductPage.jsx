@@ -118,15 +118,15 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="group hover:border-primaryBlack border-2 hover:p-1 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                  className="group hover:border-primaryBlack border-2  border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
-                  THÊM VÀO GIỎ HÀNG
+                  <p className="group-hover:scale-95 duration-300">THÊM VÀO GIỎ HÀNG</p>
                 </button>
                 <button
                   onClick={handlePaymentClick}
                   className="group hover:border-teal-500 hover:border-2 bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                 >
-                  <p className="group-hover:scale-95 text-white">MUA NGAY</p>
+                  <p className="group-hover:scale-95 duration-300">MUA NGAY</p>
                 </button>
               </div>
             </div>

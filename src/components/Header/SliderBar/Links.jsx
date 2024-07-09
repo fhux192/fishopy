@@ -11,6 +11,7 @@ import {
   FaUserPlus,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { FaBagShopping } from "react-icons/fa6";
 import {
   toggleModalLogin,
   toggleModalRegister,
@@ -47,7 +48,7 @@ const itemVariants = {
 const Links = () => {
   const items = [
     { name: "Trang Chủ", icon: <FaHome className="mb-2"/> },
-    { name: "Sản Phẩm", icon: <FaProductHunt className="mb-2"/> },
+    { name: "Sản Phẩm", icon: <FaBagShopping className="mb-2"/> },
     { name: "Địa Chỉ", icon: <FaMapMarkedAlt className="mb-2"/> },
   ];
   const dispatch = useDispatch();
