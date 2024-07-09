@@ -51,7 +51,7 @@
 @media (min-width: 1024px) {
   .sort-section {
     margin-right: 7rem;
-  
+
     padding-top: 1rem;
   }
   .product-grid {
@@ -136,10 +136,12 @@
   margin-top: 1.5rem;
   margin-left: 1rem;
   margin-right: 1rem;
-  &:hover {
-    border-width: 0px;
-    transition: all 0.3s ease;
-    padding: 4px;
+  @media (min-width: 1024px) {
+    &:hover {
+      border-width: 0px;
+      transition: all 0.3s ease;
+      padding: 4px;
+    }
   }
 }
 
@@ -201,7 +203,7 @@
       min-width: 9.5rem;
       background-color: #191919;
       border-radius: 0.95rem;
-      transition: transform 0.3s ease, width 0.3s ease;
+      transition: transform 0.7s ease, width 0.3s ease;
       z-index: 0;
 
       @media (min-width: 375px) {
@@ -232,7 +234,7 @@
   background-color: white;
   position: relative;
   overflow: visible;
-  
+
   &:hover {
     .image-wrapper img {
       transform: translateY(-2.2rem);
