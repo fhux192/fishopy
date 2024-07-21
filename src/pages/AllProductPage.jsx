@@ -33,20 +33,28 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   const handleAddToCart = (event) => {
     event.preventDefault();
+    // Add to cart logic here
   };
 
+  // Determine the class based on the number of images
+  const imageCountClass = product.proImg.length === 1 ? 'single-image' : 
+                          product.proImg.length === 3 ? 'three-images' : 
+                          product.proImg.length === 4 ? 'four-images' : 'multiple-images';
+
   return (
-    <div
-      className="product-card"
-      style={{ animationDelay: `${animationDelay}s` }}
-    >
+    <div className={`product-card `} style={{ animationDelay: `${animationDelay}s` }}>
       <Link to={`/fish/${product._id}`} key={product._id} className="image-wrapper">
-        <LazyLoadImage
-          src={product.cardImg}
-          alt={product.title}
-          effect="blur"
-          className=""
-        />
+        <div className={`${imageCountClass}`}>
+          {product.proImg.map((img, index) => (
+            <LazyLoadImage
+              key={index}
+              src={img}
+              alt={`${product.title} image ${index + 1}`}
+              effect="blur"
+              className="image-item"
+            />
+          ))}
+        </div>
         <div className="text-content">
           <h2>{product.title}</h2>
           <p>
@@ -55,21 +63,15 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             ) : (
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
-                {priceStage === 1 && (
-                  <span className="line-through">{product.price}₫</span>
-                )}
-                {priceStage === 2 && (
-                  <span>{formatPrice(product.discount)}₫</span>
-                )}
+                {priceStage === 1 && <span className="line-through">{product.price}₫</span>}
+                {priceStage === 2 && <span>{formatPrice(product.discount)}₫</span>}
               </>
             )}
           </p>
         </div>
         {product.price !== product.discount && (
           <div className="discount">
-            <div className="flex">
-              Giảm {Math.round(discountPercentage)}%
-            </div>
+            <div className="flex">Giảm {Math.round(discountPercentage)}%</div>
           </div>
         )}
       </Link>
@@ -79,6 +81,8 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     </div>
   );
 };
+
+
 
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
@@ -134,25 +138,21 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
     <div className="product-section rounded-xl">
       <div className="product-container">
         <div className="banner">
-          <img className="w-full h-full object-cover" src={saleGift} alt="" />
+          <img className="w-full h-full object-cover" src={saleGift} alt="Sale" />
         </div>
         <div className="flex-[2] product-grid grid place-items-center mx-2 lg:mx-0">
           {currentPageProducts.map((product, index) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              priceStage={priceStage}
-              animationDelay={index * 0.1}
-            />
+            <ProductCard key={product._id} product={product} priceStage={priceStage} animationDelay={index * 0.1} />
           ))}
         </div>
         <div className="banner">
-          <img className="w-full h-full object-cover" src={saleGift} alt="" />
+          <img className="w-full h-full object-cover" src={saleGift} alt="Sale" />
         </div>
       </div>
     </div>
   );
 };
+
 
 const AllProductPage = () => {
   const [currentPage, setCurrentPage] = useState(1);

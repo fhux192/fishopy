@@ -2,7 +2,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import ProductsData from "../data/ProductsData"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/customImageGallery.scss"; // Import custom CSS file
-import ProductSlider from "../components/Header/SliderBar/ProductSlider.jsx";
 import { Input } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,12 +15,13 @@ const DetailProductPage = () => {
   const navigate = useNavigate();
   const product = ProductsData.find((item) => item._id === parseInt(id));
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState("details"); // State for active tab
-  const [reviews, setReviews] = useState([]); // State for managing reviews
-  const [reviewText, setReviewText] = useState(""); // State for new review text
+  const [activeTab, setActiveTab] = useState("details");
+  const [reviews, setReviews] = useState([]);
+  const [reviewText, setReviewText] = useState("");
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const dispatch = useDispatch();
+
   if (!product) {
     return (
       <div className="min-h-screen flex justify-center items-center">
@@ -35,7 +35,6 @@ const DetailProductPage = () => {
   };
 
   const handleAddToCart = async () => {
-    console.log("product", product);
     if (userInfo) {
       try {
         const res = await callAddToCart({ productId: product._id, quantity });
@@ -44,6 +43,7 @@ const DetailProductPage = () => {
           dispatch(addToCart({ product, quantity }));
         }
       } catch (error) {
+        toast.error("Error adding to cart");
         console.error(error);
       }
     } else {
@@ -58,29 +58,52 @@ const DetailProductPage = () => {
     }
   };
 
+  const handleQuantityChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    if (isNaN(value) || value < 1) {
+      setQuantity(1);
+    } else {
+      setQuantity(value);
+    }
+  };
+
+  const decrementQuantity = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+
+  const incrementQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
   return (
     <>
-      <div className="bg-gray-100  flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className="bg-gray-100 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
           <div className="lg:mt-[4.3rem] mt-[4rem] bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem]">
-                <img
-                  className="rounded-xl"
-                  src={product.proImg}
-                  alt={product.title}
-                />
+              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem] relative pt-[56.25%]"> {/* 16:9 aspect ratio */}
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src={`${product.videoUrl}?autoplay=1&mute=1&vq=hd1080`}
+                  title={product.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute top-0 left-0 w-full h-full rounded-xl"
+                ></iframe>
               </div>
+
               <div className="flex flex-col lg:gap-2 gap-2">
                 <h1 className="text-3xl lg:ml-[5rem] font-bold">
                   {product.title}
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
-                  <h2 className="text-2xl justify-center items-center rounded-xl font-bold text-primaryTeal mr-4">
+                  <h2 className="text-2xl font-bold text-primaryTeal mr-4">
                     {product.discount}₫
                   </h2>
                   {product.price !== product.discount && (
-                    <h2 className="text-xl font-semibold  text-gray-500 line-through">
+                    <h2 className="text-xl font-semibold text-gray-500 line-through">
                       {product.price}₫
                     </h2>
                   )}
@@ -96,21 +119,23 @@ const DetailProductPage = () => {
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
-                      onClick={() =>
-                        setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
-                      }
+                      onClick={decrementQuantity}
+                      aria-label="Decrease quantity"
                     >
                       -
                     </button>
                     <input
-                      className="flex w-[3rem] border-2 rounded-xl text-xl border-gray-200 text-center justify-center"
+                      className="w-[3rem] border-2 rounded-xl text-xl border-gray-200 text-center"
+                      type="number"
                       value={quantity}
                       min={1}
-                      onChange={(e) => setQuantity(e.target.value)}
+                      onChange={handleQuantityChange}
+                      aria-label="Product quantity"
                     />
                     <button
                       className="px-3 py-1 text-xl"
-                      onClick={() => setQuantity((prev) => prev + 1)}
+                      onClick={incrementQuantity}
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
@@ -118,13 +143,15 @@ const DetailProductPage = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="group hover:border-primaryBlack border-2  border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg  text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                  className="group hover:border-primaryBlack border-2 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
-                  <p className="group-hover:scale-95 duration-300">THÊM VÀO GIỎ HÀNG</p>
+                  <p className="group-hover:scale-95 duration-300">
+                    THÊM VÀO GIỎ HÀNG
+                  </p>
                 </button>
                 <button
                   onClick={handlePaymentClick}
-                  className="group hover:border-teal-500 hover:border-2 bg-primaryBlack  lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
+                  className="group hover:border-teal-500 hover:border-2 bg-primaryBlack lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                 >
                   <p className="group-hover:scale-95 duration-300">MUA NGAY</p>
                 </button>
@@ -194,11 +221,11 @@ const DetailProductPage = () => {
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
                       placeholder="Viết câu hỏi của bạn..."
-                      className="border-teal-500 rounded-xl w-[100%] hover:border-teal-700 focus:border-teal-700"
+                      className="border-teal-500 rounded-xl w-full hover:border-teal-700 focus:border-teal-700"
                     />
                     <button
                       onClick={handleReviewSubmit}
-                      className="mt-4 h-10 w-[10rem] bg-gray-500 rounded-xl border-teal-500 text-white hover:bg-teal-700"
+                      className="mt-4 h-10 w-40 bg-gray-500 rounded-xl border-teal-500 text-white hover:bg-teal-700"
                     >
                       Gửi Câu Hỏi
                     </button>
@@ -221,11 +248,8 @@ const DetailProductPage = () => {
             </div>
           </div>
           <div className="invisible items-center absolute lg:mt-[4.3rem] lg:static lg:visible flex flex-col ml-10">
-            {/* Khuyến mãi đặc biệt */}
-            <BackgroundGradient className=" w-[20rem] bg-primaryBlack p-4 rounded-xl">
+            <BackgroundGradient className="w-80 bg-primaryBlack p-4 rounded-xl">
               <h2 className="text-xl gradientText font-bold text-teal-500 flex items-center">
-                {" "}
-                {/* Thêm icon */}
                 Khuyến mãi đặc biệt
               </h2>
               <ul className="list-disc text-md text-white pl-6">
@@ -238,10 +262,8 @@ const DetailProductPage = () => {
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>
             </BackgroundGradient>
-            {/* Chính sách */}
-            <div className="  mt-10 w-[20rem] border-4 border-gray-700 bg-white p-4 rounded-xl ">
+            <div className="mt-10 w-80 border-4 border-gray-700 bg-white p-4 rounded-xl">
               <h3 className="text-xl font-bold text-primaryBlack flex items-center">
-                {/* Thêm icon */}
                 Chính sách Guppy Hóc Môn
               </h3>
               <ul className="list-disc text-gray-700 text-md pl-6">
@@ -254,7 +276,6 @@ const DetailProductPage = () => {
           </div>
         </div>
       </div>
-      <ProductSlider />
     </>
   );
 };
