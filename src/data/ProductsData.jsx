@@ -95,7 +95,7 @@ const ProductsData = [
   {
     _id: 5,
     cardImg: fish5,
-    proImg: [caBien], // Array with one image
+    proImg: [caBien,caBien,caBien,caBien], // Array with one image
     title: "BLUE TAZAN",
     price: "70.000",
     discount: "50.000",
@@ -139,7 +139,7 @@ const ProductsData = [
   {
     _id: 9,
     cardImg: fish9,
-    proImg: [fish9], // Array with one image
+    proImg: [caBien], // Array with one image
     title: "FULL RED",
     price: "100.000",
     discount: "85.000",
@@ -194,7 +194,7 @@ const ProductsData = [
   {
     _id: 14,
     cardImg: fish14,
-    proImg: [fish14], // Array with one image
+    proImg: [caBien,caBien,caBien], // Array with one image
     title: "HB RED ROSE",
     price: "100.000",
     discount: "80.000",
