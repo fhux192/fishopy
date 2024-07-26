@@ -32,7 +32,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   const discountPercentage = ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
-    event.preventDefault();
+   alert("Add to cart logic here");
     // Add to cart logic here
   };
 

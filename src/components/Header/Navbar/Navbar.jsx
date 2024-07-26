@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { FaFacebook } from "react-icons/fa";
 import { IoLogoTiktok } from "react-icons/io5";
+import { FaYoutube } from "react-icons/fa";
 import { FaFishFins } from "react-icons/fa6";
 import Slidebar from "../SliderBar/Slidebar.jsx";
 import "../../../scss/navbar.scss";
@@ -76,11 +76,14 @@ const Navbar = () => {
       initial={{ y: -100 }}
       animate={{ y: isNavbarVisible ? 0 : -100 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      style={{ position: 'fixed', width: '100%', top: 0, zIndex: 1000 }}
+      style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
       <div className="wrapper bg-white lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-2 border-b-2 border-gray-150 lg:mx-[7.5%]">
         <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
-          <button className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
+          <button
+            className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]"
+            onClick={handleNavigation}
+          >
             <BubbleText />
           </button>
 
@@ -95,16 +98,26 @@ const Navbar = () => {
           </div>
           <div className=" border-primaryGrey social">
             <Link to="/">
-              <FaHome title="Trang Chủ " className="lg:block hidden icon mr-[17px] duration-500" />
+              <FaHome
+                title="Trang Chủ "
+                className="lg:block hidden icon mr-[17px] duration-500"
+              />
             </Link>
             <Link to="/product">
-            <FaBagShopping title="Sản Phẩm" className="lg:block hidden icon mr-[17px] duration-500" />
+              <FaBagShopping
+                title="Sản Phẩm"
+                className="lg:block hidden icon mr-[17px] duration-500"
+              />
             </Link>
             <Link to="/address">
-              <FaMapMarkedAlt title="Địa Chỉ" className="lg:block hidden icon mr-[17px] duration-500" />
+              <FaMapMarkedAlt
+                title="Địa Chỉ"
+                className="lg:block hidden icon mr-[17px] duration-500"
+              />
             </Link>
             <div className="relative" ref={dropdownRef}>
-              <FaUserTag title="Tài Khoản"
+              <FaUserTag
+                title="Tài Khoản"
                 onClick={handleUserTagClick}
                 className="lg:block hidden icon mr-2 duration-500 cursor-pointer"
               />
@@ -115,24 +128,30 @@ const Navbar = () => {
 
         <div className="border-l-2 border-primaryBlack pl-2 mr-[0rem] social">
           <Slidebar />
-          <a href="https://www.facebook.com/traicaguppysaigon?mibextid=LQQJ4d">
-            <FaFacebook className="icon mr-[10px] duration-500" />
-          </a>
           <a href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1">
-            <IoLogoTiktok className="icon mr-[8px] duration-500" />
+            <IoLogoTiktok title="TikTok" className="icon mr-[8px] duration-500" />
           </a>
-          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
+          <a href="https://www.youtube.com/@guppyhocmon">
+            <FaYoutube title="Youtube Guppy Hóc Môn" className="icon mr-[10px] duration-500" />
+          </a>
+          
+          <div
+            className="relative group"
+            onClick={() => dispatch(toggleDrawerCart())}
+          >
             <motion.div
               initial={{ scale: 1 }}
               animate={{ scale: cartLocal.length > 0 ? [1, 0.9, 1] : 1 }}
               transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
               key={cartLocal.length}
             >
-              <FaFishFins className="zalo-icon duration-500 text-white" />
+              <FaFishFins title="Giỏ Hàng" className="zalo-icon duration-500 text-white" />
             </motion.div>
             <div
               className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-20%] top-[-35%] duration-300 text-center rounded-full absolute ${
-                cartLocal.length > 0 ? "text-white bg-teal-700 border-0" : "bg-white border-2 "
+                cartLocal.length > 0
+                  ? "text-white bg-teal-700 border-0"
+                  : "bg-white border-2 "
               }`}
             >
               <div className="mt-[3px] lg:ml-[1px]">{cartLocal.length}</div>

@@ -46,6 +46,8 @@ import fish46 from "../assets/fishCardImg/fish (46).png";
 import fish47 from "../assets/fishCardImg/fish (47).png";
 import fish48 from "../assets/fishCardImg/fish (48).png";
 import caBien from "../assets/caBien.jpeg";
+import combo from "../assets/Combo.png";
+import logo from "../assets/logo.png";
 const ProductsData = [
   {
     _id: 1,
@@ -62,7 +64,7 @@ const ProductsData = [
   {
     _id: 2,
     cardImg: fish2,
-    proImg: [fish21, fish12, fish26,fish29], // Array of images
+    proImg: [fish2], // Array of images
     title: "HB WHITE",
     price: "100.000",
     discount: "85.000",
@@ -84,7 +86,7 @@ const ProductsData = [
   {
     _id: 4,
     cardImg: fish4,
-    proImg: [fish41,fish14,fish4], // Array with one image
+    proImg: [fish4], // Array with one image
     title: "BETTA HALFMOON",
     price: "100.000",
     discount: "100.000",
@@ -95,8 +97,8 @@ const ProductsData = [
   {
     _id: 5,
     cardImg: fish5,
-    proImg: [caBien,caBien,caBien,caBien], // Array with one image
-    title: "BLUE TAZAN",
+    proImg: [caBien,caBien,caBien,logo], // Array with one image
+    title: "COMBO 3",
     price: "70.000",
     discount: "50.000",
     description: "Cá biển tươi, ngon, giàu dinh dưỡng.",
@@ -194,7 +196,7 @@ const ProductsData = [
   {
     _id: 14,
     cardImg: fish14,
-    proImg: [caBien,caBien,caBien], // Array with one image
+    proImg: [fish1,fish1,fish1,logo], // Array with one image
     title: "HB RED ROSE",
     price: "100.000",
     discount: "80.000",
