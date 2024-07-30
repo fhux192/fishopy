@@ -87,15 +87,14 @@ const DetailProductPage = () => {
     <>
       <div className="bg-gray-100 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         <div className="flex w-full max-w-6xl">
-          <div className="lg:mt-[4.3rem] mt-[4rem] bg-white border-2 border-gray-200 rounded-xl w-full max-w-3xl p-6 lg:py-[3rem]">
+          <div className="lg:mt-[4.3rem] mt-[4rem] bg-white border-2 border-gray-200 rounded-xl w-full max-w-5xl p-6 lg:py-[3rem]">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <div className="lg:w-[32rem] rounded-xl lg:translate-x-[-5rem] relative pt-[56.25%]"> {/* 16:9 aspect ratio */}
+              <div className="lg:w-[32rem] lg:h-[18rem] rounded-xl lg:translate-x-[-5rem] relative pt-[56.25%]"> {/* 16:9 aspect ratio */}
                 <iframe
                   width="100%"
                   height="100%"
                   src={`${product.videoUrl}?autoplay=1&mute=1&vq=hd1080`}
                   title={product.title}
-                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="absolute top-0 left-0 w-full h-full rounded-xl"
@@ -116,13 +115,13 @@ const DetailProductPage = () => {
                     </h2>
                   )}
                 </div>
-                <div className="flex lg:ml-[5rem] items-center gap-2">
+                <div className="flex  lg:ml-[5rem] items-center gap-2">
                   <span className="text-lg font-semibold">Tình trạng:</span>
                   <span className="text-lg font-semibold">
                     {product.status}
                   </span>
                 </div>
-                <div className="flex lg:ml-[5rem] items-center gap-1">
+                <div className="flex mb-6 lg:ml-[5rem] items-center gap-1">
                   <span className="text-lg font-semibold">Số lượng:</span>
                   <div className="flex items-center">
                     <button
@@ -201,7 +200,7 @@ const DetailProductPage = () => {
                 </nav>
               </div>
               {activeTab === "details" && (
-                <div className="overflow-scroll h-[30rem] px-4 lg:px-10">
+                <div className="overflow-auto h-[30rem] px-4 lg:px-10">
           
                   <ProductDescription description={product.description} />
                 </div>

@@ -51,8 +51,8 @@ const Data = [
     _id: 2,
     proImg: [HB_WHITE],
     title: "HB WHITE",
-    price: "370.000",
-    discount: "350.000",
+    price: "60.000",
+    discount: "50.000",
     description: `
     <div >
       <h2>Môi Trường Sống:</h2>

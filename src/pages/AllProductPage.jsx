@@ -142,7 +142,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
         <div className="banner">
           <img className="w-full h-full object-cover" src={saleGift} alt="Sale" />
         </div>
-        <div className="flex-[2] product-grid grid place-items-center mx-2 lg:mx-0">
+        <div className="flex-[2] product-grid grid  mx-2 lg:mx-0">
           {currentPageProducts.map((product, index) => (
             <ProductCard key={product._id} product={product} priceStage={priceStage} animationDelay={index * 0.1} />
           ))}
