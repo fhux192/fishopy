@@ -6,6 +6,7 @@ import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ProductsData from "../data/ProductsData";
+import Data from "../data/Data";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
 import saleGift from "../assets/gif/SALE.gif";
@@ -32,7 +33,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   const discountPercentage = ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
-   alert("Add to cart logic here");
+    alert("Add to cart logic here");
     // Add to cart logic here
   };
 
@@ -56,7 +57,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           ))}
         </div>
         <div className="text-content">
-          <h2>{product.title}</h2>
+          <h2 className="title">{product.title}</h2>
           <p>
             {product.price === product.discount ? (
               <span>{product.price}₫</span>
@@ -81,6 +82,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     </div>
   );
 };
+
 
 
 
@@ -164,7 +166,7 @@ const AllProductPage = () => {
   const firstPostIndex = lastPostIndex - productsPerPage;
 
   const sortedProducts = useMemo(
-    () => sortProducts([...ProductsData], sortOption),
+    () => sortProducts([...Data], sortOption),
     [sortOption]
   );
 
@@ -206,7 +208,7 @@ const AllProductPage = () => {
         priceStage={priceStage}
       />
       <Pagination
-        totalPost={ProductsData.length}
+        totalPost={Data.length}
         postPerPage={productsPerPage}
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}

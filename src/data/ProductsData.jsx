@@ -58,7 +58,7 @@ const ProductsData = [
     discount: "90.000",
     description: "Cá vằng tươi, ngon, giàu dinh dưỡng.",
     status: "Còn hàng",
-    videoUrl: "https://www.youtube.com/embed/t5elaFG28-E",
+    videoUrl: "https://www.youtube.com/embed/LGGDHKj0ByE",
     introduction: "Cá cảnh là các loài cá được nuôi để làm cảnh trong bể cá gia đình hoặc trưng bày công cộng. Chúng được yêu thích vì màu sắc rực rỡ và vẻ đẹp thẩm mỹ.",
   },
   {

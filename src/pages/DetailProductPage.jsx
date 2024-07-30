@@ -1,5 +1,6 @@
+import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import ProductsData from "../data/ProductsData"; // Import ProductsData
+import Data from "../data/Data"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/customImageGallery.scss"; // Import custom CSS file
 import { Input } from "antd";
@@ -10,10 +11,17 @@ import { callAddToCart } from "../services/api.js";
 import { addToCart } from "../redux/features/user/userSlice.js";
 import { toast } from "react-toastify";
 
+const ProductDescription = ({ description }) => (
+  <div className="product-description" dangerouslySetInnerHTML={{ __html: description }} />
+);
+const ProductDetail = ({ detail }) => (
+  <div className="product-description" dangerouslySetInnerHTML={{ __html: detail }} />
+);
+
 const DetailProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = ProductsData.find((item) => item._id === parseInt(id));
+  const product = Data.find((item) => item._id === parseInt(id));
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("details");
   const [reviews, setReviews] = useState([]);
@@ -158,7 +166,7 @@ const DetailProductPage = () => {
               </div>
             </div>
             <div className="mt-8">
-              <div className="border-b font-semibold border-gray-300">
+              <div className="border-b font-semibold  border-gray-300">
                 <nav className="flex lg:justify-center lg:text-lg lg:gap-10 justify-between text-sm">
                   <button
                     className={`py-2 px-4 ${
@@ -178,7 +186,7 @@ const DetailProductPage = () => {
                     }`}
                     onClick={() => setActiveTab("introduction")}
                   >
-                    CHI TIẾT
+                    CÁCH NUÔI
                   </button>
                   <button
                     className={`py-2 px-4 ${
@@ -193,28 +201,18 @@ const DetailProductPage = () => {
                 </nav>
               </div>
               {activeTab === "details" && (
-                <div className="py-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">Mô Tả</h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">
-                    {product.description}
-                  </h3>
+                <div className="overflow-scroll h-[30rem] px-4 lg:px-10">
+          
+                  <ProductDescription description={product.description} />
                 </div>
               )}
               {activeTab === "introduction" && (
-                <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
-                    Giới Thiệu
-                  </h1>
-                  <h3 className="text-md text-gray-700 leading-relaxed">
-                    {product.introduction}
-                  </h3>
+                <div className=" px-4 lg:px-10">
+                   <ProductDetail detail={product.detail} />
                 </div>
               )}
               {activeTab === "reviews" && (
                 <div className="p-6 px-4 lg:px-10">
-                  <h1 className="lg:text-4xl text-2xl font-bold mb-4">
-                    Hỏi Đáp
-                  </h1>
                   <div className="mb-4">
                     <Input.TextArea
                       rows={4}
