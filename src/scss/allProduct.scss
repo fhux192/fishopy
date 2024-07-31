@@ -43,8 +43,8 @@
     padding-right: 10px;
   }
   .product-card {
-    animation: none;
-    opacity: 1;
+    animation: deal 2s ease-in-out forwards;
+    opacity: 0;
   }
 }
 
