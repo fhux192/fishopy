@@ -15,12 +15,13 @@ export default {
       },
       colors: {
         // Configure your color palette here
-        primaryBlack: "#191919",
+        
+        primaryBlack: "#1a202c",
         secondBlack: "#111111",
         thirdBlack: "#4a4a4a",
-        primaryGrey: "#666666",
+        primaryGrey: "#4a5568",
         secondGrey: "#999999",
-        primaryTeal: "#0A6C62",
+        primaryTeal: "#319795",
         secondTeal: "#2dd4bf",
         overlay: "rgba(0, 0, 0, 0.9)",
         "button-search": "#f8f7f9",

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Data from "../data/Data"; // Import ProductsData
 import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
 import "../scss/detailProducts.scss"; // Import custom CSS file
-import { Input } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
@@ -103,14 +102,12 @@ const DetailProductPage = () => {
                   height="100%"
                   src={`${product.videoUrl}?autoplay=1&mute=1&vq=hd1080`}
                   title={product.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
                   className="absolute top-0 left-0 w-full h-full rounded-xl"
                 ></iframe>
               </div>
 
               <div className="flex flex-col lg:gap-2 gap-2">
-                <h1 className="text-3xl lg:ml-[5rem] font-bold">
+                <h1 className="text-3xl lg:ml-[5rem] font-bold text-primaryGrey">
                   {product.title}
                 </h1>
                 <div className="flex items-center lg:ml-[5rem]">
@@ -124,13 +121,13 @@ const DetailProductPage = () => {
                   )}
                 </div>
                 <div className="flex  lg:ml-[5rem] items-center gap-2">
-                  <span className="text-lg font-semibold">Tình trạng:</span>
-                  <span className="text-lg font-semibold">
+                  <span className="text-lg text-primaryBlack font-semibold">Tình trạng:</span>
+                  <span className="text-lg text-primaryBlack font-semibold">
                     {product.status}
                   </span>
                 </div>
                 <div className="flex mb-6 lg:ml-[5rem] items-center gap-1">
-                  <span className="text-lg font-semibold">Số lượng:</span>
+                  <span className="text-lg text-primaryBlack font-semibold">Số lượng:</span>
                   <div className="flex items-center">
                     <button
                       className="px-3 text-xl rounded-full border-primaryBlack py-1"
@@ -160,7 +157,7 @@ const DetailProductPage = () => {
                   onClick={handleAddToCart}
                   className="group hover:border-primaryBlack border-2 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                 >
-                  <p className="group-hover:scale-95 duration-300">
+                  <p className=" ">
                     THÊM VÀO GIỎ HÀNG
                   </p>
                 </button>
@@ -168,7 +165,7 @@ const DetailProductPage = () => {
                   onClick={handlePaymentClick}
                   className="group hover:border-teal-500 hover:border-2 bg-primaryBlack lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                 >
-                  <p className="group-hover:scale-95 duration-300">MUA NGAY</p>
+                  <p className=" duration-300">MUA NGAY</p>
                 </button>
               </div>
             </div>
@@ -178,7 +175,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "details"
-                        ? "border-b-2 border-teal-700 text-teal-700"
+                        ? "border-b-2 border-primaryTeal text-primaryTeal"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("details")}
@@ -188,7 +185,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "introduction"
-                        ? "border-b-2 border-teal-700 text-teal-700"
+                        ? "border-b-2 border-primaryTeal text-primaryTeal"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("introduction")}
@@ -198,7 +195,7 @@ const DetailProductPage = () => {
                   <button
                     className={`py-2 px-4 ${
                       activeTab === "reviews"
-                        ? "border-b-2 border-teal-700 text-teal-700"
+                        ? "border-b-2 border-primaryTeal text-primaryTeal"
                         : "text-gray-500"
                     }`}
                     onClick={() => setActiveTab("reviews")}
@@ -248,14 +245,14 @@ const DetailProductPage = () => {
                 <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
               </ul>
             </BackgroundGradient>
-            <div className="mt-10 w-80 border-4 border-gray-700 bg-white p-4 rounded-xl">
+            <div className="mt-10 w-80 border-4 border-primaryBlack bg-white p-4 rounded-xl">
               <h3 className="text-[1.4rem] font-bold text-primaryBlack flex items-center">
                 Chính sách Guppy Hóc Môn
               </h3>
-              <ul className="list-disc text-gray-700 text-md pl-6">
-                <li>Miễn phí: Một số sản phẩm.</li>
-                <li>Quà tặng: Với hóa đơn trên 1 triệu.</li>
-                <li>Bảo hành: Toàn bộ thời gian.</li>
+              <ul className="list-disc text-primaryGrey text-md pl-6">
+                <li>Nhận hàng - Kiểm tra - Thanh toán</li>
+                <li>Quà tặng: Hủ cám với hóa đơn</li>
+                <li>Bảo hành: Giao lại nếu cá có vấn đề</li>
                 <li>Hotline: 0388.811.160.</li>
               </ul>
             </div>

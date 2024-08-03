@@ -41,7 +41,7 @@ const Data = [
         
         <h2>Chăm Sóc Hằng Ngày:</h2>
         <li>Thay nước thường xuyên để duy trì môi trường nước sạch và ổn định. Chọn giống cá khỏe mạnh để nuôi để tạo ra đàn cá con có sức sống tốt. Cá Koi Red Ear ít bị stress, nên thả từ 5-6 cặp là hợp lý nhất.</li>
-        
+        <li>Cá guppy Half Black White cần được nuôi trong môi trường nước sạch và có độ pH ổn định. Chúng có thể ăn nhiều loại thức ăn khác nhau, nhưng nên ưu tiên thức ăn từ tự nhiên. Thường xuyên kiểm tra và loại bỏ những con cá yếu hoặc bệnh để tránh lây lan bệnh cho cả đàn.</li>
         <h2>Các Lưu Ý Khác:</h2>
         <li>Cá Koi Red Ear cần được nuôi trong môi trường nước sạch và có độ pH ổn định. Chúng có thể ăn nhiều loại thức ăn khác nhau, nhưng nên ưu tiên thức ăn từ tự nhiên. Thường xuyên kiểm tra và loại bỏ những con cá yếu hoặc bệnh để tránh lây lan bệnh cho cả đàn.</li>
       </div>
@@ -87,7 +87,7 @@ const Data = [
         
         <h2>Chăm Sóc Hằng Ngày:</h2>
         <li>Thay nước thường xuyên để duy trì môi trường nước sạch và ổn định. Chọn giống cá khỏe mạnh để nuôi để tạo ra đàn cá con có sức sống tốt. Cá Koi Red Ear ít bị stress, nên thả từ 5-6 cặp là hợp lý nhất.</li>
-        
+        <li>Cho cá ăn 2 lần mỗi ngày đối với cá trưởng thành và bổ sung thêm một bữa phụ cho cá trong giai đoạn sinh sản.</li>
         <h2>Các Lưu Ý Khác:</h2>
         <li>Cá guppy Half Black White cần được nuôi trong môi trường nước sạch và có độ pH ổn định. Chúng có thể ăn nhiều loại thức ăn khác nhau, nhưng nên ưu tiên thức ăn từ tự nhiên. Thường xuyên kiểm tra và loại bỏ những con cá yếu hoặc bệnh để tránh lây lan bệnh cho cả đàn.</li>
       </div>

@@ -14,6 +14,7 @@ import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -93,7 +94,7 @@ const Navbar = () => {
               className="w-full  bg-white p-[2px] pl-4 font-semibold text-xl text-primaryBlack border-2 border-gray-150 rounded-full focus:outline-primaryBlack"
             />
             <button className="group flex hover:border-primaryBlack justify-center items-center duration-300 ml-4 border-2  border-gray-200 rounded-full w-20 h-9">
-              <FaSearch className="group-hover:scale-95 text-secondBlack" />
+              <FaSearch className=" text-secondBlack" />
             </button>
           </div>
           <div className=" border-primaryGrey social">
@@ -128,10 +129,10 @@ const Navbar = () => {
 
         <div className="border-l-2 border-primaryBlack pl-2 mr-[0rem] social">
           <Slidebar />
-          <a href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1">
+          <a href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1" target="_blank">
             <IoLogoTiktok title="TikTok" className="icon mr-[8px] duration-500" />
           </a>
-          <a href="https://www.youtube.com/@guppyhocmon">
+          <a href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1" target="_blank">
             <FaYoutube title="Youtube Guppy Hóc Môn" className="icon mr-[10px] duration-500" />
           </a>
           

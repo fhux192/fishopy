@@ -8,7 +8,8 @@ import { toggleVerify } from "../redux/features/toggle/toggleSlice.js";
 import OTPInput from "react-otp-input";
 import { CloseOutlined } from "@ant-design/icons";
 import { useLocation } from "react-router-dom"; // Import useLocation
-import "../scss/navbar.scss";
+
+import "../scss/infoPay.scss"; // Import your new SCSS file
 
 const { Option } = Select;
 
@@ -133,10 +134,10 @@ const InfoPay = ({ setStep }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center bg-gray-100">
-      <div className="p-4  lg:mt-20 w-full max-w-lg">
+    <div className="info-pay-container">
+      <div className="info-pay-wrapper">
         <Card style={{ width: "100%" }}>
-          <h2 className="text-xl font-bold mb-4">Thông tin thanh toán</h2>
+          <h2 className="title">Thông tin thanh toán</h2>
 
           <Form
             form={form}
@@ -234,36 +235,34 @@ const InfoPay = ({ setStep }) => {
             >
               <Select options={paymentMethods} />
             </Form.Item>
-            <div className="flex text-lg justify-between mb-2">
-              <h3 className="text-xl ml-4 font-bold">{product.title}</h3>
-              <div className="flex text-gray-600 gap-4">
+            <div className="product-summary">
+              <h3 className="product-title">{product.title}</h3>
+              <div className="product-info">
                 <h3>{product.discount}₫</h3>
                 <h3>x{quantity}</h3>
               </div>
             </div>
 
-            <div className="flex  text-md justify-center items-center mb-0 mt-4">
+            <div className="product-image">
               <img
                 src={product.proImg}
                 alt="Cá Dumbo"
-                className="w-[10rem] h-[10rem] object-contain mr-4"
+                className="image"
               />
             </div>
-            <h3 className="text-lg mb-8 text-end  text-gray-900">
+            <h3 className="total">
               Tổng thanh toán:
-              <div className="flex justify-end w-full text-white text-lg">
-                <div className="bg-teal-700 rounded px-2 w-[10rem]">
+              <div className="total-amount">
+                <div className="amount">
                   {product.discount * quantity}.000₫
                 </div>
               </div>
             </h3>
             <Form.Item>
               <button
-                type="submit"
-                className="w-full lg:text-xl text-lg  bg-primaryBlack text-white font-bold lg:py-2 py-1 px-3 rounded-xl"
+                className="pay-button"
               >
-                <p className="Text">THANH TOÁN</p>
-                
+                <p className="button-text">THANH TOÁN</p>
               </button>
             </Form.Item>
             <div id="recaptcha-container"></div>
@@ -273,7 +272,7 @@ const InfoPay = ({ setStep }) => {
             open={isShowVerify}
             footer={
               <button
-                className="w-[10rem] bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-xl mt-4"
+                className="verify-button"
                 onClick={verifyOTP}
                 type="primary"
               >
@@ -284,7 +283,7 @@ const InfoPay = ({ setStep }) => {
               <CloseOutlined onClick={() => dispatch(toggleVerify())} />
             }
           >
-            <div className="mt-10">
+            <div className="otp-input-container">
               <OTPInput
                 value={otp}
                 onChange={setOtp}
