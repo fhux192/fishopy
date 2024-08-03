@@ -36,6 +36,10 @@ export const callFetchProduct = async (current, pageSize) => {
   return await axios.get("products?current=" + current + "&pageSize=" + pageSize);
 };
 
+export const callFetchProductById = async (id) => {
+  return await axios.get(`products/${id}`);
+};
+
 /**
  * nếu upload thì truyền vào fileImg, sửa ảnh thì truyền vào oldImg để server không bị rác
  * @param {*} fileImg

@@ -12,13 +12,14 @@ import {
   message,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalAddProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
 import { callCreateProduct, callUploadImgFish } from "../../../services/api";
+import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
+import DiscountText from "../../Admin/components/DiscountText/DiscountText";
 const getBase64 = (img, callback) => {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
@@ -48,11 +49,20 @@ const ModalAddProduct = ({ setProducts }) => {
   const [imageUrl, setImageUrl] = useState();
   const [descProductValue, setDescProductValue] = useState("");
   const [detailDescProductValue, setDetailDescProductValue] = useState("");
+  const [discountText, setDiscountText] = useState("");
+  const [fileList, setFileList] = useState([]);
   const handleChange = async ({ file }) => {
-    console.log("file", file);
     const res = await callUploadImgFish(file);
     if (res.vcode == 0) {
-      setImageUrl("http://localhost:3000/images/fish/" + res.data.fileUploaded);
+      setFileList((pre) => [
+        ...pre,
+        {
+          uid: file.uid,
+          name: file.name,
+          status: "done",
+          url: "http://localhost:3000/images/fish/" + res.data.fileUploaded,
+        },
+      ]);
     } else message.error(res.message);
   };
   const uploadButton = (
@@ -96,17 +106,27 @@ const ModalAddProduct = ({ setProducts }) => {
         </Form.Item>
       ),
     },
+    {
+      key: "3",
+      label: "Khuyến mãi",
+      children: (
+        <Form.Item name="discountText">
+          <DiscountText setDiscountText={setDiscountText} />
+        </Form.Item>
+      ),
+    },
   ];
 
   const onFinish = async (values) => {
-    const imageProduct = imageUrl?.substring(imageUrl.lastIndexOf("/") + 1) ?? "";
     let dataProduct = {
-      image: imageProduct,
+      images: fileList.map((item) => item?.url?.substring(item?.url.lastIndexOf("/") + 1)),
       name: form.getFieldValue("name"),
       price: form.getFieldValue("price"),
       status: form.getFieldValue("status"),
       discountedPrice: form.getFieldValue("discountedPrice"),
       desc: descProductValue,
+      video: form.getFieldValue("video"),
+      discountText: discountText,
       detailDesc: detailDescProductValue,
     };
 
@@ -161,20 +181,14 @@ const ModalAddProduct = ({ setProducts }) => {
               name="avatar"
               listType="picture-card"
               className="avatar-uploader"
-              showUploadList={false}
+              fileList={fileList}
               customRequest={handleChange}
+              multiple={true}
+              onRemove={(file) => {
+                setFileList((pre) => pre.filter((item) => item.uid !== file.uid));
+              }}
             >
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{
-                    width: "100%",
-                  }}
-                />
-              ) : (
-                uploadButton
-              )}
+              {fileList.length >= 8 ? null : uploadButton}
             </Upload>
           </div>
         </Form.Item>
@@ -205,6 +219,14 @@ const ModalAddProduct = ({ setProducts }) => {
           </Col>
           <Col span={12}>
             <Form.Item label="Giá khuyến mãi" name="discountedPrice" labelCol={{ span: 24 }}>
+              <InputNumber style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 24]}>
+          <Col span={12}>
+            <Form.Item label="Url video" name="video" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>

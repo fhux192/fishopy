@@ -40,7 +40,7 @@ import translations from "ckeditor5/translations/vi.js";
 import { MyCustomUploadAdapterPlugin } from "../../../../plugins/ckeditor-upload-adapter.js";
 import "ckeditor5/ckeditor5.css";
 
-const DescProduct = ({ onDescChange }) => {
+const DiscountText = ({ setDiscountText }) => {
   const editorContainerRef = useRef(null);
   const editorRef = useRef(null);
   const [isLayoutReady, setIsLayoutReady] = useState(false);
@@ -53,7 +53,7 @@ const DescProduct = ({ onDescChange }) => {
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
-    onDescChange(data);
+    setDiscountText(data);
   };
 
   const editorConfig = {
@@ -173,4 +173,4 @@ const DescProduct = ({ onDescChange }) => {
     </div>
   );
 };
-export default DescProduct;
+export default DiscountText;

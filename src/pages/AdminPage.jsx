@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { DesktopOutlined, FileOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import {
+  DesktopOutlined,
+  DownOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Space, theme } from "antd";
 import { setCredentials, setIsLoading } from "../redux/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { callFetchAccount } from "../services/api";
@@ -28,16 +34,33 @@ const items = [
   getItem("Files", "9", <FileOutlined />),
 ];
 
+const dropdownList = [
+  {
+    key: "1",
+    label: <Link to={"/"}>Trang chủ</Link>,
+  },
+  {
+    key: "2",
+    label: <Link to={"/account"}>Quản lý tài khoản</Link>,
+  },
+  {
+    key: "3",
+    label: <div>Đăng xuất</div>,
+  },
+];
+
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const status_login = localStorage.getItem("status_login");
   const dispatch = useDispatch();
+  const [user, setUser] = useState(null);
 
   const handleFetchAccount = async () => {
     try {
       const res = await callFetchAccount();
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
+        setUser(res.data);
       }
     } catch (error) {
       console.error("Lỗi khi tải tài khoản:", error);
@@ -67,8 +90,22 @@ const AdminPage = () => {
           style={{
             padding: 0,
             background: "white",
+            textAlign: "right",
+            paddingRight: "40px",
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: "10px",
           }}
-        />
+        >
+          <Avatar icon={<UserOutlined />} />
+          <Dropdown menu={{ items: dropdownList }} trigger={"click"}>
+            <Space>
+              {user?.name}
+              <DownOutlined />
+            </Space>
+          </Dropdown>
+        </Header>
         <Content
           style={{
             margin: "0 16px",

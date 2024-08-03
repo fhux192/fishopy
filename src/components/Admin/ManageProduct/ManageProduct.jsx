@@ -16,9 +16,14 @@ const ManageProduct = () => {
   const columns = [
     {
       title: "Hình ảnh",
-      dataIndex: "image",
-      key: "image",
-      render: (text) => <Image src={text} style={{ width: "100px", height: "100px" }} />,
+      dataIndex: "images",
+      key: "images",
+      render: (images) => (
+        <Image
+          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + images[0]}
+          style={{ width: "100px", height: "100px" }}
+        />
+      ),
       width: 150,
     },
     {
@@ -89,10 +94,9 @@ const ManageProduct = () => {
       try {
         const res = await callFetchProduct(current, pageSize);
         console.log(res);
-        const products = res.data.map((item) => ({
+        const products = res.data.result.map((item) => ({
           ...item,
           key: item._id,
-          image: import.meta.env.VITE_BASE_URL + "/images/fish/" + item.image,
         }));
         setProducts(products);
       } catch (error) {
