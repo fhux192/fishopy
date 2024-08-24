@@ -1,0 +1,62 @@
+.imageProduct {
+  width: 100px !important ;
+  height: 100px;
+}
+
+.deleteIcon {
+  color: red;
+  cursor: pointer;
+}
+
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.groupSum {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.groupImage {
+  display: flex;
+  align-items: center;
+}
+
+.title2,
+.title {
+  margin-left: 20px;
+  width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.title2 {
+  display: none;
+  margin: 0;
+}
+
+.checkBox {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 575px) {
+  .title2 {
+    display: block;
+  }
+  .title {
+    display: none !important;
+  }
+  .groupSum {
+    flex: 2;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .sumProduct {
+    display: none;
+  }
+}

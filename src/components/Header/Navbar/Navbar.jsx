@@ -14,11 +14,11 @@ import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
+import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user.userInfo);
-  const [cartLocal, setCartLocal] = useState([]);
+  const user = useSelector((state) => state.account.user);
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -81,10 +81,7 @@ const Navbar = () => {
     >
       <div className="wrapper bg-white lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%] lg:border-2 border-b-2 border-gray-150 lg:mx-[7.5%]">
         <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
-          <button
-            className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]"
-            onClick={handleNavigation}
-          >
+          <button className="flex mb-[3px] lg:flex-0 lg:mr-[4.5%]" onClick={handleNavigation}>
             <BubbleText />
           </button>
 
@@ -99,10 +96,7 @@ const Navbar = () => {
           </div>
           <div className=" border-primaryGrey social">
             <Link to="/">
-              <FaHome
-                title="Trang Chủ "
-                className="lg:block hidden icon mr-[17px] duration-500"
-              />
+              <FaHome title="Trang Chủ " className="lg:block hidden icon mr-[17px] duration-500" />
             </Link>
             <Link to="/product">
               <FaBagShopping
@@ -132,30 +126,35 @@ const Navbar = () => {
           <a href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1" target="_blank">
             <IoLogoTiktok title="TikTok" className="icon mr-[8px] duration-500" />
           </a>
-          <a href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1" target="_blank">
+          <a
+            href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1"
+            target="_blank"
+          >
             <FaYoutube title="Youtube Guppy Hóc Môn" className="icon mr-[10px] duration-500" />
           </a>
-          
-          <div
-            className="relative group"
-            onClick={() => dispatch(toggleDrawerCart())}
-          >
+
+          <div className="relative group" onClick={() => dispatch(toggleDrawerCart())}>
             <motion.div
               initial={{ scale: 1 }}
-              animate={{ scale: cartLocal.length > 0 ? [1, 0.9, 1] : 1 }}
+              animate={{
+                scale:
+                  user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0 ? [1, 0.9, 1] : 1,
+              }}
               transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
-              key={cartLocal.length}
+              key={user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0)}
             >
               <FaFishFins title="Giỏ Hàng" className="zalo-icon duration-500 text-white" />
             </motion.div>
             <div
               className={`flex w-[1.5rem] h-[1.5rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-20%] top-[-35%] duration-300 text-center rounded-full absolute ${
-                cartLocal.length > 0
+                user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0
                   ? "text-white bg-teal-700 border-0"
                   : "bg-white border-2 "
               }`}
             >
-              <div className="mt-[3px] lg:ml-[1px]">{cartLocal.length}</div>
+              <div className="mt-[3px] lg:ml-[1px]">
+                {user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0)}
+              </div>
             </div>
           </div>
         </div>

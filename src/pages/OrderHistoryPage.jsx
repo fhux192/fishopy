@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
- // Assume this is a function to fetch order history
+// Assume this is a function to fetch order history
 
 const OrderHistoryPage = () => {
   const [orders, setOrders] = useState([]);
-  const user = useSelector((state) => state.user.userInfo);
+  const user = useSelector((state) => state.account.user);
   const navigate = useNavigate();
-
-
 
   return (
     <div className="container mx-auto">
-        <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+      <div className="flex  pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
         <h1 className="w-[20rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
-            Lịch Sử Đơn Hàng
+          Lịch Sử Đơn Hàng
         </h1>
       </div>
       {orders.length === 0 ? (
@@ -31,9 +29,7 @@ const OrderHistoryPage = () => {
                   <h2 className="text-lg font-semibold">Order #{order.id}</h2>
                   <p className="text-sm text-gray-500">{order.date}</p>
                 </div>
-                <div className={`status ${order.status.toLowerCase()}`}>
-                  {order.status}
-                </div>
+                <div className={`status ${order.status.toLowerCase()}`}>{order.status}</div>
               </div>
               <div className="space-y-2">
                 {order.items.map((item, index) => (

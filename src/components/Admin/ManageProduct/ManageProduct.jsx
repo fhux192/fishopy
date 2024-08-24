@@ -7,7 +7,7 @@ import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
 import { callDeleteProduct, callFetchProduct } from "../../../services/api";
 
 const ManageProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);

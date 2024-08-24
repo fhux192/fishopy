@@ -7,6 +7,8 @@ const initialState = {
   isShowSlideBar: false,
   modalRegister: false,
   modalAddProduct: false,
+  modalAddAddress: false,
+  modalOrderDetail: false,
 };
 
 export const toggleSlice = createSlice({
@@ -31,6 +33,12 @@ export const toggleSlice = createSlice({
     toggleModalAddProduct: (state) => {
       state.modalAddProduct = !state.modalAddProduct;
     },
+    toggleModalAddAddress: (state) => {
+      state.modalAddAddress = !state.modalAddAddress;
+    },
+    toggleModalOrderDetail: (state) => {
+      state.modalOrderDetail = !state.modalOrderDetail;
+    },
   },
 });
 
@@ -41,6 +49,8 @@ export const {
   toggleVerify,
   toggleSlideBar,
   toggleModalAddProduct,
+  toggleModalAddAddress,
+  toggleModalOrderDetail,
 } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

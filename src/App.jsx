@@ -12,12 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import CartDrawer from "./components/CartDrawer";
 import Navbar from "./components/Header/Navbar/Navbar";
 import { callFetchAccount } from "./services/api";
-import { setCredentials, setIsLoading } from "./redux/features/user/userSlice";
+import { setCredentials, setLoading } from "./redux/features/user/userSlice";
+import ModalAddAddress from "./components/Modal/ModalAddAddress/index";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const { pathname } = useLocation();
-  const { isShowModalLogin } = useSelector((state) => state.toggle);
+  const { isShowModalLogin, modalRegister } = useSelector((state) => state.toggle);
   const status_login = localStorage.getItem("status_login");
+  const { isLoading } = useSelector((state) => state.account);
 
   const dispatch = useDispatch();
 
@@ -29,9 +32,8 @@ function App() {
     if (status_login == 0) {
       handleFetchAccount();
     } else {
-      dispatch(setIsLoading(false));
+      dispatch(setLoading(false));
     }
-
     const originalTitle = document.title;
     const titles = [
       "Đừng đi mà 🥺 | Guppy Hóc Môn",
@@ -62,6 +64,7 @@ function App() {
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
       }
+      dispatch(setLoading(false));
     } catch (error) {
       console.error("Lỗi khi tải tài khoản:", error);
     }
@@ -75,10 +78,12 @@ function App() {
       </main>
       <Footer />
       {isShowModalLogin && <ModalLogin />}
+      {modalRegister && <ModalRegister />}
       <CartDrawer />
       <ToastContainer />
       <MessageBox />
-      <ModalRegister />
+      <ModalAddAddress />
+      {isLoading && <Loader />}
     </>
   );
 }

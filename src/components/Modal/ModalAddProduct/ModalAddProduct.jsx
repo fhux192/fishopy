@@ -17,7 +17,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalAddProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callCreateProduct, callUploadImgFish } from "../../../services/api";
+import { callCreateProduct, callUploadImg } from "../../../services/api";
 import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import DiscountText from "../../Admin/components/DiscountText/DiscountText";
 const getBase64 = (img, callback) => {
@@ -52,7 +52,7 @@ const ModalAddProduct = ({ setProducts }) => {
   const [discountText, setDiscountText] = useState("");
   const [fileList, setFileList] = useState([]);
   const handleChange = async ({ file }) => {
-    const res = await callUploadImgFish(file);
+    const res = await callUploadImg(file, "fish");
     if (res.vcode == 0) {
       setFileList((pre) => [
         ...pre,
@@ -60,7 +60,7 @@ const ModalAddProduct = ({ setProducts }) => {
           uid: file.uid,
           name: file.name,
           status: "done",
-          url: "http://localhost:3000/images/fish/" + res.data.fileUploaded,
+          url: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
         },
       ]);
     } else message.error(res.message);

@@ -8,7 +8,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Space, theme } from "antd";
-import { setCredentials, setIsLoading } from "../redux/features/user/userSlice";
+import { setCredentials, setLoading } from "../redux/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { callFetchAccount } from "../services/api";
 const { Header, Content, Footer, Sider } = Layout;
@@ -62,6 +62,7 @@ const AdminPage = () => {
         dispatch(setCredentials(res.data));
         setUser(res.data);
       }
+      dispatch(setLoading(false));
     } catch (error) {
       console.error("Lỗi khi tải tài khoản:", error);
     }
@@ -71,7 +72,7 @@ const AdminPage = () => {
     if (status_login == 0) {
       handleFetchAccount();
     } else {
-      dispatch(setIsLoading(false));
+      dispatch(setLoading(false));
     }
   }, []);
 

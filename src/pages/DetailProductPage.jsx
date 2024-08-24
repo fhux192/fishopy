@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Data from "../data/Data"; // Import ProductsData
-import "react-image-gallery/styles/css/image-gallery.css"; // Import CSS for ImageGallery
-import "../scss/detailProducts.scss"; // Import custom CSS file
+import "react-image-gallery/styles/css/image-gallery.css";
+import "../scss/detailProducts.scss";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BackgroundGradient } from "../components/ui/background-gradient.tsx";
 import { callAddToCart, callFetchProductById } from "../services/api.js";
-import { addToCart } from "../redux/features/user/userSlice.js";
+import { addToCart, updateAccount } from "../redux/features/user/userSlice.js";
 import { toast } from "react-toastify";
 
 const ProductDescription = ({ description }) => (
@@ -20,35 +19,26 @@ const ProductDetail = ({ detail }) => (
 const DetailProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  // const product = Data.find((item) => item._id === parseInt(id));
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("details");
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState("");
-  const userInfo = useSelector((state) => state.user.userInfo);
+  const user = useSelector((state) => state.account.user);
 
   const dispatch = useDispatch();
-
-  // if (!product) {
-  //   return (
-  //     <div className="min-h-screen flex justify-center items-center">
-  //       <h1 className="text-2xl">Product not found</h1>
-  //     </div>
-  //   );
-  // }
 
   const handlePaymentClick = () => {
     navigate("/payment", { state: { product, quantity } });
   };
 
   const handleAddToCart = async () => {
-    if (userInfo) {
+    if (user) {
       try {
-        const res = await callAddToCart({ productId: product._id, quantity });
+        const res = await callAddToCart({ product: product._id, quantity });
         if (res.vcode === 0) {
           toast.success(res.message);
-          dispatch(addToCart({ product, quantity }));
+          dispatch(updateAccount({ cart: res.data }));
         }
       } catch (error) {
         toast.error("Error adding to cart");
@@ -84,12 +74,9 @@ const DetailProductPage = () => {
   };
 
   useEffect(() => {
-    console.log("id", id);
-
     const getDetailProduct = async () => {
       try {
         const res = await callFetchProductById(id);
-        console.log("res", res);
         if (res.vcode == 0) {
           setProduct(res.data);
         } else console.error(res.message);
@@ -109,7 +96,6 @@ const DetailProductPage = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="lg:w-[32rem] lg:h-[18rem] rounded-xl lg:translate-x-[-5rem] relative pt-[56.25%]">
                   {" "}
-                  {/* 16:9 aspect ratio */}
                   <iframe
                     width="100%"
                     height="100%"
@@ -170,7 +156,7 @@ const DetailProductPage = () => {
                     onClick={handleAddToCart}
                     className="group hover:border-primaryBlack border-2 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                   >
-                    <p className=" ">THÊM VÀO GIỎ HÀNG</p>
+                    <p>THÊM VÀO GIỎ HÀNG</p>
                   </button>
                   <button
                     onClick={handlePaymentClick}
