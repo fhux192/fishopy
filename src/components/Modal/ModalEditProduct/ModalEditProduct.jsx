@@ -12,31 +12,31 @@ import {
   message,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
-import styles from "./ModalAddProduct.module.css";
+import styles from "./ModalEditProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callCreateProduct, callUploadImg } from "../../../services/api";
-import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
+import { callCreateProduct, callEditProduct, callUploadImg } from "../../../services/api";
+import { toggleModalEditProduct } from "../../../redux/features/toggle/toggleSlice";
 import DiscountText from "../../Admin/components/DiscountText/DiscountText";
 import formatPrice from "../../../utils/formatPrice";
-
+import { useForm } from "antd/es/form/Form";
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
   }
   return e?.fileList;
 };
-const ModalAddProduct = ({ setProducts }) => {
-  const dispatch = useDispatch();
-  const { modalAddProduct } = useSelector((state) => state.toggle);
+const ModalEditProduct = ({ productEdit, setProducts }) => {
+  const { modalEditProduct } = useSelector((state) => state.toggle);
   const [loading, setLoading] = useState(false);
+  const [fileList, setFileList] = useState([]);
   const [descProductValue, setDescProductValue] = useState("");
   const [detailDescProductValue, setDetailDescProductValue] = useState("");
   const [discountText, setDiscountText] = useState("");
-  const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const handleChange = async ({ file }) => {
     const res = await callUploadImg(file, "fish");
     if (res.vcode == 0) {
@@ -51,28 +51,7 @@ const ModalAddProduct = ({ setProducts }) => {
       ]);
     } else message.error(res.message);
   };
-  const uploadButton = (
-    <button
-      style={{
-        border: 0,
-        background: "none",
-      }}
-      type="button"
-    >
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div
-        style={{
-          marginTop: 8,
-        }}
-      >
-        Upload
-      </div>
-    </button>
-  );
 
-  const onChange = (key) => {
-    console.log(key);
-  };
   const items = [
     {
       key: "1",
@@ -103,43 +82,68 @@ const ModalAddProduct = ({ setProducts }) => {
     },
   ];
 
+  const uploadButton = (
+    <button
+      style={{
+        border: 0,
+        background: "none",
+      }}
+      type="button"
+    >
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </button>
+  );
+
+  useEffect(() => {
+    if (!productEdit?._id) {
+      return;
+    }
+    const formattedFileList = productEdit.images.map((item) => ({
+      uid: item,
+      name: item,
+      status: "done",
+      url: import.meta.env.VITE_BASE_URL + "/images/fish/" + item,
+    }));
+    setFileList(formattedFileList);
+    form.setFieldsValue({
+      ...productEdit,
+      price: formatPrice(productEdit.price.toString()),
+      discountedPrice: formatPrice(productEdit.discountedPrice.toString()),
+      fileList: formattedFileList,
+    });
+  }, [productEdit]);
+
   const onFinish = async (values) => {
+    if (fileList.length === 0) {
+      message.error("Vui lòng thêm ảnh sản phẩm");
+      return;
+    }
     setLoading(true);
-    let dataProduct = {
-      images: fileList.map((item) => item?.url?.substring(item?.url.lastIndexOf("/") + 1)),
-      name: form.getFieldValue("name"),
-      price: Number(form.getFieldValue("price").replace(/,/g, "")),
-      status: form.getFieldValue("status"),
-      discountedPrice: Number(form.getFieldValue("discountedPrice").replace(/,/g, "")),
-      desc: descProductValue,
-      video: form.getFieldValue("video"),
-      discountText: discountText,
-      detailDesc: detailDescProductValue,
-    };
-
     try {
-      const res = await callCreateProduct(dataProduct);
-
+      const res = await callEditProduct({
+        ...values,
+        price: Number(values.price.replace(/,/g, "")),
+        discountedPrice: Number(values.discountedPrice.replace(/,/g, "")),
+        desc: descProductValue,
+        detailDesc: detailDescProductValue,
+        discountText,
+        images: fileList.map((item) => item.url.substring(item.url.lastIndexOf("/") + 1)),
+        _id: productEdit._id,
+      });
       if (res.vcode == 0) {
-        setProducts((pre) => [
-          ...pre,
-          {
-            ...res.data,
-            image: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.image,
-            key: res.data._id,
-          },
-        ]);
         message.success(res.message);
-        dispatch(toggleModalAddProduct());
-        form.resetFields();
-        setDescProductValue("");
-        setDetailDescProductValue("");
-        setImageUrl("");
-      } else {
-        message.error(res.message);
-      }
+        setProducts((pre) => pre.map((item) => (item._id == productEdit._id ? res.data : item)));
+        dispatch(toggleModalEditProduct());
+      } else message.error(res.message);
     } catch (error) {
-      console.error("error", error.message);
+      console.error("error", error);
     } finally {
       setLoading(false);
     }
@@ -147,22 +151,15 @@ const ModalAddProduct = ({ setProducts }) => {
 
   return (
     <Modal
-      title="Thêm sản phẩm"
-      open={modalAddProduct}
-      onCancel={() => dispatch(toggleModalAddProduct())}
+      title="Chỉnh sửa sản phẩm"
+      open={modalEditProduct}
+      onCancel={() => dispatch(toggleModalEditProduct())}
       footer={null}
       style={{
         minWidth: "80%",
       }}
     >
-      <Form
-        className={styles.form}
-        form={form}
-        onFinish={onFinish}
-        initialValues={{
-          status: true,
-        }}
-      >
+      <Form className={styles.form} form={form} onFinish={onFinish}>
         <Form.Item valuePropName="fileList" getValueFromEvent={normFile}>
           <div style={{ textAlign: "center" }}>
             <Upload
@@ -231,16 +228,16 @@ const ModalAddProduct = ({ setProducts }) => {
         </Row>
 
         <Form.Item>
-          <Tabs style={{ width: "100%" }} defaultActiveKey="1" items={items} onChange={onChange} />
+          <Tabs style={{ width: "100%" }} defaultActiveKey="1" items={items} />
         </Form.Item>
 
         <div className="text-right mt-2">
           <Form.Item>
-            <Button htmlType="submit">Thêm sản phẩm</Button>
+            <Button htmlType="submit">Cập nhật</Button>
           </Form.Item>
         </div>
       </Form>
     </Modal>
   );
 };
-export default ModalAddProduct;
+export default ModalEditProduct;

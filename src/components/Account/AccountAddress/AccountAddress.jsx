@@ -1,9 +1,10 @@
-import { Button, Card, Divider, Dropdown, Flex, message } from "antd";
+import { Card, Divider, Dropdown, Flex, message, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./AccountAddress.module.css";
 import { callRemoveAddress } from "../../../services/api";
 import { toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
 import { updateAccount } from "../../../redux/features/user/userSlice";
+import MyButton from "../../MyButton/MyButton";
 
 const AccountAddress = () => {
   const { user: user } = useSelector((state) => state.account);
@@ -35,9 +36,7 @@ const AccountAddress = () => {
     <div className={styles.address}>
       <div className={styles.addressHeader}>
         <h2 className={styles.addressTitle}>Địa chỉ của tôi</h2>
-        <Button type="primary" onClick={() => dispatch(toggleModalAddAddress())}>
-          +Thêm địa chỉ mới
-        </Button>
+        <MyButton text={"+Thêm địa chỉ mới"} onClick={() => dispatch(toggleModalAddAddress())} />
       </div>
       {user.addresses.map((item) => {
         return (

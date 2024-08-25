@@ -45,7 +45,8 @@ const DetailProductPage = () => {
         console.error(error);
       }
     } else {
-      navigate("/login");
+      // navigate("/login");
+      console.log("chưa xử lý luồng này");
     }
   };
 

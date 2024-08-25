@@ -1,6 +1,6 @@
 const formatPrice = (value) => {
-  if (value == null || value === "" || value == undefined) {
-    console.error("Value not valid", value);
+  if (!value) {
+    return;
   }
   if (typeof value === "number") {
     value = value.toString();

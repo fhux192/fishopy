@@ -37,12 +37,6 @@ const ModalAuth = () => {
               <button>Admin</button>
             </Link>
           )}
-          <button
-            onClick={() => navigate("/order-history")}
-            className="block px-4 py-2 text-primaryBlack border-t-2 hover:bg-teal-700 hover:text-white w-full text-left"
-          >
-            Lịch Sử Đơn Hàng
-          </button>
 
           <Link
             to={"/account"}

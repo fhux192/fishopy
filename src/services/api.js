@@ -102,3 +102,7 @@ export const callFetchOrderByStatusAdmin = async (status) => {
 export const callUpdateOrderAdmin = async (orderId, data) => {
   return await axios.put(`/order/${orderId}`, data);
 };
+
+export const callEditProduct = async (data) => {
+  return await axios.put(`products/${data._id}`, data);
+};

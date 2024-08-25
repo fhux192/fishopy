@@ -3,6 +3,7 @@ import styles from "./CheckoutOrder.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAllProduct } from "../../redux/features/user/userSlice";
 import formatPrice from "../../utils/formatPrice";
+import MyButton from "../MyButton/MyButton";
 const CheckoutOrder = ({ setCurrentStep }) => {
   const { user } = useSelector((state) => state.account);
   const dispatch = useDispatch();
@@ -11,7 +12,10 @@ const CheckoutOrder = ({ setCurrentStep }) => {
       {user && user.cart.length > 0 && (
         <div className={styles.checkOutOrder}>
           <div className={styles.checkOutOrderCard}>
-            <Checkbox onClick={() => dispatch(checkAllProduct())}>
+            <Checkbox
+              checked={user.cart.every((item) => item.checked)}
+              onClick={() => dispatch(checkAllProduct())}
+            >
               {user && user.cart?.every((item) => item.checked) ? (
                 <>Bỏ chọn tất cả sản phẩm</>
               ) : (
@@ -47,14 +51,12 @@ const CheckoutOrder = ({ setCurrentStep }) => {
                   </small>
                 )}
               </div>
-              <Button
-                type="primary"
+              <MyButton
+                text="Mua hàng"
                 disabled={!user?.cart?.some((item) => item.checked)}
                 className={styles.btnOrder}
                 onClick={() => setCurrentStep((pre) => (pre += 1))}
-              >
-                Mua hàng
-              </Button>
+              ></MyButton>
             </div>
           </div>
         </div>

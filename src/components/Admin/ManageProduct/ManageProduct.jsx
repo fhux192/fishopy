@@ -1,10 +1,15 @@
-import { Button, Space, Table, Typography, Tag, Image, message } from "antd";
+import { Button, Space, Table, Typography, Tag, Image, message, Flex, Popconfirm } from "antd";
 import { useEffect, useState } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
+import {
+  toggleModalAddProduct,
+  toggleModalEditProduct,
+} from "../../../redux/features/toggle/toggleSlice";
 import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
 import { callDeleteProduct, callFetchProduct } from "../../../services/api";
+import formatPrice from "../../../utils/formatPrice";
+import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
 
 const ManageProduct = () => {
   const [isLoading, setLoading] = useState(false);
@@ -12,6 +17,9 @@ const ManageProduct = () => {
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [products, setProducts] = useState([]);
+  const [productEdit, setProductEdit] = useState({});
+
+  console.log("products", products);
 
   const columns = [
     {
@@ -34,9 +42,10 @@ const ManageProduct = () => {
       width: 150,
     },
     {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
+      title: "Giá khuyến mãi",
+      dataIndex: "discountedPrice",
+      key: "discountedPrice",
+      render: (price) => <p>{formatPrice(price)}</p>,
       width: 150,
     },
     {
@@ -54,20 +63,31 @@ const ManageProduct = () => {
       title: " Thao tác",
       dataIndex: "_id",
       key: "_id",
-      render: (_id) => (
+      render: (_id, pro) => (
         <Space>
           <EditOutlined
             style={{
               color: "orange",
             }}
-          />
-
-          <DeleteOutlined
-            onClick={() => handleDeleteProduct(_id)}
-            style={{
-              color: "red",
+            onClick={() => {
+              dispatch(toggleModalEditProduct());
+              setProductEdit(pro);
             }}
           />
+
+          <Popconfirm
+            title="Xóa sản phẩm này"
+            description="Bạn có chắc chắn muốn xóa sản phẩm này?"
+            onConfirm={() => handleDeleteProduct(_id)}
+            okText="Có"
+            cancelText="Không"
+          >
+            <DeleteOutlined
+              style={{
+                color: "red",
+              }}
+            />
+          </Popconfirm>
         </Space>
       ),
       width: 150,
@@ -109,20 +129,28 @@ const ManageProduct = () => {
 
   return (
     <div>
-      <Button
-        type="link"
+      <Flex
         style={{
           marginBottom: 16,
         }}
-        onClick={() => {
-          dispatch(toggleModalAddProduct());
-        }}
+        gap={10}
       >
-        Thêm sản phẩm
-      </Button>
+        <Button
+          onClick={() => {
+            dispatch(toggleModalAddProduct());
+          }}
+        >
+          Thêm sản phẩm
+        </Button>
+        <Button>
+          <ReloadOutlined />
+        </Button>
+      </Flex>
       <Table columns={columns} dataSource={products} loading={isLoading} />
 
       <ModalAddProduct setProducts={setProducts} />
+
+      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
     </div>
   );
 };
