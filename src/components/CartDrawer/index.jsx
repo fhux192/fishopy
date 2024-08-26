@@ -37,7 +37,7 @@ const CartDrawer = () => {
               <div key={item._id} className="flex items-center py-4 border-b border-gray-200">
                 <Image
                   width={100}
-                  src={import.meta.env.VITE_BASE_URL + "/images/fish/" + item.product.images[0]}
+                  src={import.meta.env.VITE_BASE_URL + "/images/fish/" + item?.product?.images[0]}
                   className="mr-4"
                 />
                 <div className="flex-grow">

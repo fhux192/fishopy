@@ -106,3 +106,21 @@ export const callUpdateOrderAdmin = async (orderId, data) => {
 export const callEditProduct = async (data) => {
   return await axios.put(`products/${data._id}`, data);
 };
+
+export const callFetchUser = async (current, pageSize, name) => {
+  let url = "";
+  if (current) {
+    url += `current=${current}&`;
+  }
+  if (pageSize) {
+    url += `pageSize=${pageSize}&`;
+  }
+  if (name) {
+    url += `name=${name}`;
+  }
+  return await axios.get(`user/data?${url}`);
+};
+
+export const callDeleteUser = async (id) => {
+  return await axios.delete(`user/data/${id}`);
+};

@@ -21,6 +21,7 @@ import AccountAddress from "./components/Account/AccountAddress/AccountAddress.j
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import OrderPage from "./pages/OrderPage/OrderPage.jsx";
 import AccountOrder from "./components/AccountOrder/AccountOrder.jsx";
+import UserManagement from "./pages/UserManagement/UserManagement.jsx";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: "order",
         element: <ManageOrder />,
+      },
+      {
+        path: "user",
+        element: <UserManagement />,
       },
     ],
   },

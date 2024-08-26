@@ -10,6 +10,8 @@ const initialState = {
   modalAddAddress: false,
   modalOrderDetail: false,
   modalEditProduct: false,
+  modalAddUser: false,
+  modalEditUser: false,
 };
 
 export const toggleSlice = createSlice({
@@ -43,6 +45,12 @@ export const toggleSlice = createSlice({
     toggleModalEditProduct: (state) => {
       state.modalEditProduct = !state.modalEditProduct;
     },
+    toggleModalAddUser: (state) => {
+      state.modalAddUser = !state.modalAddUser;
+    },
+    toggleModalEditUser: (state) => {
+      state.modalEditUser = !state.modalEditUser;
+    },
   },
 });
 
@@ -56,6 +64,8 @@ export const {
   toggleModalAddAddress,
   toggleModalOrderDetail,
   toggleModalEditProduct,
+  toggleModalAddUser,
+  toggleModalEditUser,
 } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

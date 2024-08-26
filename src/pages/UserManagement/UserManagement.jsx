@@ -2,62 +2,41 @@ import { Button, Space, Table, Typography, Tag, Image, message, Flex, Popconfirm
 import { useEffect, useState } from "react";
 import { EditOutlined, DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import {
-  toggleModalAddProduct,
-  toggleModalEditProduct,
-} from "../../../redux/features/toggle/toggleSlice";
-import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
-import { callDeleteProduct, callFetchProduct } from "../../../services/api";
-import formatPrice from "../../../utils/formatPrice";
-import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
 
-const ManageProduct = () => {
+import ModalAddUser from "../../components/Modal/ModalAddUser/ModalAddUser";
+import ModalEditUser from "../../components/Modal/ModalEditUser/ModalEditUser";
+import { callDeleteUser, callFetchUser } from "../../services/api";
+import { toggleModalAddUser } from "../../redux/features/toggle/toggleSlice";
+
+const UserManagement = () => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [total, setTotal] = useState(0);
-  const [products, setProducts] = useState([]);
-  const [productEdit, setProductEdit] = useState({});
-
-  console.log("products", products);
+  const [users, setUsers] = useState([]);
+  const [userEdit, setUserEdit] = useState({});
 
   const columns = [
     {
-      title: "Hình ảnh",
-      dataIndex: "images",
-      key: "images",
-      render: (images) => (
-        <Image
-          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + images[0]}
-          style={{ width: "100px", height: "100px" }}
-        />
-      ),
+      title: "Id",
+      dataIndex: "_id",
+      key: "_id",
+      render: (_id) => <a>{_id}</a>,
       width: 150,
     },
     {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
+      render: (name) => <Typography.Text>{name}</Typography.Text>,
       width: 150,
     },
     {
-      title: "Giá khuyến mãi",
-      dataIndex: "discountedPrice",
-      key: "discountedPrice",
-      render: (price) => <p>{formatPrice(price)}đ</p>,
-      width: 150,
-    },
-    {
-      title: "Tình trạng",
-      dataIndex: "status",
-      key: "status",
-      render: (status) => (
-        <Tag color={status ? "green" : "red"}>
-          {status ? "Còn hàng" : "Hết hàng"} {status}
-        </Tag>
-      ),
+      title: "Số điện thoại",
+      dataIndex: "phone",
+      key: "phone",
+      render: (phone) => <p>{phone}</p>,
       width: 150,
     },
     {
@@ -70,18 +49,14 @@ const ManageProduct = () => {
             style={{
               color: "orange",
             }}
-            onClick={() => {
-              dispatch(toggleModalEditProduct());
-              setProductEdit(pro);
-            }}
           />
 
           <Popconfirm
             title="Xóa sản phẩm này"
             description="Bạn có chắc chắn muốn xóa sản phẩm này?"
-            onConfirm={() => handleDeleteProduct(_id)}
             okText="Có"
             cancelText="Không"
+            onConfirm={() => handleDeleteUser(_id)}
           >
             <DeleteOutlined
               style={{
@@ -95,12 +70,12 @@ const ManageProduct = () => {
     },
   ];
 
-  const handleDeleteProduct = async (id) => {
+  const handleDeleteUser = async (id) => {
     try {
-      const res = await callDeleteProduct(id);
+      const res = await callDeleteUser(id);
       if (res.vcode == 0) {
-        const newProducts = products.filter((product) => product._id !== id);
-        setProducts(newProducts);
+        const newusers = users.filter((product) => product._id !== id);
+        setUsers(newusers);
         message.success(res.message);
       } else {
         console.log(res.message);
@@ -110,16 +85,18 @@ const ManageProduct = () => {
     }
   };
 
-  const fetchProduct = async () => {
+  const fetchUser = async () => {
     setLoading(true);
     try {
-      const res = await callFetchProduct(current, pageSize);
-      const products = res.data.result.map((item) => ({
-        ...item,
-        key: item._id,
-      }));
-      setTotal(res.data.meta.total);
-      setProducts(products);
+      const res = await callFetchUser(current, pageSize);
+      if (res.vcode == 0) {
+        const users = res.data.result.map((item) => ({
+          ...item,
+          key: item._id,
+        }));
+        setTotal(res.data.meta.total);
+        setUsers(users);
+      } else console.error(res.message);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -128,7 +105,7 @@ const ManageProduct = () => {
   };
 
   useEffect(() => {
-    fetchProduct();
+    fetchUser();
   }, [current, pageSize]);
 
   return (
@@ -141,19 +118,19 @@ const ManageProduct = () => {
       >
         <Button
           onClick={() => {
-            dispatch(toggleModalAddProduct());
+            dispatch(toggleModalAddUser());
           }}
         >
-          Thêm sản phẩm
+          Thêm người dùng
         </Button>
-        <Button onClick={() => fetchProduct()}>
+        <Button onClick={() => fetchUser()}>
           <ReloadOutlined />
         </Button>
       </Flex>
       <Table
         isLoading={isLoading}
         columns={columns}
-        dataSource={products}
+        dataSource={users}
         loading={isLoading}
         pagination={{
           current: current,
@@ -166,10 +143,10 @@ const ManageProduct = () => {
         }}
       />
 
-      <ModalAddProduct setProducts={setProducts} />
+      <ModalAddUser setUsers={setUsers} />
 
-      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
+      <ModalEditUser userEdit={userEdit} setUsers={setUsers} />
     </div>
   );
 };
-export default ManageProduct;
+export default UserManagement;
