@@ -40,7 +40,7 @@ export default {
   },
   variants: {},
   plugins: [],
-  corePlugins: {
-    preflight: false, // <== disable this!
-  },
+  // corePlugins: {
+  //   preflight: false, // <== disable this!
+  // },
 };
