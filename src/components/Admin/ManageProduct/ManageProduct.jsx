@@ -1,37 +1,52 @@
-import { Button, Space, Table, Typography, Tag, Image, message } from "antd";
+import { Button, Space, Table, Typography, Tag, Image, message, Flex, Popconfirm } from "antd";
 import { useEffect, useState } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
+import {
+  toggleModalAddProduct,
+  toggleModalEditProduct,
+} from "../../../redux/features/toggle/toggleSlice";
 import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
 import { callDeleteProduct, callFetchProduct } from "../../../services/api";
+import formatPrice from "../../../utils/formatPrice";
+import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
 
 const ManageProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(5);
+  const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
+  const [productEdit, setProductEdit] = useState({});
+
+  console.log("products", products);
 
   const columns = [
     {
       title: "Hình ảnh",
-      dataIndex: "image",
-      key: "image",
-      render: (text) => <Image src={text} style={{ width: "100px", height: "100px" }} />,
+      dataIndex: "images",
+      key: "images",
+      render: (images) => (
+        <Image
+          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + images[0]}
+          style={{ width: "100px", height: "100px" }}
+        />
+      ),
       width: 150,
     },
     {
-      title: "Name",
+      title: "Tên",
       dataIndex: "name",
       key: "name",
       render: (text) => <a>{text}</a>,
       width: 150,
     },
     {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
+      title: "Giá khuyến mãi",
+      dataIndex: "discountedPrice",
+      key: "discountedPrice",
+      render: (price) => <p>{formatPrice(price)}đ</p>,
       width: 150,
     },
     {
@@ -49,20 +64,31 @@ const ManageProduct = () => {
       title: " Thao tác",
       dataIndex: "_id",
       key: "_id",
-      render: (_id) => (
+      render: (_id, pro) => (
         <Space>
           <EditOutlined
             style={{
               color: "orange",
             }}
-          />
-
-          <DeleteOutlined
-            onClick={() => handleDeleteProduct(_id)}
-            style={{
-              color: "red",
+            onClick={() => {
+              dispatch(toggleModalEditProduct());
+              setProductEdit(pro);
             }}
           />
+
+          <Popconfirm
+            title="Xóa sản phẩm này"
+            description="Bạn có chắc chắn muốn xóa sản phẩm này?"
+            onConfirm={() => handleDeleteProduct(_id)}
+            okText="Có"
+            cancelText="Không"
+          >
+            <DeleteOutlined
+              style={{
+                color: "red",
+              }}
+            />
+          </Popconfirm>
         </Space>
       ),
       width: 150,
@@ -84,41 +110,65 @@ const ManageProduct = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await callFetchProduct(current, pageSize);
-        console.log(res);
-        const products = res.data.map((item) => ({
-          ...item,
-          key: item._id,
-          image: import.meta.env.VITE_BASE_URL + "/images/fish/" + item.image,
-        }));
-        setProducts(products);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
+  const fetchProduct = async () => {
+    setLoading(true);
+    try {
+      const res = await callFetchProduct(current, pageSize);
+      const products = res.data.result.map((item) => ({
+        ...item,
+        key: item._id,
+      }));
+      setTotal(res.data.meta.total);
+      setProducts(products);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProduct();
-  }, []);
+  }, [current, pageSize]);
 
   return (
     <div>
-      <Button
-        type="link"
+      <Flex
         style={{
           marginBottom: 16,
         }}
-        onClick={() => {
-          dispatch(toggleModalAddProduct());
-        }}
+        gap={10}
       >
-        Thêm sản phẩm
-      </Button>
-      <Table columns={columns} dataSource={products} loading={isLoading} />
+        <Button
+          onClick={() => {
+            dispatch(toggleModalAddProduct());
+          }}
+        >
+          Thêm sản phẩm
+        </Button>
+        <Button onClick={() => fetchProduct()}>
+          <ReloadOutlined />
+        </Button>
+      </Flex>
+      <Table
+        isLoading={isLoading}
+        columns={columns}
+        dataSource={products}
+        loading={isLoading}
+        pagination={{
+          current: current,
+          pageSize: pageSize,
+          total: total,
+          onChange: (page, pageSize) => {
+            setCurrent(page);
+            setPageSize(pageSize);
+          },
+        }}
+      />
 
       <ModalAddProduct setProducts={setProducts} />
+
+      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
     </div>
   );
 };

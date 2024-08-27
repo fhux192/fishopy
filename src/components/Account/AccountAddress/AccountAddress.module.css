@@ -1,0 +1,41 @@
+.address {
+  padding-left: 15px;
+}
+
+.addressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.groupInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardItem {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.groupAction {
+  gap: 10px;
+}
+
+@media (max-width: 576px) {
+  .address {
+    padding-top: 10px;
+    padding-left: 0;
+  }
+  .addressTitle {
+    font-size: large;
+  }
+
+  .groupAction {
+    flex-direction: column-reverse;
+    gap: 10px;
+    height: 100%;
+  }
+}

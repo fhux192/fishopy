@@ -15,6 +15,7 @@ import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../scss/navbar.scss";
 import "../scss/allProduct.scss";
+import { callFetchProduct } from "../services/api";
 
 const sortProducts = (products, option) => {
   const sortFunctions = {
@@ -38,39 +39,38 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   };
 
   // Determine the class based on the number of images
-  const imageCountClass = product.proImg.length === 1 ? 'single-image' : 
-                          product.proImg.length === 3 ? 'three-images' : 
-                          product.proImg.length === 4 ? 'four-images' : 'multiple-images';
+  // const imageCountClass =
+  //   product.proImg.length === 1
+  //     ? "single-image"
+  //     : product.proImg.length === 3
+  //     ? "three-images"
+  //     : product.proImg.length === 4
+  //     ? "four-images"
+  //     : "multiple-images";
 
   return (
     <div className={`product-card `} style={{ animationDelay: `${animationDelay}s` }}>
       <Link to={`/fish/${product._id}`} key={product._id} className="image-wrapper">
-        <div className={`${imageCountClass}`}>
-          {product.proImg.map((img, index) => (
-            <LazyLoadImage
-              key={index}
-              src={img}
-              alt={`${product.title} image ${index + 1}`}
-              effect="blur"
-              className="image-item"
-            />
-          ))}
-        </div>
+        <LazyLoadImage
+          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + product.images[0]}
+          effect="blur"
+          className="rounded-t-3xl "
+        />
         <div className="text-content">
-          <h2 className="title">{product.title}</h2>
+          <h2 className="title">{product.name}</h2>
           <p>
-            {product.price === product.discount ? (
+            {product.price === product.discountedPrice ? (
               <span>{product.price}₫</span>
             ) : (
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
                 {priceStage === 1 && <span className="line-through">{product.price}₫</span>}
-                {priceStage === 2 && <span>{formatPrice(product.discount)}₫</span>}
+                {priceStage === 2 && <span>{formatPrice(product.discountedPrice)}₫</span>}
               </>
             )}
           </p>
         </div>
-        {product.price !== product.discount && (
+        {product.price !== product.discountedPrice && (
           <div className="discount">
             <div className="flex">Giảm {Math.round(discountPercentage)}%</div>
           </div>
@@ -83,31 +83,28 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   );
 };
 
-
-
-
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
-    { option: 'default', label: 'Mặc Định' },
+    { option: "default", label: "Mặc Định" },
     {
-      option: 'priceDesc',
-      label: 'Cao - Thấp',
+      option: "priceDesc",
+      label: "Cao - Thấp",
       icon: <FaSortAmountDown className="mr-2" />,
     },
     {
-      option: 'priceAsc',
-      label: 'Thấp - Cao',
+      option: "priceAsc",
+      label: "Thấp - Cao",
       icon: <FaSortAmountUp className="mr-2" />,
     },
-    { option: 'titleAsc', label: 'Tên từ A - Z' },
-    { option: 'titleDesc', label: 'Tên từ Z - A' },
+    { option: "titleAsc", label: "Tên từ A - Z" },
+    { option: "titleDesc", label: "Tên từ Z - A" },
   ];
 
   const [activeStyle, setActiveStyle] = useState({});
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const activeButton = containerRef.current.querySelector('.selected');
+    const activeButton = containerRef.current.querySelector(".selected");
     if (activeButton) {
       setActiveStyle({
         transform: `translateX(${activeButton.offsetLeft}px)`,
@@ -123,7 +120,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
         {sortButtons.map(({ option, label, icon }) => (
           <button
             key={option}
-            className={`sort-button ${sortOption === option ? 'selected' : 'unselected'}`}
+            className={`sort-button ${sortOption === option ? "selected" : "unselected"}`}
             onClick={() => setSortOption(option)}
           >
             {icon}
@@ -144,7 +141,12 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
         </div>
         <div className="flex-[2] product-grid grid  mx-2 lg:mx-0">
           {currentPageProducts.map((product, index) => (
-            <ProductCard key={product._id} product={product} priceStage={priceStage} animationDelay={index * 0.1} />
+            <ProductCard
+              key={product._id}
+              product={product}
+              priceStage={priceStage}
+              animationDelay={index * 0.1}
+            />
           ))}
         </div>
         <div className="banner">
@@ -155,29 +157,39 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   );
 };
 
-
 const AllProductPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const [sortOption, setSortOption] = useState("default");
   const [priceStage, setPriceStage] = useState(0);
+  const [currentPageProducts, setCurrentPageProducts] = useState([]);
 
   const productsPerPage = 15;
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
 
-  const sortedProducts = useMemo(
-    () => sortProducts([...Data], sortOption),
-    [sortOption]
-  );
+  const sortedProducts = useMemo(() => sortProducts([...Data], sortOption), [sortOption]);
 
-  const currentPageProducts = useMemo(
-    () => sortedProducts.slice(firstPostIndex, lastPostIndex),
-    [sortedProducts, firstPostIndex, lastPostIndex]
-  );
+  // const currentPageProducts = useMemo(
+  //   () => sortedProducts.slice(firstPostIndex, lastPostIndex),
+  //   [sortedProducts, firstPostIndex, lastPostIndex]
+  // );
 
   useEffect(() => window.scrollTo(0, 0), [currentPage]);
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await callFetchProduct(currentPage, pageSize);
+        if (res.vcode == 0) {
+          setCurrentPageProducts(res.data.result);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchProducts();
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
   }, []);
 
@@ -203,10 +215,7 @@ const AllProductPage = () => {
       </div>
       <ShiftingCountdown />
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={currentPageProducts}
-        priceStage={priceStage}
-      />
+      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
       <Pagination
         totalPost={Data.length}
         postPerPage={productsPerPage}

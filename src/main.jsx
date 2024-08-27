@@ -10,14 +10,18 @@ import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage.jsx";
 import "./index.css";
-import OrderPage from "./pages/OrderPage.jsx";
 import AddressPage from "./pages/AddressPage.jsx";
 import Home from "./pages/Home.jsx";
-// import Dashboard from "./components/Admin/DashBoard/DashBoard.jsx";
 import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
 import "ckeditor5/ckeditor5.css";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
-import AdminRoute from "./components/AdminRoute/AdminRoute.jsx";
+import AccountManagement from "./pages/AccountManagement/AccountManagement.jsx";
+import AccountProfile from "./components/Account/AccountProfile/AccountProfile.jsx";
+import AccountAddress from "./components/Account/AccountAddress/AccountAddress.jsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import OrderPage from "./pages/OrderPage/OrderPage.jsx";
+import AccountOrder from "./components/AccountOrder/AccountOrder.jsx";
+import UserManagement from "./pages/UserManagement/UserManagement.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,12 +41,39 @@ const router = createBrowserRouter([
         element: <AddressPage />,
       },
       {
+        path: "account",
+        element: (
+          <ProtectedRoute role={"ALL"}>
+            <AccountManagement />
+          </ProtectedRoute>
+        ),
+        children: [
+          {
+            index: true,
+
+            element: <AccountProfile />,
+          },
+          {
+            path: "address",
+            element: <AccountAddress />,
+          },
+          {
+            path: "order",
+            element: <AccountOrder />,
+          },
+        ],
+      },
+      {
         path: "product",
         element: <AllProductPage />,
       },
       {
         path: "order",
-        element: <OrderPage />,
+        element: (
+          <ProtectedRoute role={"ALL"}>
+            <OrderPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/order-history",
@@ -58,9 +89,9 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <AdminRoute>
+      <ProtectedRoute role={"ADMIN"}>
         <AdminPage />
-      </AdminRoute>
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -74,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: "order",
         element: <ManageOrder />,
+      },
+      {
+        path: "user",
+        element: <UserManagement />,
       },
     ],
   },

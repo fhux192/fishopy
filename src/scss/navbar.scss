@@ -17,9 +17,14 @@
       display: flex;
       gap: 0px;
       justify-items: center;
+
       align-items: center;
       a {
-        display: inline-block;
+        display: flex;
+        gap: 0px;
+        justify-items: center;
+
+        align-items: center;
       }
     }
 
@@ -27,7 +32,7 @@
       width: 35px;
       height: 35px;
       transition: all 0.3s ease;
-      color: #1a202c;
+      color: #ffffff;
     }
 
     .icon:hover {
@@ -36,12 +41,12 @@
     }
 
     .zalo-icon {
-      width: 45px;
+      width: 35px;
       height: 35px;
       margin-right: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
-      color: #1a202c;
+      color: #ffffff;
     }
     .zalo-icon:hover {
       color: #319795;
@@ -63,12 +68,16 @@
         width: 33px;
         height: 33px;
       }
-      .social {
-        align-items: normal;
-      }
 
       .top-text {
         font-size: 18px;
+      }
+    }
+  }
+  @media (max-width: 1020px) {
+    .wrapper {
+      .social {
+        align-items: normal;
       }
     }
   }

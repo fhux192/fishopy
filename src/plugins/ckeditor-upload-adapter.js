@@ -1,5 +1,4 @@
-import { callUploadImgFish } from "../services/api";
-
+import { callUploadImg } from "../services/api";
 class MyUploadAdapter {
   constructor(loader) {
     // The file loader instance to use during the upload.
@@ -11,11 +10,11 @@ class MyUploadAdapter {
     return this.loader.file.then(
       (file) =>
         new Promise(async (resolve, reject) => {
-          const res = await callUploadImgFish(file);
+          const res = await callUploadImg(file);
           console.log("res", res);
           if (res.vcode == 0) {
             resolve({
-              default: "http://localhost:3000/images/fish/" + res.data.fileUploaded,
+              default: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
             });
           } else {
             reject(res.message);

@@ -12,29 +12,16 @@ import {
   message,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import { useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalAddProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callCreateProduct, callUploadImgFish } from "../../../services/api";
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-};
+import { callCreateProduct, callUploadImg } from "../../../services/api";
+import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
+import DiscountText from "../../Admin/components/DiscountText/DiscountText";
+import formatPrice from "../../../utils/formatPrice";
+
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -45,14 +32,23 @@ const ModalAddProduct = ({ setProducts }) => {
   const dispatch = useDispatch();
   const { modalAddProduct } = useSelector((state) => state.toggle);
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState();
   const [descProductValue, setDescProductValue] = useState("");
   const [detailDescProductValue, setDetailDescProductValue] = useState("");
+  const [discountText, setDiscountText] = useState("");
+  const [fileList, setFileList] = useState([]);
+  const [form] = Form.useForm();
   const handleChange = async ({ file }) => {
-    console.log("file", file);
-    const res = await callUploadImgFish(file);
+    const res = await callUploadImg(file, "fish");
     if (res.vcode == 0) {
-      setImageUrl("http://localhost:3000/images/fish/" + res.data.fileUploaded);
+      setFileList((pre) => [
+        ...pre,
+        {
+          uid: file.uid,
+          name: file.name,
+          status: "done",
+          url: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
+        },
+      ]);
     } else message.error(res.message);
   };
   const uploadButton = (
@@ -96,17 +92,28 @@ const ModalAddProduct = ({ setProducts }) => {
         </Form.Item>
       ),
     },
+    {
+      key: "3",
+      label: "Khuyến mãi",
+      children: (
+        <Form.Item name="discountText">
+          <DiscountText setDiscountText={setDiscountText} />
+        </Form.Item>
+      ),
+    },
   ];
 
   const onFinish = async (values) => {
-    const imageProduct = imageUrl?.substring(imageUrl.lastIndexOf("/") + 1) ?? "";
+    setLoading(true);
     let dataProduct = {
-      image: imageProduct,
+      images: fileList.map((item) => item?.url?.substring(item?.url.lastIndexOf("/") + 1)),
       name: form.getFieldValue("name"),
-      price: form.getFieldValue("price"),
+      price: Number(form.getFieldValue("price").replace(/,/g, "")),
       status: form.getFieldValue("status"),
-      discountedPrice: form.getFieldValue("discountedPrice"),
+      discountedPrice: Number(form.getFieldValue("discountedPrice").replace(/,/g, "")),
       desc: descProductValue,
+      video: form.getFieldValue("video"),
+      discountText: discountText,
       detailDesc: detailDescProductValue,
     };
 
@@ -123,20 +130,21 @@ const ModalAddProduct = ({ setProducts }) => {
           },
         ]);
         message.success(res.message);
+        dispatch(toggleModalAddProduct());
         form.resetFields();
         setDescProductValue("");
         setDetailDescProductValue("");
         setImageUrl("");
-        dispatch(toggleModalAddProduct());
       } else {
         message.error(res.message);
       }
     } catch (error) {
       console.error("error", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const [form] = Form.useForm();
   return (
     <Modal
       title="Thêm sản phẩm"
@@ -161,20 +169,14 @@ const ModalAddProduct = ({ setProducts }) => {
               name="avatar"
               listType="picture-card"
               className="avatar-uploader"
-              showUploadList={false}
+              fileList={fileList}
               customRequest={handleChange}
+              multiple={true}
+              onRemove={(file) => {
+                setFileList((pre) => pre.filter((item) => item.uid !== file.uid));
+              }}
             >
-              {imageUrl ? (
-                <img
-                  src={imageUrl}
-                  alt="avatar"
-                  style={{
-                    width: "100%",
-                  }}
-                />
-              ) : (
-                uploadButton
-              )}
+              {fileList.length >= 8 ? null : uploadButton}
             </Upload>
           </div>
         </Form.Item>
@@ -186,7 +188,12 @@ const ModalAddProduct = ({ setProducts }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Giá bán" name="price" labelCol={{ span: 24 }}>
+            <Form.Item
+              label="Giá bán(đ)"
+              getValueFromEvent={(e) => formatPrice(e)}
+              name="price"
+              labelCol={{ span: 24 }}
+            >
               <InputNumber style={{ width: "100%" }} />
             </Form.Item>
           </Col>
@@ -204,7 +211,20 @@ const ModalAddProduct = ({ setProducts }) => {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item label="Giá khuyến mãi" name="discountedPrice" labelCol={{ span: 24 }}>
+            <Form.Item
+              label="Giá khuyến mãi(đ)"
+              name="discountedPrice"
+              getValueFromEvent={(e) => formatPrice(e)}
+              labelCol={{ span: 24 }}
+            >
+              <InputNumber style={{ width: "100%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={[16, 24]}>
+          <Col span={12}>
+            <Form.Item label="Url video" name="video" labelCol={{ span: 24 }}>
               <Input />
             </Form.Item>
           </Col>

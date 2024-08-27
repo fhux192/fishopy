@@ -29,6 +29,8 @@ const ModalRegister = () => {
 
       const res = await callRegister({ name, password, phone });
 
+      console.log("check res", res);
+
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
         toast.success(res.message);
@@ -49,10 +51,7 @@ const ModalRegister = () => {
 
   return (
     <div className={`${styles.modal} ${modalRegister ? styles.fixed : styles.hidden}`}>
-      <div
-        className={styles.modalOverlay}
-        onClick={() => dispatch(toggleModalRegister())}
-      ></div>
+      <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalRegister())}></div>
       <div className={styles.modalContent}>
         <h1 className={styles.modalTitle}>Đăng ký</h1>
         <label htmlFor="name" className="text-black">
@@ -158,7 +157,8 @@ const ModalRegister = () => {
         </button>
         <div className={styles.smallText}>
           <span>Bạn đã có tài khoản? </span>
-          <a className="pl-1 text-teal-500 cursor-pointer"
+          <a
+            className="pl-1 text-teal-500 cursor-pointer"
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());

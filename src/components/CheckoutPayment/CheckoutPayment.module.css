@@ -1,0 +1,42 @@
+.btnPayment {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.checkOutOrder {
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
+}
+
+.checkOutOrderCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.groupSum {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 576px) {
+  .groupSum {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btnOrder {
+    width: 100%;
+  }
+}

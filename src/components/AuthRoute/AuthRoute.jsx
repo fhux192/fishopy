@@ -4,15 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const AuthRoute = ({ children }) => {
-  const userInfo = useSelector((state) => state.user.userInfo);
+  const user = useSelector((state) => state.account.user);
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!user) {
       useNavigate().navigate("/");
     }
-  }, [userInfo]);
+  }, [user]);
 
-  return <div>{userInfo?.role ? children : null}</div>;
+  return <div>{user?.role ? children : null}</div>;
 };
 
 export default AuthRoute;

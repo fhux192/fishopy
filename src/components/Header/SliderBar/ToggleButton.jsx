@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaList } from "react-icons/fa6";
 import { motion, AnimatePresence } from "framer-motion";
+import "../../../scss/navbar.scss";
 
 const ToggleButton = ({ setOpen, open }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -39,8 +40,8 @@ const ToggleButton = ({ setOpen, open }) => {
     <>
     
       <button ref={buttonRef} onClick={handleClick} style={{ background: "none", border: "none", cursor: "pointer" }}>
-        <motion.div whileTap={{ scale: 0.9 }}>
-          <FaList className="icon lg:hidden block" style={{ color: open ? "#0A6C62" : "#191919" }} />
+        <motion.div  whileTap={{ scale: 0.9 }}>
+          <FaList className="icon lg:hidden block" style={{ color: open ? "#0A6C62" : "#fff" }} />
         </motion.div>
       </button>
       <AnimatePresence>

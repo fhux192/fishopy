@@ -12,10 +12,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
-import {
-  toggleModalLogin,
-  toggleModalRegister,
-} from "../../../redux/features/toggle/toggleSlice";
+import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
 import { logout } from "../../../redux/features/user/userSlice";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -47,9 +44,9 @@ const itemVariants = {
 
 const Links = () => {
   const items = [
-    { name: "Trang Chủ", icon: <FaHome className="mb-2"/> },
-    { name: "Sản Phẩm", icon: <FaBagShopping className="mb-2"/> },
-    { name: "Địa Chỉ", icon: <FaMapMarkedAlt className="mb-2"/> },
+    { name: "Trang Chủ", icon: <FaHome className="mb-2" /> },
+    { name: "Sản Phẩm", icon: <FaBagShopping className="mb-2" /> },
+    { name: "Địa Chỉ", icon: <FaMapMarkedAlt className="mb-2" /> },
   ];
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,7 +57,7 @@ const Links = () => {
     toast.success("Đăng xuất thành công");
   };
 
-  const user = useSelector((state) => state.user.userInfo);
+  const user = useSelector((state) => state.account.user);
 
   const handleNavigation = (item) => {
     if (item === "Trang Chủ") {
@@ -102,7 +99,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaSignInAlt className="mb-2"/> Đăng nhập
+            <FaSignInAlt className="mb-2" /> Đăng nhập
           </motion.p>
           <motion.p
             className="flex items-center gap-2 links-item cursor-pointer hover:text-teal-700"
@@ -110,7 +107,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaUserPlus className="mb-2"/> Đăng ký
+            <FaUserPlus className="mb-2" /> Đăng ký
           </motion.p>
         </>
       ) : (
@@ -121,7 +118,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaHistory className="mb-2"/> Đơn Hàng
+            <FaHistory className="mb-2" /> Đơn Hàng
           </motion.p>
           <motion.p
             className="flex items-center gap-2 links-item cursor-pointer"
@@ -129,7 +126,7 @@ const Links = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.1 }}
           >
-            <FaSignOutAlt className="mb-2"/> Đăng xuất
+            <FaSignOutAlt className="mb-2" /> Đăng xuất
           </motion.p>
         </>
       )}

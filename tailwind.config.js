@@ -7,15 +7,12 @@ export default {
       backgroundImage: {
         "custom-grid":
           "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
-        "gradient":
-          "linear-gradient(45deg,#0A6C62, #20a69f,  #95cbc4, #20a69f ,#0A6C62)",
+        gradient: "linear-gradient(45deg,#0A6C62, #20a69f,  #95cbc4, #20a69f ,#0A6C62)",
       },
       backgroundSize: {
         "4vh-4vh": "4vh 4vh",
       },
       colors: {
-        // Configure your color palette here
-        
         primaryBlack: "#1a202c",
         secondBlack: "#111111",
         thirdBlack: "#4a4a4a",
@@ -23,6 +20,7 @@ export default {
         secondGrey: "#999999",
         primaryTeal: "#319795",
         secondTeal: "#2dd4bf",
+        primaryOrange: "#F57C00",
         overlay: "rgba(0, 0, 0, 0.9)",
         "button-search": "#f8f7f9",
       },
@@ -43,4 +41,7 @@ export default {
   },
   variants: {},
   plugins: [],
+  // corePlugins: {
+  //   preflight: false, // <== disable this!
+  // },
 };
