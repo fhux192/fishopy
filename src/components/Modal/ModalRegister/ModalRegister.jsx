@@ -5,7 +5,7 @@ import { useState } from "react";
 import { callRegister } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
-import { Typography, message } from "antd";
+import { message } from "antd";
 import styles from "./ModalRegister.module.css";
 
 const ModalRegister = () => {
@@ -163,7 +163,7 @@ const ModalRegister = () => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());
             }}
-          >
+          > 
             Đăng nhập
           </a>
         </div>
