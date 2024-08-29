@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 import "../../../scss/bubble.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { FaSearch, FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
+import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
 import { message } from "antd";
 import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
@@ -54,13 +54,16 @@ const Navbar = () => {
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+    if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
       setIsNavbarVisible(false);
     } else {
       setIsNavbarVisible(true);
     }
     lastScrollY.current = currentScrollY;
+    
   };
+
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -79,7 +82,10 @@ const Navbar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div className="wrapper bg-primaryBlack lg:px-[20px] lg:mt-[0.5rem] lg:rounded-xl lg:w-[85%]  border-b-2 border-gray-150 lg:mx-[7.5%]">
+      <div
+        className={`wrapper lg:px-[20px]  lg:mt-[1rem] lg:mx-[0] `}
+        
+      >
         <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
           <button
             className="flex lg:flex-0 lg:mr-[4.5%]"
@@ -88,9 +94,7 @@ const Navbar = () => {
             <BubbleText />
           </button>
 
-          <div className=" duration-1000 lg:flex hidden flex-[2] items-center justify-end mr-[17px]">
-         
-          </div>
+          <div className=" duration-1000 lg:flex hidden flex-[2] items-center justify-end mr-[17px]"></div>
           <div className=" border-primaryGrey social">
             <Link to="/">
               <FaHome
@@ -110,7 +114,7 @@ const Navbar = () => {
                 className="lg:block hidden icon mr-[17px] duration-500"
               />
             </Link>
-            <div className="border-l-2 border-white pl-2 mr-[0rem]">
+            <div className="border-l-4 border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
                 <FaUserTag
@@ -158,7 +162,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="lg:border-l-2 border-white pl-2 mr-[0rem] social">
+        <div className="lg:border-l-4 border-primaryBlack ml-2 pl-2 mr-[0rem] social">
           <Slidebar />
           <a
             href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
@@ -175,7 +179,7 @@ const Navbar = () => {
           >
             <FaYoutube
               title="Youtube Guppy Hóc Môn"
-              className="icon mr-[10px] duration-500"
+              className="icon mr-[15px] duration-500"
             />
           </a>
         </div>
@@ -186,8 +190,8 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-    <div className="font-sans text-white w-full text-xl min-[320px]:text-lg min-[321px]:text-[24px] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
-      {"GUPPY HÓC MÔN .VN".split("").map((child, idx) => (
+    <div className="font-sans mt-[1px] ml-[15px] text-white lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
+      {"GUPPY HÓC MÔN".split("").map((child, idx) => (
         <span className=" cursor-pointer hoverText" key={idx}>
           {child}
         </span>

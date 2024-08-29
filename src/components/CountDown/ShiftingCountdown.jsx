@@ -6,7 +6,7 @@ import "../../scss/allProduct.scss";
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(tomorrow.getDate() + 1);
-const COUNTDOWN_FROM = tomorrow.toISOString().split('T')[0];
+const COUNTDOWN_FROM = tomorrow.toISOString().split("T")[0];
 
 const SECOND = 1000;
 const MINUTE = SECOND * 60;
@@ -15,15 +15,18 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="countdown-container lg:mt-4 mt-2  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
+    <div className="flex justify-center">
+      {" "}
+      <div className="countdown-container lg:rounded-3xl md:rounded-3xl  lg:mt-5 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
         <p className="text-center font-semibold text-white text-[1rem] lg:text-[1.5rem]">
-            Kết Thúc Ưu Đãi Sau:
+          Kết Thúc Ưu Đãi Sau:
         </p>
-      <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center shadow-xl bg-white">
-        <CountdownItem unit="Day" text="ngày" />
-        <CountdownItem unit="Hour" text="giờ" />
-        <CountdownItem unit="Minute" text="phút" />
-        <CountdownItem unit="Second" text="giây" />
+        <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center shadow-xl bg-white">
+          <CountdownItem unit="Day" text="ngày" />
+          <CountdownItem unit="Hour" text="giờ" />
+          <CountdownItem unit="Minute" text="phút" />
+          <CountdownItem unit="Second" text="giây" />
+        </div>
       </div>
     </div>
   );
@@ -33,7 +36,7 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-primaryBlack rounded-xl  font-mono md:h-[7rem] md:gap-2">
+    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-primaryBlack rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}

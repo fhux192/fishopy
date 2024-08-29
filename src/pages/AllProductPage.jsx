@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-import ProductsData from "../data/ProductsData";
 import Data from "../data/Data";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
@@ -28,10 +27,12 @@ const sortProducts = (products, option) => {
   return products.sort(sortFunctions[option]);
 };
 
-const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) =>
+  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
-  const discountPercentage = ((product.price - product.discount) / product.price) * 100;
+  const discountPercentage =
+    ((product.price - product.discount) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     alert("Add to cart logic here");
@@ -49,10 +50,19 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   //     : "multiple-images";
 
   return (
-    <div className={`product-card `} style={{ animationDelay: `${animationDelay}s` }}>
-      <Link to={`/fish/${product._id}`} key={product._id} className="image-wrapper">
+    <div
+      className={`product-card `}
+      style={{ animationDelay: `${animationDelay}s` }}
+    >
+      <Link
+        to={`/fish/${product._id}`}
+        key={product._id}
+        className="image-wrapper"
+      >
         <LazyLoadImage
-          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + product.images[0]}
+          src={
+            import.meta.env.VITE_BASE_URL + "/images/fish/" + product.images[0]
+          }
           effect="blur"
           className="rounded-t-3xl "
         />
@@ -64,8 +74,12 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             ) : (
               <>
                 {priceStage === 0 && <span>{product.price}₫</span>}
-                {priceStage === 1 && <span className="line-through">{product.price}₫</span>}
-                {priceStage === 2 && <span>{formatPrice(product.discountedPrice)}₫</span>}
+                {priceStage === 1 && (
+                  <span className="line-through">{product.price}₫</span>
+                )}
+                {priceStage === 2 && (
+                  <span>{formatPrice(product.discountedPrice)}₫</span>
+                )}
               </>
             )}
           </p>
@@ -114,19 +128,24 @@ const SortSection = ({ sortOption, setSortOption }) => {
   }, [sortOption]);
 
   return (
-    <div className="sort-section">
-      <div className="sort-buttons" ref={containerRef}>
-        <div className="active-background" style={activeStyle}></div>
-        {sortButtons.map(({ option, label, icon }) => (
-          <button
-            key={option}
-            className={`sort-button ${sortOption === option ? "selected" : "unselected"}`}
-            onClick={() => setSortOption(option)}
-          >
-            {icon}
-            {label}
-          </button>
-        ))}
+    <div className="flex w-full justify-center">
+      {" "}
+      <div className="sort-section">
+        <div className="sort-buttons" ref={containerRef}>
+          <div className="active-background" style={activeStyle}></div>
+          {sortButtons.map(({ option, label, icon }) => (
+            <button
+              key={option}
+              className={`sort-button ${
+                sortOption === option ? "selected" : "unselected"
+              }`}
+              onClick={() => setSortOption(option)}
+            >
+              {icon}
+              {label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -137,20 +156,30 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
     <div className="product-section rounded-xl">
       <div className="product-container">
         <div className="banner">
-          <img className="w-full h-full object-cover" src={saleGift} alt="Sale" />
+          <img
+            className="w-full h-full object-cover"
+            src={saleGift}
+            alt="Sale"
+          />
         </div>
-        <div className="flex-[2] product-grid grid  mx-2 lg:mx-0">
-          {currentPageProducts.map((product, index) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              priceStage={priceStage}
-              animationDelay={index * 0.1}
-            />
-          ))}
+        <div className="flex w-full justify-center">
+          <div className=" product-grid grid gap-4  mx-2 lg:mx-0">
+            {currentPageProducts.map((product, index) => (
+              <ProductCard
+                key={product._id}
+                product={product}
+                priceStage={priceStage}
+                animationDelay={index * 0.1}
+              />
+            ))}
+          </div>
         </div>
         <div className="banner">
-          <img className="w-full h-full object-cover" src={saleGift} alt="Sale" />
+          <img
+            className="w-full h-full object-cover"
+            src={saleGift}
+            alt="Sale"
+          />
         </div>
       </div>
     </div>
@@ -168,7 +197,10 @@ const AllProductPage = () => {
   const lastPostIndex = currentPage * productsPerPage;
   const firstPostIndex = lastPostIndex - productsPerPage;
 
-  const sortedProducts = useMemo(() => sortProducts([...Data], sortOption), [sortOption]);
+  const sortedProducts = useMemo(
+    () => sortProducts([...Data], sortOption),
+    [sortOption]
+  );
 
   // const currentPageProducts = useMemo(
   //   () => sortedProducts.slice(firstPostIndex, lastPostIndex),
@@ -215,7 +247,10 @@ const AllProductPage = () => {
       </div>
       <ShiftingCountdown />
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
+      <ProductsSection
+        currentPageProducts={currentPageProducts}
+        priceStage={priceStage}
+      />
       <Pagination
         totalPost={Data.length}
         postPerPage={productsPerPage}
