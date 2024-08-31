@@ -32,7 +32,7 @@ const formatPrice = (price) =>
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const discountPercentage =
-    ((product.price - product.discount) / product.price) * 100;
+    ((product.price - product.discountedPrice) / product.price) * 100;
 
   const handleAddToCart = (event) => {
     alert("Add to cart logic here");
@@ -157,7 +157,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
       <div className="product-container">
         <div className="banner">
           <img
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             src={saleGift}
             alt="Sale"
           />
@@ -176,7 +176,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
         </div>
         <div className="banner">
           <img
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             src={saleGift}
             alt="Sale"
           />

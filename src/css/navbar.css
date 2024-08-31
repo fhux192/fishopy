@@ -1,0 +1,158 @@
+.navbar {
+  color: #f8f7f9;
+}
+.navbar .wrapper {
+  max-width: 3700px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  z-index: 1000;
+}
+.navbar .wrapper span {
+  font-weight: bold;
+}
+.navbar .wrapper .social {
+  display: flex;
+  gap: 0px;
+  justify-items: center;
+  align-items: center;
+}
+.navbar .wrapper .social a {
+  display: flex;
+  gap: 0px;
+  justify-items: center;
+  align-items: center;
+}
+.navbar .wrapper .icon {
+  width: 35px;
+  height: 35px;
+  transition: all 0.3s ease;
+  color: #1a202c;
+}
+.navbar .wrapper .icon:hover {
+  color: #319795;
+  transform: rotate(360deg);
+}
+.navbar .wrapper .zalo-icon {
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #1a202c;
+}
+.navbar .wrapper .zalo-icon:hover {
+  color: #319795;
+  transform: rotate(360deg);
+}
+.navbar .wrapper .top-text {
+  font-size: 25px;
+}
+@media (max-width: 480px) {
+  .navbar .wrapper {
+    height: 62px;
+  }
+  .navbar .wrapper .icon {
+    width: 30px;
+    height: 30px;
+  }
+  .navbar .wrapper .zalo-icon {
+    width: 33px;
+    height: 33px;
+  }
+  .navbar .wrapper .top-text {
+    font-size: 18px;
+  }
+}
+@media (max-width: 1020px) {
+  .navbar .wrapper {
+    background-color: #1a202c;
+  }
+  .navbar .wrapper .social {
+    align-items: normal;
+  }
+  .navbar .wrapper .icon {
+    color: #f8f7f9;
+  }
+}
+.navbar .sort-section {
+  overflow-x: auto;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+.navbar .sort-section::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* MyComponent.module.css */
+.gradientText {
+  background: linear-gradient(90deg, #95cbc4, #b4c2c2, #f1f1f1, #5f9ea0, #66cdaa, #f1f1f1, #b4c2c2, #95cbc4);
+  background-size: 400% 400%;
+  color: #191919;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: rotateGradient 10s 1s infinite;
+}
+
+.Text {
+  background: linear-gradient(120deg, #d5e0e0, #d5e0e0, #d5e0e0, #d5e0e0, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #d5e0e0, #d5e0e0, #d5e0e0, #d5e0e0);
+  background-size: 400% 400%;
+  color: #191919;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: rotateGradient 10s 1s infinite;
+}
+
+.animatedText {
+  position: relative;
+  color: transparent;
+  padding: 5px 10px;
+  animation: displayText 18s infinite;
+  animation-delay: calc(var(--i) * -6s);
+}
+
+.animatedText::before {
+  position: absolute;
+  content: attr(data-text);
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3.2rem;
+  color: #0a6c62;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 5px solid #0a6c62;
+  padding: 5px 10px;
+  animation: animates 5s linear reverse infinite;
+}
+
+@keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes animates {
+  0%, 10%, 100% {
+    width: 0;
+  }
+  70%, 90% {
+    width: 100%;
+  }
+}
+@keyframes displayText {
+  0%, 25% {
+    display: inline-block;
+  }
+  26%, 100% {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=navbar.css.map */

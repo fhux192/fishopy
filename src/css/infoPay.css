@@ -1,0 +1,112 @@
+.info-pay-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7fafc;
+  width: 100%;
+}
+
+.info-pay-wrapper {
+  padding: 1rem;
+  margin-top: 5rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1a202c;
+}
+
+.product-summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.product-title {
+  color: #4a5568;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.product-info {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  color: #4a5568;
+  gap: 1rem;
+}
+
+.product-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  margin-top: 1rem;
+}
+
+.image {
+  width: 15rem;
+  height: 10rem;
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
+.total {
+  font-size: 1.125rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #1a202c;
+  text-align: end;
+}
+
+.total-amount {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  font-size: 1.125rem;
+  color: #fff;
+}
+
+.amount {
+  background-color: #0a6c62;
+  padding-right: 5px;
+  width: 10rem;
+}
+
+.pay-button {
+  width: 100%;
+  font-size: 1.125rem;
+  background-color: #1a202c;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+.pay-button:hover {
+  outline: 3px solid #2dd4bf;
+}
+
+.verify-button {
+  width: 10rem;
+  background-color: #4a5568;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+}
+.verify-button:hover {
+  background-color: #2d3748;
+}
+
+.otp-input-container {
+  margin-top: 2.5rem;
+}
+
+/*# sourceMappingURL=infoPay.css.map */

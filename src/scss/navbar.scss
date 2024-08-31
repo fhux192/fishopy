@@ -17,13 +17,12 @@
       display: flex;
       gap: 0px;
       justify-items: center;
-
       align-items: center;
+
       a {
         display: flex;
         gap: 0px;
         justify-items: center;
-
         align-items: center;
       }
     }
@@ -40,7 +39,18 @@
       transform: rotate(360deg);
     }
 
-    .zalo-icon {
+    .icon-navigate {
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+
+      &:hover {
+        color: #319795;
+        transform: rotate(360deg);
+      }
+    }
+
+    .bag-icon {
       width: 35px;
       height: 35px;
       margin-right: 20px;
@@ -48,10 +58,12 @@
       transition: all 0.3s ease;
       color: #1a202c;
     }
-    .zalo-icon:hover {
+
+    .bag-icon:hover {
       color: #319795;
       transform: rotate(360deg);
     }
+
     .top-text {
       font-size: 25px;
     }
@@ -60,11 +72,13 @@
   @media (max-width: 480px) {
     .wrapper {
       height: 62px;
+
       .icon {
         width: 30px;
         height: 30px;
       }
-      .zalo-icon {
+
+      .bag-icon {
         width: 33px;
         height: 33px;
       }
@@ -74,17 +88,21 @@
       }
     }
   }
+
   @media (max-width: 1020px) {
     .wrapper {
-      background-color: #1a202c;
+      background-color: #ffffff;
+
       .social {
         align-items: normal;
       }
-      .icon{
-        color: #f8f7f9;
+
+      .icon {
+        color: #1a202c;
       }
     }
   }
+
   .sort-section {
     overflow-x: auto;
     scrollbar-width: none; /* For Firefox */
@@ -93,6 +111,10 @@
 
   .sort-section::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
+  }
+
+  @media (max-width: 480px) {
+    border-bottom: solid 2px #1a202c;
   }
 }
 
@@ -141,24 +163,12 @@
   animation: rotateGradient 10s 1s infinite;
 }
 
-@keyframes rotateGradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .animatedText {
   position: relative;
   color: transparent;
   padding: 5px 10px;
-  animation: displayText 18s infinite; /* Slowed down */
-  animation-delay: calc(var(--i) * -6s); /* Adjusted for slower animation */
+  animation: displayText 18s infinite;
+  animation-delay: calc(var(--i) * -6s);
 }
 
 .animatedText::before {
@@ -173,7 +183,19 @@
   white-space: nowrap;
   border-right: 5px solid #0a6c62;
   padding: 5px 10px;
-  animation: animates 5s linear reverse infinite; /* Slowed down */
+  animation: animates 5s linear reverse infinite;
+}
+
+@keyframes rotateGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @keyframes animates {

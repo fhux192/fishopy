@@ -10,10 +10,16 @@ import { addToCart, updateAccount } from "../redux/features/user/userSlice.js";
 import { toast } from "react-toastify";
 
 const ProductDescription = ({ description }) => (
-  <div className="product-description" dangerouslySetInnerHTML={{ __html: description }} />
+  <div
+    className="product-description"
+    dangerouslySetInnerHTML={{ __html: description }}
+  />
 );
 const ProductDetail = ({ detail }) => (
-  <div className="product-description" dangerouslySetInnerHTML={{ __html: detail }} />
+  <div
+    className="product-description"
+    dangerouslySetInnerHTML={{ __html: detail }}
+  />
 );
 
 const DetailProductPage = () => {
@@ -94,8 +100,8 @@ const DetailProductPage = () => {
         {product && (
           <div className="flex w-full max-w-6xl">
             <div className="lg:mt-[4.3rem] mt-[4rem] bg-white border-2 border-gray-200 rounded-xl w-full max-w-5xl p-6 lg:py-[3rem]">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="lg:w-[32rem] lg:h-[18rem] rounded-xl lg:translate-x-[-5rem] relative pt-[56.25%]">
+              <div className="grid w-full grid-cols-1 lg:grid-cols-2 gap-[2rem]">
+                <div className="lg:w-[28rem] lg:h-[12.75rem] rounded-xl  relative pt-[56.25%]">
                   {" "}
                   <iframe
                     width="100%"
@@ -106,7 +112,7 @@ const DetailProductPage = () => {
                   ></iframe>
                 </div>
 
-                <div className="flex flex-col lg:gap-2 gap-2">
+                <div className="flex justify-start flex-col lg:gap-2 gap-2">
                   <h1 className="text-3xl lg:ml-[5rem] font-bold text-primaryGrey">
                     {product.name}
                   </h1>
@@ -121,14 +127,18 @@ const DetailProductPage = () => {
                     )}
                   </div>
                   <div className="flex  lg:ml-[5rem] items-center gap-2">
-                    <span className="text-lg text-primaryBlack font-semibold">Tình trạng:</span>
+                    <span className="text-lg text-primaryBlack font-semibold">
+                      Tình trạng:
+                    </span>
                     <span className="text-lg text-primaryBlack font-semibold">
                       {product.status ? "Còn hàng" : "Hết hàng"}
                     </span>
                   </div>
-                  <div className="flex mb-6 lg:ml-[5rem] items-center gap-1">
-                    <span className="text-lg text-primaryBlack font-semibold">Số lượng:</span>
-                    <div className="flex items-center">
+                  <div className="flex border-b-2 pb-3 mr-9 mb-4 lg:ml-[5rem] items-center gap-1">
+                    <span className="text-lg text-primaryBlack font-semibold">
+                      Số lượng:
+                    </span>
+                    <div className="flex bo items-center">
                       <button
                         className="px-3 text-xl rounded-full border-primaryBlack py-1"
                         onClick={decrementQuantity}
@@ -153,15 +163,23 @@ const DetailProductPage = () => {
                       </button>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div className="flex-col">
+                <div className="flex w-full justify-end pr-[2rem] mb-2">
                   <button
                     onClick={handleAddToCart}
-                    className="group hover:border-primaryBlack border-2 border-gray-150 bg-white lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
+                    className="group hover:border-primaryBlack border-2 border-gray-150 bg-white  lg:h-[3rem] lg:w-[35%] lg:text-xl text-lg text-primaryBlack font-bold p-2 rounded-xl transition duration-300"
                   >
                     <p>THÊM VÀO GIỎ HÀNG</p>
                   </button>
+                </div>
+
+                <div className="flex w-full justify-end pr-[2rem] mb-2">
+                  {" "}
                   <button
                     onClick={handlePaymentClick}
-                    className="group hover:border-teal-500 hover:border-2 bg-primaryBlack lg:translate-x-[5rem] lg:h-[3rem] lg:w-[90%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
+                    className="group hover:border-teal-500 hover:border-2 bg-primaryBlack lg:h-[3rem] lg:w-[35%] lg:text-xl text-lg text-white font-bold py-2 px-3 rounded-xl transition duration-300"
                   >
                     <p className=" duration-300">MUA NGAY</p>
                   </button>
@@ -204,7 +222,11 @@ const DetailProductPage = () => {
                 </div>
                 {activeTab === "details" && (
                   <div className="overflow-auto h-[20rem] md:h-[30rem] lg:h-[40rem] px-4 lg:px-10">
-                    <img src={product.proImg} className="rounded-xl my-8" alt="" />
+                    <img
+                      src={product.proImg}
+                      className="rounded-xl my-8"
+                      alt=""
+                    />
                     <ProductDescription description={product.desc} />
                   </div>
                 )}
@@ -224,7 +246,10 @@ const DetailProductPage = () => {
                     </a>
                     <div className="relative flex justify-center items-center gap-2">
                       <p className="font-bold text-[1.5rem]">Zalo:</p>
-                      <a className="text-[1.2rem]" href="https://zalo.me/0388811160">
+                      <a
+                        className="text-[1.2rem]"
+                        href="https://zalo.me/0388811160"
+                      >
                         {" "}
                         https://zalo.me/0388811160
                       </a>
@@ -240,7 +265,10 @@ const DetailProductPage = () => {
                 </h2>
                 <ul className="list-disc text-md text-white pl-6">
                   <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
-                  <li>Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1 triệu đồng.</li>
+                  <li>
+                    Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1
+                    triệu đồng.
+                  </li>
                   <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                   <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
                 </ul>

@@ -24,7 +24,6 @@ const Header = ({ children }) => {
               <div className="min-w-[29rem] object-cover h-full"></div>
               <List />
             </div>
-
             {/* header search */}
             <HeaderSearch />
 

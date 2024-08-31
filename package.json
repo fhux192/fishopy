@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
+    "sass": "sass scss:css -w",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -14,6 +15,7 @@
     "@ckeditor/ckeditor5-build-classic": "^42.0.0",
     "@ckeditor/ckeditor5-react": "^8.0.0",
     "@reduxjs/toolkit": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
     "antd": "^5.15.3",
     "aos": "^2.3.4",
     "axios": "^1.6.8",

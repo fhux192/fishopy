@@ -25,8 +25,22 @@ const Navbar = () => {
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
 
-  const handleNavigation = () => {
-    navigate("/");
+  const items = [
+    { name: "Trang Chủ", icon: <FaHome className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
+    { name: "Sản Phẩm", icon: <FaFishFins className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
+    { name: "Địa Chỉ", icon: <FaMapMarkedAlt  className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
+  ];
+
+  const handleNavigation = (item) => {
+    if (item === "Trang Chủ") {
+      navigate("/");
+    } else if (item === "Sản Phẩm") {
+      navigate("/product");
+    } else if (item === "Địa Chỉ") {
+      navigate("/address");
+    } else if (item === "Lịch Sử Đơn Hàng") {
+      navigate("/order-history");
+    }
   };
 
   const handleLogout = async () => {
@@ -60,10 +74,7 @@ const Navbar = () => {
       setIsNavbarVisible(true);
     }
     lastScrollY.current = currentScrollY;
-    
   };
-
-
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -82,10 +93,7 @@ const Navbar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div
-        className={`wrapper lg:px-[20px]  lg:mt-[1rem] lg:mx-[0] `}
-        
-      >
+      <div className={`wrapper lg:px-[20px]  lg:mt-[1rem] lg:mx-[0] `}>
         <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
           <button
             className="flex lg:flex-0 lg:mr-[4.5%]"
@@ -96,24 +104,23 @@ const Navbar = () => {
 
           <div className=" duration-1000 lg:flex hidden flex-[2] items-center justify-end mr-[17px]"></div>
           <div className=" border-primaryGrey social">
-            <Link to="/">
-              <FaHome
-                title="Trang Chủ "
-                className="lg:block hidden icon mr-[17px] duration-500"
-              />
-            </Link>
-            <Link to="/product">
-              <FaFishFins
-                title="Sản Phẩm"
-                className="lg:block hidden icon mr-[17px] duration-500"
-              />
-            </Link>
-            <Link to="/address">
-              <FaMapMarkedAlt
-                title="Địa Chỉ"
-                className="lg:block hidden icon mr-[17px] duration-500"
-              />
-            </Link>
+            {items.map((item) => (
+              <div
+                className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
+                  (item.name === "Trang Chủ" && location.pathname === "/") ||
+                  (item.name === "Sản Phẩm" &&
+                    location.pathname === "/product") ||
+                  (item.name === "Địa Chỉ" && location.pathname === "/address")
+                    ? "text-teal-700 font-bold"
+                    : ""
+                }`}
+                key={item.name}
+                onClick={() => handleNavigation(item.name)}
+              >
+                {item.icon}
+              </div>
+            ))}
+            
             <div className="border-l-4 border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
@@ -143,7 +150,7 @@ const Navbar = () => {
               >
                 <FaBagShopping
                   title="Giỏ Hàng"
-                  className=" zalo-icon duration-500 text-white"
+                  className=" bag-icon duration-500 text-white"
                 />
               </motion.div>
               <div
@@ -190,7 +197,7 @@ const Navbar = () => {
 
 const BubbleText = () => {
   return (
-    <div className="font-sans mt-[1px] ml-[15px] text-white lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
+    <div className="font-sans mt-[1px] ml-[15px] text-primaryBlack lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
         <span className=" cursor-pointer hoverText" key={idx}>
           {child}
