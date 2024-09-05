@@ -124,3 +124,43 @@ export const callFetchUser = async (current, pageSize, name) => {
 export const callDeleteUser = async (id) => {
   return await axios.delete(`user/data/${id}`);
 };
+
+export const callFetchOrders = async (current, pageSize, status, from, to) => {
+  let url = "";
+  if (current) {
+    url += `current=${current}&`;
+  }
+  if (pageSize) {
+    url += `pageSize=${pageSize}&`;
+  }
+  if (status) {
+    url += `status=${status}&`;
+  }
+  if (from) {
+    url += `from=${from}&`;
+  }
+  if (to) {
+    url += `to=${to}`;
+  }
+  return await axios.get(`order?${url}`);
+};
+
+export const callUpdateOrder = async (orderId, data) => {
+  return await axios.put(`order/${orderId}`, data);
+};
+
+export const callDeleteOrder = async (orderId) => {
+  return await axios.delete(`order/${orderId}`);
+};
+
+export const callAddUser = async (data) => {
+  return await axios.post("user/data", data);
+};
+
+export const callEditUser = async (data) => {
+  return await axios.put(`user/data/${data._id}`, data);
+};
+
+export const callFetchDataDashboard = async () => {
+  return await axios.get("dashboard");
+};

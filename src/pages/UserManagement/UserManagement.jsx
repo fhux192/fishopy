@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import ModalAddUser from "../../components/Modal/ModalAddUser/ModalAddUser";
 import ModalEditUser from "../../components/Modal/ModalEditUser/ModalEditUser";
 import { callDeleteUser, callFetchUser } from "../../services/api";
-import { toggleModalAddUser } from "../../redux/features/toggle/toggleSlice";
+import { toggleModalAddUser, toggleModalEditUser } from "../../redux/features/toggle/toggleSlice";
 
 const UserManagement = () => {
   const [isLoading, setLoading] = useState(false);
@@ -46,14 +46,18 @@ const UserManagement = () => {
       render: (_id, pro) => (
         <Space>
           <EditOutlined
+            onClick={() => {
+              setUserEdit(pro);
+              dispatch(toggleModalEditUser());
+            }}
             style={{
               color: "orange",
             }}
           />
 
           <Popconfirm
-            title="Xóa sản phẩm này"
-            description="Bạn có chắc chắn muốn xóa sản phẩm này?"
+            title="Xóa người dùng?"
+            description="Bạn có chắc chắn muốn xóa người dùng này?"
             okText="Có"
             cancelText="Không"
             onConfirm={() => handleDeleteUser(_id)}

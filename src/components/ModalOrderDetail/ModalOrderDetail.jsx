@@ -1,6 +1,9 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, DatePicker, Form, Input, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import moment from "moment";
+import { toggleModalOrderDetail } from "../../redux/features/toggle/toggleSlice";
+import formatPrice from "../../utils/formatPrice";
 
 const ModalOrderDetail = ({ orderDetail }) => {
   const { modalOrderDetail } = useSelector((state) => state.toggle);
@@ -16,6 +19,9 @@ const ModalOrderDetail = ({ orderDetail }) => {
         district: orderDetail.shippingAddress.district,
         ward: orderDetail.shippingAddress.ward,
         address: orderDetail.shippingAddress.address,
+        createdAt: moment(orderDetail.createdAt),
+        itemsPrice: formatPrice(orderDetail.itemsPrice),
+        shippingPrice: formatPrice(orderDetail.shippingPrice),
       });
     }
   }, [orderDetail]);
@@ -25,6 +31,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
       open={modalOrderDetail}
       onCancel={() => dispatch(toggleModalOrderDetail())}
       footer={null}
+      title="Chi tiết đơn hàng"
     >
       <Form form={form} labelCol={24}>
         <Form.Item
@@ -33,7 +40,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
           name="name"
           rules={[{ required: true, message: "Vui lòng nhập tên người nhận!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
         </Form.Item>
         <Form.Item
           label="Số điện thoại"
@@ -41,7 +48,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
           name="phone"
           rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
         </Form.Item>
         <Form.Item
           label="Thành phố "
@@ -49,7 +56,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
           name="province"
           rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
         </Form.Item>
 
         <Form.Item
@@ -58,7 +65,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
           name="district"
           rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
         </Form.Item>
         <Form.Item
           label="Xã/phường"
@@ -66,7 +73,7 @@ const ModalOrderDetail = ({ orderDetail }) => {
           name="ward"
           rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
         </Form.Item>
 
         <Form.Item
@@ -75,7 +82,32 @@ const ModalOrderDetail = ({ orderDetail }) => {
           labelCol={{ span: 24 }}
           rules={[{ required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
-          <Input readOnly />
+          <Input disabled readOnly />
+        </Form.Item>
+        <Form.Item
+          label="Thời gian đặt hàng"
+          name="createdAt"
+          labelCol={{ span: 24 }}
+          rules={[{ required: true, message: "Vui lòng nhập thời gian đặt hàng!" }]}
+        >
+          <DatePicker disabled format={"DD/MM/YYYY"} />
+        </Form.Item>
+        <Form.Item
+          label="Tiền hàng"
+          name="itemsPrice"
+          labelCol={{ span: 24 }}
+          rules={[{ required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" }]}
+        >
+          <Input disabled readOnly />
+        </Form.Item>
+
+        <Form.Item
+          label="Phí vận chuyển"
+          name="shippingPrice"
+          labelCol={{ span: 24 }}
+          rules={[{ required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" }]}
+        >
+          <Input disabled readOnly />
         </Form.Item>
       </Form>
     </Modal>

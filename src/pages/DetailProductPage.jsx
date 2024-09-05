@@ -10,16 +10,10 @@ import { addToCart, updateAccount } from "../redux/features/user/userSlice.js";
 import { toast } from "react-toastify";
 
 const ProductDescription = ({ description }) => (
-  <div
-    className="product-description"
-    dangerouslySetInnerHTML={{ __html: description }}
-  />
+  <div className="product-description" dangerouslySetInnerHTML={{ __html: description }} />
 );
 const ProductDetail = ({ detail }) => (
-  <div
-    className="product-description"
-    dangerouslySetInnerHTML={{ __html: detail }}
-  />
+  <div className="product-description" dangerouslySetInnerHTML={{ __html: detail }} />
 );
 
 const DetailProductPage = () => {
@@ -127,18 +121,14 @@ const DetailProductPage = () => {
                     )}
                   </div>
                   <div className="flex  lg:ml-[5rem] items-center gap-2">
-                    <span className="text-lg text-primaryBlack font-semibold">
-                      Tình trạng:
-                    </span>
+                    <span className="text-lg text-primaryBlack font-semibold">Tình trạng:</span>
                     <span className="text-lg text-primaryBlack font-semibold">
                       {product.status ? "Còn hàng" : "Hết hàng"}
                     </span>
                   </div>
                   <div className="flex border-b-2 pb-3 mr-9 mb-4 lg:ml-[5rem] items-center gap-1">
-                    <span className="text-lg text-primaryBlack font-semibold">
-                      Số lượng:
-                    </span>
-                    <div className="flex bo items-center">
+                    <span className="text-lg text-primaryBlack font-semibold">Số lượng:</span>
+                    <div className="flex items-center">
                       <button
                         className="px-3 text-xl rounded-full border-primaryBlack py-1"
                         onClick={decrementQuantity}
@@ -165,7 +155,7 @@ const DetailProductPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex-col">
+              <div className="flex flex-col">
                 <div className="flex w-full justify-end pr-[2rem] mb-2">
                   <button
                     onClick={handleAddToCart}
@@ -222,11 +212,7 @@ const DetailProductPage = () => {
                 </div>
                 {activeTab === "details" && (
                   <div className="overflow-auto h-[20rem] md:h-[30rem] lg:h-[40rem] px-4 lg:px-10">
-                    <img
-                      src={product.proImg}
-                      className="rounded-xl my-8"
-                      alt=""
-                    />
+                    <img src={product.proImg} className="rounded-xl my-8" alt="" />
                     <ProductDescription description={product.desc} />
                   </div>
                 )}
@@ -246,10 +232,7 @@ const DetailProductPage = () => {
                     </a>
                     <div className="relative flex justify-center items-center gap-2">
                       <p className="font-bold text-[1.5rem]">Zalo:</p>
-                      <a
-                        className="text-[1.2rem]"
-                        href="https://zalo.me/0388811160"
-                      >
+                      <a className="text-[1.2rem]" href="https://zalo.me/0388811160">
                         {" "}
                         https://zalo.me/0388811160
                       </a>
@@ -265,10 +248,7 @@ const DetailProductPage = () => {
                 </h2>
                 <ul className="list-disc text-md text-white pl-6">
                   <li>Giảm 10% khi mua từ 2 sản phẩm trở lên.</li>
-                  <li>
-                    Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1
-                    triệu đồng.
-                  </li>
+                  <li>Giảm trực tiếp 10%, tối đa 200.000 VNĐ khi thanh toán từ 1 triệu đồng.</li>
                   <li>Miễn phí giao hàng hóa đơn 300.000 VNĐ</li>
                   <li>Tặng cá Dumbo với hóa đơn trên 1.000.000 đ.</li>
                 </ul>
