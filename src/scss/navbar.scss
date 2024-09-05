@@ -31,7 +31,7 @@
       width: 35px;
       height: 35px;
       transition: all 0.3s ease;
-      color: #1a202c;
+      color: rgb(13, 12, 34);
     }
 
     .icon:hover {
@@ -56,7 +56,7 @@
       margin-right: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
-      color: #1a202c;
+      color: rgb(13, 12, 34);
     }
 
     .bag-icon:hover {
@@ -98,7 +98,7 @@
       }
 
       .icon {
-        color: #1a202c;
+        color: rgb(13, 12, 34);
       }
     }
   }
@@ -114,7 +114,6 @@
   }
 
   @media (max-width: 480px) {
-    border-bottom: solid 2px #1a202c;
   }
 }
 

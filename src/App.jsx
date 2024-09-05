@@ -76,7 +76,7 @@ function App() {
       <main className={`main-body`}>
         <Outlet />
       </main>
-      <Footer />
+      <Footer/>
       {isShowModalLogin && <ModalLogin />}
       {modalRegister && <ModalRegister />}
       <CartDrawer />

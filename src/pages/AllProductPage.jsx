@@ -155,13 +155,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="product-section rounded-xl">
       <div className="product-container">
-        <div className="banner">
-          <img
-            className="w-full h-full object-contain"
-            src={saleGift}
-            alt="Sale"
-          />
-        </div>
+        <div className="banner"></div>
         <div className="flex w-full justify-center">
           <div className=" product-grid grid gap-4  mx-2 lg:mx-0">
             {currentPageProducts.map((product, index) => (
@@ -174,13 +168,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
             ))}
           </div>
         </div>
-        <div className="banner">
-          <img
-            className="w-full h-full object-contain"
-            src={saleGift}
-            alt="Sale"
-          />
-        </div>
+        <div className="banner"></div>
       </div>
     </div>
   );
@@ -239,7 +227,7 @@ const AllProductPage = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" min-h-screen">
       <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
         <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm

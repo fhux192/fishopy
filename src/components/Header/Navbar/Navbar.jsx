@@ -93,7 +93,7 @@ const Navbar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div className={`wrapper lg:px-[20px]  lg:mt-[1rem] lg:mx-[0] `}>
+      <div className={`wrapper lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}>
         <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
           <button
             className="flex lg:flex-0 lg:mr-[4.5%]"
