@@ -1,0 +1,50 @@
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+    margin-bottom: 8px;
+  
+    .bottom-nav-container {
+      display: flex;
+      justify-content: space-between;
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 4px;
+      padding-left: 12px;
+      padding-right: 12px;
+      border-radius: 16px;
+      width: 90%;
+      margin: auto;
+  
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #000; 
+        font-size: 12px; 
+  
+        svg {
+          font-size: 24px;
+          margin-bottom: 4px;
+        }
+  
+        p {
+          margin: 0;
+        }
+  
+        &.active {
+          color: teal;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+  

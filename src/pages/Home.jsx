@@ -18,7 +18,7 @@ const Home = () => {
 
     if (screenWidth < 768) {
       // Mobile devices
-      scrollValue = 950; // Adjust for mobile
+      scrollValue = 900; // Adjust for mobile
     } else if (screenWidth >= 768 && screenWidth < 1024) {
       // Tablet devices
       scrollValue = 1000; // Adjust for tablet

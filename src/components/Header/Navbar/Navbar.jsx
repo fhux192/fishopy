@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { IoLogoTiktok } from "react-icons/io5";
 import { FaYoutube } from "react-icons/fa";
 import { FaFishFins } from "react-icons/fa6";
-import Slidebar from "../SliderBar/Slidebar.jsx";
 import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
@@ -26,9 +25,24 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   const items = [
-    { name: "Trang Chủ", icon: <FaHome className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
-    { name: "Sản Phẩm", icon: <FaFishFins className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
-    { name: "Địa Chỉ", icon: <FaMapMarkedAlt  className="lg:block hidden icon-navigate mr-[17px] duration-500"/> },
+    {
+      name: "Trang Chủ",
+      icon: (
+        <FaHome className="lg:block hidden icon-navigate mr-[17px] duration-500" />
+      ),
+    },
+    {
+      name: "Sản Phẩm",
+      icon: (
+        <FaFishFins className="lg:block hidden icon-navigate mr-[17px] duration-500" />
+      ),
+    },
+    {
+      name: "Địa Chỉ",
+      icon: (
+        <FaMapMarkedAlt className="lg:block hidden icon-navigate mr-[17px] duration-500" />
+      ),
+    },
   ];
 
   const handleNavigation = (item) => {
@@ -93,13 +107,16 @@ const Navbar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div className={`wrapper lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}>
-        <div className="lg:flex w-full lg:w-full min-[320px]:ml-12 lg:ml-0 sm:ml-14">
+      <div className={`wrapper shadow-md lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}>
+        <div className="lg:flex w-full lg:w-full ml-4 lg:ml-0 ">
           <button
-            className="flex lg:flex-0 lg:mr-[4.5%]"
-            onClick={handleNavigation}
+            className="flex justify-start w-full lg:flex-0 lg:ml-[1%]"
+
           >
-            <BubbleText />
+            <div>
+              {" "}
+              <BubbleText />
+            </div>
           </button>
 
           <div className=" duration-1000 lg:flex hidden flex-[2] items-center justify-end mr-[17px]"></div>
@@ -120,7 +137,7 @@ const Navbar = () => {
                 {item.icon}
               </div>
             ))}
-            
+
             <div className="border-l-4 border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
@@ -170,7 +187,6 @@ const Navbar = () => {
         </div>
 
         <div className="lg:border-l-4 border-primaryBlack ml-2 pl-2 mr-[0rem] social">
-          <Slidebar />
           <a
             href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
             target="_blank"
@@ -186,7 +202,7 @@ const Navbar = () => {
           >
             <FaYoutube
               title="Youtube Guppy Hóc Môn"
-              className="icon mr-[15px] duration-500"
+              className="icon lg:mr-[15px] mr-4 duration-500"
             />
           </a>
         </div>
@@ -196,15 +212,25 @@ const Navbar = () => {
 };
 
 const BubbleText = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateHome = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="font-sans mt-[1px] ml-[15px] text-primaryBlack lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin">
+    <div
+      onClick={handleNavigateHome}
+      className="font-sans mt-[1px] text-primaryBlack lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin cursor-pointer"
+    >
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
-        <span className=" cursor-pointer hoverText" key={idx}>
+        <span className="hoverText" key={idx}>
           {child}
         </span>
       ))}
     </div>
   );
 };
+
 
 export default Navbar;

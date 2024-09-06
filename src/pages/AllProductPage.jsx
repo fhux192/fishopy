@@ -51,7 +51,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   return (
     <div
-      className={`product-card `}
+      className={`product-card shadow-md`}
       style={{ animationDelay: `${animationDelay}s` }}
     >
       <Link
@@ -153,22 +153,24 @@ const SortSection = ({ sortOption, setSortOption }) => {
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className="product-section rounded-xl">
-      <div className="product-container">
-        <div className="banner"></div>
-        <div className="flex w-full justify-center">
-          <div className=" product-grid grid gap-4  mx-2 lg:mx-0">
-            {currentPageProducts.map((product, index) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                priceStage={priceStage}
-                animationDelay={index * 0.1}
-              />
-            ))}
+    <div className="bg-white lg:bg-transparent shadow-md rounded-t-3xl lg:rounded-t-none mt-4 pb-4">
+      <div className="product-section rounded-xl">
+        <div className="product-container">
+          <div className="banner"></div>
+          <div className="flex w-full justify-center">
+            <div className=" product-grid grid gap-4  mx-2 lg:mx-0">
+              {currentPageProducts.map((product, index) => (
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  priceStage={priceStage}
+                  animationDelay={index * 0.1}
+                />
+              ))}
+            </div>
           </div>
+          <div className="banner"></div>
         </div>
-        <div className="banner"></div>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import ModalRegister from "./components/Modal/ModalRegister/ModalRegister";
 import { useDispatch, useSelector } from "react-redux";
 import CartDrawer from "./components/CartDrawer";
 import Navbar from "./components/Header/Navbar/Navbar";
+import BottomNavBar from "./components/Header/Navbar/BottomNavBar";
 import { callFetchAccount } from "./services/api";
 import { setCredentials, setLoading } from "./redux/features/user/userSlice";
 import ModalAddAddress from "./components/Modal/ModalAddAddress/index";
@@ -18,7 +19,9 @@ import Loader from "./components/Loader/Loader";
 
 function App() {
   const { pathname } = useLocation();
-  const { isShowModalLogin, modalRegister } = useSelector((state) => state.toggle);
+  const { isShowModalLogin, modalRegister } = useSelector(
+    (state) => state.toggle
+  );
   const status_login = localStorage.getItem("status_login");
   const { isLoading } = useSelector((state) => state.account);
 
@@ -72,11 +75,12 @@ function App() {
 
   return (
     <>
-      <Navbar /> {/* Use Navbar component */}
+      <Navbar />
+      <BottomNavBar />
       <main className={`main-body`}>
         <Outlet />
       </main>
-      <Footer/>
+      <Footer />
       {isShowModalLogin && <ModalLogin />}
       {modalRegister && <ModalRegister />}
       <CartDrawer />

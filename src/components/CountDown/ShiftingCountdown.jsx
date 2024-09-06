@@ -17,7 +17,7 @@ const ShiftingCountdown = () => {
   return (
     <div className="flex justify-center">
       {" "}
-      <div className="countdown-container lg:rounded-3xl md:rounded-3xl  lg:mt-5 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
+      <div className="countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-5 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
         <p className="text-center font-semibold text-white text-[1rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau:
         </p>

@@ -51,7 +51,7 @@ const MessageBox = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-[1rem] right-[1rem] z-[22]">
+    <div className="fixed bottom-[4.5rem]  lg:bottom-[1rem] right-[1rem] z-[22]">
       <Draggable onDrag={handleDrag} onStop={() => setDragMessage(false)}>
         <div className="flex flex-col items-end" style={{ position: 'relative', transform: `translate(${position.x}px, ${position.y}px)` }}>
           {showMessage && (
@@ -60,7 +60,7 @@ const MessageBox = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
               className="bg-white shadow-md shadow-gray-500 rounded-xl rounded-b-none rounded-l-xl p-3 mb-2 text-sm text-gray-800"
-              style={{ position: 'absolute', bottom: '40px', right: '55px' ,width: '200px' ,textAlign: 'center'}}
+              style={{ position: 'absolute', bottom: '30px', right: '45px' ,width: '200px' ,textAlign: 'center'}}
             >
               <p>{currentMessage}</p>
             </motion.div>
@@ -71,7 +71,7 @@ const MessageBox = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
               className="bg-white shadow-md shadow-gray-500 rounded-xl rounded-b-none rounded-l-xl p-3 mb-2 text-sm text-gray-800"
-              style={{ position: 'absolute', bottom: '40px', right: '55px' ,width: '200px' ,textAlign: 'center'}}
+              style={{ position: 'absolute', bottom: '30px', right: '45px' ,width: '200px' ,textAlign: 'center'}}
             >
               <p>Bạn đưa mình đi đâu vậy?</p>
             </motion.div>
@@ -81,12 +81,12 @@ const MessageBox = () => {
             href="https://zalo.me/0388811160"
             target="_blank"
             rel="noopener noreferrer"
-            className={`relative w-[50px] h-[50px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer ${
+            className={`relative w-[40px] h-[40px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer ${
               animateWave ? "waving-icon" : ""
             }`}
           >
             <div className="rounded-full border-white border-4">
-              <SiZalo className="w-[40px] h-[40px] text-blue-500 animate-pulse" />
+              <SiZalo className="w-[30px] h-[30px] text-blue-500 animate-pulse" />
             </div>
             <div className="light-rays"></div>
           </motion.a>
