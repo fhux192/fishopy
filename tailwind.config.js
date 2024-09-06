@@ -15,7 +15,7 @@ export default {
       colors: {
         primaryBlack: "#1a202c",
         secondBlack: "rgb(13, 12, 34)",
-        thirdBlack: "#4a4a4a",
+        thirdBlack: "#191919",
         primaryGrey: "#4a4a4a",
         secondGrey: "#999999",
         primaryTeal: "#319795",
