@@ -1,6 +1,5 @@
 .navbar {
   color: #f8f7f9;
-
   .wrapper {
     max-width: 3700px;
     display: flex;
@@ -71,7 +70,7 @@
 
   @media (max-width: 480px) {
     .wrapper {
-      height: 62px;
+      height: 52px;
 
       .icon {
         width: 30px;
@@ -90,10 +89,15 @@
   }
 
   @media (max-width: 1020px) {
+    .navbar {
+      display: flex;
+      justify-content: center;
+    }
     .wrapper {
       backdrop-filter: blur(10px);
       background-color: rgba(255, 255, 255, 0.8);
-
+      border-radius: 15px;
+      width: 90%;
       .social {
         align-items: normal;
       }
@@ -117,7 +121,13 @@
   @media (max-width: 480px) {
   }
 }
-
+@media (max-width: 1020px) {
+  .navbar {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+  }
+}
 /* MyComponent.module.css */
 .gradientText {
   background: linear-gradient(

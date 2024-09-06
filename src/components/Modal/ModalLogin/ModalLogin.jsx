@@ -32,26 +32,26 @@ const ModalLogin = () => {
   };
 
   return (
-    <div className={styles.modal}>
+    <div className={`${styles.modal}`}>
       <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalLogin())}></div>
       <div className={styles.modalContent}>
         <h1 className={styles.modalTitle}>Đăng Nhập</h1>
-        <label htmlFor="phone" className="text-black ">
+        <label htmlFor="phone" className="text-black font-semibold ">
           Số điện thoại:
           <input
             type="text"
-            className="w-full mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-[1rem]"
+            className="w-full mt-2 p-2 border-2 outline-none text-primaryBlack rounded-xl mb-[1rem]"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </label>
-        <label htmlFor="passwordLogin" className="text-black ">
+        <label htmlFor="passwordLogin" className="text-black font-semibold">
           Mật Khẩu:
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
-              className="w-full mt-2 outline-gray-100 p-2 outline-none text-primaryBlack rounded-xl mb-[0.5rem]"
+              className="w-full mt-2 border-2 outline-none p-2 text-primaryBlack rounded-xl mb-[0.5rem]"
               id="passwordLogin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -75,14 +75,14 @@ const ModalLogin = () => {
         </label>
         <button
           onClick={handlelogin}
-          className="h-10 w-full hover:border-2 hover:border-teal-500 px-2 text-center font-semibold bg-primaryBlack text-white mt-8 rounded-lg duration-150"
+          className="h-10 w-full hover:border-2  hover:border-teal-500 px-2 text-center font-semibold bg-primaryBlack text-white mt-8 rounded-3xl duration-150"
         >
           Đăng Nhập 
         </button>
 
         <div className={styles.smallText}>
           <span>Bạn chưa có tài khoản? </span>{" "}
-          <a className="pl-1 text-teal-500 cursor-pointer"
+          <a className="pl-1 text-primaryTeal font-semibold cursor-pointer"
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());

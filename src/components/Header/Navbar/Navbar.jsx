@@ -107,19 +107,16 @@ const Navbar = () => {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div className={`wrapper shadow-md lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}>
+      <div
+        className={`wrapper shadow-md lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
+      >
         <div className="lg:flex w-full lg:w-full ml-4 lg:ml-0 ">
-          <button
-            className="flex justify-start w-full lg:flex-0 lg:ml-[1%]"
-
-          >
+          <button className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div>
               {" "}
               <BubbleText />
             </div>
           </button>
-
-          <div className=" duration-1000 lg:flex hidden flex-[2] items-center justify-end mr-[17px]"></div>
           <div className=" border-primaryGrey social">
             {items.map((item) => (
               <div
@@ -231,6 +228,5 @@ const BubbleText = () => {
     </div>
   );
 };
-
 
 export default Navbar;

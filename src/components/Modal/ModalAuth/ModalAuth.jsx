@@ -26,7 +26,7 @@ const ModalAuth = () => {
   };
 
   return (
-    <div className="absolute font-semibold top-full right-0 mt-4 w-48 bg-white border-2 border-gray-100 rounded-xl">
+    <div className="absolute font-semibold top-full right-0 mt-4 w-48 bg-white border-2 border-gray-200 rounded-xl">
       {user ? (
         <>
           {user.role == "ADMIN" && (

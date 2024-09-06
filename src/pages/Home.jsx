@@ -18,7 +18,7 @@ const Home = () => {
 
     if (screenWidth < 768) {
       // Mobile devices
-      scrollValue = 900; // Adjust for mobile
+      scrollValue = 950; // Adjust for mobile
     } else if (screenWidth >= 768 && screenWidth < 1024) {
       // Tablet devices
       scrollValue = 1000; // Adjust for tablet
@@ -40,7 +40,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap"></div>
-      <div className="flex items-center lg:h-[90vh] h-[90vh] justify-center">
+      <div className="flex items-center lg:h-[100vh] h-[100vh] justify-center">
         <div className="flex-col flex items-center justify-center w-[65%] h-[80%]">
           <div className="flex items-center justify-center">
             <p className="cursor-default text-primaryTeal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[5rem] font-semibold">
@@ -68,7 +68,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <div className="flex justify-center translate-y-[20rem] mb-[25rem] rounded-xl bg-primaryTeal m-auto w-[80%] lg:h-[50rem] h-[30rem] shadow-md"></div>
+      <div className="flex justify-center translate-y-[20rem] mb-[30rem] rounded-xl bg-primaryTeal m-auto w-[80%] lg:h-[50rem] h-[30rem] shadow-md"></div>
     </div>
   );
 };

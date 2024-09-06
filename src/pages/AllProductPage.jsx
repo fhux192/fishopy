@@ -153,7 +153,7 @@ const SortSection = ({ sortOption, setSortOption }) => {
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className="bg-white lg:bg-transparent shadow-md rounded-t-3xl lg:rounded-t-none mt-4 pb-4">
+    <div className=" lg:bg-transparent mt-4 pb-4">
       <div className="product-section rounded-xl">
         <div className="product-container">
           <div className="banner"></div>
