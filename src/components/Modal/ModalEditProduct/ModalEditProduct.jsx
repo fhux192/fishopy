@@ -155,6 +155,7 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
       open={modalEditProduct}
       onCancel={() => dispatch(toggleModalEditProduct())}
       footer={null}
+      centered
       style={{
         minWidth: "80%",
       }}

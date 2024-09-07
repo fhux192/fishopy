@@ -151,8 +151,10 @@ const ModalAddProduct = ({ setProducts }) => {
       open={modalAddProduct}
       onCancel={() => dispatch(toggleModalAddProduct())}
       footer={null}
+      centered
       style={{
         minWidth: "80%",
+        
       }}
     >
       <Form

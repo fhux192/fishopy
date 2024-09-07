@@ -176,7 +176,9 @@ const Navbar = () => {
               >
                 <div className="mt-[3px]  lg:ml-[1px]">
                   {" "}
-                  1{user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0)}
+                  {user
+                    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
+                    : 0}
                 </div>
               </div>
             </div>

@@ -28,7 +28,7 @@
     }
   }
   .product-card {
-    animation: deal 2s ease-in-out forwards;
+    animation: deal 1.5s ease-in-out forwards;
     opacity: 0;
   }
 }
@@ -59,7 +59,7 @@
     }
   }
   .product-card {
-    animation: deal 2s ease-in-out forwards;
+    animation: deal 1.5s ease-in-out forwards;
     opacity: 0;
   }
 }
@@ -83,7 +83,7 @@
     padding-right: 10px;
   }
   .product-card {
-    animation: deal 2s ease-in-out forwards;
+    animation: deal 1.5s ease-in-out forwards;
     opacity: 0;
   }
 }
@@ -232,6 +232,7 @@
 
       &.selected {
         color: #fff;
+        background-color: var(--primary-black);
         border-color: var(--primary-black);
       }
 

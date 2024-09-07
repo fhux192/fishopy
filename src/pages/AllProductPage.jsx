@@ -1,15 +1,11 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import { Link } from "react-router-dom";
 import { FaSortAmountDown, FaSortAmountUp, FaCartPlus } from "react-icons/fa";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
 import Data from "../data/Data";
 import Pagination from "../components/Pagination/Pagination";
 import ShiftingCountdown from "../components/CountDown/ShiftingCountdown";
-import saleGift from "../assets/gif/SALE.gif";
-
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../scss/navbar.scss";
@@ -38,16 +34,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     alert("Add to cart logic here");
     // Add to cart logic here
   };
-
-  // Determine the class based on the number of images
-  // const imageCountClass =
-  //   product.proImg.length === 1
-  //     ? "single-image"
-  //     : product.proImg.length === 3
-  //     ? "three-images"
-  //     : product.proImg.length === 4
-  //     ? "four-images"
-  //     : "multiple-images";
 
   return (
     <div
@@ -114,25 +100,10 @@ const SortSection = ({ sortOption, setSortOption }) => {
     { option: "titleDesc", label: "Tên từ Z - A" },
   ];
 
-  const [activeStyle, setActiveStyle] = useState({});
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const activeButton = containerRef.current.querySelector(".selected");
-    if (activeButton) {
-      setActiveStyle({
-        transform: `translateX(${activeButton.offsetLeft}px)`,
-        width: `${activeButton.clientWidth}px`,
-      });
-    }
-  }, [sortOption]);
-
   return (
     <div className="flex w-full justify-center">
-      {" "}
       <div className="sort-section">
-        <div className="sort-buttons" ref={containerRef}>
-          <div className="active-background" style={activeStyle}></div>
+        <div className="sort-buttons">
           {sortButtons.map(({ option, label, icon }) => (
             <button
               key={option}
@@ -184,18 +155,11 @@ const AllProductPage = () => {
   const [currentPageProducts, setCurrentPageProducts] = useState([]);
 
   const productsPerPage = 15;
-  const lastPostIndex = currentPage * productsPerPage;
-  const firstPostIndex = lastPostIndex - productsPerPage;
 
   const sortedProducts = useMemo(
     () => sortProducts([...Data], sortOption),
     [sortOption]
   );
-
-  // const currentPageProducts = useMemo(
-  //   () => sortedProducts.slice(firstPostIndex, lastPostIndex),
-  //   [sortedProducts, firstPostIndex, lastPostIndex]
-  // );
 
   useEffect(() => window.scrollTo(0, 0), [currentPage]);
 
@@ -203,7 +167,7 @@ const AllProductPage = () => {
     const fetchProducts = async () => {
       try {
         const res = await callFetchProduct(currentPage, pageSize);
-        if (res.vcode == 0) {
+        if (res.vcode === 0) {
           setCurrentPageProducts(res.data.result);
         }
       } catch (error) {
@@ -213,7 +177,7 @@ const AllProductPage = () => {
 
     fetchProducts();
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, []);
+  }, [currentPage, pageSize]);
 
   useEffect(() => {
     const cyclePrices = () => {
@@ -229,7 +193,12 @@ const AllProductPage = () => {
   }, []);
 
   return (
-    <div className=" min-h-screen">
+    <motion.div
+      className="min-h-screen"
+      initial={{ y: "100vh", opacity: 0 }} 
+      animate={{ y: 0, opacity: 1 }} 
+      transition={{ duration: 0.7, ease: "easeOut" }} 
+    >
       <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
         <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
           Tất Cả Sản Phẩm
@@ -247,7 +216,7 @@ const AllProductPage = () => {
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-    </div>
+    </motion.div>
   );
 };
 

@@ -7,7 +7,16 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Space, theme } from "antd";
+import {
+  Avatar,
+  Breadcrumb,
+  Button,
+  Dropdown,
+  Layout,
+  Menu,
+  Space,
+  theme,
+} from "antd";
 import { setCredentials, setLoading } from "../redux/features/user/userSlice";
 import { useDispatch } from "react-redux";
 import { callFetchAccount } from "../services/api";
@@ -23,13 +32,20 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem(<Link to={"/admin"}>Tổng quan</Link>, "/admin", <DesktopOutlined />),
   getItem("Sản phẩm", "sub1", <UserOutlined />, [
-    getItem(<Link to={"/admin/product"}>Quản lý sản phẩm</Link>, "/admin/product"),
+    getItem(
+      <Link to={"/admin/product"}>Quản lý sản phẩm</Link>,
+      "/admin/product"
+    ),
   ]),
   getItem("Đơn hàng", "sub2", <TeamOutlined />, [
     getItem(<Link to={"/admin/order"}>Quản lý đơn hàng</Link>, "/admin/order"),
   ]),
   getItem("Người dùng", "sub3", <TeamOutlined />, [
-    getItem(<Link to={"/admin/user"}>Quản lý người dùng</Link>, "/admin/user", <FileOutlined />),
+    getItem(
+      <Link to={"/admin/user"}>Quản lý người dùng</Link>,
+      "/admin/user",
+      <FileOutlined />
+    ),
   ]),
 ];
 
@@ -53,9 +69,11 @@ const AdminPage = () => {
   const status_login = localStorage.getItem("status_login");
   const dispatch = useDispatch();
   const [user, setUser] = useState(null);
+  const isDesktop = window.innerWidth >= 1024;
 
   const location = useLocation();
   console.log("location", location);
+
   const handleFetchAccount = async () => {
     try {
       const res = await callFetchAccount();
@@ -83,9 +101,21 @@ const AdminPage = () => {
         minHeight: "100vh",
       }}
     >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <Menu theme="dark" mode="inline" items={items} defaultSelectedKeys={[location.pathname]} />
-      </Sider>
+      {isDesktop && (
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+        >
+          <Menu
+            theme="dark"
+            mode="inline"
+            items={items}
+            defaultSelectedKeys={[location.pathname]}
+          />
+        </Sider>
+      )}
+
       <Layout>
         <Header
           style={{
@@ -101,7 +131,7 @@ const AdminPage = () => {
         >
           <Avatar icon={<UserOutlined />} />
           <Dropdown menu={{ items: dropdownList }} trigger={"click"}>
-            <Space>
+            <Space className="font-bold lg:text-xl md:text-lg text-md">
               {user?.name}
               <DownOutlined />
             </Space>
@@ -124,13 +154,7 @@ const AdminPage = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        
       </Layout>
     </Layout>
   );

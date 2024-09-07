@@ -13,6 +13,7 @@ import { logout, setLoading } from "../../../redux/features/user/userSlice.js";
 import { Link } from "react-router-dom";
 import { message } from "antd";
 import { callLogout } from "../../../services/api.js";
+import { motion } from "framer-motion";
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
@@ -22,7 +23,6 @@ const BottomNavBar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.account);
 
-  // Close dropdown on route change
   useEffect(() => {
     setIsDropdownOpen(false);
   }, [location.pathname]);
@@ -53,93 +53,131 @@ const BottomNavBar = () => {
     }
   };
 
+  const activeColor = "#319795"; // Updated active icon color
+  const inactiveColor = "#000"; // Color when inactive
+
   return (
     <div className="bottom-nav">
       <div className="bottom-nav-container">
-        <div
-          className={`nav-item ${location.pathname === "/" ? "active" : ""}`}
+        {/* Home Icon */}
+        <motion.div
+          className="nav-item"
           onClick={() => handleNavigation("/")}
+          animate={{
+            color: location.pathname === "/" ? activeColor : inactiveColor,
+          }}
+          transition={{ duration: 0.5 }}
         >
           <FaHome />
           <p>Trang chủ</p>
-        </div>
-        <div
-          className={`nav-item ${
-            location.pathname === "/product" ? "active" : ""
-          }`}
+        </motion.div>
+
+        {/* Product Icon */}
+        <motion.div
+          className="nav-item"
           onClick={() => handleNavigation("/product")}
+          animate={{
+            color: location.pathname === "/product" ? activeColor : inactiveColor,
+          }}
+          transition={{ duration: 0.5 }}
         >
           <FaFishFins />
           <p>Sản phẩm</p>
-        </div>
-        <div
-          className={`nav-item ${
-            location.pathname === "/address" ? "active" : ""
-          }`}
-          onClick={() => handleNavigation("/address")}
+        </motion.div>
+
+        {/* Account Icon with Dropdown */}
+        <motion.div
+          className={`nav-item ${isDropdownOpen ? "active" : ""}`}
+          onClick={toggleDropdown}
+          animate={{
+            color: isDropdownOpen ? activeColor : inactiveColor,
+          }}
+          transition={{ duration: 0.5 }}
         >
-          <FaMapMarkedAlt />
-          <p>Địa chỉ</p>
-        </div>
-
-        {/* Tài khoản with dropdown */}
-        <div className="nav-item" onClick={toggleDropdown}>
           <FaUserTag />
-          <p>Tài khoản</p>
-          {isDropdownOpen && (
-           <div className={`dropdown-menu ${user ? "top-[-235%]" : "top-[-170%]"}`}>
-              {user ? (
-                <>
-                  {user.role === "ADMIN" && (
+          {user ? <p>{user.name}</p> : <p>Tài khoản</p>}
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.5 }}
+            animate={{
+              opacity: isDropdownOpen ? 1 : 0,
+              y: isDropdownOpen ? 0 : 50,
+              scale: isDropdownOpen ? 1 : 0.5,
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className={`dropdown-menu ${
+              user ? "top-[-235%]" : "top-[-170%]"
+            } ${isDropdownOpen ? "dropdown-active" : ""}`}
+          >
+            {isDropdownOpen && (
+              <>
+                {user ? (
+                  <>
+                    {user.role === "ADMIN" && (
+                      <Link
+                        className="block border-b-none px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
+                        to="/admin/product"
+                      >
+                        <button>Quản lý sản phẩm</button>
+                      </Link>
+                    )}
                     <Link
-                      className="block border-b-none px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
-                      to="/admin"
+                      to="/account"
+                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 w-full text-left"
                     >
-                      <button>Admin</button>
+                      Quản lý tài khoản
                     </Link>
-                  )}
-                  <Link
-                    to="/account"
-                    className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 w-full text-left"
-                  >
-                    Quản lý tài khoản
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
-                  >
-                    Đăng Xuất
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => dispatch(toggleModalLogin())}
-                    className="block px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
-                  >
-                    Đăng Nhập
-                  </button>
-                  <button
-                    onClick={() => dispatch(toggleModalRegister())}
-                    className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
-                  >
-                    Đăng Ký
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-        </div>
+                    <button
+                      onClick={handleLogout}
+                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
+                    >
+                      Đăng Xuất
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => dispatch(toggleModalLogin())}
+                      className="block px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
+                    >
+                      Đăng Nhập
+                    </button>
+                    <button
+                      onClick={() => dispatch(toggleModalRegister())}
+                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
+                    >
+                      Đăng Ký
+                    </button>
+                  </>
+                )}
+              </>
+            )}
+          </motion.div>
+        </motion.div>
 
-        <div
-          className={`nav-item ${
-            location.pathname === "/cart" ? "active" : ""
-          }`}
-          onClick={() => handleNavigation("/cart")}
+        {/* Cart Icon */}
+        <motion.div
+          className="nav-item"
+          animate={{
+            color: location.pathname === "/cart" ? activeColor : inactiveColor,
+          }}
+          transition={{ duration: 0.5 }}
         >
           <FaBagShopping />
           <p>Giỏ hàng</p>
-        </div>
+        </motion.div>
+
+        {/* Address Icon */}
+        <motion.div
+          className="nav-item"
+          onClick={() => handleNavigation("/address")}
+          animate={{
+            color: location.pathname === "/address" ? activeColor : inactiveColor,
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <FaMapMarkedAlt />
+          <p>Địa chỉ</p>
+        </motion.div>
       </div>
     </div>
   );
