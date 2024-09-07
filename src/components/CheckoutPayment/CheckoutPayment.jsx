@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 import { updateAccount } from "../../redux/features/user/userSlice";
 import qs from "qs";
 
-const CheckoutPayment = ({ addressDelivery, setCurrentStep }) => {
+const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, shippingfee }) => {
   const { user } = useSelector((state) => state.account);
-  const [shippingfee, setShippingFee] = useState(0);
+
   const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
   const dispatch = useDispatch();
   const onOrder = async () => {
