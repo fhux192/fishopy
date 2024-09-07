@@ -193,30 +193,31 @@ const AllProductPage = () => {
   }, []);
 
   return (
-    <motion.div
-      className="min-h-screen"
-      initial={{ y: "100vh", opacity: 0 }} 
-      animate={{ y: 0, opacity: 1 }} 
-      transition={{ duration: 0.7, ease: "easeOut" }} 
-    >
-      <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
-          Tất Cả Sản Phẩm
-        </h1>
-      </div>
-      <ShiftingCountdown />
-      <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={currentPageProducts}
-        priceStage={priceStage}
-      />
-      <Pagination
-        totalPost={Data.length}
-        postPerPage={productsPerPage}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-      />
-    </motion.div>
+<motion.div
+  className="min-h-screen"
+  initial={{ y: "100vh", opacity: 0 }} 
+  animate={{ y: 0, opacity: 1, transition: { duration: 0.7, ease: "easeOut", type: "spring", stiffness: 100 }}} 
+  transition={{ duration: 0.7, ease: "easeOut", type: "spring", stiffness: 100 }} 
+>
+  <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+    <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+      Tất Cả Sản Phẩm
+    </h1>
+  </div>
+  <ShiftingCountdown />
+  <SortSection sortOption={sortOption} setSortOption={setSortOption} />
+  <ProductsSection
+    currentPageProducts={currentPageProducts}
+    priceStage={priceStage}
+  />
+  <Pagination
+    totalPost={Data.length}
+    postPerPage={productsPerPage}
+    setCurrentPage={setCurrentPage}
+    currentPage={currentPage}
+  />
+</motion.div>
+
   );
 };
 
