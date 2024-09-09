@@ -75,12 +75,12 @@ const Home = () => {
           </div>
           <motion.div
             initial={{ y: 0 }}
-            animate={{ y: startAnimation ? -1000 : [0, -20, 0] }} 
+            animate={{ y: startAnimation ? -1000 : [0, -20, 0] }}
             transition={{
               duration: 0.6,
               ease: "easeInOut",
-              repeat: startAnimation ? 0 : 3, 
-              repeatDelay: 3, 
+              repeat: startAnimation ? 0 : 3,
+              repeatDelay: 3,
             }}
           >
             <FaCircleArrowDown

@@ -10,10 +10,12 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "proxy": "http://localhost:3030",
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@ckeditor/ckeditor5-build-classic": "^42.0.0",
     "@ckeditor/ckeditor5-react": "^8.0.0",
+    "@payos/node": "^1.0.8",
     "@reduxjs/toolkit": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^8.3.0",
     "antd": "^5.15.3",
@@ -21,6 +23,8 @@
     "axios": "^1.6.8",
     "ckeditor5": "^42.0.0",
     "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.12.2",
     "framer-motion": "^11.2.10",
