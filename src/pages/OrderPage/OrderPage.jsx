@@ -16,8 +16,9 @@ const OrderPage = () => {
   const { user } = useSelector((state) => state.account);
   const [addressDelivery, setAddressDelivery] = useState(null);
   const { width, height } = useWindowSize();
+  const [shippingfee, setShippingFee] = useState(0);
 
-  console.log("user", user);
+  console.log("addressDelivery", addressDelivery);
 
   return (
     <>
@@ -94,9 +95,30 @@ const OrderPage = () => {
               </Col>
             </Row>
           </div>
+          <img
+            src={`https://img.vietqr.io/image/BIDV-6504398741-compact2.png?amount=${
+              user.cart.reduce(
+                (acc, cur) =>
+                  cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
+                0
+              ) + shippingfee
+            }&addInfo=${addressDelivery?.phone} thanh toán ${
+              user.cart.reduce(
+                (acc, cur) =>
+                  cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
+                0
+              ) + shippingfee
+            }`}
+            alt=""
+          />
           {currentStep == 0 && <CheckoutOrder setCurrentStep={setCurrentStep} />}
           {currentStep == 1 && (
-            <CheckoutPayment addressDelivery={addressDelivery} setCurrentStep={setCurrentStep} />
+            <CheckoutPayment
+              addressDelivery={addressDelivery}
+              setCurrentStep={setCurrentStep}
+              setShippingFee={setShippingFee}
+              shippingfee={shippingfee}
+            />
           )}
         </>
       )}
