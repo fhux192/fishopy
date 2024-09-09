@@ -6,6 +6,7 @@ import { FaBagShopping } from "react-icons/fa6";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../../scss/botNavbar.scss";
 import {
+  toggleDrawerCart,
   toggleModalLogin,
   toggleModalRegister,
 } from "../../../redux/features/toggle/toggleSlice.js";
@@ -104,9 +105,9 @@ const BottomNavBar = () => {
               scale: isDropdownOpen ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`dropdown-menu ${
-              user ? "top-[-235%]" : "top-[-170%]"
-            } ${isDropdownOpen ? "dropdown-active" : ""}`}
+            className={`dropdown-menu ${user ? "top-[-235%]" : "top-[-170%]"} ${
+              isDropdownOpen ? "dropdown-active" : ""
+            }`}
           >
             {isDropdownOpen && (
               <>
@@ -161,6 +162,7 @@ const BottomNavBar = () => {
             color: location.pathname === "/cart" ? activeColor : inactiveColor,
           }}
           transition={{ duration: 0.5 }}
+          onClick={() => dispatch(toggleDrawerCart())}
         >
           <FaBagShopping />
           <p>Giỏ hàng</p>

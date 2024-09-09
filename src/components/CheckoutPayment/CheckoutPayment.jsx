@@ -6,6 +6,7 @@ import { callCalcFee, callOrder } from "../../services/api";
 import { useEffect, useState } from "react";
 import { updateAccount } from "../../redux/features/user/userSlice";
 import qs from "qs";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, shippingfee }) => {
   const { user } = useSelector((state) => state.account);
@@ -35,9 +36,13 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
 
       const res = await callOrder(values);
       if (res.vcode == 0) {
-        dispatch(updateAccount({ cart: user.cart.filter((item) => !item.checked) }));
-        setCurrentStep((pre) => (pre += 1));
-        message.success(res.message);
+        if (paymentMethod === "Thanh toán khi nhận hàng") {
+          dispatch(updateAccount({ cart: user.cart.filter((item) => !item.checked) }));
+          setCurrentStep((pre) => (pre += 1));
+          message.success(res.message);
+        } else if (paymentMethod === "Chuyển khoản") {
+          window.open(res.data, "_blank");
+        }
       } else message.error(res.message);
     } catch (error) {
       console.log(error.message);

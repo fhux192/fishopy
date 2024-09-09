@@ -18,8 +18,6 @@ const OrderPage = () => {
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);
 
-  console.log("addressDelivery", addressDelivery);
-
   return (
     <>
       {user && (
@@ -95,22 +93,7 @@ const OrderPage = () => {
               </Col>
             </Row>
           </div>
-          <img
-            src={`https://img.vietqr.io/image/BIDV-6504398741-compact2.png?amount=${
-              user.cart.reduce(
-                (acc, cur) =>
-                  cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
-                0
-              ) + shippingfee
-            }&addInfo=${addressDelivery?.phone} thanh toán ${
-              user.cart.reduce(
-                (acc, cur) =>
-                  cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
-                0
-              ) + shippingfee
-            }`}
-            alt=""
-          />
+
           {currentStep == 0 && <CheckoutOrder setCurrentStep={setCurrentStep} />}
           {currentStep == 1 && (
             <CheckoutPayment
