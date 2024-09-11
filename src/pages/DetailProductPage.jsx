@@ -96,7 +96,7 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className="bg-gray-100 flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className=" flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
         {product && (
           <div className="flex w-full justify-center max-w-6xl">
             <div className="lg:mt-[4.3rem] lg:ml-4 mt-[4rem] bg-white border-2  rounded-3xl w-full max-w-3xl lg:p-0 p-6 lg:py-[2rem]">

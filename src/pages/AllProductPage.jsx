@@ -199,8 +199,8 @@ const AllProductPage = () => {
       animate={{ y: 0, opacity: 1 }} 
       transition={{ duration: 0.6, ease: "easeOut" }} 
     >
-      <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="w-[20rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
+      <div className="flex pt-10 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
+        <h1 className="p-1 px-2 rounded-full border-p  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default text-black lg:text-[1.4rem] text-[1.0rem] text-center border-b-2">
           Tất Cả Sản Phẩm
         </h1>
       </div>

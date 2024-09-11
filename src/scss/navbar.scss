@@ -30,11 +30,11 @@
       width: 35px;
       height: 35px;
       transition: all 0.3s ease;
-      color: rgb(13, 12, 34);
+      color: #1b354f;
     }
 
     .icon:hover {
-      color: #319795;
+      color: #315376;
       transform: rotate(360deg);
     }
 
@@ -42,9 +42,8 @@
       width: 35px;
       height: 35px;
       cursor: pointer;
-
       &:hover {
-        color: #319795;
+        color: #315376;
         transform: rotate(360deg);
       }
     }
@@ -55,11 +54,11 @@
       margin-right: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
-      color: rgb(13, 12, 34);
+      color: #191919;
     }
 
     .bag-icon:hover {
-      color: #319795;
+      color: #315376;
       transform: rotate(360deg);
     }
 
@@ -103,7 +102,7 @@
       }
 
       .icon {
-        color: rgb(13, 12, 34);
+        color: #191919;
       }
     }
   }

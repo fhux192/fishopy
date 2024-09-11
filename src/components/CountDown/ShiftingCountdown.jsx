@@ -17,11 +17,11 @@ const ShiftingCountdown = () => {
   return (
     <div className="flex justify-center">
       {" "}
-      <div className="countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-5 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem] border-2 border-primaryBlack bg-primaryBlack p-3 lg:p-3">
-        <p className="text-center font-semibold text-white text-[1rem] lg:text-[1.5rem]">
-          Kết Thúc Ưu Đãi Sau:
+      <div className="countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem]  bg-primaryBlack p-3 lg:p-3">
+        <p className="text-center font-bold text-black text-[1.2rem] lg:text-[1.5rem]">
+          Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center shadow-xl bg-white">
+        <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />
@@ -36,16 +36,16 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-primaryBlack rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
+    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-bordercl rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
-          className="block text-2xl font-medium text-primaryBlack md:text-3xl lg:text-4xl xl:text-5xl"
+          className="block text-2xl font-medium text-black md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {time}
         </span>
       </div>
-      <span className="text-xs font-light text-primaryGrey md:text-sm lg:text-base">
+      <span className="text-xs font-semibold text-pcl md:text-sm lg:text-base">
         {text}
       </span>
     </div>

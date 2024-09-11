@@ -54,7 +54,7 @@ const BottomNavBar = () => {
     }
   };
 
-  const activeColor = "#319795"; // Updated active icon color
+  const activeColor = "#315376"; // Updated active icon color
   const inactiveColor = "#000"; // Color when inactive
 
   return (
@@ -62,7 +62,7 @@ const BottomNavBar = () => {
       <div className="bottom-nav-container">
         {/* Home Icon */}
         <motion.div
-          className="nav-item"
+          className="nav-item font-semibold"
           onClick={() => handleNavigation("/")}
           animate={{
             color: location.pathname === "/" ? activeColor : inactiveColor,
@@ -75,7 +75,7 @@ const BottomNavBar = () => {
 
         {/* Product Icon */}
         <motion.div
-          className="nav-item"
+          className="nav-item font-semibold"
           onClick={() => handleNavigation("/product")}
           animate={{
             color: location.pathname === "/product" ? activeColor : inactiveColor,
@@ -88,7 +88,7 @@ const BottomNavBar = () => {
 
         {/* Account Icon with Dropdown */}
         <motion.div
-          className={`nav-item ${isDropdownOpen ? "active" : ""}`}
+          className={`nav-item font-semibold ${isDropdownOpen ? "active" : ""}`}
           onClick={toggleDropdown}
           animate={{
             color: isDropdownOpen ? activeColor : inactiveColor,
@@ -157,7 +157,7 @@ const BottomNavBar = () => {
 
         {/* Cart Icon */}
         <motion.div
-          className="nav-item"
+          className="nav-item font-semibold"
           animate={{
             color: location.pathname === "/cart" ? activeColor : inactiveColor,
           }}
@@ -170,7 +170,7 @@ const BottomNavBar = () => {
 
         {/* Address Icon */}
         <motion.div
-          className="nav-item"
+          className="nav-item font-semibold"
           onClick={() => handleNavigation("/address")}
           animate={{
             color: location.pathname === "/address" ? activeColor : inactiveColor,

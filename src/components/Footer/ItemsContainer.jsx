@@ -16,15 +16,15 @@ export const ItemsContainer = () => {
     { text: "Facebook: Quân Nguyễn", link: "#" },
   ];
   return (
-    <div className=" grid bg-white grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-[10rem] sm:px-8 px-4 py-12 ">
+    <div className=" grid bg-primaryBlack grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-[10rem] sm:px-8 px-4 py-12 ">
       <ul>
-        <h1 className="mb-1 font-mono font-semibold text-primaryBlack text-2xl">
+        <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Khách Hàng
         </h1>
         {COSTOMER.map((link) => (
           <li key={link.text}>
             <a
-              className="text-primaryBlack font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-teal-400 duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -34,13 +34,13 @@ export const ItemsContainer = () => {
         ))}
       </ul>
       <ul>
-        <h1 className="mb-1 font-mono font-semibold text-primaryBlack text-2xl">
+        <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Liên Hệ
         </h1>
         {CONTACT.map((link) => (
           <li key={link.text}>
             <a
-              className="text-primaryBlack font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-teal-400 duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -50,13 +50,13 @@ export const ItemsContainer = () => {
         ))}
       </ul>
       <ul>
-        <h1 className="mb-1 font-mono font-semibold text-primaryBlack text-2xl">
+        <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Mạng Xã Hội
         </h1>
         {SOCIAL.map((link) => (
           <li key={link.text}>
             <a
-              className="text-primaryBlack font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-teal-400 duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -66,13 +66,13 @@ export const ItemsContainer = () => {
         ))}
       </ul>
       <ul>
-        <h1 className="mb-1 font-mono font-semibold text-primaryBlack text-2xl">
+        <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Thông Tin
         </h1>
         {PRODUCTS.map((link) => (
           <li key={link.text}>
             <a
-              className="text-primaryBlack font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-teal-400 duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >

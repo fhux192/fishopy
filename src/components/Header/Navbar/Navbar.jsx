@@ -125,8 +125,8 @@ const Navbar = () => {
                   (item.name === "Sản Phẩm" &&
                     location.pathname === "/product") ||
                   (item.name === "Địa Chỉ" && location.pathname === "/address")
-                    ? "text-teal-700 font-bold"
-                    : ""
+                    ? "text-h1cl font-bold"
+                    : "text-black"
                 }`}
                 key={item.name}
                 onClick={() => handleNavigation(item.name)}
@@ -220,7 +220,7 @@ const BubbleText = () => {
   return (
     <div
       onClick={handleNavigateHome}
-      className="font-sans mt-[1px] text-primaryBlack lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin cursor-pointer"
+      className="font-sans mt-[1px] text-black lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin cursor-pointer"
     >
       {"GUPPY HÓC MÔN".split("").map((child, idx) => (
         <span className="hoverText" key={idx}>

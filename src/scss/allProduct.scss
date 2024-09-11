@@ -1,6 +1,6 @@
-:root{
-  --primary-black:#1a202c;
-  --pimary-grey:#f3f4f6;
+:root {
+  --border-color: #36d7d4;
+  --pimary-grey: #f3f4f6;
 }
 
 @media (min-width: 320px) {
@@ -66,7 +66,6 @@
 
 @media (min-width: 768px) {
   .sort-section {
-    
     margin-top: 0rem;
   }
   .product-grid {
@@ -90,15 +89,12 @@
 
 @media (min-width: 1024px) {
   .sort-section {
-    
     margin-top: 1.25rem;
   }
-
 }
 
 @media (min-width: 1174px) {
   .sort-section {
-    
     margin-top: 1.5rem;
   }
   .product-grid {
@@ -122,10 +118,8 @@
   }
 }
 
-
 @media (min-width: 1440px) {
   .sort-section {
-
     margin-top: 1.5rem;
   }
   .product-grid {
@@ -173,23 +167,6 @@
   }
 }
 
-.banner {
-  cursor: default;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 8rem;
-  margin-top: 1.5rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  @media (min-width: 1024px) {
-    &:hover {
-      border-width: 0px;
-      transition: all 0.3s ease;
-      padding: 4px;
-    }
-  }
-}
-
 .sort-section {
   margin-left: 0;
   display: flex;
@@ -226,14 +203,14 @@
       position: relative;
       z-index: 1;
       background-color: transparent;
-      color: #191919;
-      border-color: var(--primary-black);
+      color: #566072;
+      border-color: #303030;
       transition: color 0.3s, border-color 0.3s;
 
       &.selected {
-        color: #fff;
-        background-color: var(--primary-black);
-        border-color: var(--primary-black);
+        color: #ffffff;
+        background-color: #303030;
+        border-color: #303030;
       }
 
       @media (min-width: 1024px) {
@@ -247,7 +224,7 @@
       position: absolute;
       height: 100%;
       min-width: 9.5rem;
-      background-color: var(--primary-black);
+      background-color: var(--border-color);
       border-radius: 0.95rem;
       transition: transform 0.7s ease, width 0.3s ease;
       z-index: 0;
@@ -275,13 +252,16 @@
   margin-top: 1.5rem;
   height: 21rem;
   width: 14rem;
-  border: 2px solid var(--primary-black);
+  border: 2px solid #303030;
   border-radius: 1.6rem;
 
   background-color: transparent;
   position: relative;
   overflow: visible;
 
+  &:hover {
+    border: 2px solid var(--border-color);
+  }
   @media (max-width: 1024px) {
     margin-top: 1rem;
     height: 17rem;
@@ -307,24 +287,26 @@
     h2 {
       white-space: nowrap;
       overflow: hidden;
-      border-top: 2px solid var(--primary-black);
+      border-top: 2px solid #303030;
       padding-top: 0.5rem;
       margin: 0.7rem 0.5rem 0;
       font-weight: bold;
       font-size: 1.5rem;
-      color: #4a4a4a;
-
-      @media (max-width: 1024px) {
-          font-size: 1rem;
+      color: #303030;
+      &:hover {
+        border-top: 2px solid var(--border-color);
       }
-  }
+      @media (max-width: 1024px) {
+        font-size: 1.2rem;
+      }
+    }
 
     p {
       margin: 0rem 0.5rem 0;
       font-family: monospace;
       font-weight: bold;
-      font-size: 1.25rem;
-      color: #888;
+      font-size: 1.4rem;
+      color: #7a8b92;
       height: 3rem;
 
       @media (max-width: 1024px) {
@@ -334,7 +316,7 @@
       .line-through {
         text-decoration: line-through;
         font-weight: 600;
-        text-decoration-color: var(--primary-black);
+        text-decoration-color: #303030;
       }
     }
   }
@@ -375,7 +357,7 @@
     font-weight: 600;
     bottom: 0;
     right: 0;
-    background-color: var(--primary-black);
+    background-color: #303030;
     border: 4px solid #f5f5f5;
     color: white;
     text-align: center;
@@ -406,7 +388,7 @@
     width: 2.8rem;
     bottom: 0;
     left: 0;
-    background-color: var(--primary-black);
+    background-color: #303030;
     border: 4px solid #f5f5f5;
     color: white;
     text-align: center;
