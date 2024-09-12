@@ -75,7 +75,7 @@ const BottomNavBar = () => {
 
         {/* Product Icon */}
         <motion.div
-          className="nav-item translate-x-[5px] font-semibold"
+          className="nav-item translate-x-[3px] font-semibold"
           onClick={() => handleNavigation("/product")}
           animate={{
             color: location.pathname === "/product" ? activeColor : inactiveColor,
