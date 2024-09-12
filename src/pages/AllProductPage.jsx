@@ -57,10 +57,10 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           <div className="h-full w-full flex  items-center">
             <p>
               {product.price === product.discountedPrice ? (
-                <span>{product.price}₫</span>
+                <span>{formatPrice(product.price)}₫</span>
               ) : (
                 <>
-                  {priceStage === 0 && <span>{product.price}₫</span>}
+                  {priceStage === 0 && <span>{formatPrice(product.price)}₫</span>}
                   {priceStage === 1 && (
                     <span className="line-through">
                       {formatPrice(product.price)}₫
