@@ -54,7 +54,7 @@ const CheckoutOrder = ({ setCurrentStep }) => {
               <MyButton
                 text="Mua hàng"
                 disabled={!user?.cart?.some((item) => item.checked)}
-                className={styles.btnOrder}
+                className="bg-Teal"
                 onClick={() => setCurrentStep((pre) => (pre += 1))}
               ></MyButton>
             </div>

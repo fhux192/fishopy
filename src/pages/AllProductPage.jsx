@@ -62,7 +62,9 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
                 <>
                   {priceStage === 0 && <span>{product.price}₫</span>}
                   {priceStage === 1 && (
-                    <span className="line-through">{product.price}₫</span>
+                    <span className="line-through">
+                      {formatPrice(product.price)}₫
+                    </span>
                   )}
                   {priceStage === 2 && (
                     <span>{formatPrice(product.discountedPrice)}₫</span>
@@ -78,10 +80,9 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           </div>
         </div>
         <div onClick={handleAddToCart} className="add-to-cart">
-        <FaCartPlus /> Mua ngay
-      </div>
+          <FaCartPlus /> Mua ngay
+        </div>
       </Link>
-    
     </div>
   );
 };
@@ -149,6 +150,12 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
 };
 
 const AllProductPage = () => {
+  const [selectedPurchaseOption, setSelectedPurchaseOption] =
+    useState("single");
+
+  const handlePurchaseOptionClick = (option) => {
+    setSelectedPurchaseOption(option);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortOption, setSortOption] = useState("default");
@@ -200,12 +207,42 @@ const AllProductPage = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="flex pt-10 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="p-1 px-2 text-Teal rounded-full border-Vio  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
+      <div className="flex lg:pb-0 lg:mt-0 mt-[1rem] w-full justify-center whitespace-nowrap">
+        <h1 className="p-1 px-2 text-Teal rounded-full border-Teal2  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
           SẢN PHẨM
         </h1>
       </div>
       <ShiftingCountdown />
+      <div className="flex flex-col md:mt-[2rem] lg:mt-[0.5rem]  mt-[0rem] items-center justify-center lg:p-8 py-6 w-full bg-Teal3">
+        <p className="font-bold text-[1.7rem] text-Black">Dành cho bạn</p>
+        <div className="flex flex-col lg:flex-row lg:mt-[1rem] mt-[0.5rem] items-center gap-2">
+          <p className="font-semibold text-Grey text-xl">
+            Bạn mua như thế nào?
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => handlePurchaseOptionClick("single")}
+              className={`flex justify-center rounded-full w-[10rem] lg:w-[10rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                selectedPurchaseOption === "single"
+                  ? "bg-Teal text-white"
+                  : "bg-bordercl text-Grey"
+              }`}
+            >
+              <p className="text-md font-[500]">1 Cặp theo loại</p>
+            </button>
+            <button
+              onClick={() => handlePurchaseOptionClick("combo")}
+              className={`flex justify-center rounded-full w-[10rem] lg:w-[10rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                selectedPurchaseOption === "combo"
+                  ? "bg-Teal text-white"
+                  : "bg-bordercl text-Grey"
+              }`}
+            >
+              <p className="text-md font-[500]">Combo nhiều cặp</p>
+            </button>
+          </div>
+        </div>
+      </div>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
       <ProductsSection
         currentPageProducts={currentPageProducts}

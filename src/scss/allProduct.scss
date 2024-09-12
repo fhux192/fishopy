@@ -1,12 +1,12 @@
 :root {
-  --border-color: #36d7d4;
+  --border-color: #2daab6;
   --pimary-grey: #f3f4f6;
 }
 
 @media (min-width: 320px) {
   .sort-section {
     padding-top: 0rem;
-    margin-top: 0;
+    margin-top: 0rem;
   }
   .product-section {
     margin-top: 1rem;
@@ -66,7 +66,7 @@
 
 @media (min-width: 768px) {
   .sort-section {
-    margin-top: 1rem;
+    margin-top: 0rem;
   }
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -89,7 +89,7 @@
 
 @media (min-width: 1024px) {
   .sort-section {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 }
 
@@ -123,7 +123,7 @@
     margin-top: 1.5rem;
   }
   .product-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
   .countdown-container {
     margin-left: 0rem;
@@ -203,7 +203,7 @@
       align-items: center;
       padding: 0 1rem;
       border-radius: 0.95rem;
-      margin-left: 5%;
+      margin-left: 2%;
       margin-top: 1rem;
       position: relative;
       z-index: 1;
@@ -213,14 +213,14 @@
       transition: color 0.3s, border-color 0.3s;
 
       &:hover {
-        border-color: #d8cfef;
+        border-color: #cfefeb;
       }
       &.unselected {
         border: 1px solid #e6e6e6;
       }
       &.selected {
-        color: #492fbf;
-        border: solid 1px #492fbf;
+        color: #2daab6;
+        border: solid 1px #cfefeb;
       }
 
       @media (min-width: 1024px) {
@@ -259,7 +259,7 @@
 }
 
 .product-card {
-  height: 15.5rem;
+  height: 16.5rem;
   width: 12rem;
   border: 1px solid #e6e6e6;
   border-radius: 1.6rem;
@@ -268,7 +268,7 @@
   overflow: visible;
 
   @media (max-width: 1024px) {
-    height: 14.5rem;
+    height: 15.5rem;
     width: 11rem;
   }
 
@@ -378,15 +378,15 @@
     height: 2.5rem;
     width: auto;
     gap: 0.5rem;
-
-    border: 1px solid #d8cfef;
-    color: #492fbf;
+    border: 1px solid #cfefeb;
+    color: #2daab6;
     font-weight: 500;
     text-align: center;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0.5rem;
+    margin-top: 1.5rem;
 
     @media (max-width: 1024px) {
       height: 2.2rem;
@@ -399,11 +399,6 @@
     }
   }
 
-  &:hover .add-to-cart {
-    // transition: border-top 1.5s ease  ,transform 0.8s ease;
-    // border-top: 2px solid var(--border-color);
-    // transform: rotate(360deg);
-  }
 
   &:hover .single-image {
     transition: all 0.5s ease;

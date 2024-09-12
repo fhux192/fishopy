@@ -16,7 +16,7 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="flex h-full items-center justify-center my-[2rem] mt-[2.5rem] md:my-[5.5rem] lg:my-[2rem]">
+    <div className="flex h-full items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
       {" "}
       <div className="flex flex-col justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
         <p className="text-center font-bold text-Black text-[1.2rem] lg:text-[1.5rem]">
@@ -28,12 +28,7 @@ const ShiftingCountdown = () => {
           <CountdownItem unit="Minute" text="phút" />
           <CountdownItem unit="Second" text="giây" />
         </div>
-        <div className="flex w-full justify-center mt-[0.7rem]">
-          {" "}
-          <a href="https://zalo.me/0388811160" className="flex justify-center bg-Teal rounded-full w-[9rem] lg:w-[10rem] text-white p-[0.6rem] lg:p-[0.65rem] lg:px-4 font-[500]">
-           <p className="text-md">Liên hệ tư vấn</p>
-          </a>
-        </div>
+      
       </div>
     </div>
   );

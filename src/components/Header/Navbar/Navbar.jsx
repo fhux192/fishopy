@@ -15,7 +15,7 @@ import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import tiktok from "../../../assets/icon/tik-tok.png";
-
+import fish from "../../../assets/logo.png"
 const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.account.user);
@@ -112,10 +112,10 @@ const Navbar = () => {
         className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
       >
         <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
-          <button className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
-            <div>
+          <button onClick={()=>handleNavigation("Trang Chủ")} className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
+            <div className="flex items-center">
               {" "}
-              <BubbleText />
+             <p className="logo">GuppyHocMon</p>
             </div>
           </button>
           <div className=" border-primaryGrey social">
@@ -186,7 +186,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="lg:border-l-[1px] border-primaryBlack ml-2 pl-2 mr-[0rem] social">
+        <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
           <a
             href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
             target="_blank"
@@ -194,7 +194,7 @@ const Navbar = () => {
             <img
             src={tiktok}
               title="TikTok"
-              className="lg:hidden block w-[35px] lg:w-full lg:h-[35px] text-red-600 lg:mr-[15px] mr-8 md:mr-4 duration-500"
+              className="lg:hidden block w-[35px] lg:w-full lg:h-[35px] text-red-600 lg:mr-[15px] md:mr-4 mr-8 duration-500"
             />
           </a>
           <a
@@ -222,9 +222,9 @@ const BubbleText = () => {
   return (
     <div
       onClick={handleNavigateHome}
-      className="font-sans  mt-[1px] text-black lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
+      className="font-sans text-Teal2 mt-[1px] w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
     >
-      {"Guppy Hóc Môn".split("").map((child, idx) => (
+      {"GuppyHocMon".split("").map((child, idx) => (
         <span className="hoverText" key={idx}>
           {child}
         </span>

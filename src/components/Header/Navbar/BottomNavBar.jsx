@@ -54,7 +54,7 @@ const BottomNavBar = () => {
     }
   };
 
-  const activeColor = "#492fbf"; // Updated active icon color
+  const activeColor = "#2daab6"; // Updated active icon color
   const inactiveColor = "#303030"; // Color when inactive
 
   return (
@@ -115,7 +115,7 @@ const BottomNavBar = () => {
                   <>
                     {user.role === "ADMIN" && (
                       <Link
-                        className="block border-b-none px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
+                        className="block border-b-none px-2 py-2 text-Black font-semibold rounded-t-xl w-full text-left"
                         to="/admin/product"
                       >
                         <button>Quản lý sản phẩm</button>
@@ -123,13 +123,13 @@ const BottomNavBar = () => {
                     )}
                     <Link
                       to="/account"
-                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 w-full text-left"
+                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] w-full text-left"
                     >
                       Quản lý tài khoản
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
+                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] rounded-b-xl w-full text-left"
                     >
                       Đăng Xuất
                     </button>
@@ -138,13 +138,13 @@ const BottomNavBar = () => {
                   <>
                     <button
                       onClick={() => dispatch(toggleModalLogin())}
-                      className="block px-2 py-2 text-primaryBlack font-semibold rounded-t-xl w-full text-left"
+                      className="block px-2 py-2 text-Black font-semibold rounded-t-xl w-full text-left"
                     >
                       Đăng Nhập
                     </button>
                     <button
                       onClick={() => dispatch(toggleModalRegister())}
-                      className="block px-2 py-2 text-primaryBlack font-semibold border-t-2 rounded-b-xl w-full text-left"
+                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] rounded-b-xl w-full text-left"
                     >
                       Đăng Ký
                     </button>

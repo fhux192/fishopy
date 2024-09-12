@@ -6,12 +6,12 @@ const AddressPage = () => {
   return (
     <div>
       <div className="mx-4  ">
-        <div className="flex mb-6 pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-          <h1 className="w-[30rem] mt-[4rem] lg:mt-20 font-extrabold cursor-default text-primaryBlack lg:text-[2rem] text-[1.5rem] text-center border-b-2">
-            Địa Chỉ Guppy Hóc Môn
-          </h1>
-        </div>
-        <p className="font-bold lg:block lg:text-xl text-primaryBlack">Trại cá Guppy Hóc Môn</p>
+      <div className="flex lg:pb-0 lg:mt-0 mt-[1rem] w-full justify-center whitespace-nowrap">
+        <h1 className="p-1 px-3 text-Teal rounded-full border-Teal2  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
+         ĐỊA CHỈ TRẠI CÁ GUPPY HÓC MÔN
+        </h1>
+      </div>
+        <h2 className="font-bold mt-[0.5rem] lg:block lg:text-xl text-lg text-primaryBlack">Trại cá Guppy Hóc Môn</h2>
         <p className="lg:block lg:text-xl text-md text-primaryGrey">22/9/2 ấp3, Đông Thạnh, Hóc Môn, Hồ Chí Minh</p>
         <iframe
           className="rounded-xl pb-14"

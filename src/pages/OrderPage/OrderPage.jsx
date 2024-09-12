@@ -22,7 +22,7 @@ const OrderPage = () => {
     <>
       {user && (
         <>
-          <Card className={styles.cardStep}>
+          <Card className={`${styles.cardStep} mt-[4rem] lg:mt-[6rem]`}>
             <Steps
               size="small"
               current={currentStep}

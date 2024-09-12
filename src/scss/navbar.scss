@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
 .navbar {
   color: #f8f7f9;
   .wrapper {
@@ -43,7 +44,6 @@
       width: 35px;
       height: 35px;
       cursor: pointer;
-      
     }
     .icon-navigate:hover {
       color: #303030;
@@ -229,5 +229,14 @@
   26%,
   100% {
     display: none;
+  }
+}
+
+.logo {
+  font-family: "Potta One", system-ui !important;
+  font-size: 2rem;
+  color: #2daab6;
+  @media screen and (max-width: 1020px) {
+    font-size: 1.5rem;
   }
 }

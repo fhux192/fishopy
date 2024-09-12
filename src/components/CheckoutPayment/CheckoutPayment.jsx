@@ -146,7 +146,7 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
           <Button
             type="primary"
             disabled={!user?.cart?.some((item) => item.checked) || !shippingfee || !addressDelivery}
-            className={styles.btnOrder}
+            className="bg-Teal rounded-full font-semibold"
             onClick={onOrder}
           >
             Đặt hàng

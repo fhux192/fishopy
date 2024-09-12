@@ -151,14 +151,14 @@ const ModalRegister = () => {
         </label>
         <button
           onClick={handleRegister}
-          className="h-10 w-full hover:border-2 hover:border-teal-500  px-2 text-center font-semibold bg-primaryBlack text-white mt-8  rounded-3xl duration-150"
+          className="h-10 w-full hover:border-2 hover:border-teal-500  px-2 text-center font-semibold bg-Black text-white mt-8  rounded-3xl duration-150"
         >
           Đăng Ký
         </button>
         <div className={styles.smallText}>
           <span>Bạn đã có tài khoản? </span>
           <a
-            className="pl-1 text-primaryTeal font-semibold cursor-pointer"
+            className="pl-1 text-Teal font-semibold cursor-pointer"
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());
