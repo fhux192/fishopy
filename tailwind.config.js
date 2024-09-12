@@ -19,6 +19,7 @@ export default {
         Teal:"#2daab6",
         Teal2:"#cfefeb",
         Teal3:"#f0f6f5",
+        Red:"#ff0000",
         bordercl:"#e9e9e9",
         h2cl:"#5f84a8",
         h1cl:"#315376",

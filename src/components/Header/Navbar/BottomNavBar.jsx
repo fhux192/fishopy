@@ -75,7 +75,7 @@ const BottomNavBar = () => {
 
         {/* Product Icon */}
         <motion.div
-          className="nav-item font-semibold"
+          className="nav-item translate-x-[5px] font-semibold"
           onClick={() => handleNavigation("/product")}
           animate={{
             color: location.pathname === "/product" ? activeColor : inactiveColor,
@@ -83,7 +83,7 @@ const BottomNavBar = () => {
           transition={{ duration: 0.5 }}
         >
           <FaFishFins />
-          <p>Sản phẩm</p>
+          <p> Sản phẩm</p>
         </motion.div>
 
         {/* Account Icon with Dropdown */}

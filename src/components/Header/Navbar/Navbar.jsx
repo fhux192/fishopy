@@ -203,7 +203,7 @@ const Navbar = () => {
           >
             <FaYoutube
               title="Youtube Guppy Hóc Môn"
-              className="lg:hidden block w-[35px] h-[35px] text-red-500 lg:mr-[15px] mr-2 duration-500"
+              className="lg:hidden block w-[35px] h-[35px] text-Red lg:mr-[15px] mr-2 duration-500"
             />
           </a>
         </div>
