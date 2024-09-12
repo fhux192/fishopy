@@ -16,7 +16,7 @@ export const ItemsContainer = () => {
     { text: "Facebook: Quân Nguyễn", link: "#" },
   ];
   return (
-    <div className=" grid bg-primaryBlack grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-[10rem] sm:px-8 px-4 py-12 ">
+    <div className=" grid bg-Black grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-[10rem] sm:px-8 px-4 py-12 ">
       <ul>
         <h1 className="mb-1 font-mono font-semibold text-white text-2xl">
           Khách Hàng
@@ -24,7 +24,7 @@ export const ItemsContainer = () => {
         {COSTOMER.map((link) => (
           <li key={link.text}>
             <a
-              className="text-white font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-Vio duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -40,7 +40,7 @@ export const ItemsContainer = () => {
         {CONTACT.map((link) => (
           <li key={link.text}>
             <a
-              className="text-white font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-Vio duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -56,7 +56,7 @@ export const ItemsContainer = () => {
         {SOCIAL.map((link) => (
           <li key={link.text}>
             <a
-              className="text-white font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-Vio duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >
@@ -72,7 +72,7 @@ export const ItemsContainer = () => {
         {PRODUCTS.map((link) => (
           <li key={link.text}>
             <a
-              className="text-white font-mono hover:text-teal-400 duration-300
+              className="text-white font-mono hover:text-Vio duration-300
           text-sm cursor-pointer leading-6"
               href={link.link}
             >

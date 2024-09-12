@@ -2,6 +2,7 @@
 import { useAnimate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import "../../scss/allProduct.scss";
+import { Link } from "react-router-dom";
 // NOTE: Change this date to whatever date you want to countdown to :)
 const today = new Date();
 const tomorrow = new Date(today);
@@ -15,17 +16,23 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="flex justify-center">
+    <div className="flex h-full items-center justify-center my-[2rem] mt-[2.5rem] md:my-[5.5rem] lg:my-[2rem]">
       {" "}
-      <div className="countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 mt-2 md:h-[9rem]  h-[8rem] lg:h-[11rem]  bg-primaryBlack p-3 lg:p-3">
-        <p className="text-center font-bold text-black text-[1.2rem] lg:text-[1.5rem]">
+      <div className="flex flex-col justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
+        <p className="text-center font-bold text-Black text-[1.2rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
+        <div className="mx-auto mt-[0.5rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />
           <CountdownItem unit="Second" text="giây" />
+        </div>
+        <div className="flex w-full justify-center mt-[0.7rem]">
+          {" "}
+          <a href="https://zalo.me/0388811160" className="flex justify-center bg-Teal rounded-full w-[9rem] lg:w-[10rem] text-white p-[0.6rem] lg:p-[0.65rem] lg:px-4 font-[500]">
+           <p className="text-md">Liên hệ tư vấn</p>
+          </a>
         </div>
       </div>
     </div>
@@ -36,11 +43,11 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-2 border-bordercl rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
+    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-[1px] rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
-          className="block text-2xl font-medium text-black md:text-3xl lg:text-4xl xl:text-5xl"
+          className="block text-2xl font-medium text-Black md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {time}
         </span>

@@ -14,11 +14,14 @@ export default {
         "4vh-4vh": "4vh 4vh",
       },
       colors: {
-        Teal:"#36d7d4",
-        bordercl:"#708090",
+        Grey:"505050",
+        Black:"#303030",
+        Teal:"#492fbf",
+        Vio:"#d8cfef",
+        bordercl:"#e6e6e6",
         h2cl:"#5f84a8",
         h1cl:"#315376",
-        pcl:"#7a8b92"
+        pcl:"#808080"
       },
       fontFamily: {
         body: ["Playwrite GB S", "sans-serif"],

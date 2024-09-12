@@ -9,7 +9,7 @@
     margin-top: 0;
   }
   .product-section {
-    margin: auto;
+    margin-top: 1rem;
   }
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -36,10 +36,10 @@
 @media (min-width: 580px) {
   .sort-section {
     padding-top: 0rem;
-    margin-top: 0;
+    margin-top: 0rem;
   }
   .product-section {
-    margin: auto;
+    margin-top: 1rem;
   }
   .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -66,7 +66,7 @@
 
 @media (min-width: 768px) {
   .sort-section {
-    margin-top: 0rem;
+    margin-top: 1rem;
   }
   .product-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -89,7 +89,7 @@
 
 @media (min-width: 1024px) {
   .sort-section {
-    margin-top: 1.25rem;
+    margin-top: 2rem;
   }
 }
 
@@ -129,6 +129,11 @@
     margin-left: 0rem;
     margin-right: 0rem;
   }
+  .product-section {
+    margin-top: 1rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
   .product-container {
     display: flex;
     width: 100%;
@@ -144,6 +149,7 @@
 
 @media (min-width: 1920px) {
   .product-section {
+    margin-top: 1rem;
     margin-left: 4rem;
     margin-right: 4rem;
   }
@@ -175,7 +181,6 @@
   overflow: hidden;
 
   @media (min-width: 1024px) {
-    justify-content: flex-end;
   }
 
   .sort-buttons {
@@ -192,25 +197,30 @@
       height: 2rem;
       font-weight: 600;
       min-width: 9.5rem;
-      border: 2px solid;
+
       font-size: 0.875rem;
       justify-content: center;
       align-items: center;
       padding: 0 1rem;
       border-radius: 0.95rem;
-      margin: 0 0.5rem;
+      margin-left: 5%;
       margin-top: 1rem;
       position: relative;
       z-index: 1;
       background-color: transparent;
-      color: #566072;
-      border-color: #303030;
+      color: #505050;
+
       transition: color 0.3s, border-color 0.3s;
 
+      &:hover {
+        border-color: #d8cfef;
+      }
+      &.unselected {
+        border: 1px solid #e6e6e6;
+      }
       &.selected {
-        color: #ffffff;
-        background-color: #303030;
-        border-color: #303030;
+        color: #492fbf;
+        border: solid 1px #492fbf;
       }
 
       @media (min-width: 1024px) {
@@ -249,22 +259,16 @@
 }
 
 .product-card {
-  margin-top: 1.5rem;
-  height: 21rem;
-  width: 14rem;
-  border: 2px solid #303030;
+  height: 15.5rem;
+  width: 12rem;
+  border: 1px solid #e6e6e6;
   border-radius: 1.6rem;
-
   background-color: transparent;
   position: relative;
   overflow: visible;
 
-  &:hover {
-    border: 2px solid var(--border-color);
-  }
   @media (max-width: 1024px) {
-    margin-top: 1rem;
-    height: 17rem;
+    height: 14.5rem;
     width: 11rem;
   }
 
@@ -287,36 +291,26 @@
     h2 {
       white-space: nowrap;
       overflow: hidden;
-      border-top: 2px solid #303030;
       padding-top: 0.5rem;
-      margin: 0.7rem 0.5rem 0;
-      font-weight: bold;
-      font-size: 1.5rem;
-      color: #303030;
-      &:hover {
-        border-top: 2px solid var(--border-color);
-      }
-      @media (max-width: 1024px) {
-        font-size: 1.2rem;
-      }
+      margin: 0rem 0.5rem 0;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #505050;
     }
 
     p {
+      display: flex;
+      align-items: center;
       margin: 0rem 0.5rem 0;
       font-family: monospace;
-      font-weight: bold;
-      font-size: 1.4rem;
-      color: #7a8b92;
-      height: 3rem;
-
-      @media (max-width: 1024px) {
-        font-size: 1rem;
-      }
+      font-weight: 800;
+      font-size: 1rem;
+      color: #000;
 
       .line-through {
         text-decoration: line-through;
-        font-weight: 600;
-        text-decoration-color: #303030;
+        font-weight: 800;
+        text-decoration-color: #ab2626;
       }
     }
   }
@@ -353,22 +347,20 @@
   }
 
   .discount {
-    position: absolute;
     font-weight: 600;
     bottom: 0;
     right: 0;
-    background-color: #303030;
-    border: 4px solid #f5f5f5;
+    background-color: #ab2626;
+
     color: white;
     text-align: center;
-    padding: 0.25rem;
+    padding: 0rem;
     border-radius: 1.5rem;
-    margin: 0.5rem;
-    font-size: 1rem;
+
+    font-size: 0.9rem;
 
     @media (max-width: 1024px) {
       font-size: 0.875rem;
-      border-width: 2px;
     }
 
     .flex {
@@ -380,28 +372,26 @@
   }
 
   .add-to-cart {
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 2.7rem;
-    width: 2.8rem;
-    bottom: 0;
-    left: 0;
-    background-color: #303030;
-    border: 4px solid #f5f5f5;
-    color: white;
+    height: 2.5rem;
+    width: auto;
+    gap: 0.5rem;
+
+    border: 1px solid #d8cfef;
+    color: #492fbf;
+    font-weight: 500;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0.5rem;
 
     @media (max-width: 1024px) {
       height: 2.2rem;
-      width: 2.3rem;
+      width: auto;
       font-size: 0.875rem;
-      border-width: 2px;
     }
 
     svg {
@@ -410,7 +400,9 @@
   }
 
   &:hover .add-to-cart {
-    transform: rotate(360deg);
+    // transition: border-top 1.5s ease  ,transform 0.8s ease;
+    // border-top: 2px solid var(--border-color);
+    // transform: rotate(360deg);
   }
 
   &:hover .single-image {

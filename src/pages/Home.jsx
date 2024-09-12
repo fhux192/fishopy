@@ -52,7 +52,7 @@ const Home = () => {
             animate={{ y: startAnimation ? -1000 : 0 }} // Slide up out of the screen
             transition={{ duration: 1 }}
           >
-            <p className="cursor-default text-primaryTeal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[5rem] font-semibold">
+            <p className="cursor-default text-Teal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[5rem] font-semibold">
               cá{" "}
             </p>
             <p className="cursor-default text-primaryBlack max-[550px]:text-[5rem] max-[800px]:text-[10rem] text-[15rem] font-semibold">
@@ -70,7 +70,7 @@ const Home = () => {
               <motion.div>
                 <FaFishFins className="max-[550px]:text-[2.5rem] max-[800px]:text-[3rem] text-[4rem] mr-3 pr-3 cursor-pointer text-primaryBlack border-r-2" />
               </motion.div>
-              Xem Tất Cả Sản Phẩm
+             <p className="text-Teal max-[550px]:text-[1rem] max-[800px]:text-[1.5rem] text-[2rem]"> Xem Tất Cả Sản Phẩm</p>
             </motion.button>
           </div>
           <motion.div

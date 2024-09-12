@@ -14,6 +14,7 @@ import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
+import tiktok from "../../../assets/icon/tik-tok.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -82,7 +83,7 @@ const Navbar = () => {
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+    if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
       setIsNavbarVisible(false);
     } else {
       setIsNavbarVisible(true);
@@ -108,9 +109,9 @@ const Navbar = () => {
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
       <div
-        className={`wrapper shadow-md lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
+        className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
       >
-        <div className="lg:flex w-full lg:w-full ml-4 lg:ml-0 ">
+        <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
           <button className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div>
               {" "}
@@ -125,8 +126,8 @@ const Navbar = () => {
                   (item.name === "Sản Phẩm" &&
                     location.pathname === "/product") ||
                   (item.name === "Địa Chỉ" && location.pathname === "/address")
-                    ? "text-h1cl font-bold"
-                    : "text-black"
+                    ? "text-Teal font-bold"
+                    : "text-Black"
                 }`}
                 key={item.name}
                 onClick={() => handleNavigation(item.name)}
@@ -135,7 +136,7 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div className="border-l-4 border-primaryBlack pl-4 mr-[0rem]">
+            <div className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
                 <FaUserTag
@@ -168,13 +169,13 @@ const Navbar = () => {
                 />
               </motion.div>
               <div
-                className={`flex  border-primaryBlack font-bold w-[1.35rem] h-[1.25rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-12%] top-[-35%] duration-500 text-center rounded-full absolute ${
+                className={`flex border-[1px] font-bold w-[1.35rem] h-[1.25rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-25%] top-[-35%] duration-500 rounded-md absolute ${
                   user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0
-                    ? "text-white bg-teal-700 border-0"
-                    : "bg-white border-2 "
+                    ? "text-white bg-Teal border-0"
+                    : "bg-white text-Black border-2 "
                 }`}
               >
-                <div className="mt-[3px]  lg:ml-[1px]">
+                <div className="">
                   {" "}
                   {user
                     ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
@@ -185,14 +186,15 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="lg:border-l-4 border-primaryBlack ml-2 pl-2 mr-[0rem] social">
+        <div className="lg:border-l-[1px] border-primaryBlack ml-2 pl-2 mr-[0rem] social">
           <a
             href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
             target="_blank"
           >
-            <IoLogoTiktok
+            <img
+            src={tiktok}
               title="TikTok"
-              className="icon mr-[8px] duration-500"
+              className="lg:hidden block w-[35px] lg:w-full lg:h-[35px] text-red-600 lg:mr-[15px] mr-8 md:mr-4 duration-500"
             />
           </a>
           <a
@@ -201,7 +203,7 @@ const Navbar = () => {
           >
             <FaYoutube
               title="Youtube Guppy Hóc Môn"
-              className="icon lg:mr-[15px] mr-4 duration-500"
+              className="lg:hidden block w-[35px] h-[35px] text-red-600 lg:mr-[15px] mr-2 duration-500"
             />
           </a>
         </div>
@@ -220,9 +222,9 @@ const BubbleText = () => {
   return (
     <div
       onClick={handleNavigateHome}
-      className="font-sans mt-[1px] text-black lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl font-thin cursor-pointer"
+      className="font-sans  mt-[1px] text-black lg:text-primaryBlack w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
     >
-      {"GUPPY HÓC MÔN".split("").map((child, idx) => (
+      {"Guppy Hóc Môn".split("").map((child, idx) => (
         <span className="hoverText" key={idx}>
           {child}
         </span>

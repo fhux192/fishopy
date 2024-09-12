@@ -37,7 +37,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   return (
     <div
-      className={`product-card shadow-md`}
+      className={`product-card`}
       style={{ animationDelay: `${animationDelay}s` }}
     >
       <Link
@@ -54,31 +54,34 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         />
         <div className="text-content">
           <h2 className="title">{product.name}</h2>
-          <p>
-            {product.price === product.discountedPrice ? (
-              <span>{product.price}₫</span>
-            ) : (
-              <>
-                {priceStage === 0 && <span>{product.price}₫</span>}
-                {priceStage === 1 && (
-                  <span className="line-through">{product.price}₫</span>
-                )}
-                {priceStage === 2 && (
-                  <span>{formatPrice(product.discountedPrice)}₫</span>
-                )}
-              </>
+          <div className="h-full w-full flex  items-center">
+            <p>
+              {product.price === product.discountedPrice ? (
+                <span>{product.price}₫</span>
+              ) : (
+                <>
+                  {priceStage === 0 && <span>{product.price}₫</span>}
+                  {priceStage === 1 && (
+                    <span className="line-through">{product.price}₫</span>
+                  )}
+                  {priceStage === 2 && (
+                    <span>{formatPrice(product.discountedPrice)}₫</span>
+                  )}
+                </>
+              )}
+            </p>
+            {product.price !== product.discountedPrice && (
+              <div className="discount">
+                <div className="flex">-{Math.round(discountPercentage)}%</div>
+              </div>
             )}
-          </p>
-        </div>
-        {product.price !== product.discountedPrice && (
-          <div className="discount">
-            <div className="flex">Giảm {Math.round(discountPercentage)}%</div>
           </div>
-        )}
-      </Link>
-      <div onClick={handleAddToCart} className="add-to-cart">
-        <FaCartPlus />
+        </div>
+        <div onClick={handleAddToCart} className="add-to-cart">
+        <FaCartPlus /> Mua ngay
       </div>
+      </Link>
+    
     </div>
   );
 };
@@ -124,12 +127,11 @@ const SortSection = ({ sortOption, setSortOption }) => {
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
   return (
-    <div className=" lg:bg-transparent mt-4 pb-4">
+    <div className=" lg:bg-transparent pb-4">
       <div className="product-section rounded-xl">
         <div className="product-container">
-          <div className="banner"></div>
           <div className="flex w-full justify-center">
-            <div className=" product-grid grid gap-4  mx-2 lg:mx-0">
+            <div className=" product-grid grid gap-4 lg:mx-0">
               {currentPageProducts.map((product, index) => (
                 <ProductCard
                   key={product._id}
@@ -140,7 +142,6 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
               ))}
             </div>
           </div>
-          <div className="banner"></div>
         </div>
       </div>
     </div>
@@ -195,13 +196,13 @@ const AllProductPage = () => {
   return (
     <motion.div
       className="min-h-screen"
-      initial={{ y: "100vh", opacity: 0 }} 
-      animate={{ y: 0, opacity: 1 }} 
-      transition={{ duration: 0.6, ease: "easeOut" }} 
+      initial={{ y: "100vh", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="flex pt-10 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap">
-        <h1 className="p-1 px-2 rounded-full border-p  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default text-black lg:text-[1.4rem] text-[1.0rem] text-center border-b-2">
-          Tất Cả Sản Phẩm
+      <div className="flex pt-10 lg:pb-0 w-full justify-center whitespace-nowrap">
+        <h1 className="p-1 px-2 text-Teal rounded-full border-Vio  mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
+          SẢN PHẨM
         </h1>
       </div>
       <ShiftingCountdown />
