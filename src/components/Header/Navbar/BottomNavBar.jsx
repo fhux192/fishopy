@@ -150,7 +150,7 @@ const BottomNavBar = () => {
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className={`dropdown-menu ${
-              user ? "top-[-238%]" : ""
+              user ? "top-[-238%]" : "top-[-175%]"
             } ${isDropdownOpen ? "" : "top-[-500%]"} ${
               isAdminSectionOpen ? "top-[-424%]" : ""
             }`}
