@@ -164,3 +164,5 @@ export const callEditUser = async (data) => {
 export const callFetchDataDashboard = async () => {
   return await axios.get("dashboard");
 };
+
+

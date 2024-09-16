@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
@@ -15,7 +15,6 @@ import {
   CloseCircleOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined,
-  EyeOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { toggleDrawerCart } from "../../redux/features/toggle/toggleSlice";
@@ -28,6 +27,27 @@ const CartDrawer = () => {
   const dispatch = useDispatch();
   const { isShowDawerCart } = useSelector((state) => state.toggle);
   const user = useSelector((state) => state.account.user);
+
+  const [drawerWidth, setDrawerWidth] = useState(400);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setDrawerWidth("100%");
+      } else {
+        setDrawerWidth(400);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleViewCart = () => {
     dispatch(toggleDrawerCart());
@@ -59,12 +79,23 @@ const CartDrawer = () => {
 
   return (
     <Drawer
-    title={<span style={{ color: "#707070" ,fontSize:"18px"}}>Giỏ hàng</span>} 
+      title={<span style={{ color: "#707070", fontSize: "18px" }}>Giỏ hàng</span>}
       placement="right"
       onClose={() => dispatch(toggleDrawerCart())}
       open={isShowDawerCart}
-      width={400}
-      bodyStyle={{ padding: 0, display: "flex", flexDirection: "column" }}
+      width={drawerWidth}
+      styles={{
+        body: {
+          padding: 0,
+          display: "flex",
+          flexDirection: "column",
+          height: "100%", 
+        },
+      }}
+      
+      // Ensure the Drawer takes the full height on mobile
+      height={drawerWidth === "100%" ? "100vh" : undefined}
+      // Optional: Adjust other styles if needed
     >
       {user?.cart && user?.cart.length > 0 ? (
         <>
@@ -106,11 +137,11 @@ const CartDrawer = () => {
                         style={{
                           color: "#2daab6",
                           fontSize: "17px",
-                          fontWeight: "bold",
+                          fontWeight: "700",
                         }}
                       >
-                        {item.product.price
-                          ? `${item.product.price.toLocaleString()}₫`
+                        {item.product.discountedPrice
+                          ? `${item.product.discountedPrice.toLocaleString()}₫`
                           : "Price not available"}
                       </Text>
                       <div className="quantity-control mt-2">
@@ -191,7 +222,7 @@ const CartDrawer = () => {
                   padding: "20px 30px",
                 }}
               >
-                <p>Xem giỏ hàng</p> 
+                <p>Xem giỏ hàng</p>
               </Button>
             </Link>
           </div>
