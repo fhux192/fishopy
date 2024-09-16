@@ -17,7 +17,7 @@ export default {
         Grey:"#707070",
         Black:"#303030",
         Teal:"#2daab6",
-        Teal2:"#cfefeb",
+        Teal2:"#cfefeb#cfefeb",
         Teal3:"#f0f6f5",
         Red:"#ff0000",
         bordercl:"#e9e9e9",

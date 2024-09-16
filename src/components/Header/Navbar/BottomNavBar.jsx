@@ -78,7 +78,8 @@ const BottomNavBar = () => {
           className="nav-item translate-x-[1px] font-semibold"
           onClick={() => handleNavigation("/product")}
           animate={{
-            color: location.pathname === "/product" ? activeColor : inactiveColor,
+            color:
+              location.pathname === "/product" ? activeColor : inactiveColor,
           }}
           transition={{ duration: 0.5 }}
         >
@@ -105,7 +106,7 @@ const BottomNavBar = () => {
               scale: isDropdownOpen ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`dropdown-menu ${user ? "top-[-235%]" : "top-[-170%]"} ${
+            className={`dropdown-menu ${user ? "top-[-300%]" : "top-[-170%]"} ${
               isDropdownOpen ? "dropdown-active" : ""
             }`}
           >
@@ -114,13 +115,22 @@ const BottomNavBar = () => {
                 {user ? (
                   <>
                     {user.role === "ADMIN" && (
-                      <Link
-                        className="block border-b-none px-2 py-2 text-Black font-semibold rounded-t-xl w-full text-left"
-                        to="/admin/product"
-                      >
-                        <button>Quản lý sản phẩm</button>
-                      </Link>
+                      <>
+                        <Link
+                          className="block border-b-none px-2 py-2 text-Black font-semibold rounded-t-xl w-full text-left"
+                          to="/admin/product"
+                        >
+                          <button>Quản lý sản phẩm</button>
+                        </Link>
+                        <Link
+                          className="block border-t-[1px] px-2 py-2 text-Black font-semibold w-full text-left"
+                          to="/admin/user"
+                        >
+                          <button>Quản lý người dùng</button>
+                        </Link>
+                      </>
                     )}
+
                     <Link
                       to="/account"
                       className="block px-2 py-2 text-Black font-semibold border-t-[1px] w-full text-left"
@@ -173,7 +183,8 @@ const BottomNavBar = () => {
           className="nav-item font-semibold"
           onClick={() => handleNavigation("/address")}
           animate={{
-            color: location.pathname === "/address" ? activeColor : inactiveColor,
+            color:
+              location.pathname === "/address" ? activeColor : inactiveColor,
           }}
           transition={{ duration: 0.5 }}
         >

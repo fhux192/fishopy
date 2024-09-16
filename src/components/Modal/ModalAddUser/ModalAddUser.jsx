@@ -32,6 +32,7 @@ const ModalAddUser = ({ setUsers }) => {
       open={modalAddUser}
       onCancel={() => dispatch(toggleModalAddUser())}
       footer={null}
+      centered={true}
     >
       <Form
         form={form}

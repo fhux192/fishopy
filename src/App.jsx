@@ -1,6 +1,6 @@
 import "./App.css";
 import Footer from "./components/Footer/Footer";
-import MessageBox from "./components/Layouts/MessageBox";
+import MessageBox from "./components/MessageBox/MessageBox";
 import ModalLogin from "./components/Modal/ModalLogin/ModalLogin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

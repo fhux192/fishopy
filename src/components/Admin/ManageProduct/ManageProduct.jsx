@@ -1,21 +1,35 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import {
+  Button,
+  Table,
+  Pagination,
+  Modal,
+  message,
+  Row,
+  Image,
+  Col,
+} from "antd";
+import {
+  PlusCircleOutlined,
+  ReloadOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import {
   toggleModalAddProduct,
   toggleModalEditProduct,
 } from "../../../redux/features/toggle/toggleSlice";
 import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
+import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
 import { callDeleteProduct, callFetchProduct } from "../../../services/api";
 import formatPrice from "../../../utils/formatPrice";
-import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
-import { TbRefresh } from "react-icons/tb";
-import { IoIosAddCircle } from "react-icons/io";
 
 const ManageProduct = () => {
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(10);
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
   const [productEdit, setProductEdit] = useState({});
@@ -26,12 +40,13 @@ const ManageProduct = () => {
       if (res.vcode === 0) {
         const newProducts = products.filter((product) => product._id !== id);
         setProducts(newProducts);
-        alert(res.message);
+        message.success(res.message);
       } else {
-        console.log(res.message);
+        message.error(res.message);
       }
     } catch (error) {
       console.error("error", error.message);
+      message.error(error.message);
     }
   };
 
@@ -47,6 +62,7 @@ const ManageProduct = () => {
       setProducts(products);
     } catch (error) {
       console.error(error.message);
+      message.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -56,220 +72,137 @@ const ManageProduct = () => {
     fetchProduct(current);
   }, [current, pageSize]);
 
-  const totalPages = Math.ceil(total / pageSize);
-
-  const handlePageClick = (page) => {
-    setCurrent(page);
-  };
+  const columns = [
+    {
+      title: "Hình ảnh",
+      dataIndex: "images",
+      key: "image",
+      render: (images, record) => (
+        <Image
+          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + images[0]}
+          alt={record.name}
+          width={100}
+          style={{
+            height: "auto",
+            objectFit: "cover",
+            display: "block",
+            borderRadius: "10px",
+          }}
+        />
+      ),
+    },
+    {
+      title: "Tên",
+      dataIndex: "name",
+      key: "name",
+      render: (text) => (
+        <span style={{ fontWeight: "bold", color: "#707070" }}>
+          {text}
+        </span>
+      ),
+    },
+    {
+      title: "Giá bán",
+      dataIndex: "discountedPrice",
+      key: "discountedPrice",
+      render: (text) => (
+        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
+          {formatPrice(text)}đ
+        </span>
+      ),
+    },
+    {
+      title: "Tình trạng",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <span
+          style={{
+            fontWeight: "bold",
+            color: status ? "green" : "red",
+          }}
+        >
+          {status ? "Còn hàng" : "Hết hàng"}
+        </span>
+      ),
+    },
+    {
+      title: "Thao tác",
+      key: "action",
+      render: (text, record) => (
+        <>
+          <Button
+            type="link"
+            icon={<EditOutlined style={{ color: "orange" }} />}
+            onClick={() => {
+              dispatch(toggleModalEditProduct());
+              setProductEdit(record);
+            }}
+          />
+          <Button
+            type="link"
+            icon={<DeleteOutlined style={{ color: "red" }} />}
+            onClick={() => {
+              Modal.confirm({
+                title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
+                onOk: () => handleDeleteProduct(record._id),
+              });
+            }}
+          />
+        </>
+      ),
+    },
+  ];
 
   return (
     <div>
-      <div
-        style={{
-          marginBottom: "16px",
-          display: "flex",
-          gap: "0px",
-          flexDirection: "column",
-        }}
+      <Row
+        gutter={[16, 16]}
+        style={{ marginBottom: 16, flexWrap: "wrap" }}
       >
-        <div className="flex gap-2 items-center">
-          {" "}
-          <button
-            className=" border-2 rounded-3xl text-primaryTeal lg:text-2xl md:text-xl text-lg font-semibold"
-            onClick={() => {
-              dispatch(toggleModalAddProduct());
-            }}
+        <Col>
+          <Button
+            icon={<PlusCircleOutlined />}
+            onClick={() => dispatch(toggleModalAddProduct())}
           >
-            <div className="flex gap-1 h-full p-1 px-2 items-center">
-              <IoIosAddCircle className="text-primaryBlack w-6 h-6 border-r-2" />
-              <div className="mt-1">Thêm sản phẩm</div>
-            </div>
-          </button>
-          <div className="flex text-xl">
-            {" "}
-            <button onClick={() => fetchProduct(current)}>
-              <TbRefresh className="bg-primaryBlack text-white rounded-full p-1 w-8 h-8" />
-            </button>
-          </div>
-        </div>
-      </div>
+            Thêm sản phẩm
+          </Button>
+        </Col>
+        <Col>
+          <Button
+            icon={<ReloadOutlined />}
+            onClick={() => fetchProduct(current)}
+          />
+        </Col>
+      </Row>
 
-      <div
-        style={{
-          overflowX: "auto",
-          marginBottom: "16px",
-        }}
-      >
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-          }}
-        >
-          <thead>
-            <tr>
-              <th
-                className="lg:text-2xl md:text-xl text-lg"
-                style={{
-                  paddingRight: "50px",
-                  textAlign: "left",
-                  color: "#1a202c",
-                }}
-              >
-                Hình ảnh
-              </th>
-              <th
-                className="lg:text-2xl md:text-xl text-lg"
-                style={{ padding: "0px", textAlign: "left", color: "#1a202c" }}
-              >
-                Tên
-              </th>
-              <th
-                className="lg:text-2xl md:text-xl text-lg"
-                style={{
-                  paddingRight: "50px",
-                  textAlign: "left",
-                  color: "#1a202c",
-                }}
-              >
-                Giá khuyến mãi
-              </th>
-              <th
-                className="lg:text-2xl md:text-xl text-lg"
-                style={{
-                  paddingRight: "50px",
-                  textAlign: "left",
-                  color: "#1a202c",
-                }}
-              >
-                Tình trạng
-              </th>
-              <th
-                className="lg:text-2xl md:text-xl text-lg"
-                style={{ padding: "0px", textAlign: "left", color: "#1a202c" }}
-              >
-                Thao tác
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td style={{ paddingTop: "16px", textAlign: "" }}>
-                  <div className="w-full flex justify-start">
-                    {" "}
-                    <img
-                      src={
-                        import.meta.env.VITE_BASE_URL +
-                        "/images/fish/" +
-                        product.images[0]
-                      }
-                      alt={product.name}
-                      style={{
-                        maxWidth: "100px",
-                        height: "auto",
-                        objectFit: "cover",
-                        display: "block",
-                        marginRight: "50px",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  </div>
-                </td>
-                <td
-                  className="lg:text-xl md:text-lg text-md"
-                  style={{
-                    paddingRight: "50px",
-                    fontWeight: "bold",
-                    color: "#4a4a4a",
-                  }}
-                >
-                  {product.name}
-                </td>
-                <td
-                  className="lg:text-xl md:text-lg text-md"
-                  style={{
-                    paddingRight: "50px",
-                    fontWeight: "bold",
-                    color: "#20a69f",
-                  }}
-                >
-                  {formatPrice(product.discountedPrice)}đ
-                </td>
-                <td
-                  className="lg:text-xl md:text-lg text-md"
-                  style={{ paddingRight: "50px", fontWeight: "bold" }}
-                >
-                  <span
-                    style={{
-                      color: product.status ? "green" : "red",
-                    }}
-                  >
-                    {product.status ? "Còn hàng" : "Hết hàng"}
-                  </span>
-                </td>
-                <td style={{ paddingRight: "0px" }}>
-                  <button
-                    style={{ color: "orange", fontSize: "1.2rem" }}
-                    onClick={() => {
-                      dispatch(toggleModalEditProduct());
-                      setProductEdit(product);
-                    }}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    style={{ color: "red", fontSize: "1.2rem" }}
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          "Bạn có chắc chắn muốn xóa sản phẩm này?"
-                        )
-                      ) {
-                        handleDeleteProduct(product._id);
-                      }
-                    }}
-                  >
-                    🗑️
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table
+        columns={columns}
+        dataSource={products}
+        loading={isLoading}
+        pagination={false}
+        rowKey="_id"
+        scroll={{ x: "max-content" }}
+      />
 
-      <div
-        style={{
-          marginTop: "16px",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "8px",
+      <Pagination
+        current={current}
+        pageSize={pageSize}
+        total={total}
+        onChange={(page, pageSize) => {
+          setCurrent(page);
+          setPageSize(pageSize);
         }}
-      >
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            isLoading={isLoading}
-            key={index + 1}
-            onClick={() => handlePageClick(index + 1)}
-            style={{
-              width: "30px",
-              height: "30px",
-              border: "2px solid #1a202c",
-              borderRadius: "0.375rem",
-              backgroundColor: current === index + 1 ? "#1a202c" : "#fff",
-              color: current === index + 1 ? "#fff" : "#1a202c",
-              cursor: "pointer",
-            }}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+        style={{ marginTop: 16, textAlign: "center" }}
+        showSizeChanger
+        responsive
+      />
 
       <ModalAddProduct setProducts={setProducts} />
-      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
+      <ModalEditProduct
+        productEdit={productEdit}
+        setProducts={setProducts}
+      />
     </div>
   );
 };

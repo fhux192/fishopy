@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
@@ -14,10 +13,11 @@ const ModalLogin = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+
   const handlelogin = async () => {
     try {
       const res = await callLogin({ phone, password });
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
         toast.success(res.message);
         dispatch(toggleModalLogin());
@@ -73,26 +73,41 @@ const ModalLogin = () => {
             )}
           </div>
         </label>
-        <button
+        <Button
           onClick={handlelogin}
-          className="h-10 w-full hover:border-2  hover:border-teal-500 px-2 text-center font-semibold bg-Black text-white mt-8 rounded-3xl duration-150"
+          className="h-10 w-full px-2 text-center font-semibold mt-8 rounded-3xl duration-150"
+          style={{
+            backgroundColor: 'black',
+            color: 'white',
+            borderColor: 'transparent',
+            height: '2.5rem',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'teal';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'transparent';
+          }}
         >
-          Đăng Nhập 
-        </button>
+          Đăng Nhập
+        </Button>
 
         <div className={styles.smallText}>
-          <span>Bạn chưa có tài khoản? </span>{" "}
-          <a className="pl-1 text-Teal font-semibold cursor-pointer"
+          <span>Bạn chưa có tài khoản? </span>
+          <Typography.Link
+            className="pl-1 font-semibold"
+            style={{ color: 'teal' }}
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());
             }}
           >
             Đăng ký
-          </a>
+          </Typography.Link>
         </div>
       </div>
     </div>
   );
 };
+
 export default ModalLogin;

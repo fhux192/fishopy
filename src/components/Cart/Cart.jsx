@@ -51,15 +51,15 @@ const Cart = ({ cart }) => {
                     />
                   </div>
 
-                  <Typography.Text className={styles.title}>
+                  <Typography.Text style={{color:"#707070" ,fontWeight:"bold",fontSize:"16px"}} className={styles.title}>
                     {item.product.name}
                   </Typography.Text>
                 </div>
                 <div className={styles.groupSum}>
-                  <Typography.Text className={styles.title2}>
+                  <Typography.Text style={{color:"#707070" ,fontWeight:"bold",fontSize:"16px"}} className={styles.title2}>
                     {item.product.name}
                   </Typography.Text>
-                  <Typography.Text>
+                  <Typography.Text style={{color:"#2daab6" ,fontWeight:"600",fontSize:"16px"}}>
                     {formatPrice(item.product.discountedPrice.toString())}đ{" "}
                   </Typography.Text>
                   <InputNumber
@@ -70,9 +70,9 @@ const Cart = ({ cart }) => {
                     onBlur={(value) => onChange(value, item)}
                   />
                 </div>
-                <Typography.Text className={styles.sumProduct}>
+                <Typography.Text style={{fontWeight:"bold",fontSize:"16px"}} className={styles.sumProduct}>
                   Tổng :{" "}
-                  {formatPrice((item.quantity * item.product.price).toString())}
+                  {formatPrice((item.quantity * item.product.discountedPrice).toString())}
                   đ
                 </Typography.Text>
                 <DeleteOutlined className={styles.deleteIcon} />

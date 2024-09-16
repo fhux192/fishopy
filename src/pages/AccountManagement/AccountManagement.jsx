@@ -25,7 +25,7 @@ const items = [
 const AccountManagement = () => {
   const location = useLocation();
   return (
-    <div className={styles.cardContainer}>
+    <div className={`${styles.cardContainer} md:mt-[7rem]`}>
       <Card>
         <Row>
           <Col xs={24} sm={6}>

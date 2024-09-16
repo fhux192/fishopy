@@ -136,7 +136,7 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
+            <div style={{color:"#303030"}} className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
                 <FaUserTag

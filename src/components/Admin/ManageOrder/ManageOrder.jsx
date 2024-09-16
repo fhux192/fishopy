@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Select,
-  Tabs,
   DatePicker,
-  Flex,
-  List,
+  Row,
+  Col,
   Card,
   Typography,
   Divider,
@@ -14,17 +14,22 @@ import {
   Empty,
   Spin,
   Popconfirm,
+  Space,
 } from "antd";
-import { useEffect, useState } from "react";
-import styles from "./ManageOrder.module.css";
 import { useDispatch } from "react-redux";
-import { callDeleteOrder, callFetchOrders, callUpdateOrder } from "../../../services/api";
+import {
+  callDeleteOrder,
+  callFetchOrders,
+  callUpdateOrder,
+} from "../../../services/api";
 import formatPrice from "../../../utils/formatPrice";
 import { toggleModalOrderDetail } from "../../../redux/features/toggle/toggleSlice";
 import ModalOrderDetail from "../../ModalOrderDetail/ModalOrderDetail";
-import { DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
+import { DeleteOutlined, ReloadOutlined, EyeOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
-import moment from "moment";
+import styles from "./ManageOrder.module.css";
+
+const { Text } = Typography;
 
 const ManageOrder = () => {
   const [status, setStatus] = useState("Chờ xác nhận");
@@ -37,6 +42,7 @@ const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
   const dispatch = useDispatch();
+
   useEffect(() => {
     fetchOrders();
   }, [current, pageSize, status, from, to]);
@@ -45,15 +51,14 @@ const ManageOrder = () => {
     setLoading(true);
     try {
       const res = await callFetchOrders(current, pageSize, status, from, to);
-
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         setOrders(res.data.result);
-        console.log("orders", res.data.result);
+        setTotal(res.data.meta.total);
       } else {
-        console.log(res.message);
+        message.error(res.message);
       }
     } catch (error) {
-      console.log(error);
+      message.error("Failed to fetch orders.");
     } finally {
       setLoading(false);
     }
@@ -62,158 +67,181 @@ const ManageOrder = () => {
   const handleUpdateOrder = async (orderId, value) => {
     try {
       const res = await callUpdateOrder(orderId, { status: value });
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         message.success(res.message);
-        if (value != status) {
-          setOrders(orders.filter((item) => item._id != orderId));
-        }
-      } else console.error(res.message);
+        fetchOrders();
+      } else {
+        message.error(res.message);
+      }
     } catch (error) {
-      console.log(error);
+      message.error("Failed to update order.");
     }
   };
 
   const handleDeleteOrder = async (orderId) => {
     try {
       const res = await callDeleteOrder(orderId);
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         message.success(res.message);
-        setOrders(orders.filter((item) => item._id != orderId));
+        fetchOrders();
+      } else {
+        message.error(res.message);
       }
     } catch (error) {
-      console.log(error);
+      message.error("Failed to delete order.");
     }
   };
 
   return (
     <>
-      <Flex justify="space-between" align="center" wrap gap={10}>
-        <Flex align="center" gap={10}>
+      <Row gutter={[16, 16]} justify="space-between" align="middle">
+        <Col xs={24} sm={12} md={8}>
           <Select
             defaultValue="Chờ xác nhận"
-            onChange={(value) => {
-              setStatus(value);
-            }}
+            onChange={(value) => setStatus(value)}
             options={[
               { value: "Chờ xác nhận", label: "Chờ xác nhận" },
               { value: "Đang giao", label: "Đang giao" },
               { value: "Đã hủy", label: "Đã hủy" },
               { value: "Đã giao", label: "Đã giao" },
             ]}
+            style={{ width: "100%" }}
           />
-
-          <ReloadOutlined onClick={fetchOrders} />
-        </Flex>
-
-        <Flex gap={5} align="center">
-          <DatePicker
-            value={from}
-            format={"DD/MM/YYYY"}
-            onChange={(date) => {
-              setFrom(date);
-            }}
-            locale="vi"
-          />
-          đến
-          <DatePicker
-            value={to}
-            format={"DD/MM/YYYY"}
-            onChange={(date) => {
-              setTo(date);
-            }}
-            locale="vi"
-          />
-        </Flex>
-      </Flex>
+        </Col>
+        <Col xs={24} sm={12} md={16}>
+          <Row justify="end" align="middle" gutter={[8, 8]}>
+            <Col flex="auto">
+              <DatePicker.RangePicker
+                value={[from, to]}
+                format={"DD/MM/YYYY"}
+                onChange={(dates) => {
+                  setFrom(dates[0]);
+                  setTo(dates[1]);
+                }}
+                style={{ width: "100%" }}
+              />
+            </Col>
+            <Col>
+              <Button
+                icon={<ReloadOutlined />}
+                onClick={fetchOrders}
+                shape="circle"
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       <Divider />
-      {orders.map((item, index) => {
-        return (
-          <Card key={item._id} style={{ marginBottom: "15px" }}>
-            {item.orderItems.map((proItem) => {
-              return (
-                <div
-                  key={proItem._id}
-                  span={24}
-                  style={{ marginBottom: "10px" }}
-                  onClick={() => {
-                    setOrderDetail(item);
-                    dispatch(toggleModalOrderDetail());
-                  }}
-                >
-                  <div className={styles.cardContainer}>
-                    <Flex gap={10} justify="space-between" align="center">
-                      <div className={styles.groupImage}>
-                        <Image
-                          className={styles.imageProduct}
-                          src={
-                            import.meta.env.VITE_BASE_URL +
-                            "/images/fish/" +
-                            proItem.product.images[0]
-                          }
-                        />
-                        <Typography.Text className={styles.title}>
-                          {proItem.product.name}
-                        </Typography.Text>
-                      </div>
-                      <div className={styles.groupSum}>
-                        <Typography.Text className={styles.title2}>
-                          {proItem.product.name}
-                        </Typography.Text>
-                        <Typography.Text>{formatPrice(proItem.product.price)}đ </Typography.Text>
-                        <Typography.Text>Số lượng: {proItem.quantity} </Typography.Text>
-                      </div>
-                    </Flex>
+
+      {loading ? (
+        <Spin tip="Loading..." style={{ width: "100%", textAlign: "center" }} />
+      ) : orders.length === 0 ? (
+        <Empty description="Không có đơn hàng" />
+      ) : (
+        orders.map((order) => (
+          <Card key={order._id} style={{ marginBottom: "15px" }}>
+            {order.orderItems.map((item) => (
+              <Row
+                key={item._id}
+                gutter={[16, 16]}
+                align="middle"
+                style={{ marginBottom: "10px" }}
+              >
+                <Col xs={24} sm={6} md={4} className={styles.groupImage}>
+                  <Image
+                    className={styles.imageProduct}
+                    src={
+                      import.meta.env.VITE_BASE_URL +
+                      "/images/fish/" +
+                      item.product.images[0]
+                    }
+                    alt={item.product.name}
+                    style={{ cursor: "pointer" }}
+                  />
+                </Col>
+                <Col xs={24} sm={18} md={20} className={styles.groupSum}>
+                  <Text
+                    className={styles.title}
+                    onClick={() => {
+                      setOrderDetail(order);
+                      dispatch(toggleModalOrderDetail());
+                    }}
+                    style={{ cursor: "pointer", color: "#707070" }}
+                  >
+                    {item.product.name}
+                  </Text>
+                  <Text style={{ color: "#2daab6", fontWeight: "bold" }}>
+                    {formatPrice(item.product.discountedPrice)}đ
+                  </Text>
+                  <div className="flex gap-1 h-full items-center">
+                    <p className="font-bold">Số lượng: </p>
+                    <p> {item.quantity}</p>
                   </div>
-                </div>
-              );
-            })}
+                </Col>
+              </Row>
+            ))}
             <Divider />
-            <Flex wrap gap={10} align="center" justify="space-between">
-              <div>
-                <Flex align="center" gap={5}>
-                  <strong>Mã đơn hàng: </strong>
-                  <p>{item._id} </p>
-                </Flex>
-                <Flex align="center" gap={5}>
-                  <strong>Thời gian: </strong>
-                  <p>{moment(item.createdAt).format("HH:mm:ss DD-MM-YYYY")}</p>
-                </Flex>
-                <Flex align="center">
-                  <Typography.Text>
-                    <strong>Tổng tiền: </strong> {formatPrice(item.itemsPrice + item.shippingPrice)}
-                    đ
-                  </Typography.Text>
-                </Flex>
-              </div>
-              <Flex gap={10} vertical={true}>
-                <Popconfirm
-                  title="Xóa đơn hàng?"
-                  description="Bạn chắc chắn xóa đơn hàng?"
-                  onConfirm={() => handleDeleteOrder(item._id)}
-                  okText="Có"
-                  cancelText="Không"
-                >
-                  <DeleteOutlined style={{ color: "red", marginLeft: "50px" }} />
-                </Popconfirm>
-                <Select
-                  defaultValue={item.status}
-                  options={[
-                    { value: "Chờ xác nhận", label: "Chờ xác nhận" },
-                    { value: "Đang giao", label: "Đang giao" },
-                    { value: "Đã giao", label: "Đã giao" },
-                    { value: "Đã hủy", label: "Đã hủy" },
-                  ]}
-                  onChange={(value) => handleUpdateOrder(item._id, value)}
-                />
-              </Flex>
-            </Flex>
+            <Row justify="space-between" align="middle">
+              <Col xs={24} sm={12}>
+                <Text strong>Mã đơn hàng: </Text>
+                <Text copyable>{order._id}</Text>
+                <br />
+                <Text strong>Thời gian: </Text>
+                <Text>
+                  {dayjs(order.createdAt).format("HH:mm:ss DD-MM-YYYY")}
+                </Text>
+                <br />
+                <Text strong>Tổng tiền: </Text>
+                <Text style={{ color: "#2daab6", fontWeight: "bold" }}>
+                  {formatPrice(order.itemsPrice + order.shippingPrice)}đ
+                </Text>
+              </Col>
+              <Col xs={24} sm={12} style={{ textAlign: "right" }}>
+                <Space direction="vertical" size="middle">
+                  <Space size="small">
+                    <Button
+                      type="link"
+                      icon={<EyeOutlined />}
+                      onClick={() => {
+                        setOrderDetail(order);
+                        dispatch(toggleModalOrderDetail());
+                      }}
+                    >
+                      Xem chi tiết
+                    </Button>
+                    <Popconfirm
+                      title="Xóa đơn hàng?"
+                      description="Bạn chắc chắn xóa đơn hàng?"
+                      onConfirm={() => handleDeleteOrder(order._id)}
+                      okText="Có"
+                      cancelText="Không"
+                    >
+                      <Button
+                        type="link"
+                        icon={<DeleteOutlined style={{ color: "red" }} />}
+                        style={{ color: "inherit" }}
+                      />
+                    </Popconfirm>
+                  </Space>
+                  <Select
+                    defaultValue={order.status}
+                    options={[
+                      { value: "Chờ xác nhận", label: "Chờ xác nhận" },
+                      { value: "Đang giao", label: "Đang giao" },
+                      { value: "Đã giao", label: "Đã giao" },
+                      { value: "Đã hủy", label: "Đã hủy" },
+                    ]}
+                    onChange={(value) => handleUpdateOrder(order._id, value)}
+                  />
+                </Space>
+              </Col>
+            </Row>
           </Card>
-        );
-      })}
-      {orders.length == 0 && !loading && <Empty />}
+        ))
+      )}
 
       {orders.length > 0 && (
-        <Flex justify="flex-end">
+        <Row justify="end" style={{ marginTop: "16px" }}>
           <Pagination
             current={current}
             pageSize={pageSize}
@@ -222,13 +250,15 @@ const ManageOrder = () => {
               setCurrent(page);
               setPageSize(size);
             }}
+            showSizeChanger
+            responsive
           />
-        </Flex>
+        </Row>
       )}
 
-      {loading && <p>Loading...</p>}
       <ModalOrderDetail orderDetail={orderDetail} />
     </>
   );
 };
+
 export default ManageOrder;

@@ -6,6 +6,7 @@ import {
   FileOutlined,
   TeamOutlined,
   UserOutlined,
+  ShoppingCartOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -34,11 +35,16 @@ const items = [
   getItem("Sản phẩm", "sub1", <UserOutlined />, [
     getItem(
       <Link to={"/admin/product"}>Quản lý sản phẩm</Link>,
-      "/admin/product"
+      "/admin/product",
+      <FileOutlined />
     ),
   ]),
-  getItem("Đơn hàng", "sub2", <TeamOutlined />, [
-    getItem(<Link to={"/admin/order"}>Quản lý đơn hàng</Link>, "/admin/order"),
+  getItem("Đơn hàng", "sub2", <ShoppingCartOutlined />, [
+    getItem(
+      <Link to={"/admin/order"}>Quản lý đơn hàng</Link>,
+      "/admin/order",
+      <FileOutlined />
+    ),
   ]),
   getItem("Người dùng", "sub3", <TeamOutlined />, [
     getItem(
@@ -111,6 +117,7 @@ const AdminPage = () => {
             theme="dark"
             mode="inline"
             items={items}
+            style={{ marginTop: "1rem" }}
             defaultSelectedKeys={[location.pathname]}
           />
         </Sider>
@@ -131,7 +138,7 @@ const AdminPage = () => {
         >
           <Avatar icon={<UserOutlined />} />
           <Dropdown menu={{ items: dropdownList }} trigger={"click"}>
-            <Space className="font-bold lg:text-xl md:text-lg text-md">
+            <Space className="font-bold text-Grey cursor-pointer lg:text-xl md:text-lg text-md">
               {user?.name}
               <DownOutlined />
             </Space>
@@ -154,7 +161,6 @@ const AdminPage = () => {
             <Outlet />
           </div>
         </Content>
-        
       </Layout>
     </Layout>
   );

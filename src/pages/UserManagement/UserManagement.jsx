@@ -1,12 +1,29 @@
-import { Button, Space, Table, Typography, Tag, Image, message, Flex, Popconfirm } from "antd";
-import { useEffect, useState } from "react";
-import { EditOutlined, DeleteOutlined, ReloadOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Space,
+  Table,
+  Typography,
+  message,
+  Popconfirm,
+  Row,
+  Col,
+} from "antd";
 import { useDispatch } from "react-redux";
+import {
+  EditOutlined,
+  DeleteOutlined,
+  ReloadOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 
 import ModalAddUser from "../../components/Modal/ModalAddUser/ModalAddUser";
 import ModalEditUser from "../../components/Modal/ModalEditUser/ModalEditUser";
 import { callDeleteUser, callFetchUser } from "../../services/api";
-import { toggleModalAddUser, toggleModalEditUser } from "../../redux/features/toggle/toggleSlice";
+import {
+  toggleModalAddUser,
+  toggleModalEditUser,
+} from "../../redux/features/toggle/toggleSlice";
 
 const UserManagement = () => {
   const [isLoading, setLoading] = useState(false);
@@ -22,39 +39,41 @@ const UserManagement = () => {
       title: "Id",
       dataIndex: "_id",
       key: "_id",
-      render: (_id) => <a>{_id}</a>,
-      width: 150,
+      render: (_id) => (
+        <Typography.Text ellipsis copyable>
+          {_id}
+        </Typography.Text>
+      ),
+      responsive: ["lg"],
     },
     {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (name) => <Typography.Text>{name}</Typography.Text>,
-      width: 150,
+      render: (name) => (
+        <Typography.Text ellipsis>{name}</Typography.Text>
+      ),
     },
     {
       title: "Số điện thoại",
       dataIndex: "phone",
       key: "phone",
-      render: (phone) => <p>{phone}</p>,
-      width: 150,
+      render: (phone) => <Typography.Text>{phone}</Typography.Text>,
     },
     {
-      title: " Thao tác",
+      title: "Thao tác",
       dataIndex: "_id",
-      key: "_id",
-      render: (_id, pro) => (
+      key: "actions",
+      render: (_id, record) => (
         <Space>
-          <EditOutlined
+          <Button
+            type="link"
+            icon={<EditOutlined style={{ color: "orange" }}/>}
             onClick={() => {
-              setUserEdit(pro);
+              setUserEdit(record);
               dispatch(toggleModalEditUser());
             }}
-            style={{
-              color: "orange",
-            }}
           />
-
           <Popconfirm
             title="Xóa người dùng?"
             description="Bạn có chắc chắn muốn xóa người dùng này?"
@@ -62,24 +81,22 @@ const UserManagement = () => {
             cancelText="Không"
             onConfirm={() => handleDeleteUser(_id)}
           >
-            <DeleteOutlined
-              style={{
-                color: "red",
-              }}
+            <Button
+              type="link"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
             />
           </Popconfirm>
         </Space>
       ),
-      width: 150,
     },
   ];
 
   const handleDeleteUser = async (id) => {
     try {
       const res = await callDeleteUser(id);
-      if (res.vcode == 0) {
-        const newusers = users.filter((product) => product._id !== id);
-        setUsers(newusers);
+      if (res.vcode === 0) {
+        const newUsers = users.filter((user) => user._id !== id);
+        setUsers(newUsers);
         message.success(res.message);
       } else {
         console.log(res.message);
@@ -93,14 +110,16 @@ const UserManagement = () => {
     setLoading(true);
     try {
       const res = await callFetchUser(current, pageSize);
-      if (res.vcode == 0) {
+      if (res.vcode === 0) {
         const users = res.data.result.map((item) => ({
           ...item,
           key: item._id,
         }));
         setTotal(res.data.meta.total);
         setUsers(users);
-      } else console.error(res.message);
+      } else {
+        console.error(res.message);
+      }
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -114,28 +133,31 @@ const UserManagement = () => {
 
   return (
     <div>
-      <Flex
-        style={{
-          marginBottom: 16,
-        }}
-        gap={10}
-      >
-        <Button
-          onClick={() => {
-            dispatch(toggleModalAddUser());
-          }}
-        >
-          Thêm người dùng
-        </Button>
-        <Button onClick={() => fetchUser()}>
-          <ReloadOutlined />
-        </Button>
-      </Flex>
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }} align="middle">
+        <Col>
+          <Button
+            onClick={() => {
+              dispatch(toggleModalAddUser());
+            }}
+            icon={<PlusCircleOutlined />}
+          >
+            Thêm người dùng
+          </Button>
+        </Col>
+        <Col>
+          <Button
+            onClick={() => fetchUser()}
+            icon={<ReloadOutlined />}
+            shape="circle"
+            size="middle"
+          />
+        </Col>
+      </Row>
       <Table
-        isLoading={isLoading}
         columns={columns}
         dataSource={users}
         loading={isLoading}
+        rowKey="_id"
         pagination={{
           current: current,
           pageSize: pageSize,
@@ -144,7 +166,10 @@ const UserManagement = () => {
             setCurrent(page);
             setPageSize(pageSize);
           },
+          showSizeChanger: true,
+          responsive: true,
         }}
+        scroll={{ x: "max-content" }}
       />
 
       <ModalAddUser setUsers={setUsers} />
@@ -153,4 +178,5 @@ const UserManagement = () => {
     </div>
   );
 };
+
 export default UserManagement;

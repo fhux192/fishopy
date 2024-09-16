@@ -1,6 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
+
+/* Sway Animation Keyframes */
+@keyframes sway {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-15deg);
+  }
+  40% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(-5deg);
+  }
+  80% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 .navbar {
   color: #f8f7f9;
+
   .wrapper {
     max-width: 3700px;
     display: flex;
@@ -27,41 +51,26 @@
       }
     }
 
-    .icon {
-      width: 35px;
-      height: 35px;
-      transition: all 0.3s ease;
-      color: #303030;
-    }
-
-    .icon:hover {
-      color: #303030;
-      transform: rotate(360deg);
-      transition: all 1s ease;
-    }
-
-    .icon-navigate {
-      width: 35px;
-      height: 35px;
-      cursor: pointer;
-    }
-    .icon-navigate:hover {
-      color: #303030;
-      transform: rotate(360deg);
-      transition: all 1s ease;
-    }
+    .icon,
+    .icon-navigate,
     .bag-icon {
       width: 35px;
       height: 35px;
-      margin-right: 20px;
       cursor: pointer;
-      color: #191919;
+      transform-origin: bottom center;
+      /* No animation in the default state */
     }
 
+    /* Apply Sway Animation on Hover Only */
+    .icon:hover,
+    .icon-navigate:hover,
     .bag-icon:hover {
-      color: #303030;
-      transform: rotate(360deg);
-      transition: all 0.5s ease;
+      animation: sway 0.5s forwards;
+    }
+
+    .bag-icon {
+      margin-right: 20px;
+      color: #191919;
     }
 
     .top-text {
@@ -69,11 +78,13 @@
     }
   }
 
+  /* Responsive Styles */
   @media (max-width: 480px) {
     .wrapper {
       height: 52px;
 
-      .icon {
+      .icon,
+      .icon-navigate {
         width: 30px;
         height: 30px;
       }
@@ -94,16 +105,20 @@
       display: flex;
       justify-content: center;
     }
+
     .wrapper {
       backdrop-filter: blur(10px);
       background-color: rgba(255, 255, 255, 0.8);
       border-radius: 15px;
       width: 90%;
+
       .social {
         align-items: normal;
       }
 
-      .icon {
+      .icon,
+      .icon-navigate,
+      .bag-icon {
         color: #191919;
       }
     }
@@ -118,10 +133,8 @@
   .sort-section::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
   }
-
-  @media (max-width: 480px) {
-  }
 }
+
 @media (max-width: 1020px) {
   .navbar {
     margin-top: 8px;
@@ -129,25 +142,7 @@
     justify-content: center;
   }
 }
-/* MyComponent.module.css */
-.gradientText {
-  background: linear-gradient(
-    90deg,
-    #95cbc4,
-    #b4c2c2,
-    #f1f1f1,
-    #5f9ea0,
-    #66cdaa,
-    #f1f1f1,
-    #b4c2c2,
-    #95cbc4
-  );
-  background-size: 400% 400%;
-  color: #191919;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  animation: rotateGradient 10s 1s infinite;
-}
+
 
 .Text {
   background: linear-gradient(
