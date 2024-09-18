@@ -202,12 +202,12 @@
       justify-content: center;
       align-items: center;
       padding: 0 1rem;
-      border-radius: 0.95rem;
+      border-radius:1rem;
       margin-left: 2%;
       margin-top: 1rem;
       position: relative;
       z-index: 1;
-      background-color: transparent;
+      background-color: #fff;
       color: #505050;
 
       transition: color 0.3s, border-color 0.3s;
@@ -261,11 +261,12 @@
 .product-card {
   height: 16.5rem;
   width: 12rem;
-  border: 1px solid #e6e6e6;
   border-radius: 1.6rem;
-  background-color: transparent;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
   position: relative;
   overflow: visible;
+  backdrop-filter: blur(20px);
 
   @media (max-width: 1024px) {
     height: 15.5rem;
@@ -294,8 +295,8 @@
       padding-top: 0.5rem;
       margin: 0rem 0.5rem 0;
       font-weight: 600;
-      font-size: 1rem;
-      color: #505050;
+      font-size: 1.1rem;
+      color: #707070;
     }
 
     p {
@@ -305,7 +306,7 @@
       font-family: monospace;
       font-weight: 800;
       font-size: 1rem;
-      color: #000;
+      color: #303030;
 
       .line-through {
         text-decoration: line-through;
@@ -354,9 +355,9 @@
 
     color: white;
     text-align: center;
-    padding: 0.0rem 0.2rem;
-  
-    border-radius: 1.5rem;
+    padding: 0rem 0.2rem;
+
+    border-radius: 1rem;
 
     font-size: 0.9rem;
 
@@ -383,7 +384,7 @@
     color: #2daab6;
     font-weight: 500;
     text-align: center;
-    border-radius: 25px;
+    border-radius:1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0.5rem;
@@ -399,8 +400,16 @@
     }
   }
 
-
   &:hover .single-image {
     transition: all 0.5s ease;
   }
+}
+
+.ant-pagination-item-active {
+  border-color: #cfefeb !important;
+}
+
+.ant-pagination-item-active a {
+  font-weight: 500;
+  color: #2daab6 !important;
 }

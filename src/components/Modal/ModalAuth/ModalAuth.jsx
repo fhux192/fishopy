@@ -34,7 +34,7 @@ const ModalAuth = () => {
               className="block px-4 py-2 text-Black  hover:bg-Teal hover:text-white rounded-t-xl w-full text-left"
               to={"/admin"}
             >
-              <button>Trang quản lý</button>
+              <button>Quản lý Admin</button>
             </Link>
           )}
 

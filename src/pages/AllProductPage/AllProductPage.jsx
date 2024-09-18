@@ -111,7 +111,7 @@ const AllProductPage = () => {
 
   return (
     <motion.div
-      className="min-h-screen"
+      className="min-h-screen bg-container"
       initial={{ y: "100vh", opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -122,10 +122,10 @@ const AllProductPage = () => {
         </h1>
       </div>
       <ShiftingCountdown />
-      <div className="flex flex-col md:mt-[2rem] lg:mt-[0.5rem] mt-[0.4rem] items-center justify-center lg:p-8 py-6 w-full bg-Teal3">
-        <p className="font-bold text-[1.7rem] text-Black">Dành cho bạn</p>
-        <div className="flex flex-col lg:flex-row lg:mt-[1rem] mt-[0.5rem] items-center gap-2">
-          <p className="font-semibold text-Grey text-xl">Bạn mua như thế nào?</p>
+      <div className="flex flex-col md:mt-[2rem] bg-Teal3 lg:mt-[0.6rem] mt-[0.4rem] items-center justify-center lg:p-6 py-4 w-full ">
+        <p className="font-bold lg:text-[1.7rem] text-[1.5rem] text-Black">Dành cho bạn</p>
+        <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
+          <p className="font-semibold text-Grey text-[1.25rem]">Bạn mua như thế nào?</p>
           <div className="flex gap-2">
             <button
               onClick={() => handlePurchaseOptionClick("single")}
@@ -141,7 +141,7 @@ const AllProductPage = () => {
               onClick={() => handlePurchaseOptionClick("combo")}
               className={`flex justify-center rounded-full w-[10rem] lg:w-[10rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "combo"
-                  ? "bg-Teal text-white"
+                  ? "bg-Black text-Teal"
                   : "bg-bordercl text-Grey"
               }`}
             >
@@ -163,7 +163,7 @@ const AllProductPage = () => {
         pageSizeOptions={pageSizeOptions}
         style={{
           marginTop: "0.5rem",
-          marginBottom: "2rem",
+          paddingBottom: "2rem",
           textAlign: "center",
         }}
       />

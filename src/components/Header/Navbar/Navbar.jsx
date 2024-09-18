@@ -112,12 +112,12 @@ const Navbar = () => {
         className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
       >
         <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
-          <button onClick={()=>handleNavigation("Trang Chủ")} className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
+          <div  className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div className="flex items-center">
               {" "}
-             <p className="logo">GuppyHocMon</p>
+             <button onClick={()=>handleNavigation("Trang Chủ")} className="logo">GuppyHocMon</button>
             </div>
-          </button>
+          </div>
           <div className=" border-primaryGrey social">
             {items.map((item) => (
               <div

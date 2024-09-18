@@ -22,7 +22,7 @@ const ShiftingCountdown = () => {
         <p className="text-center font-bold text-Black text-[1.2rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto mt-[0.5rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
+        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />

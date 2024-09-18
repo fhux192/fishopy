@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartShopping } from "react-icons/fa6";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAccount } from "../../../redux/features/user/userSlice.js";
@@ -90,7 +90,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >
-            <FaCartPlus /> Mua ngay
+            <FaCartShopping /> Mua ngay
           </button>
         </div>
       </Link>
