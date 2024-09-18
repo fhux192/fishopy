@@ -15,6 +15,7 @@ export default {
       },
       colors: {
         Grey:"#707070",
+        Grey2:"#bfbfbf",
         Black:"#303030",
         Teal:"#2daab6",
         Teal2:"#cfefeb",

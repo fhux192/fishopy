@@ -127,7 +127,7 @@ const Navbar = () => {
                     location.pathname === "/product") ||
                   (item.name === "Địa Chỉ" && location.pathname === "/address")
                     ? "text-Teal font-bold"
-                    : "text-Black"
+                    : "text-Teal3"
                 }`}
                 key={item.name}
                 onClick={() => handleNavigation(item.name)}
@@ -136,7 +136,7 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div style={{color:"#303030"}} className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
+            <div style={{color:"#f0f6f5"}} className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
               {" "}
               <div className="relative" ref={dropdownRef}>
                 <FaUserTag
@@ -165,7 +165,7 @@ const Navbar = () => {
               >
                 <FaBagShopping
                   title="Giỏ Hàng"
-                  className=" bag-icon duration-500 text-white"
+                  className=" bag-icon duration-500 text-Teal3"
                 />
               </motion.div>
               <div

@@ -3,7 +3,7 @@ import { useAnimate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import "../../scss/allProduct.scss";
 import { Link } from "react-router-dom";
-// NOTE: Change this date to whatever date you want to countdown to :)
+import "./Countdown.css"
 const today = new Date();
 const tomorrow = new Date(today);
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -19,10 +19,10 @@ const ShiftingCountdown = () => {
     <div className="flex h-full items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
       {" "}
       <div className="flex flex-col justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
-        <p className="text-center font-bold text-Black text-[1.2rem] lg:text-[1.5rem]">
+        <p className="text-center font-bold text-Teal3 text-[1.2rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center  bg-white">
+        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur ">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />
@@ -42,12 +42,12 @@ const CountdownItem = ({ unit, text }) => {
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
-          className="block text-2xl font-medium text-Black md:text-3xl lg:text-4xl xl:text-5xl"
+          className="block text-2xl font-medium text-Teal3 md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {time}
         </span>
       </div>
-      <span className="text-xs font-semibold text-pcl md:text-sm lg:text-base">
+      <span className="text-xs font-semibold text-Grey2 md:text-sm lg:text-base">
         {text}
       </span>
     </div>

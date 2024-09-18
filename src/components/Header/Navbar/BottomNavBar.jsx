@@ -96,7 +96,7 @@ const BottomNavBar = () => {
   };
 
   const activeColor = "#2daab6"; // Active icon color
-  const inactiveColor = "#303030"; // Inactive icon color
+  const inactiveColor = "#f0f6f5"; // Inactive icon color
 
   return (
     <div className="bottom-nav">

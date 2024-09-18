@@ -112,27 +112,24 @@ const AllProductPage = () => {
   return (
     <motion.div
       className="min-h-screen bg-container"
-      initial={{ y: "100vh", opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="flex lg:pb-0 lg:mt-0 mt-[1rem] w-full justify-center whitespace-nowrap">
-        <h1 className="p-1 px-2 text-Teal rounded-full border-Teal2 mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
+        <h1 className="p-1 px-2 bg-Black text-Teal rounded-full border-Teal2 mt-[4rem] lg:mt-20 border-2 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center border-b-2">
           SẢN PHẨM
         </h1>
       </div>
       <ShiftingCountdown />
-      <div className="flex flex-col md:mt-[2rem] bg-Teal3 lg:mt-[0.6rem] mt-[0.4rem] items-center justify-center lg:p-6 py-4 w-full ">
-        <p className="font-bold lg:text-[1.7rem] text-[1.5rem] text-Black">Dành cho bạn</p>
+      <div className="flex flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0.4rem] items-center justify-center lg:p-6 py-4 w-full ">
+        <p className="font-bold lg:text-[1.7rem] text-[1.5rem] text-Teal3">Dành cho bạn</p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="font-semibold text-Grey text-[1.25rem]">Bạn mua như thế nào?</p>
+          <p className="font-semibold text-Grey2 text-[1.25rem]">Bạn mua như thế nào?</p>
           <div className="flex gap-2">
             <button
               onClick={() => handlePurchaseOptionClick("single")}
               className={`flex justify-center rounded-full w-[10rem] lg:w-[10rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "single"
-                  ? "bg-Teal text-white"
-                  : "bg-bordercl text-Grey"
+                  ? "bg-Black text-Teal"
+                  : "bg-Teal3 text-Grey2"
               }`}
             >
               <p className="text-md font-[500]">1 Cặp theo loại</p>
@@ -142,7 +139,7 @@ const AllProductPage = () => {
               className={`flex justify-center rounded-full w-[10rem] lg:w-[10rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "combo"
                   ? "bg-Black text-Teal"
-                  : "bg-bordercl text-Grey"
+                  : "bg-Teal3 text-Grey2"
               }`}
             >
               <p className="text-md font-[500]">Combo nhiều cặp</p>
