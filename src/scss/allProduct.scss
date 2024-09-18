@@ -124,7 +124,7 @@
 
 @media (min-width: 1440px) {
   .sort-section {
-    margin-top: 1.5rem;
+    margin-top: 1.1rem;
   }
   .product-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -217,16 +217,13 @@
       transition: color 0.3s, border-color 0.3s;
 
       &.unselected {
-        background-color: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(20px);
+        background-color: #303030;
         color: #bfbfbf;
-        border: 1px solid #e6e6e6;
       }
       &.selected {
-        color: #2daab6;
-        background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(20px);
-        border: solid 1px #cfefeb;
+        color: #2daab6 ;
+        background-color: rgba(30, 30, 30, 1);
+       
       }
 
       @media (min-width: 1024px) {
@@ -268,9 +265,10 @@
   height: 17rem;
   width: 12rem;
   border-radius: 1.6rem;
-  backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid #e6e6e6;
+  backdrop-filter: blur(30px);
+  background-color: rgba(30, 30, 30, 0.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
   position: relative;
   overflow: visible;
   backdrop-filter: blur(20px);
@@ -303,7 +301,7 @@
       margin: 0rem 0.5rem 0;
       font-weight: 600;
       font-size: 20px;
-      color: #2daab6;
+      color: #fff;
     }
 
     p {
@@ -312,7 +310,8 @@
       margin: 0rem 0.5rem 0;
       font-family: monospace;
       font-size: 16px;
-      color: #f0f6f5;
+      color: #cfefeb;
+      
 
       .line-through {
         text-decoration: line-through;
@@ -386,10 +385,11 @@
     height: 2.5rem;
     width: 90%;
     gap: 0.5rem;
-    background-color: rgba(30, 30, 30, 0.5);
+    background-color: rgba(30, 30, 30, 1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     backdrop-filter: blur(20px);
-    border: 1px solid #cfefeb;
-    color: #2daab6;
+
+    color: #f0f6f5;
     font-weight: 500;
     text-align: center;
     border-radius: 1rem;
@@ -413,16 +413,16 @@
   }
 }
 
-/* Đổi màu chữ của pagination item khi chưa active */
-/* Đổi màu chữ của pagination item khi chưa active */
+
+
 .ant-pagination-item a {
   color: #fff !important;
 }
 
-/* Đổi màu nền và màu chữ của pagination item khi đang active */
 .ant-pagination-item-active {
-  background-color: #303030 !important;
-  border-color: #303030 !important;
+  background-color: rgba(30, 30, 30, 1) !important;
+  border-width: 0px !important;
+  border-radius: 20% !important;
 }
 
 .ant-pagination-item-active a {
@@ -458,6 +458,6 @@
 }
 
 .type-blur {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20px);
 }

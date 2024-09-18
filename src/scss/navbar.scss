@@ -143,7 +143,6 @@
   }
 }
 
-
 .Text {
   background: linear-gradient(
     120deg,
@@ -233,5 +232,13 @@
   color: #2daab6;
   @media screen and (max-width: 1020px) {
     font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1020px) {
+  .nav-blur {
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
   }
 }

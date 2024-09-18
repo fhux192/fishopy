@@ -19,10 +19,10 @@ const ShiftingCountdown = () => {
     <div className="flex h-full items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
       {" "}
       <div className="flex flex-col justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
-        <p className="text-center font-bold text-Teal3 text-[1.2rem] lg:text-[1.5rem]">
+        <p className="text-center font-bold text-white text-[1.2rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur ">
+        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur2 shadow-lg ">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />
@@ -38,11 +38,11 @@ const CountdownItem = ({ unit, text }) => {
   const { ref, time } = useTimer(unit);
 
   return (
-    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1 border-r-[1px] rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
+    <div className="flex cursor-default h-20  w-1/4 flex-col items-center justify-center gap-1  rounded-xl  font-mono lg:h-[7rem] md:h-[5rem] md:gap-2">
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
-          className="block text-2xl font-medium text-Teal3 md:text-3xl lg:text-4xl xl:text-5xl"
+          className="block text-2xl font-medium text-white md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {time}
         </span>

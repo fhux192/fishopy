@@ -14,9 +14,11 @@ export default {
         "4vh-4vh": "4vh 4vh",
       },
       colors: {
+        White:"#f0f6f5",
         Grey:"#707070",
         Grey2:"#bfbfbf",
-        Black:"#303030",
+        Black:"rgba(30, 30, 30, 1)",
+        Black2:"#303030",
         Teal:"#2daab6",
         Teal2:"#cfefeb",
         Teal3:"#f0f6f5",

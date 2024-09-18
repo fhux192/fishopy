@@ -1,4 +1,4 @@
-.type-blur{
-    background-color: rgba(0, 0, 0, 0.5);
+.type-blur2{
+    background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(20px);
-  }
+}

@@ -113,12 +113,12 @@ const Navbar = () => {
       >
         <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
           <div  className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
-            <div className="flex items-center">
+            <div className="flex rounded-xl nav-blur px-3 items-center">
               {" "}
              <button onClick={()=>handleNavigation("Trang Chủ")} className="logo">GuppyHocMon</button>
             </div>
           </div>
-          <div className=" border-primaryGrey social">
+          <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
             {items.map((item) => (
               <div
                 className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
@@ -127,7 +127,7 @@ const Navbar = () => {
                     location.pathname === "/product") ||
                   (item.name === "Địa Chỉ" && location.pathname === "/address")
                     ? "text-Teal font-bold"
-                    : "text-Teal3"
+                    : "text-White"
                 }`}
                 key={item.name}
                 onClick={() => handleNavigation(item.name)}
@@ -165,14 +165,14 @@ const Navbar = () => {
               >
                 <FaBagShopping
                   title="Giỏ Hàng"
-                  className=" bag-icon duration-500 text-Teal3"
+                  className=" bag-icon duration-500 text-White"
                 />
               </motion.div>
               <div
-                className={`flex border-[1px] font-bold w-[1.35rem] h-[1.25rem] text-primaryBlack items-center justify-center lg:right-[5%] right-[7%] lg:top-[-25%] top-[-35%] duration-500 rounded-md absolute ${
+                className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-25%] top-[-35%] duration-500 rounded-md absolute ${
                   user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0
-                    ? "text-white bg-Teal border-0"
-                    : "bg-white text-Black border-2 "
+                    ? "text-White bg-Teal border-0"
+                    : "bg-white text-Black "
                 }`}
               >
                 <div className="">

@@ -79,6 +79,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             {product.price !== product.discountedPrice && (
               <div className="discount">-{Math.round(discountPercentage)}%</div>
             )}
+            
           </div>
         </div>
         <div className="w-full flex justify-center">

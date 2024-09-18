@@ -1,7 +1,7 @@
 .custom-footer {
-  background-color: #303030;
+  background-color: rgba(30, 30, 30, 1);
   color: #fff;
-  padding-top:40px ;
+  padding-top:1.25rem;
   padding-left: 1.75rem;
   position: relative;
   overflow: hidden;
@@ -13,7 +13,7 @@
 }
 
 .footer-title {
-  color: #f0f6f5 !important;
+  color: #fff !important;
   position: relative;
   margin-bottom: 20px !important;
 }
