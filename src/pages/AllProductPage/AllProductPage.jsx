@@ -10,7 +10,28 @@ import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../scss/navbar.scss";
 import "../../scss/allProduct.scss";
-import useColumns from "./utils/useColumns"; // Import hook tùy chỉnh
+import useColumns from "./utils/useColumns"; // Import custom hook
+
+// Shuffle function using the Fisher-Yates algorithm
+const shuffleArray = (array) => {
+  let currentIndex = array.length,
+    randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex !== 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // Swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
 
 const AllProductPage = () => {
   const [selectedPurchaseOption, setSelectedPurchaseOption] = useState("single");
@@ -18,25 +39,26 @@ const AllProductPage = () => {
     setSelectedPurchaseOption(option);
   };
 
-  const columns = useColumns(); // Lấy số cột hiện tại
+  const columns = useColumns(); // Get the current number of columns
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(columns * 3); 
-  const [sortOption, setSortOption] = useState("default");
+  const [pageSize, setPageSize] = useState(columns * 3);
+  const [sortOption, setSortOption] = useState("random");
   const [priceStage, setPriceStage] = useState(0);
+  const [allProducts, setAllProducts] = useState([]); // State to hold all products
   const [currentPageProducts, setCurrentPageProducts] = useState([]);
-  const [totalProducts, setTotalProducts] = useState(0); 
-
+  const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await callFetchProduct(currentPage, pageSize, sortOption); // Gọi API với sortOption nếu cần
+        // Fetch all products at once
+        const res = await callFetchProduct(1, 1000, sortOption); // Adjust 1000 to your maximum expected number of products
         if (res.vcode === 0) {
-          setCurrentPageProducts(res.data.result); // Sản phẩm cho trang hiện tại
-          setTotalProducts(res.data.total); 
-          console.log("Total products: ", res.data.total); // Debugging
-          console.log("Products on this page: ", res.data.result.length); // Debugging
+          let products = res.data.result;
+          products = shuffleArray(products); // Shuffle the products
+          setAllProducts(products);
+          setTotalProducts(products.length);
         }
       } catch (error) {
         console.error(error.message);
@@ -45,8 +67,14 @@ const AllProductPage = () => {
 
     fetchProducts();
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, [currentPage, pageSize, sortOption]); 
+  }, [sortOption]); // Re-fetch and shuffle when sortOption changes
 
+  useEffect(() => {
+    // Update current page products when page, pageSize, or allProducts change
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    setCurrentPageProducts(allProducts.slice(startIndex, endIndex));
+  }, [currentPage, pageSize, allProducts]);
 
   useEffect(() => {
     const cyclePrices = () => {
@@ -61,26 +89,24 @@ const AllProductPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-
   useEffect(() => {
-    const newPageSize = columns * 3; 
+    const newPageSize = columns * 3;
     setPageSize(newPageSize);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   }, [columns]);
-
 
   const pageSizeOptions = useMemo(() => {
     const options = [];
-    for (let i = 2; i <= 5; i++) { 
+    for (let i = 2; i <= 5; i++) {
       options.push(columns * i);
     }
 
-    return options.filter(size => size <= totalProducts);
+    return options.filter((size) => size <= totalProducts);
   }, [columns, totalProducts]);
 
   const handlePageChange = (page, newPageSize) => {
-    setCurrentPage(page); 
-    setPageSize(newPageSize); 
+    setCurrentPage(page);
+    setPageSize(newPageSize);
   };
 
   return (
@@ -96,7 +122,7 @@ const AllProductPage = () => {
         </h1>
       </div>
       <ShiftingCountdown />
-      <div className="flex flex-col md:mt-[2rem] lg:mt-[0.5rem] mt-[0rem] items-center justify-center lg:p-8 py-6 w-full bg-Teal3">
+      <div className="flex flex-col md:mt-[2rem] lg:mt-[0.5rem] mt-[0.4rem] items-center justify-center lg:p-8 py-6 w-full bg-Teal3">
         <p className="font-bold text-[1.7rem] text-Black">Dành cho bạn</p>
         <div className="flex flex-col lg:flex-row lg:mt-[1rem] mt-[0.5rem] items-center gap-2">
           <p className="font-semibold text-Grey text-xl">Bạn mua như thế nào?</p>
@@ -132,14 +158,14 @@ const AllProductPage = () => {
       <Pagination
         current={currentPage}
         pageSize={pageSize}
-        total={40}
+        total={totalProducts} // Use totalProducts from state
         onChange={handlePageChange}
-        pageSizeOptions={pageSizeOptions} // Tùy chọn pageSize động
+        pageSizeOptions={pageSizeOptions}
         style={{
-          marginTop: "20px",
-          marginBottom: "20px",
+          marginTop: "0.5rem",
+          marginBottom: "2rem",
           textAlign: "center",
-        }} // Căn giữa Pagination
+        }}
       />
     </motion.div>
   );

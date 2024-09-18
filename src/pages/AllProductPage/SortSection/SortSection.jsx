@@ -3,6 +3,7 @@ import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
+    { option: "random", label: "Ngẫu Nhiên" },
     { option: "default", label: "Mặc Định" },
     {
       option: "priceDesc",

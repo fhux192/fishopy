@@ -7,7 +7,7 @@ const MessageBox = () => {
     "Bạn cần giúp gì không?",
     "Hôm nay của bạn thế nào?",
     "Đừng ngại hỏi mình nhé!",
-    "Cần hỗ trợ thì nói nhé!",
+    "Cần hỗ trợ thì nói mình nhé!",
     "Bạn dẫn mình đi mua cá đi!",
   ];
 
@@ -43,7 +43,7 @@ const MessageBox = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-[4.8rem] lg:bottom-[1rem] lg:right-[1rem] right-[0.5rem] z-[22]">
+    <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[22]">
       <div className="flex flex-col items-end">
         {showMessage && (
           <motion.div

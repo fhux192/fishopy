@@ -109,7 +109,6 @@ const shuffleArray = (array) => {
 };
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
-  // Shuffle the products array using useMemo for performance optimization
   const shuffledProducts = React.useMemo(
     () => shuffleArray(currentPageProducts),
     [currentPageProducts]
@@ -121,7 +120,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
         <div className="product-container">
           <div className="flex w-full justify-center">
             <div className="product-grid grid gap-4 lg:mx-0 ">
-              {shuffledProducts.map((product, index) => (
+              {currentPageProducts.map((product, index) => (
                 <ProductCard
                   key={product._id}
                   product={product}

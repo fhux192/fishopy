@@ -1,0 +1,87 @@
+.custom-footer {
+  background-color: #303030;
+  color: #fff;
+  padding-top:40px ;
+  padding-left: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-content {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.footer-title {
+  color: #fff !important;
+  position: relative;
+  margin-bottom: 20px !important;
+}
+
+.footer-title::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  background: #2daab6;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+}
+
+.footer-link,
+.footer-text {
+  color: #bfbfbf;
+  font-size: 16px;
+  transition: color 0.3s;
+  cursor: default;
+}
+
+.footer-link:hover {
+  color: #1890ff;
+}
+
+.highlight-text,
+.highlight-icon {
+  color: #2daab6;
+}
+
+.footer-divider {
+  background-color: #707070;
+  margin: 20px 0;
+}
+
+.footer-copy {
+  color: #707070;
+}
+
+@media (max-width: 1024px) {
+  .footer-title::after {
+    width: 30px;
+  }
+  .space {
+    padding-bottom: 4.65rem;
+  }
+}
+
+.social-icon {
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.social-icon:hover {
+  color: #1890ff;
+}
+
+.footer-text .ant-typography-copy {
+  color: #2daab6;
+}
+
+/* Nếu biểu tượng copy là một SVG, cần thay đổi thuộc tính fill */
+.footer-text .ant-typography-copy svg {
+  fill: #2daab6;
+}
+
+/* Thay đổi màu khi hover vào nút copy */
+.footer-text .ant-typography-copy:hover {
+  color: #1a7a80; /* Màu đậm hơn khi hover, tùy chỉnh theo ý bạn */
+}
