@@ -3,6 +3,7 @@
   color: #fff;
   padding-top:1.25rem;
   padding-left: 1.75rem;
+  
   position: relative;
   overflow: hidden;
 }
@@ -51,6 +52,7 @@
 }
 
 .footer-copy {
+  
   color: #707070;
 }
 
@@ -58,8 +60,8 @@
   .footer-title::after {
     width: 30px;
   }
-  .space {
-    padding-bottom: 4.65rem;
+  .custom-footer{
+    padding-bottom: 6rem;
   }
 }
 

@@ -118,8 +118,8 @@ const AllProductPage = () => {
           SẢN PHẨM
         </h1>
       </div>
-      <ShiftingCountdown />
-      <div className="flex  shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:p-6 py-4 w-full ">
+      <div className="lg:block md:block hidden"><ShiftingCountdown /></div>
+      <div className="flex  shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0.2rem] items-center justify-center lg:p-6 py-4 w-full ">
         <p className="font-bold lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
