@@ -119,13 +119,13 @@ const AllProductPage = () => {
         </h1>
       </div>
       <ShiftingCountdown />
-      <div className="flex shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0.4rem] items-center justify-center lg:p-6 py-4 w-full ">
+      <div className="flex  shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:p-6 py-4 w-full ">
         <p className="font-bold lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="font-semibold text-Grey2 text-[1.25rem]">
-            Bạn mua như thế nào?
+          <p className=" text-Grey2 text-[1.25rem]">
+            Bạn muốn mua như thế nào?
           </p>
           <div className="flex gap-2">
             <button

@@ -169,7 +169,7 @@ const Navbar = () => {
                 />
               </motion.div>
               <div
-                className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-25%] top-[-35%] duration-500 rounded-md absolute ${
+                className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute ${
                   user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0
                     ? "text-White bg-Teal border-0"
                     : "bg-white text-Black "

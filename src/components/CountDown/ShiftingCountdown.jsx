@@ -16,13 +16,13 @@ const DAY = HOUR * 24;
 
 const ShiftingCountdown = () => {
   return (
-    <div className="flex h-full items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
+    <div className="flex h-full lg:border-b-0 lg:mx-0 md:border-b-0 md:mx-0 border-Grey border-b-[1px] mx-8  items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
       {" "}
-      <div className="flex flex-col justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
-        <p className="text-center font-bold text-white text-[1.2rem] lg:text-[1.5rem]">
+      <div className="flex flex-col  justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
+        <p className="text-center font-bold  text-white text-[1.4rem] lg:text-[1.5rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
-        <div className="mx-auto mt-[0.4rem] rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur2 shadow-lg ">
+        <div className="mx-auto mt-[0rem]  rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur2 shadow-lg ">
           <CountdownItem unit="Day" text="ngày" />
           <CountdownItem unit="Hour" text="giờ" />
           <CountdownItem unit="Minute" text="phút" />
@@ -42,12 +42,12 @@ const CountdownItem = ({ unit, text }) => {
       <div className="relative w-full overflow-hidden text-center">
         <span
           ref={ref}
-          className="block text-2xl font-medium text-white md:text-3xl lg:text-4xl xl:text-5xl"
+          className="block text-[20px] font-[600] text-white md:text-3xl lg:text-4xl xl:text-5xl"
         >
           {time}
         </span>
       </div>
-      <span className="text-xs font-semibold text-Grey2 md:text-sm lg:text-base">
+      <span className="text-[16px]  text-Grey2 md:text-sm lg:text-base">
         {text}
       </span>
     </div>
