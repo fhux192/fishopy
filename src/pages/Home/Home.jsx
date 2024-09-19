@@ -55,7 +55,7 @@ const Home = () => {
             <p className="cursor-default text-Teal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[5rem] font-semibold">
               cá{" "}
             </p>
-            <p className="cursor-default text-primaryBlack max-[550px]:text-[5rem] max-[800px]:text-[10rem] text-[15rem] font-semibold">
+            <p className="cursor-default text-White max-[550px]:text-[5rem] max-[800px]:text-[10rem] text-[15rem] font-semibold">
               guppy{" "}
             </p>
           </motion.div>
@@ -68,7 +68,7 @@ const Home = () => {
               transition={{ duration: 1 }}
             >
               <motion.div>
-                <FaFishFins className="max-[550px]:text-[2.5rem] max-[800px]:text-[3rem] text-[4rem] mr-3 pr-3 cursor-pointer text-primaryBlack border-r-2" />
+                <FaFishFins className="max-[550px]:text-[2.5rem] max-[800px]:text-[3rem] text-[4rem] mr-3 pr-3 cursor-pointer text-White border-r-2" />
               </motion.div>
              <p className="text-Teal max-[550px]:text-[1rem] max-[800px]:text-[1.5rem] text-[2rem]"> Xem Tất Cả Sản Phẩm</p>
             </motion.button>
@@ -85,12 +85,12 @@ const Home = () => {
           >
             <FaCircleArrowDown
               onClick={handleScroll}
-              className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] mt-10 cursor-pointer"
+              className="text-[2rem] text-White md:text-[2.5rem] lg:text-[3rem] mt-10 cursor-pointer"
             />
           </motion.div>
         </div>
       </div>
-      <div className="flex justify-center translate-y-[20rem] mb-[30rem] rounded-xl bg-primaryTeal m-auto w-[80%] lg:h-[50rem] h-[30rem] shadow-md"></div>
+      <div className="flex justify-center translate-y-[20rem] rounded-xl bg-primaryTeal m-auto w-[80%] lg:h-[50rem] h-[30rem] shadow-md"></div>
     </div>
   );
 };
