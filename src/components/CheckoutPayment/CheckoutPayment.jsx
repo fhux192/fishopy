@@ -81,7 +81,7 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
         transport: "road",
         tags: [],
       });
-    } else message.error("Vui lòng chọn địa chỉ giao hàng");
+    }
   }, [addressDelivery]);
 
   return (

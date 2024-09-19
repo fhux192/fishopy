@@ -90,14 +90,7 @@ const OrderConfirm = ({ activeKey, setOrderDetail, role = "USER" }) => {
                   <div className={styles.cardContainer}>
                     <Flex gap={10}>
                       <div className={styles.groupImage}>
-                        <Image
-                          className={styles.imageProduct}
-                          src={
-                            import.meta.env.VITE_BASE_URL +
-                            "/images/fish/" +
-                            proItem.product.images[0]
-                          }
-                        />
+                        <Image className={styles.imageProduct} src={proItem.product.images[0]} />
                         <Typography.Text className={styles.title}>
                           {proItem.product.name}
                         </Typography.Text>

@@ -46,11 +46,17 @@ export const ItemsContainer = () => {
               Liên Hệ
             </Title>
             <Space direction="vertical px-0">
-              <Row copyable className="gap-1 footer-text">
-                <PhoneOutlined /> <Text className="footer-text" copyable>SĐT - Zalo: 0388811160</Text>
+              <Row className="gap-1 footer-text">
+                <PhoneOutlined />{" "}
+                <Text className="footer-text" copyable>
+                  SĐT - Zalo: 0388811160
+                </Text>
               </Row>
               <Row className=" gap-1 footer-text">
-                <MailOutlined /> <Text copyable className="footer-text">Email: hoangphuc395@gmail.com</Text>
+                <MailOutlined />{" "}
+                <Text copyable className="footer-text">
+                  Email: hoangphuc395@gmail.com
+                </Text>
               </Row>
             </Space>
           </Col>
@@ -68,9 +74,7 @@ export const ItemsContainer = () => {
                 className="footer-link"
               >
                 <TikTokOutlined className="highlight-icon" />{" "}
-                <span className="highlight-text">
-                  Tiktok: Trại Cá Guppy Bất Ổn
-                </span>
+                <span className="highlight-text">Tiktok: Trại Cá Guppy Bất Ổn</span>
               </Link>
               <Link
                 href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw"
@@ -87,7 +91,10 @@ export const ItemsContainer = () => {
             </Title>
             <Space direction="vertical">
               <Row className="gap-1 footer-text">
-                <EnvironmentOutlined />  <Text copyable className="footer-text">22/9/2 ấp 3, Đông Thạnh, Hóc Môn</Text>
+                <EnvironmentOutlined />{" "}
+                <Text copyable className="footer-text">
+                  22/9/2 ấp 3, Đông Thạnh, Hóc Môn
+                </Text>
               </Row>
               <Link href="#" className="footer-link">
                 <QrcodeOutlined className="highlight-icon" />{" "}
@@ -99,9 +106,7 @@ export const ItemsContainer = () => {
         <Divider className="footer-divider" />
         <Row justify="center">
           <Col>
-            <Text className="footer-copy">
-              Guppy Hóc Môn - Trại Cá Guppy Bất Ổn
-            </Text>
+            <Text className="footer-copy">Guppy Hóc Môn - Trại Cá Guppy Bất Ổn</Text>
           </Col>
         </Row>
       </div>

@@ -2,9 +2,14 @@ import { Card, Flex } from "antd";
 import { useEffect, useState } from "react";
 import { callFetchDataDashboard } from "../../../services/api";
 import { FileDoneOutlined, ProductOutlined, UserOutlined } from "@ant-design/icons";
+import CountUp from "react-countup";
 
 const Dashboard = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState({
+    totalUsers: 0,
+    totalProducts: 0,
+    totalOrders: 0,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,39 +27,32 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div>
-      <Flex gap={20} align="center">
-        <Card
-          style={{
-            width: 300,
-          }}
-        >
-          <Flex vertical={true} gap={5}>
-            <ProductOutlined />
-            <p>Người dùng: {data?.totalUsers}</p>
-          </Flex>
-        </Card>
-        <Card
-          style={{
-            width: 300,
-          }}
-        >
-          <Flex vertical={true} gap={5}>
-            <UserOutlined />
-            <p>Sản phẩm: {data?.totalProducts}</p>
-          </Flex>
-        </Card>
-        <Card
-          style={{
-            width: 300,
-          }}
-        >
-          <Flex vertical={true} gap={5}>
-            <FileDoneOutlined />
-            <p>Đơn hàng: {data?.totalOrders}</p>
-          </Flex>
-        </Card>
-      </Flex>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        gap: ".5rem",
+      }}
+    >
+      <Card style={{ flex: "1 1 390px", height: 100 }}>
+        <UserOutlined style={{ fontSize: "24px" }} />
+        <p>
+          Người dùng: <CountUp end={data.totalUsers} start={0} />
+        </p>
+      </Card>
+      <Card style={{ flex: "1 1 390px", height: 100 }}>
+        <ProductOutlined style={{ fontSize: "24px" }} />
+        <p>
+          Sản phẩm: <CountUp end={data.totalProducts} start={0} />
+        </p>
+      </Card>
+      <Card style={{ flex: "1 1 390px", height: 100 }}>
+        <FileDoneOutlined style={{ fontSize: "24px" }} />
+        <p>
+          Đơn hàng: <CountUp end={data.totalOrders} start={0} />
+        </p>
+      </Card>
     </div>
   );
 };

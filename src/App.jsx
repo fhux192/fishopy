@@ -16,23 +16,67 @@ import { callFetchAccount } from "./services/api";
 import { setCredentials, setLoading } from "./redux/features/user/userSlice";
 import ModalAddAddress from "./components/Modal/ModalAddAddress/index";
 import Loader from "./components/Loader/Loader";
+import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
+import AccountManagement from "./pages/AccountManagement/AccountManagement.jsx";
+import AccountProfile from "./components/Account/AccountProfile/AccountProfile.jsx";
+import AccountAddress from "./components/Account/AccountAddress/AccountAddress.jsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import OrderPage from "./pages/OrderPage/OrderPage.jsx";
+import AccountOrder from "./components/AccountOrder/AccountOrder.jsx";
+import UserManagement from "./pages/UserManagement/UserManagement.jsx";
+import AddressPage from "./pages/AddressPage/AddressPage.jsx";
+import Home from "./pages/Home/Home.jsx";
+import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
+import AllProductPage from "./pages/AllProductPage/AllProductPage.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
+import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
+import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
+import InfoPay from "./pages/InfoPay.jsx";
+import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-function App() {
+const User = () => {
+  const { isShowModalLogin, modalRegister } = useSelector((state) => state.toggle);
   const { pathname } = useLocation();
-  const { isShowModalLogin, modalRegister } = useSelector(
-    (state) => state.toggle
-  );
-  const status_login = localStorage.getItem("status_login");
-  const { isLoading } = useSelector((state) => state.account);
-
-  const dispatch = useDispatch();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  return (
+    <>
+      <Navbar />
+      <BottomNavBar />
+      <main className={`main-body`}>
+        <Outlet />
+      </main>
+      <Footer />
+      {isShowModalLogin && <ModalLogin />}
+      {modalRegister && <ModalRegister />}
+      <CartDrawer />
+      <ToastContainer />
+      <MessageBox />
+      <ModalAddAddress />
+    </>
+  );
+};
+
+function App() {
+  const { isLoading } = useSelector((state) => state.account);
+  const dispatch = useDispatch();
+
+  const handleFetchAccount = async () => {
+    try {
+      const res = await callFetchAccount();
+      if (res.vcode === 0) {
+        dispatch(setCredentials(res.data));
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.error("Lỗi khi tải tài khoản:", error);
+    }
+  };
 
   useEffect(() => {
-    if (status_login == 0) {
+    if (localStorage.getItem("status_login") == 0) {
       handleFetchAccount();
     } else {
       dispatch(setLoading(false));
@@ -61,35 +105,98 @@ function App() {
     };
   }, []);
 
-  const handleFetchAccount = async () => {
-    try {
-      const res = await callFetchAccount();
-      if (res.vcode === 0) {
-        dispatch(setCredentials(res.data));
-      }
-      dispatch(setLoading(false));
-    } catch (error) {
-      console.error("Lỗi khi tải tài khoản:", error);
-    }
-  };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <User />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "fish/:id",
+          element: <DetailProductPage />,
+        },
+        {
+          path: "address",
+          element: <AddressPage />,
+        },
+        {
+          path: "account",
+          element: (
+            <ProtectedRoute>
+              <AccountManagement />
+            </ProtectedRoute>
+          ),
+          children: [
+            {
+              index: true,
 
-  return (
-    <>
-      <Navbar />
-      <BottomNavBar />
-      <main className={`main-body`}>
-        <Outlet />
-      </main>
-      <Footer />
-      {isShowModalLogin && <ModalLogin />}
-      {modalRegister && <ModalRegister />}
-      <CartDrawer />
-      <ToastContainer />
-      <MessageBox />
-      <ModalAddAddress />
-      {isLoading && <Loader />}
-    </>
-  );
+              element: <AccountProfile />,
+            },
+            {
+              path: "address",
+              element: <AccountAddress />,
+            },
+            {
+              path: "order",
+              element: <AccountOrder />,
+            },
+          ],
+        },
+        {
+          path: "product",
+          element: <AllProductPage />,
+        },
+        {
+          path: "order",
+          element: (
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/order-history",
+          element: <OrderHistoryPage />,
+        },
+        { path: "/payment", element: <InfoPay /> },
+        {
+          path: "infomation",
+          element: <AllProductPage />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: (
+        <ProtectedRoute role={"ADMIN"}>
+          <AdminPage />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          index: true,
+          element: <Dashboard />,
+        },
+        {
+          path: "product",
+          element: <ManageProduct />,
+        },
+        {
+          path: "order",
+          element: <ManageOrder />,
+        },
+        {
+          path: "user",
+          element: <UserManagement />,
+        },
+      ],
+    },
+  ]);
+
+  return <>{isLoading ? <Loader /> : <RouterProvider router={router} />}</>;
 }
 
 export default App;

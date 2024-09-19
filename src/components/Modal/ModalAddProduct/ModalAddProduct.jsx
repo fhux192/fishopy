@@ -46,7 +46,7 @@ const ModalAddProduct = ({ setProducts }) => {
           uid: file.uid,
           name: file.name,
           status: "done",
-          url: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
+          url: res.data.fileUploaded,
         },
       ]);
     } else message.error(res.message);
@@ -125,7 +125,7 @@ const ModalAddProduct = ({ setProducts }) => {
           ...pre,
           {
             ...res.data,
-            image: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.image,
+            image: res.data.image,
             key: res.data._id,
           },
         ]);
@@ -154,7 +154,6 @@ const ModalAddProduct = ({ setProducts }) => {
       centered
       style={{
         minWidth: "80%",
-        
       }}
     >
       <Form

@@ -46,7 +46,7 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
           uid: file.uid,
           name: file.name,
           status: "done",
-          url: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
+          url: res.data.fileUploaded,
         },
       ]);
     } else message.error(res.message);
@@ -109,7 +109,7 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
       uid: item,
       name: item,
       status: "done",
-      url: import.meta.env.VITE_BASE_URL + "/images/fish/" + item,
+      url: item,
     }));
     setFileList(formattedFileList);
     form.setFieldsValue({

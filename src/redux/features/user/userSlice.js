@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { notification } from "antd";
 
 const initialState = {
+  isAuthenticated: false,
   user: null,
   isLoading: true,
 };
@@ -12,10 +13,14 @@ export const userSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.user = action.payload;
+      state.isAuthenticated = true;
+      state.isLoading = false;
       localStorage.setItem("status_login", 0);
     },
     logout: (state) => {
       state.user = null;
+      state.isAuthenticated = false;
+      state.isLoading = false;
       localStorage.setItem("status_login", 1);
     },
     addToCart: (state, action) => {

@@ -10,15 +10,12 @@ import {
   Col,
   Typography,
   Space,
+  Spin,
 } from "antd";
-import {
-  CloseCircleOutlined,
-  MinusCircleOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { CloseCircleOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { toggleDrawerCart } from "../../redux/features/toggle/toggleSlice";
-import { callRemoveCartItem } from "../../services/api";
+import { callRemoveCartItem, callUpdateCartItem } from "../../services/api";
 import { updateAccount } from "../../redux/features/user/userSlice";
 
 const { Text } = Typography;
@@ -27,8 +24,8 @@ const CartDrawer = () => {
   const dispatch = useDispatch();
   const { isShowDawerCart } = useSelector((state) => state.toggle);
   const user = useSelector((state) => state.account.user);
-
   const [drawerWidth, setDrawerWidth] = useState(400);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,26 +52,39 @@ const CartDrawer = () => {
 
   const handleRemoveCartItem = async (id) => {
     try {
+      setLoading(true);
       const res = await callRemoveCartItem(id);
       if (res.vcode === 0) {
         message.success(res.message);
-        dispatch(
-          updateAccount({ cart: user.cart.filter((item) => item._id !== id) })
-        );
+        dispatch(updateAccount({ cart: user.cart.filter((item) => item._id !== id) }));
       } else {
         message.error(res.message);
       }
     } catch (error) {
       message.error("Failed to remove item from cart.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleQuantityChange = (id, value) => {
+  const handleQuantityChange = async (id, value) => {
     if (value < 1) return;
-    const updatedCart = user.cart.map((item) =>
-      item._id === id ? { ...item, quantity: value } : item
-    );
-    dispatch(updateAccount({ cart: updatedCart }));
+    try {
+      setLoading(true);
+      const res = await callUpdateCartItem(id, {
+        quantity: value,
+      });
+      if (res.vcode === 0) {
+        const updatedCart = user.cart.map((item) =>
+          item._id === id ? { ...item, quantity: value } : item
+        );
+        dispatch(updateAccount({ cart: updatedCart }));
+      }
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -89,15 +99,15 @@ const CartDrawer = () => {
           padding: 0,
           display: "flex",
           flexDirection: "column",
-          height: "100%", 
+          height: "100%",
+          position: "relative",
         },
       }}
-      
       // Ensure the Drawer takes the full height on mobile
       height={drawerWidth === "100%" ? "100vh" : undefined}
       // Optional: Adjust other styles if needed
     >
-      {user?.cart && user?.cart.length > 0 ? (
+      {user?.cart?.length > 0 ? (
         <>
           <div
             className="overflow-y-auto"
@@ -115,21 +125,13 @@ const CartDrawer = () => {
                     <Image
                       width={80}
                       style={{ borderRadius: "10px" }}
-                      src={
-                        import.meta.env.VITE_BASE_URL +
-                        "/images/fish/" +
-                        item.product.images[0]
-                      }
+                      src={item.product.images[0]}
                       alt={item.product.name}
                     />
                   </Col>
                   <Col xs={14}>
                     <Space direction="vertical" size={""}>
-                      <Text
-                        className="text-Grey"
-                        style={{ fontSize: "20px" }}
-                        strong
-                      >
+                      <Text className="text-Grey" style={{ fontSize: "20px" }} strong>
                         {item.product.name}
                       </Text>
                       <Text
@@ -148,25 +150,19 @@ const CartDrawer = () => {
                         <Button
                           type="link"
                           icon={<MinusCircleOutlined />}
-                          onClick={() =>
-                            handleQuantityChange(item._id, item.quantity - 1)
-                          }
+                          onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
                           disabled={item.quantity <= 1}
                         />
                         <InputNumber
                           min={1}
                           value={item.quantity}
-                          onChange={(value) =>
-                            handleQuantityChange(item._id, value)
-                          }
+                          onChange={(value) => handleQuantityChange(item._id, value)}
                           style={{ width: "60px", textAlign: "center" }}
                         />
                         <Button
                           type="link"
                           icon={<PlusCircleOutlined />}
-                          onClick={() =>
-                            handleQuantityChange(item._id, item.quantity + 1)
-                          }
+                          onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
                         />
                       </div>
                     </Space>
@@ -230,6 +226,12 @@ const CartDrawer = () => {
       ) : (
         <div style={{ textAlign: "center", paddingTop: "50px" }}>
           <Text type="secondary">Giỏ hàng trống</Text>
+        </div>
+      )}
+
+      {loading && (
+        <div className="flex justify-center items-center absolute w-full h-full bg-overlay">
+          <Spin />
         </div>
       )}
     </Drawer>

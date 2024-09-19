@@ -14,7 +14,7 @@ class MyUploadAdapter {
           console.log("res", res);
           if (res.vcode == 0) {
             resolve({
-              default: import.meta.env.VITE_BASE_URL + "/images/fish/" + res.data.fileUploaded,
+              default: res.data.fileUploaded,
             });
           } else {
             reject(res.message);

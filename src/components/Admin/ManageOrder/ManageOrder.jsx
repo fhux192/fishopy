@@ -17,11 +17,7 @@ import {
   Space,
 } from "antd";
 import { useDispatch } from "react-redux";
-import {
-  callDeleteOrder,
-  callFetchOrders,
-  callUpdateOrder,
-} from "../../../services/api";
+import { callDeleteOrder, callFetchOrders, callUpdateOrder } from "../../../services/api";
 import formatPrice from "../../../utils/formatPrice";
 import { toggleModalOrderDetail } from "../../../redux/features/toggle/toggleSlice";
 import ModalOrderDetail from "../../ModalOrderDetail/ModalOrderDetail";
@@ -122,11 +118,7 @@ const ManageOrder = () => {
               />
             </Col>
             <Col>
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={fetchOrders}
-                shape="circle"
-              />
+              <Button icon={<ReloadOutlined />} onClick={fetchOrders} shape="circle" />
             </Col>
           </Row>
         </Col>
@@ -141,20 +133,11 @@ const ManageOrder = () => {
         orders.map((order) => (
           <Card key={order._id} style={{ marginBottom: "15px" }}>
             {order.orderItems.map((item) => (
-              <Row
-                key={item._id}
-                gutter={[16, 16]}
-                align="middle"
-                style={{ marginBottom: "10px" }}
-              >
+              <Row key={item._id} gutter={[16, 16]} align="middle" style={{ marginBottom: "10px" }}>
                 <Col xs={24} sm={6} md={4} className={styles.groupImage}>
                   <Image
                     className={styles.imageProduct}
-                    src={
-                      import.meta.env.VITE_BASE_URL +
-                      "/images/fish/" +
-                      item.product.images[0]
-                    }
+                    src={item.product.images[0]}
                     alt={item.product.name}
                     style={{ cursor: "pointer" }}
                   />
@@ -187,9 +170,7 @@ const ManageOrder = () => {
                 <Text copyable>{order._id}</Text>
                 <br />
                 <Text strong>Thời gian: </Text>
-                <Text>
-                  {dayjs(order.createdAt).format("HH:mm:ss DD-MM-YYYY")}
-                </Text>
+                <Text>{dayjs(order.createdAt).format("HH:mm:ss DD-MM-YYYY")}</Text>
                 <br />
                 <Text strong>Tổng tiền: </Text>
                 <Text style={{ color: "#2daab6", fontWeight: "bold" }}>

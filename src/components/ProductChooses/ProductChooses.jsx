@@ -42,7 +42,9 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
           </Flex>
         ) : (
           <Flex justify="space-between" align="center">
-            <Typography.Title level={5}>Chưa có địa chỉ nhận hàng</Typography.Title>
+            <Typography.Title level={5} style={{ color: "red" }}>
+              Chưa có địa chỉ nhận hàng
+            </Typography.Title>
             <Button onClick={() => dispatch(toggleModalAddAddress())}>Thêm nhanh</Button>
           </Flex>
         )}

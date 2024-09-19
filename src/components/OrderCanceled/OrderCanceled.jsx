@@ -54,14 +54,7 @@ const OrderCanceled = ({ activeKey, role = "USER" }) => {
                   <div className={styles.cardContainer}>
                     <Flex gap={10}>
                       <div className={styles.groupImage}>
-                        <Image
-                          className={styles.imageProduct}
-                          src={
-                            import.meta.env.VITE_BASE_URL +
-                            "/uploads/images/hat/" +
-                            proItem.images[0]
-                          }
-                        />
+                        <Image className={styles.imageProduct} src={proItem.images[0]} />
                         <Typography.Text className={styles.title}>{proItem.name}</Typography.Text>
                       </div>
                       <div className={styles.groupSum}>

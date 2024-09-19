@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children, role }) => {
-  const { isLoading, user } = useSelector((state) => state.account);
-  const navigate = useNavigate();
+  const { user, isAuthenticated } = useSelector((state) => state.account);
 
-  useEffect(() => {
-    if (isLoading) return;
+  console.log(user);
+  console.log(isAuthenticated);
+  console.log(role);
 
-    console.log("user", user);
+  if (!isAuthenticated) {
+    return <Navigate to={"/"} />;
+  }
 
-    if (!user || (role !== "ALL" && role !== user.role)) {
-      navigate("/");
-    }
-  }, [isLoading]);
+  if (role && user && user.role !== role) {
+    return <Navigate to={"/"} />;
+  }
 
   return <>{children}</>;
 };

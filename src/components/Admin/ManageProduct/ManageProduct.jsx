@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  Button,
-  Table,
-  Pagination,
-  Modal,
-  message,
-  Row,
-  Image,
-  Col,
-} from "antd";
+import { Button, Table, Pagination, Modal, message, Row, Image, Col } from "antd";
 import {
   PlusCircleOutlined,
   ReloadOutlined,
@@ -79,7 +70,7 @@ const ManageProduct = () => {
       key: "image",
       render: (images, record) => (
         <Image
-          src={import.meta.env.VITE_BASE_URL + "/images/fish/" + images[0]}
+          src={images[0]}
           alt={record.name}
           width={100}
           style={{
@@ -95,20 +86,14 @@ const ManageProduct = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#707070" }}>
-          {text}
-        </span>
-      ),
+      render: (text) => <span style={{ fontWeight: "bold", color: "#707070" }}>{text}</span>,
     },
     {
       title: "Giá bán",
       dataIndex: "discountedPrice",
       key: "discountedPrice",
       render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
-          {formatPrice(text)}đ
-        </span>
+        <span style={{ fontWeight: "bold", color: "#20a69f" }}>{formatPrice(text)}đ</span>
       ),
     },
     {
@@ -156,23 +141,14 @@ const ManageProduct = () => {
 
   return (
     <div>
-      <Row
-        gutter={[16, 16]}
-        style={{ marginBottom: 16, flexWrap: "wrap" }}
-      >
+      <Row gutter={[16, 16]} style={{ marginBottom: 16, flexWrap: "wrap" }}>
         <Col>
-          <Button
-            icon={<PlusCircleOutlined />}
-            onClick={() => dispatch(toggleModalAddProduct())}
-          >
+          <Button icon={<PlusCircleOutlined />} onClick={() => dispatch(toggleModalAddProduct())}>
             Thêm sản phẩm
           </Button>
         </Col>
         <Col>
-          <Button
-            icon={<ReloadOutlined />}
-            onClick={() => fetchProduct(current)}
-          />
+          <Button icon={<ReloadOutlined />} onClick={() => fetchProduct(current)} />
         </Col>
       </Row>
 
@@ -199,10 +175,7 @@ const ManageProduct = () => {
       />
 
       <ModalAddProduct setProducts={setProducts} />
-      <ModalEditProduct
-        productEdit={productEdit}
-        setProducts={setProducts}
-      />
+      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
     </div>
   );
 };

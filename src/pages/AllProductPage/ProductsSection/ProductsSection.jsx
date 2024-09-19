@@ -9,16 +9,14 @@ import { toast } from "react-toastify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
-const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.account.user); // Corrected selector
 
-  const discountPercentage =
-    ((product.price - product.discountedPrice) / product.price) * 100;
+  const discountPercentage = ((product.price - product.discountedPrice) / product.price) * 100;
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
@@ -43,13 +41,10 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   };
 
   return (
-    <div
-      className={`product-card`}
-      style={{ animationDelay: `${animationDelay}s` }}
-    >
+    <div className={`product-card`} style={{ animationDelay: `${animationDelay}s` }}>
       <Link to={`/fish/${product._id}`} className="image-wrapper">
         <LazyLoadImage
-          src={`${import.meta.env.VITE_BASE_URL}/images/fish/${product.images[0]}`}
+          src={product.images[0]}
           effect="blur"
           className="rounded-t-3xl w-full h-64 object-cover"
           alt={`${product.name} image`}
@@ -62,32 +57,23 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
                 <span>{formatPrice(product.price)}₫</span>
               ) : (
                 <>
-                  {priceStage === 0 && (
-                    <span>{formatPrice(product.price)}₫</span>
-                  )}
+                  {priceStage === 0 && <span>{formatPrice(product.price)}₫</span>}
                   {priceStage === 1 && (
-                    <span className="line-through">
-                      {formatPrice(product.price)}₫
-                    </span>
+                    <span className="line-through">{formatPrice(product.price)}₫</span>
                   )}
-                  {priceStage === 2 && (
-                    <span>{formatPrice(product.discountedPrice)}₫</span>
-                  )}
+                  {priceStage === 2 && <span>{formatPrice(product.discountedPrice)}₫</span>}
                 </>
               )}
             </p>
             {product.price !== product.discountedPrice && (
               <div className="discount">-{Math.round(discountPercentage)}%</div>
             )}
-            
           </div>
         </div>
         <div className="w-full flex justify-center">
           <button
             onClick={(e) => handleAddToCart(e)}
-            className={`add-to-cart  ${
-              !product.status ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`add-to-cart  ${!product.status ? "opacity-50 cursor-not-allowed" : ""}`}
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >

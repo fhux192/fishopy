@@ -8,19 +8,10 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  Breadcrumb,
-  Button,
-  Dropdown,
-  Layout,
-  Menu,
-  Space,
-  theme,
-} from "antd";
-import { setCredentials, setLoading } from "../redux/features/user/userSlice";
-import { useDispatch } from "react-redux";
-import { callFetchAccount } from "../services/api";
+import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Space, theme } from "antd";
+import { logout, setCredentials, setLoading } from "../redux/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { callFetchAccount, callLogout } from "../services/api";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -40,66 +31,49 @@ const items = [
     ),
   ]),
   getItem("Đơn hàng", "sub2", <ShoppingCartOutlined />, [
-    getItem(
-      <Link to={"/admin/order"}>Quản lý đơn hàng</Link>,
-      "/admin/order",
-      <FileOutlined />
-    ),
+    getItem(<Link to={"/admin/order"}>Quản lý đơn hàng</Link>, "/admin/order", <FileOutlined />),
   ]),
   getItem("Người dùng", "sub3", <TeamOutlined />, [
-    getItem(
-      <Link to={"/admin/user"}>Quản lý người dùng</Link>,
-      "/admin/user",
-      <FileOutlined />
-    ),
+    getItem(<Link to={"/admin/user"}>Quản lý người dùng</Link>, "/admin/user", <FileOutlined />),
   ]),
-];
-
-const dropdownList = [
-  {
-    key: "1",
-    label: <Link to={"/"}>Trang chủ</Link>,
-  },
-  {
-    key: "2",
-    label: <Link to={"/account"}>Quản lý tài khoản</Link>,
-  },
-  {
-    key: "3",
-    label: <div>Đăng xuất</div>,
-  },
 ];
 
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const status_login = localStorage.getItem("status_login");
+  const { user } = useSelector((state) => state.account);
+
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null);
+  const handleLogout = async () => {
+    try {
+      const res = await callLogout();
+      if (res.vcode === 0) {
+        dispatch(logout());
+        message.success(res.message);
+      } else {
+        message.error("Logout failed!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const dropdownList = [
+    {
+      key: "1",
+      label: <Link to={"/"}>Trang chủ</Link>,
+    },
+    {
+      key: "2",
+      label: <Link to={"/account"}>Quản lý tài khoản</Link>,
+    },
+    {
+      key: "3",
+      label: <div onClick={handleLogout}>Đăng xuất</div>,
+    },
+  ];
+
   const isDesktop = window.innerWidth >= 1024;
 
   const location = useLocation();
-  console.log("location", location);
-
-  const handleFetchAccount = async () => {
-    try {
-      const res = await callFetchAccount();
-      if (res.vcode === 0) {
-        dispatch(setCredentials(res.data));
-        setUser(res.data);
-      }
-      dispatch(setLoading(false));
-    } catch (error) {
-      console.error("Lỗi khi tải tài khoản:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (status_login == 0) {
-      handleFetchAccount();
-    } else {
-      dispatch(setLoading(false));
-    }
-  }, []);
 
   return (
     <Layout
@@ -108,11 +82,7 @@ const AdminPage = () => {
       }}
     >
       {isDesktop && (
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-        >
+        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <Menu
             theme="dark"
             mode="inline"

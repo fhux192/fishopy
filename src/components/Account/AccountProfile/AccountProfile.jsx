@@ -152,7 +152,7 @@ const AccountProfile = () => {
           >
             {user?.avatar ? (
               <img
-                src={import.meta.env.VITE_BASE_URL + "/images/avatar/" + user?.avatar}
+                src={user?.avatar}
                 alt="avatar"
                 style={{
                   width: "100%",
