@@ -126,7 +126,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
                   key={product._id}
                   product={product}
                   priceStage={priceStage}
-                  animationDelay={index * 0.1}
+                  animationDelay={index * 0.2}
                 />
               ))}
             </div>
