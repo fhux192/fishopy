@@ -44,7 +44,7 @@ export const callFetchProduct = async (current, pageSize, data) => {
   if (pageSize) {
     url += `pageSize=${pageSize}&`;
   }
-  if (data.sort) {
+  if (data?.sort) {
     url += `sort=${data.sort}`;
   }
 
