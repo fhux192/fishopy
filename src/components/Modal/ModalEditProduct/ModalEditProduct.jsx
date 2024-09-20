@@ -141,7 +141,7 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
         desc: descProductValue,
         detailDesc: detailDescProductValue,
         discountText,
-        images: fileList.map((item) => item.url.substring(item.url.lastIndexOf("/") + 1)),
+        images: fileList.map((item) => item.url),
         _id: productEdit._id,
       });
       if (res.vcode == 0) {

@@ -113,7 +113,7 @@ const ModalAddProduct = ({ setProducts }) => {
   const onFinish = async (values) => {
     setLoading(true);
     let dataProduct = {
-      images: fileList.map((item) => item?.url?.substring(item?.url.lastIndexOf("/") + 1)),
+      images: fileList.map((item) => item?.url),
       name: form.getFieldValue("name"),
       price: Number(form.getFieldValue("price").replace(/,/g, "")),
       status: form.getFieldValue("status"),
