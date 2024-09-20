@@ -38,7 +38,30 @@ const Home = () => {
   };
 
   useEffect(() => {
-    document.title = "Guppy Hóc Môn | Trại Cá Hóc Môn";
+    const ogImage = document.querySelector('meta[property="og:image"]');
+        if (ogImage) {
+            ogImage.setAttribute("content", "https://link.to/your-thumbnail.jpg");
+        } else {
+            const metaOgImage = document.createElement('meta');
+            metaOgImage.setAttribute("property", "og:image");
+            metaOgImage.setAttribute("content", "https://link.to/your-thumbnail.jpg");
+            document.head.appendChild(metaOgImage);
+        }
+
+        const metaOgTitle = document.createElement('meta');
+        metaOgTitle.setAttribute("property", "og:title");
+        metaOgTitle.setAttribute("content", "Guppy Hóc Môn | Trại Cá Guppy Bất Ổn");
+        document.head.appendChild(metaOgTitle);
+
+        const metaOgDescription = document.createElement('meta');
+        metaOgDescription.setAttribute("property", "og:description");
+        metaOgDescription.setAttribute("content", "Trang Web Chính Thức của Trại Cá Guppy Bất Ổn. Cung cấp cá Guppy chất lượng cao, đa dạng chủng loại, giao hàng toàn quốc. Bảo hành 1 đổi 1");
+        document.head.appendChild(metaOgDescription);
+
+        const metaOgType = document.createElement('meta');
+        metaOgType.setAttribute("property", "og:type");
+        metaOgType.setAttribute("content", "website");
+        document.head.appendChild(metaOgType);
   }, []);
 
   return (
