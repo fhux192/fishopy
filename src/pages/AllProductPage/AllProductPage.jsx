@@ -25,10 +25,7 @@ const shuffleArray = (array) => {
     currentIndex--;
 
     // Swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
 
   return array;
@@ -85,28 +82,27 @@ const smoothScrollToTop = () => {
 };
 
 const AllProductPage = () => {
-  const [selectedPurchaseOption, setSelectedPurchaseOption] =
-    useState("single");
+  const [selectedPurchaseOption, setSelectedPurchaseOption] = useState("single");
   const handlePurchaseOptionClick = (option) => {
     setSelectedPurchaseOption(option);
   };
 
-  const columns = useColumns(); 
+  const columns = useColumns();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(columns * 3);
   const [sortOption, setSortOption] = useState("default");
   const [priceStage, setPriceStage] = useState(0);
-  const [allProducts, setAllProducts] = useState([]); 
+  const [allProducts, setAllProducts] = useState([]);
   const [currentPageProducts, setCurrentPageProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await callFetchProduct(1, 1000, sortOption); 
+        const res = await callFetchProduct(1, 1000, sortOption);
         if (res.vcode === 0) {
           let products = res.data.result;
-          products = shuffleArray(products); 
+          products = shuffleArray(products);
           setAllProducts(products);
           setTotalProducts(products.length);
         }
@@ -167,7 +163,7 @@ const AllProductPage = () => {
 
   return (
     <motion.div className="min-h-screen bg-container">
-      <div className="flex lg:pb-0 lg:mt-0 mt-[1rem] w-full justify-center whitespace-nowrap">
+      <div className="flex lg:pb-0 lg:mt-0 pt-[1rem] w-full justify-center whitespace-nowrap">
         <h1 className="p-1 px-3 bg-Black border-[1px] border-Grey2 text-White rounded-full mt-[4rem] lg:mt-20 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
           SẢN PHẨM
         </h1>
@@ -212,14 +208,11 @@ const AllProductPage = () => {
         </div>
       </div>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={currentPageProducts}
-        priceStage={priceStage}
-      />
+      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
       <Pagination
         current={currentPage}
         pageSize={pageSize}
-        total={totalProducts} 
+        total={totalProducts}
         onChange={handlePageChange}
         pageSizeOptions={pageSizeOptions}
         style={{
