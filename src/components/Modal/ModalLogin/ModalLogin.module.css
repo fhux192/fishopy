@@ -22,7 +22,7 @@
   z-index: 1;
   animation: bound 0.8s ease-out; 
   backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.65);
+  background-color: rgba(255, 255, 255, .65);
   border-radius: 20px;
   padding: 20px;
   max-width: 400px;
@@ -34,7 +34,7 @@
 .modalTitle {
   text-align: center;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #141414;
   margin-bottom: 1rem;
 }

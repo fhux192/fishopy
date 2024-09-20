@@ -35,7 +35,7 @@ const ModalLogin = () => {
     <div className={`${styles.modal}`}>
       <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalLogin())}></div>
       <div className={styles.modalContent}>
-        <h1 className={styles.modalTitle}>Đăng Nhập</h1>
+        <p className={styles.modalTitle}>Đăng Nhập</p>
         <label htmlFor="phone" className="text-black font-semibold ">
           Số điện thoại:
           <input
@@ -47,7 +47,7 @@ const ModalLogin = () => {
           />
         </label>
         <label htmlFor="passwordLogin" className="text-black font-semibold">
-          Mật Khẩu:
+          Mật khẩu:
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
@@ -89,7 +89,7 @@ const ModalLogin = () => {
             e.currentTarget.style.borderColor = 'transparent';
           }}
         >
-          Đăng Nhập
+          Đăng nhập
         </Button>
 
         <div className={styles.smallText}>

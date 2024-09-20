@@ -50,7 +50,7 @@ const MessageBox = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="bg-white shadow-md shadow-gray-500 rounded-xl rounded-b-none rounded-l-xl p-3 mb-2 text-sm text-gray-800"
+            className="bg-Black rounded-xl rounded-b-none rounded-l-xl p-3 mb-2 text-sm text-gray-800"
             style={{
               position: "absolute",
               bottom: "30px",
@@ -59,7 +59,7 @@ const MessageBox = () => {
               textAlign: "center",
             }}
           >
-            <p>{currentMessage}</p>
+            <p className="text-White">{currentMessage}</p>
           </motion.div>
         )}
 

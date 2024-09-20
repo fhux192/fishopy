@@ -85,7 +85,7 @@ const ModalRegister = () => {
           />
         </label>
         <label htmlFor="passwordRegister" className="text-black font-semibold">
-          Mật Khẩu:
+          Mật khẩu:
           <div className="relative">
             <input
               type={isShowPassword.showPassword ? "text" : "password"}
