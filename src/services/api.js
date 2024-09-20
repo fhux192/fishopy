@@ -36,8 +36,19 @@ export const callDeleteProduct = async (id) => {
   return await axios.delete(`products/${id}`);
 };
 
-export const callFetchProduct = async (current, pageSize) => {
-  return await axios.get("products?current=" + current + "&pageSize=" + pageSize);
+export const callFetchProduct = async (current, pageSize, data) => {
+  let url = "";
+  if (current) {
+    url += `current=${current}&`;
+  }
+  if (pageSize) {
+    url += `pageSize=${pageSize}&`;
+  }
+  if (data.sort) {
+    url += `sort=${data.sort}`;
+  }
+
+  return await axios.get("products?" + url);
 };
 
 export const callFetchProductById = async (id) => {
@@ -164,5 +175,3 @@ export const callEditUser = async (data) => {
 export const callFetchDataDashboard = async () => {
   return await axios.get("dashboard");
 };
-
-

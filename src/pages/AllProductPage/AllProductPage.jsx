@@ -90,21 +90,25 @@ const AllProductPage = () => {
   const columns = useColumns();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(columns * 3);
-  const [sortOption, setSortOption] = useState("default");
+  const [sortOption, setSortOption] = useState("");
   const [priceStage, setPriceStage] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
-  const [currentPageProducts, setCurrentPageProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
+  console.log("allProducts", allProducts);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await callFetchProduct(1, 1000, sortOption);
+        const res = await callFetchProduct(currentPage, pageSize, {
+          sort: sortOption,
+        });
         if (res.vcode === 0) {
           let products = res.data.result;
-          products = shuffleArray(products);
+          // products = shuffleArray(products);
+
+          console.log("products", products);
           setAllProducts(products);
-          setTotalProducts(products.length);
+          setTotalProducts(res.data.meta.total);
         }
       } catch (error) {
         console.error(error.message);
@@ -113,14 +117,7 @@ const AllProductPage = () => {
 
     fetchProducts();
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, [sortOption]); // Re-fetch and shuffle when sortOption changes
-
-  useEffect(() => {
-    // Update current page products when page, pageSize, or allProducts change
-    const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    setCurrentPageProducts(allProducts.slice(startIndex, endIndex));
-  }, [currentPage, pageSize, allProducts]);
+  }, [sortOption, currentPage, pageSize]);
 
   useEffect(() => {
     const cyclePrices = () => {
@@ -208,7 +205,7 @@ const AllProductPage = () => {
         </div>
       </div>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection currentPageProducts={currentPageProducts} priceStage={priceStage} />
+      <ProductsSection currentPageProducts={allProducts} priceStage={priceStage} />
       <Pagination
         current={currentPage}
         pageSize={pageSize}
