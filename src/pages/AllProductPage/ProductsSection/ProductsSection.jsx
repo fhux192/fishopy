@@ -73,7 +73,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Light Effect */}
       <div
         className="light-effect"
         style={{
