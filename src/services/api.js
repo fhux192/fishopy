@@ -95,7 +95,7 @@ export const callOrder = async (data) => {
 };
 
 export const callCalcFee = async (data) => {
-  return await axios.get(`/proxy/shipping-fee?${data}`);
+  return await axios.get(`/shipping-fee?${data}`);
 };
 
 export const callUpdateCartItem = async (id, data) => {
