@@ -10,7 +10,6 @@ const checksumKey = process.env.Checksum_Key;
 const app = express();
 
 const payOS = new PayOS(cliID, apiID, checksumKey);
-
 app.use(
   cors({
     origin: "http://localhost:5173",
