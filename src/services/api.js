@@ -175,3 +175,7 @@ export const callEditUser = async (data) => {
 export const callFetchDataDashboard = async () => {
   return await axios.get("dashboard");
 };
+
+export const callGooglelogin = async (tokenId) => {
+  return await axios.post("/auth/google_login", { tokenId });
+};

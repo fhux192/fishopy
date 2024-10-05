@@ -51,6 +51,9 @@ export const toggleSlice = createSlice({
     toggleModalEditUser: (state) => {
       state.modalEditUser = !state.modalEditUser;
     },
+    toggle: (state, action) => {
+      state[action.payload] = !state[action.payload];
+    }
   },
 });
 
@@ -66,6 +69,7 @@ export const {
   toggleModalEditProduct,
   toggleModalAddUser,
   toggleModalEditUser,
+  toggle
 } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

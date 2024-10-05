@@ -1,12 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
+import {
+  toggle,
+  toggleModalLogin,
+  toggleModalRegister,
+} from "../../../redux/features/toggle/toggleSlice";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { callLogin } from "../../../services/api";
+import { callGooglelogin, callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
 import { Button, Typography, message } from "antd";
 import styles from "./ModalLogin.module.css";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -31,9 +36,37 @@ const ModalLogin = () => {
     }
   };
 
+  const onGoogleSuccess = async (response) => {
+    try {
+      console.log("Google Login Success:", response);
+      const res = await callGooglelogin(response.access_token);
+      if (res.vcode == 0) {
+        dispatch(setCredentials(res.data));
+        message.success(res.message);
+        dispatch(toggle("isShowModalLogin"));
+      }
+    } catch (error) {
+      console.error("Google Login Error:", error);
+    }
+  };
+
+  const onGoogleFailure = (response) => {
+    console.log("Google Login Failed:", response);
+    // Xử lý logic khi đăng nhập thất bại
+    message.error("Đăng nhập thất bại, vui lòng thử lại sau!");
+  };
+
+  const loginGoogle = useGoogleLogin({
+    onSuccess: onGoogleSuccess,
+    onError: onGoogleFailure,
+  });
+
   return (
     <div className={`${styles.modal}`}>
-      <div className={styles.modalOverlay} onClick={() => dispatch(toggleModalLogin())}></div>
+      <div
+        className={styles.modalOverlay}
+        onClick={() => dispatch(toggleModalLogin())}
+      ></div>
       <div className={styles.modalContent}>
         <p className={styles.modalTitle}>Đăng Nhập</p>
         <label htmlFor="phone" className="text-black font-semibold ">
@@ -73,20 +106,29 @@ const ModalLogin = () => {
             )}
           </div>
         </label>
+
+        <Button
+          type="primary"
+          style={{ width: "100%", marginBottom: "10px" }}
+          onClick={() => loginGoogle()}
+        >
+          Đăng nhập bằng Google
+        </Button>
+
         <Button
           onClick={handlelogin}
           className="h-10 w-full px-2 text-center font-semibold mt-8 rounded-3xl duration-150"
           style={{
-            backgroundColor: 'black',
-            color: 'white',
-            borderColor: 'transparent',
-            height: '2.5rem',
+            backgroundColor: "black",
+            color: "white",
+            borderColor: "transparent",
+            height: "2.5rem",
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'teal';
+            e.currentTarget.style.borderColor = "teal";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'transparent';
+            e.currentTarget.style.borderColor = "transparent";
           }}
         >
           Đăng nhập
@@ -96,7 +138,7 @@ const ModalLogin = () => {
           <span>Bạn chưa có tài khoản? </span>
           <Typography.Link
             className="pl-1 font-semibold"
-            style={{ color: 'teal' }}
+            style={{ color: "teal" }}
             onClick={() => {
               dispatch(toggleModalLogin());
               dispatch(toggleModalRegister());

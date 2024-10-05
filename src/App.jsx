@@ -34,9 +34,12 @@ import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const User = () => {
-  const { isShowModalLogin, modalRegister } = useSelector((state) => state.toggle);
+  const { isShowModalLogin, modalRegister } = useSelector(
+    (state) => state.toggle
+  );
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -196,7 +199,11 @@ function App() {
     },
   ]);
 
-  return <>{isLoading ? <Loader /> : <RouterProvider router={router} />}</>;
+  return (
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_G_CLIENT_ID}>
+      {isLoading ? <Loader /> : <RouterProvider router={router} />}
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;
