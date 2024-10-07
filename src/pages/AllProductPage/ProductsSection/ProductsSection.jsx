@@ -11,8 +11,7 @@ import { toast } from "react-toastify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
-const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
@@ -21,8 +20,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
-  const discountPercentage =
-    ((product.price - product.discountedPrice) / product.price) * 100;
+  const discountPercentage = ((product.price - product.discountedPrice) / product.price) * 100;
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Prevent default <a> action
@@ -96,17 +94,11 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
                 <span>{formatPrice(product.price)}₫</span>
               ) : (
                 <>
-                  {priceStage === 0 && (
-                    <span>{formatPrice(product.price)}₫</span>
-                  )}
+                  {priceStage === 0 && <span>{formatPrice(product.price)}₫</span>}
                   {priceStage === 1 && (
-                    <span className="line-through">
-                      {formatPrice(product.price)}₫
-                    </span>
+                    <span className="line-through">{formatPrice(product.price)}₫</span>
                   )}
-                  {priceStage === 2 && (
-                    <span>{formatPrice(product.discountedPrice)}₫</span>
-                  )}
+                  {priceStage === 2 && <span>{formatPrice(product.discountedPrice)}₫</span>}
                 </>
               )}
             </p>
@@ -118,9 +110,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         <div className="w-full flex justify-center">
           <button
             onClick={(e) => handleAddToCart(e)}
-            className={`add-to-cart  ${
-              !product.status ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`add-to-cart  ${!product.status ? "opacity-50 cursor-not-allowed" : ""}`}
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >
@@ -143,10 +133,10 @@ const shuffleArray = (array) => {
 };
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
-  const shuffledProducts = useMemo(
-    () => shuffleArray(currentPageProducts),
-    [currentPageProducts]
-  );
+  // const shuffledProducts = useMemo(
+  //   () => shuffleArray(currentPageProducts),
+  //   [currentPageProducts]
+  // );
 
   return (
     <div className="lg:bg-transparent pb-4">
@@ -154,7 +144,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
         <div className="product-container">
           <div className="flex w-full justify-center">
             <div className="product-grid grid gap-4 lg:mx-0 ">
-              {shuffledProducts.map((product, index) => (
+              {currentPageProducts.map((product, index) => (
                 <ProductCard
                   key={product._id}
                   product={product}

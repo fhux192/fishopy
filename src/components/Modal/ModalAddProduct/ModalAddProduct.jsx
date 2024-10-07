@@ -38,18 +38,25 @@ const ModalAddProduct = ({ setProducts }) => {
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
   const handleChange = async ({ file }) => {
-    const res = await callUploadImg(file, "fish");
-    if (res.vcode == 0) {
-      setFileList((pre) => [
-        ...pre,
-        {
-          uid: file.uid,
-          name: file.name,
-          status: "done",
-          url: res.data.fileUploaded,
-        },
-      ]);
-    } else message.error(res.message);
+    setLoading(true);
+    try {
+      const res = await callUploadImg(file, "fish");
+      if (res.vcode == 0) {
+        setFileList((pre) => [
+          ...pre,
+          {
+            uid: file.uid,
+            name: file.name,
+            status: "done",
+            url: res.data.fileUploaded,
+          },
+        ]);
+      } else message.error(res.message);
+    } catch (error) {
+      console.error("error", error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   const uploadButton = (
     <button
@@ -106,7 +113,7 @@ const ModalAddProduct = ({ setProducts }) => {
   const onFinish = async (values) => {
     setLoading(true);
     let dataProduct = {
-      images: fileList.map((item) => item?.url?.substring(item?.url.lastIndexOf("/") + 1)),
+      images: fileList.map((item) => item?.url),
       name: form.getFieldValue("name"),
       price: Number(form.getFieldValue("price").replace(/,/g, "")),
       status: form.getFieldValue("status"),

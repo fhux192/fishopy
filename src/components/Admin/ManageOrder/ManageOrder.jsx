@@ -28,9 +28,9 @@ import styles from "./ManageOrder.module.css";
 const { Text } = Typography;
 
 const ManageOrder = () => {
-  const [status, setStatus] = useState("Chờ xác nhận");
-  const [from, setFrom] = useState(dayjs().subtract(1, "month"));
-  const [to, setTo] = useState(dayjs());
+  const [status, setStatus] = useState("");
+  const [from, setFrom] = useState(null);
+  const [to, setTo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -38,6 +38,12 @@ const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
   const dispatch = useDispatch();
+  const sub = {
+    pending: "Chờ xác nhận",
+    shipping: "Đang giao",
+    delivered: "Đã giao",
+    canceled: "Đã hủy",
+  };
 
   useEffect(() => {
     fetchOrders();
@@ -93,13 +99,14 @@ const ManageOrder = () => {
       <Row gutter={[16, 16]} justify="space-between" align="middle">
         <Col xs={24} sm={12} md={8}>
           <Select
-            defaultValue="Chờ xác nhận"
+            value={status}
             onChange={(value) => setStatus(value)}
             options={[
-              { value: "Chờ xác nhận", label: "Chờ xác nhận" },
-              { value: "Đang giao", label: "Đang giao" },
-              { value: "Đã hủy", label: "Đã hủy" },
-              { value: "Đã giao", label: "Đã giao" },
+              { value: "", label: "Tất cả" },
+              { value: "pending", label: "Chờ xác nhận" },
+              { value: "shipping", label: "Đang giao" },
+              { value: "canceled", label: "Đã hủy" },
+              { value: "delivered", label: "Đã giao" },
             ]}
             style={{ width: "100%" }}
           />
@@ -207,10 +214,10 @@ const ManageOrder = () => {
                   <Select
                     defaultValue={order.status}
                     options={[
-                      { value: "Chờ xác nhận", label: "Chờ xác nhận" },
-                      { value: "Đang giao", label: "Đang giao" },
-                      { value: "Đã giao", label: "Đã giao" },
-                      { value: "Đã hủy", label: "Đã hủy" },
+                      { value: "pending", label: "Chờ xác nhận" },
+                      { value: "shipping", label: "Đang giao" },
+                      { value: "delivered", label: "Đã giao" },
+                      { value: "canceled", label: "Đã hủy" },
                     ]}
                     onChange={(value) => handleUpdateOrder(order._id, value)}
                   />
