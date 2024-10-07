@@ -1,16 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalLogin, toggleModalRegister } from "../../../redux/features/toggle/toggleSlice";
+import {
+  toggleModalLogin,
+  toggleModalRegister,
+} from "../../../redux/features/toggle/toggleSlice";
 import { useNavigate } from "react-router-dom";
 
 import { logout, setLoading } from "../../../redux/features/user/userSlice";
 import { Link } from "react-router-dom";
 import { message } from "antd";
 import { callLogout } from "../../../services/api.js";
+import { googleLogout } from "@react-oauth/google";
 
 const ModalAuth = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.account);
-  const navigate = useNavigate();
   const handleLogout = async () => {
     try {
       dispatch(setLoading(true));
@@ -19,6 +22,7 @@ const ModalAuth = () => {
         dispatch(logout());
         message.success(res.message);
       }
+      googleLogout();
       dispatch(setLoading(false));
     } catch (error) {
       console.error(error);

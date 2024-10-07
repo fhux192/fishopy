@@ -50,15 +50,23 @@ const UserManagement = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (name) => (
-        <Typography.Text ellipsis>{name}</Typography.Text>
-      ),
+      render: (name) => <Typography.Text ellipsis>{name}</Typography.Text>,
     },
     {
       title: "Số điện thoại",
       dataIndex: "phone",
       key: "phone",
       render: (phone) => <Typography.Text>{phone}</Typography.Text>,
+    },
+    {
+      title: "Quyền",
+      dataIndex: "role",
+      key: "role",
+      render: (role) => (
+        <Typography.Text>
+          <strong> {role} </strong>
+        </Typography.Text>
+      ),
     },
     {
       title: "Thao tác",
@@ -68,7 +76,7 @@ const UserManagement = () => {
         <Space>
           <Button
             type="link"
-            icon={<EditOutlined style={{ color: "orange" }}/>}
+            icon={<EditOutlined style={{ color: "orange" }} />}
             onClick={() => {
               setUserEdit(record);
               dispatch(toggleModalEditUser());

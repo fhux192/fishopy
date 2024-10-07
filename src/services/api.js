@@ -95,7 +95,7 @@ export const callOrder = async (data) => {
 };
 
 export const callCalcFee = async (data) => {
-  return await axios.get(`/proxy/shipping-fee?${data}`);
+  return await axios.get(`/shipping-fee?${data}`);
 };
 
 export const callUpdateCartItem = async (id, data) => {
@@ -174,4 +174,8 @@ export const callEditUser = async (data) => {
 
 export const callFetchDataDashboard = async () => {
   return await axios.get("dashboard");
+};
+
+export const callGooglelogin = async (tokenId) => {
+  return await axios.post("/auth/google_login", { tokenId });
 };

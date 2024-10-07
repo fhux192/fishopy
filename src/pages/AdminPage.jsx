@@ -8,10 +8,24 @@ import {
   UserOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Avatar, Breadcrumb, Button, Dropdown, Layout, Menu, Space, theme } from "antd";
-import { logout, setCredentials, setLoading } from "../redux/features/user/userSlice";
+import {
+  Avatar,
+  Breadcrumb,
+  Button,
+  Dropdown,
+  Layout,
+  Menu,
+  Space,
+  theme,
+} from "antd";
+import {
+  logout,
+  setCredentials,
+  setLoading,
+} from "../redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { callFetchAccount, callLogout } from "../services/api";
+import { googleLogout } from "@react-oauth/google";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -31,10 +45,18 @@ const items = [
     ),
   ]),
   getItem("Đơn hàng", "sub2", <ShoppingCartOutlined />, [
-    getItem(<Link to={"/admin/order"}>Quản lý đơn hàng</Link>, "/admin/order", <FileOutlined />),
+    getItem(
+      <Link to={"/admin/order"}>Quản lý đơn hàng</Link>,
+      "/admin/order",
+      <FileOutlined />
+    ),
   ]),
   getItem("Người dùng", "sub3", <TeamOutlined />, [
-    getItem(<Link to={"/admin/user"}>Quản lý người dùng</Link>, "/admin/user", <FileOutlined />),
+    getItem(
+      <Link to={"/admin/user"}>Quản lý người dùng</Link>,
+      "/admin/user",
+      <FileOutlined />
+    ),
   ]),
 ];
 
@@ -49,9 +71,9 @@ const AdminPage = () => {
       if (res.vcode === 0) {
         dispatch(logout());
         message.success(res.message);
-      } else {
-        message.error("Logout failed!");
       }
+
+      googleLogout();
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +104,11 @@ const AdminPage = () => {
       }}
     >
       {isDesktop && (
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+        >
           <Menu
             theme="dark"
             mode="inline"

@@ -1,12 +1,28 @@
-import { Button, Card, Col, Divider, Form, Input, Menu, message, Row, Upload } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Form,
+  Input,
+  Menu,
+  message,
+  Row,
+  Upload,
+} from "antd";
 import React, { useEffect, useState } from "react";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setCredentials, updateAccount } from "../../../redux/features/user/userSlice";
+import {
+  setCredentials,
+  updateAccount,
+} from "../../../redux/features/user/userSlice";
 import { callUpdateAccount, callUploadImg } from "../../../services/api";
 
 const AccountProfile = () => {
-  const { user: user, isLoading: loading } = useSelector((state) => state.account);
+  const { user: user, isLoading: loading } = useSelector(
+    (state) => state.account
+  );
 
   const dispatch = useDispatch();
 
@@ -116,7 +132,11 @@ const AccountProfile = () => {
             </Form.Item>
 
             <Form.Item xs={24}>
-              <Button type="primary" htmlType="submit" className="bg-primaryBlack">
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="bg-primaryBlack"
+              >
                 Lưu
               </Button>
             </Form.Item>

@@ -13,6 +13,7 @@ import { logout, setLoading } from "../../../redux/features/user/userSlice.js";
 import { message } from "antd";
 import { callLogout } from "../../../services/api.js";
 import { motion } from "framer-motion";
+import { googleLogout } from "@react-oauth/google";
 
 const BottomNavBar = () => {
   const navigate = useNavigate();
@@ -80,12 +81,11 @@ const BottomNavBar = () => {
   const handleLogout = async () => {
     try {
       dispatch(setLoading(true));
+      googleLogout();
       const res = await callLogout();
       if (res.vcode === 0) {
         dispatch(logout());
         message.success(res.message);
-      } else {
-        message.error("Logout failed!");
       }
     } catch (error) {
       console.error(error);
@@ -149,11 +149,9 @@ const BottomNavBar = () => {
               scale: isDropdownOpen ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`dropdown-menu ${
-              user ? "top-[-238%]" : "top-[-175%]"
-            } ${isDropdownOpen ? "" : "top-[-500%]"} ${
-              isAdminSectionOpen ? "top-[-424%]" : ""
-            }`}
+            className={`dropdown-menu ${user ? "top-[-238%]" : "top-[-175%]"} ${
+              isDropdownOpen ? "" : "top-[-500%]"
+            } ${isAdminSectionOpen ? "top-[-424%]" : ""}`}
           >
             {isDropdownOpen && (
               <div className="dropdown-content">
