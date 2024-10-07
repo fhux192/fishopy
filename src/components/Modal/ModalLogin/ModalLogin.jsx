@@ -13,6 +13,8 @@ import { Button, Typography, message } from "antd";
 import styles from "./ModalLogin.module.css";
 import { useGoogleLogin } from "@react-oauth/google";
 
+import logo from "../../../assets/google-logo.webp";
+
 const ModalLogin = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [phone, setPhone] = useState("");
@@ -112,7 +114,7 @@ const ModalLogin = () => {
           style={{ width: "100%", marginBottom: "10px" }}
           onClick={() => loginGoogle()}
         >
-          Đăng nhập bằng Google
+          {/* Đăng nhập bằng Google */}
         </Button>
 
         <Button

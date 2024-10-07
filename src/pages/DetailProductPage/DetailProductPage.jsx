@@ -10,7 +10,9 @@ import {
   addToCart,
   updateAccount,
 } from "../../redux/features/user/userSlice.js";
+import "../../scss/detailProduct.scss";
 import { toast } from "react-toastify";
+import background from"../../assets/logo.png"
 
 const ProductDescription = ({ description }) => (
   <div
@@ -99,10 +101,10 @@ const DetailProductPage = () => {
 
   return (
     <>
-      <div className=" flex flex-col items-center lg:px-0 px-4 lg:py-10 py-4">
+      <div className=" flex background flex-col items-center lg:px-0 px-4 lg:py-10 py-4 ">
         {product && (
           <div className="flex w-full justify-center max-w-6xl">
-            <div className="lg:mt-[4.3rem] lg:ml-4 mt-[4rem] bg-white border-2  rounded-3xl w-full max-w-3xl lg:p-0 p-6 lg:py-[2rem]">
+            <div className="pro-container ">
               <div className="flex flex-col w-full justify-center items-center gap-[1rem]">
                 <div className=" lg:w-[90%] w-[100%] h-full rounded-xl  relative pt-[56.25%]">
                   {" "}
@@ -116,11 +118,11 @@ const DetailProductPage = () => {
                 </div>
                 <div className="flex lg:flex-row flex-col pt-4 justify-between w-[100%]">
                   <div className="flex flex-1 w-full justify-start flex-col gap-2">
-                    <h1 className="text-3xl lg:ml-[2rem] font-bold text-primaryGrey">
+                    <h1 className="text-3xl text-Grey2 lg:ml-[2rem] font-bold text-primaryGrey">
                       {product.name}
                     </h1>
                     <div className="flex items-center lg:ml-[2rem]">
-                      <h2 className="text-2xl font-bold text-primaryTeal mr-4">
+                      <h2 className="text-2xl text-white font-bold text-primaryTeal mr-4">
                         {product.discountedPrice}₫
                       </h2>
                       {product.price !== product.discountedPrice && (
@@ -130,7 +132,7 @@ const DetailProductPage = () => {
                       )}
                     </div>
                     <div className="flex  lg:ml-[2rem] items-center gap-2">
-                      <span className="text-lg text-primaryBlack font-semibold">
+                      <span className="text-lg text-white text-primaryBlack font-semibold">
                         Tình trạng:
                       </span>
                       <span className="text-lg text-primaryBlack font-semibold">
@@ -138,7 +140,7 @@ const DetailProductPage = () => {
                       </span>
                     </div>
                     <div className="flex  pb-3 lg:mr-9 mb-4 lg:ml-[2rem] items-center gap-1">
-                      <span className="text-lg text-primaryBlack font-semibold">
+                      <span className="text-lg  text-white font-semibold">
                         Số lượng:
                       </span>
                       <div className="flex items-center">

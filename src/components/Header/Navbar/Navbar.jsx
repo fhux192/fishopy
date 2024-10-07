@@ -222,7 +222,7 @@ const BubbleText = () => {
   return (
     <div
       onClick={handleNavigateHome}
-      className="font-sans text-Teal2 mt-[1px] w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
+      className="font-sans text-white mt-[1px] w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
     >
       {"GuppyHocMon".split("").map((child, idx) => (
         <span className="hoverText" key={idx}>
