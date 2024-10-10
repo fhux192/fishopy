@@ -487,6 +487,16 @@
   mix-blend-mode: lighten;
   opacity: 0;
 }
+
 .product-card:hover .light-effect {
   opacity: 1;
 }
+@media (max-width: 768px) {
+  .light-effect {
+    display: none;
+  }
+}
+
+
+
+

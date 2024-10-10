@@ -15,7 +15,7 @@ import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import tiktok from "../../../assets/icon/tik-tok.png";
-import fish from "../../../assets/logo.png"
+import fish from "../../../assets/logo.png";
 const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.account.user);
@@ -112,10 +112,15 @@ const Navbar = () => {
         className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
       >
         <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
-          <div  className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
+          <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div className="flex rounded-xl nav-blur px-3 items-center">
               {" "}
-             <button onClick={()=>handleNavigation("Trang Chủ")} className="logo">GuppyHocMon</button>
+              <button
+                onClick={() => handleNavigation("Trang Chủ")}
+                className="logo"
+              >
+                GuppyHocMon
+              </button>
             </div>
           </div>
           <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
@@ -136,7 +141,10 @@ const Navbar = () => {
               </div>
             ))}
 
-            <div style={{color:"#f0f6f5"}} className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]">
+            <div
+              style={{ color: "#f0f6f5" }}
+              className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]"
+            >
               {" "}
               <div className="relative" ref={dropdownRef}>
                 <FaUserTag
@@ -192,9 +200,9 @@ const Navbar = () => {
             target="_blank"
           >
             <img
-            src={tiktok}
+              src={tiktok}
               title="TikTok"
-              className="lg:hidden block w-[35px] lg:w-full lg:h-[35px] text-red-600 lg:mr-[15px] md:mr-4 mr-8 duration-500"
+              className="lg:hidden block w-[40px] lg:w-full lg:h-[35px] text-red-600 bg-white rounded-full p-1 lg:mr-[15px] md:mr-4 mr-10 duration-500"
             />
           </a>
           <a
@@ -203,7 +211,7 @@ const Navbar = () => {
           >
             <FaYoutube
               title="Youtube Guppy Hóc Môn"
-              className="lg:hidden block w-[35px] h-[35px] text-Red lg:mr-[15px] mr-2 duration-500"
+              className="lg:hidden block w-[42px] h-[38px] text-Red bg-white rounded-xl p-1 lg:mr-[15px] mr-2 duration-500"
             />
           </a>
         </div>

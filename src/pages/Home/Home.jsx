@@ -16,18 +16,7 @@ const Home = () => {
   };
 
   const handleScroll = () => {
-    let scrollValue;
-    const screenWidth = window.innerWidth;
-
-    if (screenWidth < 768) {
-      scrollValue = 950; // Mobile
-    } else if (screenWidth >= 768 && screenWidth < 1024) {
-      scrollValue = 1000; // Tablet
-    } else if (screenWidth >= 1024 && screenWidth <= 1440) {
-      scrollValue = 1100;
-    } else {
-      scrollValue = 1150; // Desktop
-    }
+    const scrollValue = document.documentElement.scrollHeight - window.innerHeight;
 
     window.scrollBy({
       top: scrollValue,
@@ -109,7 +98,7 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
-      <div className="flex justify-center translate-y-[20rem] rounded-xl bg-primaryTeal m-auto w-[80%] lg:h-[50rem] h-[30rem] shadow-md"></div>
+     
     </div>
   );
 };

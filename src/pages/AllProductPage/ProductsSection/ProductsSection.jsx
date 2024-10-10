@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAccount } from "../../../redux/features/user/userSlice.js";
 import { callAddToCart } from "../../../services/api.js";
@@ -11,7 +11,8 @@ import { toast } from "react-toastify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
-const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const formatPrice = (price) =>
+  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
@@ -20,7 +21,8 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
-  const discountPercentage = ((product.price - product.discountedPrice) / product.price) * 100;
+  const discountPercentage =
+    ((product.price - product.discountedPrice) / product.price) * 100;
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Prevent default <a> action
@@ -78,14 +80,15 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           top: `${lightPosition.y}px`,
         }}
       ></div>
-
-      <Link to={`/fish/${product._id}`} className="image-wrapper">
-        <LazyLoadImage
-          src={product.images[0]}
-          effect="blur"
-          className="rounded-t-3xl w-full h-64 object-cover"
-          alt={`${product.name} image`}
-        />
+      {/* to={`/fish/${product._id}`} */}
+      <Link className="image-wrapper">
+        <Image.PreviewGroup>
+          <Image
+            src={product.images[0]}
+            className="rounded-t-3xl w-full h-64 object-cover"
+            alt={`${product.name} image`}
+          />
+        </Image.PreviewGroup>
         <div className="text-content">
           <h2 className="title">{product.name}</h2>
           <div className="h-full w-full flex items-center ">
@@ -94,11 +97,17 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
                 <span>{formatPrice(product.price)}₫</span>
               ) : (
                 <>
-                  {priceStage === 0 && <span>{formatPrice(product.price)}₫</span>}
-                  {priceStage === 1 && (
-                    <span className="line-through">{formatPrice(product.price)}₫</span>
+                  {priceStage === 0 && (
+                    <span>{formatPrice(product.price)}₫</span>
                   )}
-                  {priceStage === 2 && <span>{formatPrice(product.discountedPrice)}₫</span>}
+                  {priceStage === 1 && (
+                    <span className="line-through">
+                      {formatPrice(product.price)}₫
+                    </span>
+                  )}
+                  {priceStage === 2 && (
+                    <span>{formatPrice(product.discountedPrice)}₫</span>
+                  )}
                 </>
               )}
             </p>
@@ -110,7 +119,9 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         <div className="w-full flex justify-center">
           <button
             onClick={(e) => handleAddToCart(e)}
-            className={`add-to-cart  ${!product.status ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`add-to-cart  ${
+              !product.status ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >
@@ -133,11 +144,6 @@ const shuffleArray = (array) => {
 };
 
 const ProductsSection = ({ currentPageProducts, priceStage }) => {
-  // const shuffledProducts = useMemo(
-  //   () => shuffleArray(currentPageProducts),
-  //   [currentPageProducts]
-  // );
-
   return (
     <div className="lg:bg-transparent pb-4">
       <div className="product-section rounded-xl">

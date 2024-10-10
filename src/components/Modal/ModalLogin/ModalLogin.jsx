@@ -9,7 +9,7 @@ import { useState } from "react";
 import { callGooglelogin, callLogin } from "../../../services/api";
 import { toast } from "react-toastify";
 import { setCredentials } from "../../../redux/features/user/userSlice";
-import { Button, Typography, message } from "antd";
+import { Button, Typography, message, Image } from "antd";
 import styles from "./ModalLogin.module.css";
 import { useGoogleLogin } from "@react-oauth/google";
 
@@ -75,7 +75,7 @@ const ModalLogin = () => {
           Số điện thoại:
           <input
             type="text"
-            className="w-full mt-2 p-2 border-2 outline-none text-primaryBlack rounded-xl mb-[1rem]"
+            className="w-full mt-2 p-2 border-2 outline-none text-primaryBlack rounded-lg mb-[0.5rem]"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -86,7 +86,7 @@ const ModalLogin = () => {
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 outline-none p-2 text-primaryBlack rounded-xl mb-[0.5rem]"
+              className="w-full mt-2 border-2 outline-none p-2 text-primaryBlack rounded-lg mb-[0.5rem]"
               id="passwordLogin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -108,18 +108,19 @@ const ModalLogin = () => {
             )}
           </div>
         </label>
-
-        <Button
-          type="primary"
-          style={{ width: "100%", marginBottom: "10px" }}
-          onClick={() => loginGoogle()}
+        <Typography
+          onClick={() => {
+            message.info(
+              "Quên thì thôi bạn"
+            );
+          }}
+          className="text-teal-700 ml-1 mt-2 cursor-pointer font-semibold"
         >
-          {/* Đăng nhập bằng Google */}
-        </Button>
-
+          Bạn quên mật khẩu?
+        </Typography>
         <Button
           onClick={handlelogin}
-          className="h-10 w-full px-2 text-center font-semibold mt-8 rounded-3xl duration-150"
+          className="h-10 w-full px-2 text-center font-semibold mt-4 rounded-3xl duration-150"
           style={{
             backgroundColor: "black",
             color: "white",
@@ -137,7 +138,7 @@ const ModalLogin = () => {
         </Button>
 
         <div className={styles.smallText}>
-          <span>Bạn chưa có tài khoản? </span>
+          <span className=" cursor-default">Bạn chưa có tài khoản? </span>
           <Typography.Link
             className="pl-1 font-semibold"
             style={{ color: "teal" }}
@@ -148,6 +149,21 @@ const ModalLogin = () => {
           >
             Đăng ký
           </Typography.Link>
+        </div>
+        <div className="flex mt-5 justify-center">
+          <p className="text-Grey cursor-default">Hoặc đăng nhập bằng</p>
+        </div>
+        <div className="flex mt-5 w-full justify-center">
+          <Image
+            src={logo}
+            style={{
+              cursor: "pointer",
+              width: "2rem",
+              marginBottom: "10px",
+            }}
+            preview={false}
+            onClick={() => loginGoogle()}
+          ></Image>
         </div>
       </div>
     </div>

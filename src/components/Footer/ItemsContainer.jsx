@@ -49,13 +49,13 @@ export const ItemsContainer = () => {
               <Row className="gap-1 footer-text">
                 <PhoneOutlined />{" "}
                 <Text className="footer-text" copyable>
-                  SĐT - Zalo: 0388811160
+                  0388811160
                 </Text>
               </Row>
               <Row className=" gap-1 footer-text">
                 <MailOutlined />{" "}
                 <Text copyable className="footer-text">
-                  Email: hoangphuc395@gmail.com
+                  hoangphuc395@gmail.com
                 </Text>
               </Row>
             </Space>

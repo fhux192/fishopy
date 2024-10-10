@@ -134,12 +134,12 @@ const BottomNavBar = () => {
           className={`nav-item font-semibold ${isDropdownOpen ? "active" : ""}`}
           onClick={toggleDropdown}
           animate={{
-            color: isDropdownOpen ? activeColor : inactiveColor,
+            color: user ? activeColor : inactiveColor, // Use active color when user is logged in
           }}
           transition={{ duration: 0.5 }}
         >
           <FaUserTag />
-          {user ? <p>{user.name}</p> : <p>Tài khoản</p>}
+          <p>Tài khoản</p>
           <motion.div
             ref={dropdownRef} // Attach ref to the dropdown menu
             initial={{ opacity: 0, y: 50, scale: 0.5 }}

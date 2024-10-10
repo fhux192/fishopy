@@ -68,7 +68,7 @@ const ModalRegister = () => {
           Họ và tên:
           <input
             type="text"
-            className="w-full mt-2 p-2 outline-none border-2 text-primaryBlack rounded-xl mb-4"
+            className="w-full mt-2 p-2 outline-none border-2 text-primaryBlack rounded-lg mb-4"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -78,7 +78,7 @@ const ModalRegister = () => {
           Số điện thoại:
           <input
             type="text"
-            className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-xl mb-4"
+            className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -89,7 +89,7 @@ const ModalRegister = () => {
           <div className="relative">
             <input
               type={isShowPassword.showPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-xl mb-4"
+              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
               id="passwordRegister"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -127,7 +127,7 @@ const ModalRegister = () => {
           <div className="relative">
             <input
               type={isShowPassword.showConfirmPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-xl mb-2"
+              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-2"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
