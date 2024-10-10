@@ -25,7 +25,10 @@ const shuffleArray = (array) => {
     currentIndex--;
 
     // Swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
 
   return array;
@@ -82,7 +85,8 @@ const smoothScrollToTop = () => {
 };
 
 const AllProductPage = () => {
-  const [selectedPurchaseOption, setSelectedPurchaseOption] = useState("single");
+  const [selectedPurchaseOption, setSelectedPurchaseOption] =
+    useState("single");
   const handlePurchaseOptionClick = (option) => {
     setSelectedPurchaseOption(option);
   };
@@ -173,7 +177,9 @@ const AllProductPage = () => {
           Dành cho bạn
         </p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="text-Grey2 cursor-default text-[1.25rem]">Bạn muốn mua như thế nào?</p>
+          <p className="text-Grey2 cursor-default text-[1.25rem]">
+            Bạn muốn mua như thế nào?
+          </p>
           <div className="flex">
             <button
               onClick={() => handlePurchaseOptionClick("single")}
@@ -205,7 +211,10 @@ const AllProductPage = () => {
         </div>
       </div>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection currentPageProducts={allProducts} priceStage={priceStage} />
+      <ProductsSection
+        currentPageProducts={allProducts}
+        priceStage={priceStage}
+      />
       <Pagination
         current={currentPage}
         pageSize={pageSize}
@@ -215,7 +224,8 @@ const AllProductPage = () => {
         style={{
           marginTop: "0.5rem",
           paddingBottom: "1.25rem",
-          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
         }}
       />
     </motion.div>

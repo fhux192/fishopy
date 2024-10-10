@@ -6,12 +6,18 @@ import { callCalcFee, callOrder } from "../../services/api";
 import { useEffect, useState } from "react";
 import { updateAccount } from "../../redux/features/user/userSlice";
 import qs from "qs";
-import { useNavigate } from "react-router-dom";
 
-const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, shippingfee }) => {
+const CheckoutPayment = ({
+  addressDelivery,
+  setCurrentStep,
+  setShippingFee,
+  shippingfee,
+}) => {
   const { user } = useSelector((state) => state.account);
 
-  const [paymentMethod, setPaymentMethod] = useState("Thanh toán khi nhận hàng");
+  const [paymentMethod, setPaymentMethod] = useState(
+    "Thanh toán khi nhận hàng"
+  );
   const dispatch = useDispatch();
   const onOrder = async () => {
     try {
@@ -28,7 +34,9 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
         paymentMethod,
         itemsPrice: user.cart.reduce(
           (acc, cur) =>
-            cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
+            cur.checked
+              ? (acc += cur.product.discountedPrice * cur.quantity)
+              : (acc += 0),
           0
         ),
         shippingPrice: shippingfee,
@@ -37,11 +45,14 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
       const res = await callOrder(values);
       if (res.vcode == 0) {
         if (paymentMethod === "Thanh toán khi nhận hàng") {
-          dispatch(updateAccount({ cart: user.cart.filter((item) => !item.checked) }));
+          dispatch(
+            updateAccount({ cart: user.cart.filter((item) => !item.checked) })
+          );
           setCurrentStep((pre) => (pre += 1));
           message.success(res.message);
         } else if (paymentMethod === "Chuyển khoản") {
-          window.open(res.data, "_blank");
+          message.info(res.data);
+          window.location.href = res.data;
         }
       } else message.error(res.message);
     } catch (error) {
@@ -94,7 +105,10 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
               defaultValue={"Thanh toán khi nhận hàng"}
               value={paymentMethod}
               options={[
-                { value: "Thanh toán khi nhận hàng", label: "Thanh toán khi nhận hàng" },
+                {
+                  value: "Thanh toán khi nhận hàng",
+                  label: "Thanh toán khi nhận hàng",
+                },
                 { value: "Chuyển khoản", label: "Chuyển khoản" },
               ]}
               onChange={(value) => setPaymentMethod(value)}
@@ -106,7 +120,9 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
               {formatPrice(
                 user.cart.reduce(
                   (acc, cur) =>
-                    cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
+                    cur.checked
+                      ? (acc += cur.product.discountedPrice * cur.quantity)
+                      : (acc += 0),
                   0
                 )
               )}
@@ -123,7 +139,9 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
               {formatPrice(
                 user.cart.reduce(
                   (acc, cur) =>
-                    cur.checked ? (acc += cur.product.discountedPrice * cur.quantity) : (acc += 0),
+                    cur.checked
+                      ? (acc += cur.product.discountedPrice * cur.quantity)
+                      : (acc += 0),
                   0
                 ) + shippingfee
               )}
@@ -145,7 +163,11 @@ const CheckoutPayment = ({ addressDelivery, setCurrentStep, setShippingFee, ship
         <div className={styles.groupSum}>
           <Button
             type="primary"
-            disabled={!user?.cart?.some((item) => item.checked) || !shippingfee || !addressDelivery}
+            disabled={
+              !user?.cart?.some((item) => item.checked) ||
+              !shippingfee ||
+              !addressDelivery
+            }
             className="bg-Teal rounded-full font-semibold"
             onClick={onOrder}
           >
