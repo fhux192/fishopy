@@ -115,6 +115,7 @@ const AdminPage = () => {
             items={items}
             style={{ marginTop: "1rem" }}
             defaultSelectedKeys={[location.pathname]}
+            openKeys={["sub1", "sub2", "sub3"]}
           />
         </Sider>
       )}

@@ -1,3 +1,11 @@
 .cardStep {
   margin-bottom: 20px;
+  background-color: #0000004d;
+}
+
+.container {
+  max-width: 1366px;
+  width: 100%;
+  margin: 0 auto;  
+  padding: 2rem 0;
 }

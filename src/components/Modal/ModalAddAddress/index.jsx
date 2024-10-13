@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
-import { updateAccount } from "../../../redux/features/user/userSlice";
+import { setAddress, updateAccount } from "../../../redux/features/user/userSlice";
 import { toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
 import { callAddAddress } from "../../../services/api";
 
 const ModalAddAddress = () => {
   const { modalAddAddress } = useSelector((state) => state.toggle);
+  const { user, cart } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const [form] = useForm();
   const [provinces, setProvinces] = useState([]);
@@ -66,6 +67,7 @@ const ModalAddAddress = () => {
   };
 
   const onFinish = async (values) => {
+   if (user) {
     try {
       const data = {
         city: provinces.find((item) => item.value === values.province).label,
@@ -85,6 +87,21 @@ const ModalAddAddress = () => {
     } catch (error) {
       console.error("error", error.message);
     }
+   } else {
+    const data = {
+      city: provinces.find((item) => item.value === values.province).label,
+      district: districts.find((item) => item.value === values.district).label,
+      ward: wards.find((item) => item.value === values.ward).label,
+      name: values.name,
+      phone: values.phone,
+      address: values.address,
+    };
+    
+    localStorage.setItem("address", JSON.stringify(data));
+    dispatch(setAddress(data));
+    dispatch(toggleModalAddAddress());
+    message.success("Thêm địa chỉ thành công");
+   }
   };
 
   return (

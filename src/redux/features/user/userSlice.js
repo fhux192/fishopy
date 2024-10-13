@@ -5,6 +5,9 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   isLoading: true,
+  cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+  address: localStorage.getItem("address") ? JSON.parse(localStorage.getItem("address")) : {},
+  search: ''
 };
 
 export const userSlice = createSlice({
@@ -64,6 +67,39 @@ export const userSlice = createSlice({
         findProduct.checked = !findProduct.checked;
       }
     },
+    updateCartLocal: (state, action) => {
+      state.cart = action.payload;
+    },
+    chooseProductLocal: (state, action) => {
+      
+      const findProduct = state.cart.find((item) => item._id === action.payload._id);
+      console.log('findProduct', findProduct);
+      console.log('state.cart', state.cart);
+
+      if (findProduct) {
+        findProduct.checked = !findProduct.checked;
+      }
+    },
+    checkAllProductLocal: (state) => {
+      if (!state.cart.every((item) => item.checked)) {
+        state.cart = state.cart.map((item) => {
+          item.checked = true;
+          return item;
+        });
+      } else {
+        state.cart = state.cart.map((item) => {
+          item.checked = false;
+          return item;
+        });
+    }
+    },
+    setAddress: (state, action) => {
+      state.address = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    }
+    
   },
 });
 
@@ -75,6 +111,11 @@ export const {
   updateAccount,
   checkAllProduct,
   chooseProduct,
+  updateCartLocal,
+  chooseProductLocal,
+  checkAllProductLocal,
+  setAddress,
+  setSearch
 } = userSlice.actions;
 
 export default userSlice.reducer;

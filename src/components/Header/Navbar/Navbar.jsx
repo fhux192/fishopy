@@ -8,22 +8,26 @@ import { useEffect, useState, useRef } from "react";
 import "../../../scss/bubble.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
-import { message } from "antd";
+import { Input, message } from "antd";
 import { logout } from "../../../redux/features/user/userSlice";
 import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import tiktok from "../../../assets/icon/tik-tok.png";
-import fish from "../../../assets/logo.png";
+import { setSearch } from "../../../redux/features/user/userSlice";
+
 const Navbar = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.account.user);
+  const {user, search} = useSelector((state) => state.account);
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
+
+  console.log(search);
+  
 
   const items = [
     {
@@ -111,10 +115,10 @@ const Navbar = () => {
       <div
         className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
       >
+        
         <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
           <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div className="flex rounded-xl nav-blur px-3 items-center">
-              {" "}
               <button
                 onClick={() => handleNavigation("Trang Chủ")}
                 className="logo"
@@ -123,6 +127,11 @@ const Navbar = () => {
               </button>
             </div>
           </div>
+
+          <Input placeholder="Nhập tên cá..." onPressEnter={(e) => {
+            dispatch(setSearch(e.target.value));
+          }}/>
+
           <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
             {items.map((item) => (
               <div
@@ -184,15 +193,16 @@ const Navbar = () => {
                 }`}
               >
                 <div className="">
-                  {" "}
                   {user
                     ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-                    : 0}
+                    : JSON.parse(localStorage.getItem("cart"))?.length}
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        
 
         <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
           <a

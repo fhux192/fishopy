@@ -6,46 +6,55 @@ import formatPrice from "../../utils/formatPrice";
 import { useEffect, useState } from "react";
 import { toggleModalAddAddress } from "../../redux/features/toggle/toggleSlice";
 import CartItemChoose from "../CartItemChoose/CartItemChoose";
+import ModalAddAddress from "../Modal/ModalAddAddress";
 
 const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
-  let { user } = useSelector((state) => state.account);
+  let { user , cart, address} = useSelector((state) => state.account);
   const [modalChooseAddress, setModalChooseAddress] = useState(false);
-  let cartChoosed = user.cart.filter((item) => item.checked);
+  let cartChoosed = user ?  user.cart.filter((item) => item.checked) : cart.filter((item) => item.checked)
   const dispatch = useDispatch();
 
+  console.log('addressDelivery', addressDelivery);
+  
+
+
   useEffect(() => {
-    setAddressDelivery(user.addresses.find((item) => item.active));
-  }, [user.addresses]);
+    if(user) {
+      setAddressDelivery(user?.addresses.find((item) => item.active));
+    } else {
+      setAddressDelivery(address);
+    }
+  }, [ user ? user?.addresses : address]);
 
   return (
     <>
-      <Card style={{ marginBottom: "10px" }}>
-        {addressDelivery ? (
+      <Card style={{ marginBottom: "10px", backgroundColor: '#0000004d' }}>
+        {(addressDelivery) ? (
           <Flex justify="space-between" align="center">
             <div>
-              <Typography.Title level={4}>Địa chỉ nhận hàng</Typography.Title>
+              <Typography.Title level={4} style={{color: 'white'}}>Địa chỉ nhận hàng</Typography.Title>
               <Row>
-                <Col>
+                <Col style={{color: 'white'}}>
                   <strong>{addressDelivery.name}</strong>
                   <Divider type="vertical" />
                   {addressDelivery.phone}
                 </Col>
                 <Divider type="vertical" />
-                <Col>
+                <Col style={{color: 'white'}}>
                   {addressDelivery.address}, {addressDelivery.ward}, {addressDelivery.district},{" "}
                   {addressDelivery.city}
                   {addressDelivery.active && <strong> (Mặc định)</strong>}
                 </Col>
               </Row>
             </div>
-            <Button onClick={() => setModalChooseAddress((pre) => (pre = !pre))}>Thay đổi</Button>
+            <Button style={{color: 'white'}} onClick={() => setModalChooseAddress((pre) => (pre = !pre))}>Thay đổi</Button>
           </Flex>
         ) : (
           <Flex justify="space-between" align="center">
             <Typography.Title level={5} style={{ color: "red" }}>
               Chưa có địa chỉ nhận hàng
             </Typography.Title>
-            <Button onClick={() => dispatch(toggleModalAddAddress())}>Thêm nhanh</Button>
+            <Button style={{color: 'white'}} onClick={() => dispatch(toggleModalAddAddress())}>Thêm nhanh</Button>
           </Flex>
         )}
       </Card>
@@ -61,7 +70,7 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
         footer={null}
         onCancel={() => setModalChooseAddress(false)}
       >
-        {user.addresses.map((item) => {
+        {user?.addresses.map((item) => {
           return (
             <Card
               key={item._id}
@@ -95,6 +104,9 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
           );
         })}
       </Modal>
+
+      <ModalAddAddress />
+
     </>
   );
 };

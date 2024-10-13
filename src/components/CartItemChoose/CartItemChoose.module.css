@@ -30,6 +30,7 @@
   width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: white;
   white-space: nowrap;
 }
 .title2 {

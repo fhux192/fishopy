@@ -57,7 +57,6 @@ const User = () => {
       <CartDrawer />
       <ToastContainer />
       <MessageBox />
-      <ModalAddAddress />
     </>
   );
 };
@@ -65,6 +64,9 @@ const User = () => {
 function App() {
   const { isLoading } = useSelector((state) => state.account);
   const dispatch = useDispatch();
+  if(!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify([]));
+  }
 
   const handleFetchAccount = async () => {
     try {
@@ -155,9 +157,7 @@ function App() {
         {
           path: "order",
           element: (
-            <ProtectedRoute>
               <OrderPage />
-            </ProtectedRoute>
           ),
         },
         {

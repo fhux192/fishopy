@@ -3,10 +3,13 @@ import styles from "./Cart.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import formatPrice from "../../utils/formatPrice";
 import { callRemoveCartItem, callUpdateCartItem } from "../../services/api";
-import { useDispatch } from "react-redux";
-import { chooseProduct, updateAccount } from "../../redux/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { chooseProduct, chooseProductLocal, updateAccount } from "../../redux/features/user/userSlice";
 
 const Cart = ({ cart }) => {
+  console.log('cart', cart);
+  
+  const {isAuthenticated} = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const onChange = async (e, item) => {
     try {
@@ -28,16 +31,21 @@ const Cart = ({ cart }) => {
   };
 
   const handleChooseProduct = (item) => {
-    dispatch(chooseProduct({ _id: item._id }));
+    dispatch(isAuthenticated ? chooseProduct({ _id: item._id }) : chooseProductLocal({ _id: item.product._id }));
   };
 
-  const onDeleteItem = async (id) => {
+  const onDeleteItem = async (item) => {
     try {
-      const res = await callRemoveCartItem(id);
 
+      console.log('check item', item._id);
+      
+      
+      const res = await callRemoveCartItem(item._id);
+      console.log(res);
+      
       if (res.vcode == 0) {
         message.success(res.message);
-        const newCart = cart.filter((item) => item._id !== id);
+        const newCart = cart.filter((prod) => prod._id !== item._id);
         dispatch(updateAccount({ cart: newCart }));
       }
     } catch (error) {
@@ -50,7 +58,7 @@ const Cart = ({ cart }) => {
       {cart &&
         cart.map((item) => {
           return (
-            <Card key={item._id} span={24} style={{ marginBottom: "10px" }}>
+            <Card key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor: '#0000004d' }}>
               <div className={styles.cardContainer}>
                 <div className={styles.groupImage}>
                   <Checkbox
@@ -90,13 +98,13 @@ const Cart = ({ cart }) => {
                   />
                 </div>
                 <Typography.Text
-                  style={{ fontWeight: "bold", fontSize: "16px" }}
+                  style={{ fontWeight: "bold", fontSize: "16px", color: 'white' }}
                   className={styles.sumProduct}
                 >
                   Tổng : {formatPrice((item.quantity * item.product.discountedPrice).toString())}đ
                 </Typography.Text>
 
-                <DeleteOutlined onClick={onDeleteItem} className={styles.deleteIcon} />
+                <DeleteOutlined onClick={() => onDeleteItem(item)} className={styles.deleteIcon} style={{color: 'red'}} />
               </div>
             </Card>
           );

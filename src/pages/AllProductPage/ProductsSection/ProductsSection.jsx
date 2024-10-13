@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAccount } from "../../../redux/features/user/userSlice.js";
+import { updateAccount, updateCartLocal } from "../../../redux/features/user/userSlice.js";
 import { callAddToCart } from "../../../services/api.js";
 import { toast } from "react-toastify";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -17,7 +17,7 @@ const formatPrice = (price) =>
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.account.user); // Corrected selector
+  const {user, cart} = useSelector((state) => state.account); // Corrected selector
 
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
@@ -43,9 +43,16 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         toast.error("Error adding to cart");
         console.error(error);
       }
-    } else {
-      toast.info("Vui lòng đăng nhập để thêm vào giỏ hàng"); // "Please log in to add to cart"
-      navigate("/login");
+    } else { 
+      toast.success('Thêm vào giỏ hàng thành công!');
+      let cart = JSON.parse(localStorage.getItem('cart')) || []
+      const productExist = cart.find((item) => item.product._id === product._id);
+      if (productExist) {
+        productExist.quantity += 1;
+      } else
+        cart = [...cart, { product: { ...product}, quantity: 1, _id: product._id }];
+      dispatch(updateCartLocal(cart));
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
   };
 

@@ -48,6 +48,10 @@ export const callFetchProduct = async (current, pageSize, data) => {
     url += `sort=${data.sort}`;
   }
 
+  if(data?.name) {
+    url += `&name=${data.name}`;
+  }
+
   return await axios.get("products?" + url);
 };
 
@@ -179,3 +183,4 @@ export const callFetchDataDashboard = async () => {
 export const callGooglelogin = async (tokenId) => {
   return await axios.post("/auth/google_login", { tokenId });
 };
+

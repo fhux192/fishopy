@@ -142,7 +142,10 @@ const DetailDescProduct = ({ onDetailDescChange }) => {
   };
   return (
     <div className="main-container">
-      <div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
+      <div
+        className="editor-container editor-container_classic-editor"
+        ref={editorContainerRef}
+      >
         <div className="editor-container__editor">
           <div ref={editorRef}>
             {isLayoutReady && (

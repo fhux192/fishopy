@@ -13,14 +13,14 @@ import ProductChooses from "../../components/ProductChooses/ProductChooses.jsx";
 
 const OrderPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const { user } = useSelector((state) => state.account);
+  const { user, cart } = useSelector((state) => state.account);
   const [addressDelivery, setAddressDelivery] = useState(null);
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);
 
   return (
-    <>
-      {user && (
+    <div className={styles.container}>
+      { (
         <>
           <Card className={`${styles.cardStep} mt-[6rem] lg:mt-[8rem]`}>
             <Steps
@@ -29,16 +29,16 @@ const OrderPage = () => {
               items={[
                 {
                   title: (
-                    <p style={{ cursor: "pointer" }} onClick={() => setCurrentStep(0)}>
+                    <p style={{ cursor: "pointer", color: 'white' }} onClick={() => setCurrentStep(0)}>
                       Giỏ hàng
                     </p>
                   ),
-                  icon: <ShoppingCartOutlined />,
+                  icon: <ShoppingCartOutlined style={{color: 'white'}} />,
                 },
                 {
                   title: (
                     <p
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: "pointer", color: 'white' }}
                       onClick={() => {
                         if (user?.cart?.some((item) => item.checked)) {
                           setCurrentStep(1);
@@ -48,11 +48,11 @@ const OrderPage = () => {
                       Đặt hàng
                     </p>
                   ),
-                  icon: <SolutionOutlined />,
+                  icon: <SolutionOutlined  style={{color: 'white'}}/>,
                 },
                 {
-                  title: <p style={{ cursor: "pointer" }}>Thành công</p>,
-                  icon: <SmileOutlined />,
+                  title: <p style={{ cursor: "pointer", color: 'white' }}>Thành công</p>,
+                  icon: <SmileOutlined style={{color: 'white'}} />,
                 },
               ]}
             />
@@ -72,14 +72,14 @@ const OrderPage = () => {
             )}
             <Row>
               <Col span={24}>
-                {currentStep == 0 && <Cart cart={user?.cart} />}
+                {currentStep == 0 && <Cart cart={user?.cart || cart} />}
                 {currentStep == 1 && (
                   <ProductChooses
                     addressDelivery={addressDelivery}
                     setAddressDelivery={setAddressDelivery}
                   />
                 )}
-                {user.cart.length == 0 && currentStep != 2 && (
+                {(user?.cart.length == 0 || cart.length == 0) && currentStep != 2 && (
                   <Result
                     icon={<SmileOutlined />}
                     title="Không có sản phẩm nào trong giỏ hàng"
@@ -105,7 +105,7 @@ const OrderPage = () => {
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 export default OrderPage;

@@ -4,7 +4,7 @@ import formatPrice from "../../utils/formatPrice";
 import styles from "./CheckoutPayment.module.css";
 import { callCalcFee, callOrder } from "../../services/api";
 import { useEffect, useState } from "react";
-import { updateAccount } from "../../redux/features/user/userSlice";
+import { updateAccount, updateCartLocal } from "../../redux/features/user/userSlice";
 import qs from "qs";
 
 const CheckoutPayment = ({
@@ -13,7 +13,7 @@ const CheckoutPayment = ({
   setShippingFee,
   shippingfee,
 }) => {
-  const { user } = useSelector((state) => state.account);
+  const { user, cart } = useSelector((state) => state.account);
 
   const [paymentMethod, setPaymentMethod] = useState(
     "Thanh toán khi nhận hàng"
@@ -32,7 +32,13 @@ const CheckoutPayment = ({
           ward: addressDelivery?.ward,
         },
         paymentMethod,
-        itemsPrice: user.cart.reduce(
+        itemsPrice: user? user.cart.reduce(
+          (acc, cur) =>
+            cur.checked
+              ? (acc += cur.product.discountedPrice * cur.quantity)
+              : (acc += 0),
+          0
+        ) :  cart.reduce(
           (acc, cur) =>
             cur.checked
               ? (acc += cur.product.discountedPrice * cur.quantity)
@@ -46,7 +52,7 @@ const CheckoutPayment = ({
       if (res.vcode == 0) {
         if (paymentMethod === "Thanh toán khi nhận hàng") {
           dispatch(
-            updateAccount({ cart: user.cart.filter((item) => !item.checked) })
+           user ? updateAccount(user.cart.filter((item) => !item.checked)) :  updateCartLocal(cart.filter((item) => !item.checked))
           );
           setCurrentStep((pre) => (pre += 1));
           message.success(res.message);
@@ -100,8 +106,9 @@ const CheckoutPayment = ({
       <div className={styles.checkOutOrderCard}>
         <Flex vertical gap={10}>
           <Flex justify="space-between" vertical gap={5}>
-            <p>Phương thức thanh toán:</p>
+            <p style={{color: 'white'}}>Phương thức thanh toán:</p>
             <Select
+            style={{color: 'white'}}
               defaultValue={"Thanh toán khi nhận hàng"}
               value={paymentMethod}
               options={[
@@ -115,10 +122,16 @@ const CheckoutPayment = ({
             ></Select>
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <p>Tổng tiền hàng: </p>
-            <p>
+            <p style={{color: 'white'}}>Tổng tiền hàng: </p>
+            <p style={{color: 'white'}}>
               {formatPrice(
-                user.cart.reduce(
+                user ? user.cart.reduce(
+                  (acc, cur) =>
+                    cur.checked
+                      ? (acc += cur.product.discountedPrice * cur.quantity)
+                      : (acc += 0),
+                  0
+                ) : cart.reduce(
                   (acc, cur) =>
                     cur.checked
                       ? (acc += cur.product.discountedPrice * cur.quantity)
@@ -130,14 +143,20 @@ const CheckoutPayment = ({
             </p>
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <p>Phí vận chuyển: </p>
-            <p>{formatPrice(shippingfee)}đ</p>
+            <p style={{color: 'white'}}>Phí vận chuyển: </p>
+            <p style={{color: 'white'}}>{formatPrice(shippingfee)}đ</p>
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <strong>Tổng thanh toán: </strong>
-            <p>
+            <strong style={{color: 'white'}}>Tổng thanh toán: </strong>
+            <p style={{color: 'white'}}>
               {formatPrice(
-                user.cart.reduce(
+               user ? user.cart.reduce(
+                  (acc, cur) =>
+                    cur.checked
+                      ? (acc += cur.product.discountedPrice * cur.quantity)
+                      : (acc += 0),
+                  0
+                ) + shippingfee :  cart.reduce(
                   (acc, cur) =>
                     cur.checked
                       ? (acc += cur.product.discountedPrice * cur.quantity)
@@ -148,7 +167,8 @@ const CheckoutPayment = ({
               đ
             </p>
           </Flex>
-          {user.cart
+          <span style={{color: 'white'}}>
+          {user ? user.cart
             .filter((item) => item.checked)
             .reduce((acc, cur) => (acc += cur.quantity), 0) != 0 && (
             <small>
@@ -158,13 +178,23 @@ const CheckoutPayment = ({
                 .reduce((acc, cur) => (acc += cur.quantity), 0)}{" "}
               sản phẩm)
             </small>
-          )}
+          ) : cart
+          .filter((item) => item.checked)
+          .reduce((acc, cur) => (acc += cur.quantity), 0) != 0 && (
+          <small>
+            (
+            {cart
+              .filter((item) => item.checked)
+              .reduce((acc, cur) => (acc += cur.quantity), 0)}{" "}
+            sản phẩm)
+          </small>
+        )}
+          </span>
         </Flex>
         <div className={styles.groupSum}>
           <Button
             type="primary"
             disabled={
-              !user?.cart?.some((item) => item.checked) ||
               !shippingfee ||
               !addressDelivery
             }

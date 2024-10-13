@@ -5,6 +5,7 @@ import { callRemoveAddress } from "../../../services/api";
 import { toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
 import { updateAccount } from "../../../redux/features/user/userSlice";
 import MyButton from "../../MyButton/MyButton";
+import ModalAddAddress from "../../Modal/ModalAddAddress";
 
 const AccountAddress = () => {
   const { user: user } = useSelector((state) => state.account);
@@ -69,6 +70,9 @@ const AccountAddress = () => {
           </Card>
         );
       })}
+
+      <ModalAddAddress />
+
     </div>
   );
 };

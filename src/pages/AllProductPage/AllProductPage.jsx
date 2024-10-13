@@ -12,6 +12,7 @@ import "../../scss/navbar.scss";
 import "../../scss/allProduct.scss";
 import useColumns from "./utils/useColumns"; // Import custom hook
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 // Shuffle function using the Fisher-Yates algorithm
 const shuffleArray = (array) => {
@@ -91,6 +92,8 @@ const AllProductPage = () => {
     setSelectedPurchaseOption(option);
   };
 
+  const {search} = useSelector((state) => state.account);
+
   const columns = useColumns();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(columns * 3);
@@ -98,19 +101,27 @@ const AllProductPage = () => {
   const [priceStage, setPriceStage] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
-  console.log("allProducts", allProducts);
+
+  
 
   useEffect(() => {
+    console.log('search', search);
+
     const fetchProducts = async () => {
       try {
-        const res = await callFetchProduct(currentPage, pageSize, {
+        let current = currentPage;
+        if(search != '') {
+          current = 1;
+          setCurrentPage(1);
+        }
+        
+        const res = await callFetchProduct(current, pageSize, {
           sort: sortOption,
+          name: search
         });
+        
         if (res.vcode === 0) {
           let products = res.data.result;
-          // products = shuffleArray(products);
-
-          console.log("products", products);
           setAllProducts(products);
           setTotalProducts(res.data.meta.total);
         }
@@ -121,7 +132,7 @@ const AllProductPage = () => {
 
     fetchProducts();
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, [sortOption, currentPage, pageSize]);
+  }, [sortOption, currentPage, pageSize, search]);
 
   useEffect(() => {
     const cyclePrices = () => {
