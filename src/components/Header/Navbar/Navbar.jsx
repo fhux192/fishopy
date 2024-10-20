@@ -6,7 +6,7 @@ import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef, useCallback } from "react";
 import "../../../scss/bubble.scss";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
@@ -14,12 +14,12 @@ import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js"
 import tiktok from "../../../assets/icon/tik-tok.png";
 import { setSearch } from "../../../redux/features/user/userSlice";
 import Search from "antd/es/transfer/search.js";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 import { Input } from "antd";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const {user, search} = useSelector((state) => state.account);
+  const { user, search } = useSelector((state) => state.account);
   const navigate = useNavigate();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
@@ -58,7 +58,6 @@ const Navbar = () => {
       navigate("/order-history");
     }
   };
-
 
   const handleUserTagClick = () => {
     setIsDropdownVisible(!isDropdownVisible);
@@ -106,10 +105,9 @@ const Navbar = () => {
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
       <div
-        className={`wrapper  lg:shadow-none lg:px-[20px]  lg:mt-[1.5rem] lg:mx-[0] `}
+        className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0] `}
       >
-        
-        <div className="lg:flex w-full lg:w-full ml-2 lg:ml-0 ">
+        <div className="lg:flex w-full ml-2 lg:ml-0 ">
           <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
             <div className="flex rounded-xl nav-blur px-3 items-center">
               <button
@@ -121,21 +119,25 @@ const Navbar = () => {
             </div>
           </div>
 
-
-          <Input 
-            placeholder="Nhập tên cá..." 
-            loading 
-            enterButton 
-            onChange={(e) => {
-              debouncedSearch(e.target.value)
-            }} 
-            onPressEnter={(e) => {
-              if(e.key === 'Enter') {
-                navigate("/product");
-              }
-            }}
-          />
-
+          <div className="flex justify-start lg:justify-end w-full">
+            {" "}
+            <div className="flex h-full max-w-[12.8rem] nav-blur rounded-xl items-center mr-4 ">
+              <Input
+                placeholder="Nhập tên cá..."
+                loading
+                enterButton
+                onChange={(e) => {
+                  debouncedSearch(e.target.value);
+                }}
+                className="lg:rounded-lg focus:bg-Teal3 hover:bg-Teal3 lg:bg-transparent font-bold h-[75%] m-2 border-none"
+                onPressEnter={(e) => {
+                  if (e.key === "Enter") {
+                    navigate("/product");
+                  }
+                }}
+              />
+            </div>
+          </div>
           <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
             {items.map((item) => (
               <div
@@ -199,14 +201,15 @@ const Navbar = () => {
                 <div className="">
                   {user
                     ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-                    : JSON.parse(localStorage.getItem("cart"))?.reduce((acc, cur) => acc + cur.quantity, 0)}
+                    : JSON.parse(localStorage.getItem("cart"))?.reduce(
+                        (acc, cur) => acc + cur.quantity,
+                        0
+                      )}
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        
 
         <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
           <a

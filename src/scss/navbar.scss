@@ -81,8 +81,7 @@
   /* Responsive Styles */
   @media (max-width: 480px) {
     .wrapper {
-      height: 52px;
-
+      height: 70px;
       .icon,
       .icon-navigate {
         width: 30px;
@@ -111,6 +110,7 @@
       background-color: rgba(30, 30, 30, 0.5);
       border-radius: 15px;
       width: 90%;
+      height: 80px;
 
       .social {
         align-items: normal;
