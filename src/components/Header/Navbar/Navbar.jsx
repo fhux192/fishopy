@@ -121,9 +121,9 @@ const Navbar = () => {
 
           <div className="flex justify-start lg:justify-end w-full">
             {" "}
-            <div className="flex h-full max-w-[12.8rem] nav-blur rounded-xl items-center mr-4 ">
+            <div className="flex h-full max-w-[12.92rem] nav-blur rounded-xl items-center mr-4 ">
               <Input
-                placeholder="Nhập tên cá..."
+                placeholder="Tìm bằng tên cá..."
                 loading
                 enterButton
                 onChange={(e) => {
