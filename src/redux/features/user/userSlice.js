@@ -6,7 +6,7 @@ const initialState = {
   user: null,
   isLoading: true,
   cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
-  address: localStorage.getItem("address") ? JSON.parse(localStorage.getItem("address")) : {},
+  address: localStorage.getItem("address") ? JSON.parse(localStorage.getItem("address")) : null,
   search: ''
 };
 
@@ -69,13 +69,10 @@ export const userSlice = createSlice({
     },
     updateCartLocal: (state, action) => {
       state.cart = action.payload;
+      localStorage.setItem("cart", JSON.stringify(action.payload));
     },
     chooseProductLocal: (state, action) => {
-      
       const findProduct = state.cart.find((item) => item._id === action.payload._id);
-      console.log('findProduct', findProduct);
-      console.log('state.cart', state.cart);
-
       if (findProduct) {
         findProduct.checked = !findProduct.checked;
       }
@@ -91,10 +88,11 @@ export const userSlice = createSlice({
           item.checked = false;
           return item;
         });
-    }
+      }
     },
     setAddress: (state, action) => {
       state.address = action.payload;
+      localStorage.setItem("address", JSON.stringify(action.payload));
     },
     setSearch: (state, action) => {
       state.search = action.payload;

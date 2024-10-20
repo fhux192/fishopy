@@ -31,7 +31,7 @@ const AccountProfile = () => {
       values.avatar = user.avatar;
       const res = await callUpdateAccount(user._id, values);
       if (res.vcode == 0) {
-        dispatch(setCredentials(res.data));
+        dispatch(setCredentials({...user, ...res.data}));
         message.success(res.message);
       } else message.error(res.message);
     } catch (error) {
@@ -68,7 +68,6 @@ const AccountProfile = () => {
     </button>
   );
 
-  useEffect(() => {}, []);
   return (
     <Card style={{ width: "100%" }}>
       <h1>Hồ sơ của tôi</h1>

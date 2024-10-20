@@ -1,6 +1,6 @@
-import { Card, Flex } from "antd";
+import { Card } from "antd";
 import { useEffect, useState } from "react";
-import { callFetchDataDashboard } from "../../../services/api";
+import {  callGetDataDashboardAdmin } from "../../../services/api";
 import { FileDoneOutlined, ProductOutlined, UserOutlined } from "@ant-design/icons";
 import CountUp from "react-countup";
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await callFetchDataDashboard();
+        const res = await callGetDataDashboardAdmin();
         if (res.vcode == 0) {
           setData(res.data);
         }

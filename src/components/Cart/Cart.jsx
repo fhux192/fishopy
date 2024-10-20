@@ -1,32 +1,40 @@
-import { Card, Checkbox, Image, InputNumber, message, Popconfirm, Typography } from "antd";
+import { Button, Card, Checkbox, Image, InputNumber, message, Popconfirm, Typography } from "antd";
 import styles from "./Cart.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import formatPrice from "../../utils/formatPrice";
 import { callRemoveCartItem, callUpdateCartItem } from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { chooseProduct, chooseProductLocal, updateAccount } from "../../redux/features/user/userSlice";
+import { chooseProduct, chooseProductLocal, updateAccount, updateCartLocal } from "../../redux/features/user/userSlice";
 
 const Cart = ({ cart }) => {
-  console.log('cart', cart);
-  
-  const {isAuthenticated} = useSelector((state) => state.account);
+  const {isAuthenticated, cart:cartLocal} = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const onChange = async (e, item) => {
-    try {
-      const res = await callUpdateCartItem(item._id, {
-        quantity: Number(e.target.value),
-      });
-      if (res.vcode == 0) {
-        const newCart = cart.map((cartItem) => {
-          if (cartItem._id === item._id) {
-            return { ...cartItem, quantity: Number(e.target.value) };
-          }
-          return cartItem;
+    if(isAuthenticated) {
+      try {
+        const res = await callUpdateCartItem(item._id, {
+          quantity: Number(e.target.value),
         });
-        dispatch(updateAccount({ cart: newCart }));
+        if (res.vcode == 0) {
+          const newCart = cart.map((cartItem) => {
+            if (cartItem._id === item._id) {
+              return { ...cartItem, quantity: Number(e.target.value) };
+            }
+            return cartItem;
+          });
+          dispatch(updateAccount({ cart: newCart }));
+        }
+      } catch (error) {
+        console.error(error.message);
       }
-    } catch (error) {
-      console.error(error.message);
+    } else {
+      const newCart = cartLocal.map((cartItem) => {
+        if (cartItem._id === item._id) {
+          return { ...cartItem, quantity: Number(e.target.value) };
+        }
+        return cartItem;
+      });
+      dispatch(updateCartLocal(newCart));
     }
   };
 
@@ -35,21 +43,20 @@ const Cart = ({ cart }) => {
   };
 
   const onDeleteItem = async (item) => {
-    try {
-
-      console.log('check item', item._id);
-      
-      
-      const res = await callRemoveCartItem(item._id);
-      console.log(res);
-      
-      if (res.vcode == 0) {
-        message.success(res.message);
-        const newCart = cart.filter((prod) => prod._id !== item._id);
-        dispatch(updateAccount({ cart: newCart }));
+    if(isAuthenticated) {
+      try {
+        const res = await callRemoveCartItem(item._id);
+        if (res.vcode == 0) {
+          message.success(res.message);
+          const newCart = cart.filter((prod) => prod._id !== item._id);
+          dispatch(updateAccount({ cart: newCart }));
+        }
+      } catch (error) {
+        console.error(error.message);
       }
-    } catch (error) {
-      console.error(error.message);
+    } else {
+      const newCart = cartLocal.filter((prod) => prod._id !== item._id);
+      dispatch(updateCartLocal(newCart));
     }
   };
 
@@ -104,7 +111,15 @@ const Cart = ({ cart }) => {
                   Tổng : {formatPrice((item.quantity * item.product.discountedPrice).toString())}đ
                 </Typography.Text>
 
-                <DeleteOutlined onClick={() => onDeleteItem(item)} className={styles.deleteIcon} style={{color: 'red'}} />
+                <Popconfirm
+                  title="Bạn có chắc chắn muốn xóa sản phẩm này?"
+                  onConfirm={()  => onDeleteItem(item)}
+                  okText="Có"
+                  cancelText="Không"
+                >
+                  <DeleteOutlined  className={styles.deleteIcon} style={{color: 'red'}} />
+                </Popconfirm>
+                
               </div>
             </Card>
           );

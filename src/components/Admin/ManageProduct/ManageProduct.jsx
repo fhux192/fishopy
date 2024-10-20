@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Table, Pagination, Modal, message, Row, Image, Col } from "antd";
+import { Button, Table, Pagination, Modal, message, Row, Image, Col, Popconfirm } from "antd";
 import {
   PlusCircleOutlined,
   ReloadOutlined,
@@ -13,7 +13,7 @@ import {
 } from "../../../redux/features/toggle/toggleSlice";
 import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
 import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
-import { callDeleteProduct, callFetchProduct } from "../../../services/api";
+import { callDeleteProductAdmin, callGetProductsAdmin } from "../../../services/api";
 import formatPrice from "../../../utils/formatPrice";
 
 const ManageProduct = () => {
@@ -27,7 +27,7 @@ const ManageProduct = () => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      const res = await callDeleteProduct(id);
+      const res = await callDeleteProductAdmin(id);
       if (res.vcode === 0) {
         const newProducts = products.filter((product) => product._id !== id);
         setProducts(newProducts);
@@ -44,12 +44,12 @@ const ManageProduct = () => {
   const fetchProduct = async (page) => {
     setLoading(true);
     try {
-      const res = await callFetchProduct(page, pageSize);
-      const products = res.data.result.map((item) => ({
+      const res = await callGetProductsAdmin({}, {}, page, pageSize);
+      const products = res.data.map((item) => ({
         ...item,
         key: item._id,
       }));
-      setTotal(res.data.meta.total);
+      setTotal(res.total);
       setProducts(products);
     } catch (error) {
       console.error(error.message);
@@ -89,7 +89,15 @@ const ManageProduct = () => {
       render: (text) => <span style={{ fontWeight: "bold", color: "#707070" }}>{text}</span>,
     },
     {
-      title: "Giá bán",
+      title: "Giá gốc",
+      dataIndex: "price",
+      key: "price",
+      render: (text) => (
+        <span style={{ fontWeight: "bold", color: "#20a69f" }}>{formatPrice(text)}đ</span>
+      ),
+    },
+    {
+      title: "Giá bán sau giảm giá",
       dataIndex: "discountedPrice",
       key: "discountedPrice",
       render: (text) => (
@@ -124,16 +132,17 @@ const ManageProduct = () => {
               setProductEdit(record);
             }}
           />
-          <Button
-            type="link"
-            icon={<DeleteOutlined style={{ color: "red" }} />}
-            onClick={() => {
-              Modal.confirm({
-                title: "Bạn có chắc chắn muốn xóa sản phẩm này?",
-                onOk: () => handleDeleteProduct(record._id),
-              });
-            }}
-          />
+          <Popconfirm
+            title="Bạn có chắc chắn muốn xóa sản phẩm này?"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={() => handleDeleteProduct(record._id)}
+            >
+              <Button
+                type="link"
+                icon={<DeleteOutlined style={{ color: "red" }} />}
+                />
+          </Popconfirm>
         </>
       ),
     },
@@ -169,8 +178,10 @@ const ManageProduct = () => {
           setCurrent(page);
           setPageSize(pageSize);
         }}
+        
         style={{ marginTop: 16, textAlign: "center" }}
         showSizeChanger
+        pageSizeOptions={[5, 10, 20, 50]}
         responsive
       />
 

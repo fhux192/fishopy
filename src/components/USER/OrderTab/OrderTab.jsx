@@ -13,13 +13,11 @@ import {
 import styles from "./OrderTab.module.css";
 import { useEffect, useState } from "react";
 import {
-  callFetchOrderByStatus,
-  callFetchOrderByStatusAdmin,
-  callFetchOrders,
+  callGetOrders,
   callUpdateOrder,
-} from "../../services/api";
+} from "../../../services/api";
 import moment from "moment";
-import formatPrice from "../../utils/formatPrice";
+import formatPrice from "../../../utils/formatPrice";
 
 const OrderTab = ({ activeKey }) => {
   const [orders, setOrders] = useState([]);
@@ -31,11 +29,10 @@ const OrderTab = ({ activeKey }) => {
       try {
         setLoading(true);
         setOrders([]);
-        const res = await callFetchOrders(null, null, status);
+        const res = await callGetOrders({status: {$eq: status}}, {}, 1, 1000);
         console.log("res", res);
-
         if (res?.vcode == 0) {
-          setOrders(res.data.result);
+          setOrders(res.data);
         }
         setLoading(false);
       } catch (error) {
@@ -78,11 +75,11 @@ const OrderTab = ({ activeKey }) => {
                     <Flex gap={10}>
                       <div className={styles.groupImage}>
                         <Image className={styles.imageProduct} src={proItem?.product.images[0]} />
-                        <Typography.Text className={styles.title}>{proItem?.name}</Typography.Text>
+                        <Typography.Text className={styles.title}>{proItem?.product.name}</Typography.Text>
                       </div>
                       <div className={styles.groupSum}>
-                        <Typography.Text className={styles.title2}>{proItem.name}</Typography.Text>
-                        <Typography.Text>{formatPrice(proItem.price)}đ </Typography.Text>
+                        <Typography.Text className={styles.title2}>{proItem.product.name}</Typography.Text>
+                        <Typography.Text>{formatPrice(proItem.product.price)}đ </Typography.Text>
                         <Typography.Text>Số lượng: {proItem.quantity} </Typography.Text>
                       </div>
                     </Flex>

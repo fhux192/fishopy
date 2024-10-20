@@ -4,18 +4,18 @@ import { FaYoutube } from "react-icons/fa";
 import { FaFishFins } from "react-icons/fa6";
 import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import "../../../scss/bubble.scss";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
-import { Input, message } from "antd";
-import { logout } from "../../../redux/features/user/userSlice";
-import { callLogout } from "../../../services/api.js";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import tiktok from "../../../assets/icon/tik-tok.png";
 import { setSearch } from "../../../redux/features/user/userSlice";
+import Search from "antd/es/transfer/search.js";
+import { debounce } from 'lodash';
+import { Input } from "antd";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -25,9 +25,6 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
-
-  console.log(search);
-  
 
   const items = [
     {
@@ -62,18 +59,6 @@ const Navbar = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      const res = await callLogout();
-      if (res.vcode == 0) {
-        dispatch(logout());
-        message.success(res.message);
-        setIsDropdownVisible(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleUserTagClick = () => {
     setIsDropdownVisible(!isDropdownVisible);
@@ -104,6 +89,14 @@ const Navbar = () => {
     };
   }, []);
 
+  // Create a debounced function
+  const debouncedSearch = useCallback(
+    debounce((value) => {
+      dispatch(setSearch(value));
+    }, 400), // 400 milliseconds delay
+    [dispatch]
+  );
+
   return (
     <motion.div
       className="navbar"
@@ -128,9 +121,20 @@ const Navbar = () => {
             </div>
           </div>
 
-          <Input placeholder="Nhập tên cá..." onPressEnter={(e) => {
-            dispatch(setSearch(e.target.value));
-          }}/>
+
+          <Input 
+            placeholder="Nhập tên cá..." 
+            loading 
+            enterButton 
+            onChange={(e) => {
+              debouncedSearch(e.target.value)
+            }} 
+            onPressEnter={(e) => {
+              if(e.key === 'Enter') {
+                navigate("/product");
+              }
+            }}
+          />
 
           <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
             {items.map((item) => (
@@ -195,7 +199,7 @@ const Navbar = () => {
                 <div className="">
                   {user
                     ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-                    : JSON.parse(localStorage.getItem("cart"))?.length}
+                    : JSON.parse(localStorage.getItem("cart"))?.reduce((acc, cur) => acc + cur.quantity, 0)}
                 </div>
               </div>
             </div>

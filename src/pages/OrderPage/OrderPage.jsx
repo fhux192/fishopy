@@ -79,7 +79,7 @@ const OrderPage = () => {
                     setAddressDelivery={setAddressDelivery}
                   />
                 )}
-                {(user?.cart.length == 0 || cart.length == 0) && currentStep != 2 && (
+                {(user ? user?.cart.length == 0 : cart.length == 0) && currentStep != 2 && (
                   <Result
                     icon={<SmileOutlined />}
                     title="Không có sản phẩm nào trong giỏ hàng"

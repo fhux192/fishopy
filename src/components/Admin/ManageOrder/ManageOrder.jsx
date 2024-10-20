@@ -17,7 +17,7 @@ import {
   Space,
 } from "antd";
 import { useDispatch } from "react-redux";
-import { callDeleteOrder, callFetchOrders, callUpdateOrder } from "../../../services/api";
+import { callDeleteOrderAdmin, callGetOrdersAdmin, callUpdateOrderAdmin } from "../../../services/api";
 import formatPrice from "../../../utils/formatPrice";
 import { toggleModalOrderDetail } from "../../../redux/features/toggle/toggleSlice";
 import ModalOrderDetail from "../../ModalOrderDetail/ModalOrderDetail";
@@ -38,12 +38,6 @@ const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
   const dispatch = useDispatch();
-  const sub = {
-    pending: "Chờ xác nhận",
-    shipping: "Đang giao",
-    delivered: "Đã giao",
-    canceled: "Đã hủy",
-  };
 
   useEffect(() => {
     fetchOrders();
@@ -52,10 +46,15 @@ const ManageOrder = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await callFetchOrders(current, pageSize, status, from, to);
+
+      let query = {}
+      if(status) query.status = {$eq: status}
+      if(from) query.from = {$gte: from}
+      if(to) query.to = {$lte: to}
+      const res = await callGetOrdersAdmin(query, {createdAt: -1}, current, pageSize);
       if (res.vcode === 0) {
-        setOrders(res.data.result);
-        setTotal(res.data.meta.total);
+        setOrders(res.data);
+        setTotal(res.total);
       } else {
         message.error(res.message);
       }
@@ -68,7 +67,7 @@ const ManageOrder = () => {
 
   const handleUpdateOrder = async (orderId, value) => {
     try {
-      const res = await callUpdateOrder(orderId, { status: value });
+      const res = await callUpdateOrderAdmin(orderId, { status: value });
       if (res.vcode === 0) {
         message.success(res.message);
         fetchOrders();
@@ -82,10 +81,10 @@ const ManageOrder = () => {
 
   const handleDeleteOrder = async (orderId) => {
     try {
-      const res = await callDeleteOrder(orderId);
+      const res = await callDeleteOrderAdmin(orderId);
       if (res.vcode === 0) {
+        setOrders(orders.filter((order) => order._id !== orderId));
         message.success(res.message);
-        fetchOrders();
       } else {
         message.error(res.message);
       }

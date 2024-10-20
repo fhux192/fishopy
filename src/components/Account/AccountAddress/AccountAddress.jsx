@@ -2,14 +2,17 @@ import { Card, Divider, Dropdown, Flex, message, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./AccountAddress.module.css";
 import { callRemoveAddress } from "../../../services/api";
-import { toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
+import { toggle, toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
 import { updateAccount } from "../../../redux/features/user/userSlice";
 import MyButton from "../../MyButton/MyButton";
 import ModalAddAddress from "../../Modal/ModalAddAddress";
+import ModalEditAddress from "../../USER/modal/ModalEditAddress/ModalEditAddress";
+import { useState } from "react";
 
 const AccountAddress = () => {
   const { user: user } = useSelector((state) => state.account);
   const dispatch = useDispatch();
+  const [addressEdit, setAddressEdit] = useState({});
 
   const removeAddress = async (id) => {
     try {
@@ -25,7 +28,10 @@ const AccountAddress = () => {
 
   const items = (id) => [
     {
-      label: <Button>Sửa</Button>,
+      label: <Button onClick={() => {
+        dispatch(toggle('modalEditAddress'));
+        setAddressEdit(user.addresses.find((item) => item._id === id));
+      }}>Sửa</Button>,
       key: "0",
     },
     {
@@ -66,11 +72,13 @@ const AccountAddress = () => {
                   <Button>...</Button>
                 </Dropdown>
               </Flex>
+
+              
             </Flex>
           </Card>
         );
       })}
-
+      <ModalEditAddress address={addressEdit} />
       <ModalAddAddress />
 
     </div>

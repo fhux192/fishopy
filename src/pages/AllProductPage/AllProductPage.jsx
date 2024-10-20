@@ -5,7 +5,7 @@ import ShiftingCountdown from "../../components/CountDown/ShiftingCountdown";
 import SortSection from "./SortSection/SortSection";
 import ProductsSection from "./ProductsSection/ProductsSection";
 import { Pagination } from "antd";
-import { callFetchProduct } from "../../services/api";
+import { callGetProducts } from "../../services/api";
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../scss/navbar.scss";
@@ -115,15 +115,38 @@ const AllProductPage = () => {
           setCurrentPage(1);
         }
         
-        const res = await callFetchProduct(current, pageSize, {
-          sort: sortOption,
-          name: search
-        });
+        let sort = {};
+        switch (sortOption) {
+          case "-discountedPrice":
+            sort = {discountedPrice: -1};
+            break;
+          case "discountedPrice":
+            sort = {discountedPrice: 1};
+            break;
+          case "-name":
+            sort = {name: -1};
+            break;
+          case "name":
+            sort = {name: 1};
+            break;
+          default:
+            sort = {};
+            break;
+        }
+
+        let query = {};
+        if(search != '') {
+          query = {
+            $text: { $search: search }
+          };
+        }
+        
+        const res = await callGetProducts(query, sort, current, pageSize);
+
         
         if (res.vcode === 0) {
-          let products = res.data.result;
-          setAllProducts(products);
-          setTotalProducts(res.data.meta.total);
+          setAllProducts(res.data);
+          setTotalProducts(res.total);
         }
       } catch (error) {
         console.error(error.message);

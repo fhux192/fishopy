@@ -5,10 +5,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 const ProtectedRoute = ({ children, role }) => {
   const { user, isAuthenticated } = useSelector((state) => state.account);
 
-  console.log(user);
-  console.log(isAuthenticated);
-  console.log(role);
-
   if (!isAuthenticated) {
     return <Navigate to={"/"} />;
   }

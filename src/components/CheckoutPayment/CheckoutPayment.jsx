@@ -2,7 +2,7 @@ import { Button, Checkbox, Flex, message, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import formatPrice from "../../utils/formatPrice";
 import styles from "./CheckoutPayment.module.css";
-import { callCalcFee, callOrder } from "../../services/api";
+import { callCalcFee, callCreateOrder } from "../../services/api";
 import { useEffect, useState } from "react";
 import { updateAccount, updateCartLocal } from "../../redux/features/user/userSlice";
 import qs from "qs";
@@ -13,16 +13,17 @@ const CheckoutPayment = ({
   setShippingFee,
   shippingfee,
 }) => {
-  const { user, cart } = useSelector((state) => state.account);
+  const { isAuthenticated, user, cart } = useSelector((state) => state.account);
 
   const [paymentMethod, setPaymentMethod] = useState(
-    "Thanh toán khi nhận hàng"
+    "cash_on_delivery"
   );
   const dispatch = useDispatch();
   const onOrder = async () => {
     try {
+      const cartLocal = isAuthenticated ? user.cart.filter((item) => item.checked) : cart.filter((item) => item.checked)
       const values = {
-        orderItems: user?.cart.filter((item) => item.checked),
+        orderItems: cartLocal,
         shippingAddress: {
           name: addressDelivery?.name,
           phone: addressDelivery?.phone,
@@ -48,15 +49,19 @@ const CheckoutPayment = ({
         shippingPrice: shippingfee,
       };
 
-      const res = await callOrder(values);
+      const res = await callCreateOrder(values);
       if (res.vcode == 0) {
-        if (paymentMethod === "Thanh toán khi nhận hàng") {
-          dispatch(
-           user ? updateAccount(user.cart.filter((item) => !item.checked)) :  updateCartLocal(cart.filter((item) => !item.checked))
-          );
+        if (paymentMethod === "cash_on_delivery") {
+          if(user) {
+            console.log('user', user);
+            dispatch(updateAccount({cart: user.cart.filter((item) => !item.checked)}));
+          } else {
+            dispatch(updateCartLocal(cart.filter((item) => !item.checked)));
+            localStorage.setItem("cart", JSON.stringify(cart.filter((item) => !item.checked)));
+          }
           setCurrentStep((pre) => (pre += 1));
           message.success(res.message);
-        } else if (paymentMethod === "Chuyển khoản") {
+        } else if (paymentMethod === "bank_transfer") {
           message.info(res.data);
           window.location.href = res.data;
         }
@@ -109,14 +114,13 @@ const CheckoutPayment = ({
             <p style={{color: 'white'}}>Phương thức thanh toán:</p>
             <Select
             style={{color: 'white'}}
-              defaultValue={"Thanh toán khi nhận hàng"}
               value={paymentMethod}
               options={[
                 {
-                  value: "Thanh toán khi nhận hàng",
+                  value: "cash_on_delivery",
                   label: "Thanh toán khi nhận hàng",
                 },
-                { value: "Chuyển khoản", label: "Chuyển khoản" },
+                { value: "bank_transfer", label: "Chuyển khoản" },
               ]}
               onChange={(value) => setPaymentMethod(value)}
             ></Select>

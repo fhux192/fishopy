@@ -51,7 +51,7 @@ const Payment = ({ setStep, cart }) => {
   };
 
   // use form
-  const [form] = useForm();
+  const [form] = Form.useForm();
 
   const getCitys = async () => {
     const res = await axios.get("https://vapi.vnappmob.com/api/province/");

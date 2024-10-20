@@ -17,7 +17,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalEditProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callCreateProduct, callEditProduct, callUploadImg } from "../../../services/api";
+import {  callUpdateProductAdmin, callUploadImg } from "../../../services/api";
 import { toggleModalEditProduct } from "../../../redux/features/toggle/toggleSlice";
 import DiscountText from "../../Admin/components/DiscountText/DiscountText";
 import formatPrice from "../../../utils/formatPrice";
@@ -134,7 +134,7 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
     }
     setLoading(true);
     try {
-      const res = await callEditProduct({
+      const res = await callUpdateProductAdmin(productEdit._id,{
         ...values,
         price: Number(values.price.replace(/,/g, "")),
         discountedPrice: Number(values.discountedPrice.replace(/,/g, "")),
@@ -142,7 +142,6 @@ const ModalEditProduct = ({ productEdit, setProducts }) => {
         detailDesc: detailDescProductValue,
         discountText,
         images: fileList.map((item) => item.url),
-        _id: productEdit._id,
       });
       if (res.vcode == 0) {
         message.success(res.message);

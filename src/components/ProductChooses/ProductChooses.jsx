@@ -1,18 +1,20 @@
-import { Button, Card, Col, Divider, Flex, Image, InputNumber, Modal, Row, Typography } from "antd";
+import { Button, Card, Col, Divider, Flex, Form, Image, Input, InputNumber, Modal, Row, Select, Typography } from "antd";
 import styles from "./ProductChooses.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import formatPrice from "../../utils/formatPrice";
 import { useEffect, useState } from "react";
-import { toggleModalAddAddress } from "../../redux/features/toggle/toggleSlice";
+import { toggle, toggleModalAddAddress } from "../../redux/features/toggle/toggleSlice";
 import CartItemChoose from "../CartItemChoose/CartItemChoose";
 import ModalAddAddress from "../Modal/ModalAddAddress";
+import ModalEditAddress from "../Modal/ModalEditAddress/ModalEditAddress";
 
 const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
   let { user , cart, address} = useSelector((state) => state.account);
   const [modalChooseAddress, setModalChooseAddress] = useState(false);
   let cartChoosed = user ?  user.cart.filter((item) => item.checked) : cart.filter((item) => item.checked)
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
 
   console.log('addressDelivery', addressDelivery);
   
@@ -25,6 +27,10 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
       setAddressDelivery(address);
     }
   }, [ user ? user?.addresses : address]);
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  }
 
   return (
     <>
@@ -47,7 +53,13 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
                 </Col>
               </Row>
             </div>
-            <Button style={{color: 'white'}} onClick={() => setModalChooseAddress((pre) => (pre = !pre))}>Thay đổi</Button>
+            <Button style={{color: 'white'}} onClick={() => {
+              if(user) {
+                setModalChooseAddress((pre) => (pre = !pre))
+              } else {
+                dispatch(toggle('modalEditAddress'))
+              }
+            }}>Thay đổi</Button>
           </Flex>
         ) : (
           <Flex justify="space-between" align="center">
@@ -64,7 +76,8 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
           return <CartItemChoose key={item._id} item={item} />;
         })}
 
-      <Modal
+      {
+        user && <Modal
         open={modalChooseAddress}
         title={"Chọn địa chỉ"}
         footer={null}
@@ -104,8 +117,10 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
           );
         })}
       </Modal>
+      }
 
       <ModalAddAddress />
+      <ModalEditAddress />
 
     </>
   );

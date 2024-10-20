@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { callFetchOrderByStatus, callFetchOrderByStatusAdmin } from "../../services/api";
 import { Card, Divider, Flex, Image, Button, Typography } from "antd";
 import styles from "./OrderCanceled.module.css";
 import formatPrice from "../../utils/formatPrice";
 import moment from "moment";
 import { setLoading } from "../../redux/features/user/userSlice";
 import { useDispatch } from "react-redux";
+import { callGetOrders } from "../../services/api";
 
 const OrderCanceled = ({ activeKey, role = "USER" }) => {
   const [ordersCanceled, setOrdersCanceled] = useState([]);
@@ -14,7 +14,7 @@ const OrderCanceled = ({ activeKey, role = "USER" }) => {
   useEffect(() => {
     const fetchOrderConfirmAdmin = async (status) => {
       try {
-        const res = await callFetchOrderByStatusAdmin(status);
+        const res = await callGetOrders({ status: {$eq: status}});
         if (res.vcode == 0) {
           setOrdersCanceled(res.data);
         }

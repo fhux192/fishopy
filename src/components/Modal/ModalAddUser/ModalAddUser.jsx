@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from "antd";
 import { toggleModalAddUser } from "../../../redux/features/toggle/toggleSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callAddUser } from "../../../services/api";
+import {  callCreateUserAdmin } from "../../../services/api";
 
 const ModalAddUser = ({ setUsers }) => {
   const { modalAddUser } = useSelector((state) => state.toggle);
@@ -13,7 +13,7 @@ const ModalAddUser = ({ setUsers }) => {
     }
 
     try {
-      const res = await callAddUser(values);
+      const res = await callCreateUserAdmin(values);
       if (res.vcode === 0) {
         message.success(res.message);
         dispatch(toggleModalAddUser());

@@ -17,7 +17,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import DescProduct from "../../Admin/components/DescProduct/DescProduct";
 import styles from "./ModalAddProduct.module.css";
 import DetailDescProduct from "../../Admin/components/DetailDescProduct/DetailDescProduct";
-import { callCreateProduct, callUploadImg } from "../../../services/api";
+import {  callCreateProductAdmin, callUploadImg } from "../../../services/api";
 import { toggleModalAddProduct } from "../../../redux/features/toggle/toggleSlice";
 import DiscountText from "../../Admin/components/DiscountText/DiscountText";
 import formatPrice from "../../../utils/formatPrice";
@@ -125,7 +125,7 @@ const ModalAddProduct = ({ setProducts }) => {
     };
 
     try {
-      const res = await callCreateProduct(dataProduct);
+      const res = await callCreateProductAdmin(dataProduct);
 
       if (res.vcode == 0) {
         setProducts((pre) => [

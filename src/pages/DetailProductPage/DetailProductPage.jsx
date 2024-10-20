@@ -5,7 +5,7 @@ import "../../scss/detailProducts.scss";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BackgroundGradient } from "../../components/ui/background-gradient.tsx";
-import { callAddToCart, callFetchProductById } from "../../services/api.js";
+import { callAddToCart } from "../../services/api.js";
 import {
   addToCart,
   updateAccount,
@@ -88,7 +88,7 @@ const DetailProductPage = () => {
   useEffect(() => {
     const getDetailProduct = async () => {
       try {
-        const res = await callFetchProductById(id);
+        const res = await getDetailProduct(id);
         if (res.vcode == 0) {
           setProduct(res.data);
         } else console.error(res.message);

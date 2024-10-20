@@ -12,7 +12,7 @@ const ModalAddAddress = () => {
   const { modalAddAddress } = useSelector((state) => state.toggle);
   const { user, cart } = useSelector((state) => state.account);
   const dispatch = useDispatch();
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);

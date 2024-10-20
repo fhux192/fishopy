@@ -19,7 +19,7 @@ import {
 
 import ModalAddUser from "../../components/Modal/ModalAddUser/ModalAddUser";
 import ModalEditUser from "../../components/Modal/ModalEditUser/ModalEditUser";
-import { callDeleteUser, callFetchUser } from "../../services/api";
+import {  callDeleteUserAdmin, callGetUsersAdmin } from "../../services/api";
 import {
   toggleModalAddUser,
   toggleModalEditUser,
@@ -101,7 +101,7 @@ const UserManagement = () => {
 
   const handleDeleteUser = async (id) => {
     try {
-      const res = await callDeleteUser(id);
+      const res = await callDeleteUserAdmin(id);
       if (res.vcode === 0) {
         const newUsers = users.filter((user) => user._id !== id);
         setUsers(newUsers);
@@ -117,13 +117,13 @@ const UserManagement = () => {
   const fetchUser = async () => {
     setLoading(true);
     try {
-      const res = await callFetchUser(current, pageSize);
+      const res = await callGetUsersAdmin({}, {}, current, pageSize);
       if (res.vcode === 0) {
-        const users = res.data.result.map((item) => ({
+        const users = res.data.map((item) => ({
           ...item,
           key: item._id,
         }));
-        setTotal(res.data.meta.total);
+        setTotal(res.total);
         setUsers(users);
       } else {
         console.error(res.message);

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import {
   DesktopOutlined,
   DownOutlined,
@@ -10,21 +10,16 @@ import {
 } from "@ant-design/icons";
 import {
   Avatar,
-  Breadcrumb,
-  Button,
   Dropdown,
   Layout,
   Menu,
   Space,
-  theme,
 } from "antd";
 import {
   logout,
-  setCredentials,
-  setLoading,
 } from "../redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callFetchAccount, callLogout } from "../services/api";
+import { callLogout } from "../services/api";
 import { googleLogout } from "@react-oauth/google";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -72,7 +67,7 @@ const AdminPage = () => {
         dispatch(logout());
         message.success(res.message);
       }
-
+      
       googleLogout();
     } catch (error) {
       console.log(error);

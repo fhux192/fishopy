@@ -27,8 +27,6 @@ const CartDrawer = () => {
   const {user, cart} = useSelector((state) => state.account);
   const [drawerWidth, setDrawerWidth] = useState(400);
   const [loading, setLoading] = useState(false);
-  console.log('cart', cart);
-  console.log('user', user);
   
 
   useEffect(() => {
@@ -97,6 +95,14 @@ const CartDrawer = () => {
       setLoading(false);
     }
   };
+
+  const handleQuantityChangeLocal = (id, value) => {
+    if (value < 1) return;
+    const updatedCart = cart.map((item) =>
+      item.product._id === id ? { ...item, quantity: value } : item
+    );
+    dispatch(updateCartLocal(updatedCart));
+  }
 
   return (
     <Drawer
@@ -277,19 +283,19 @@ const CartDrawer = () => {
                         <Button
                           type="link"
                           icon={<MinusCircleOutlined />}
-                          onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
+                          onClick={() => handleQuantityChangeLocal(item._id, item.quantity - 1)}
                           disabled={item.quantity <= 1}
                         />
                         <InputNumber
                           min={1}
                           value={item.quantity}
-                          onChange={(value) => handleQuantityChange(item._id, value)}
+                          onChange={(value) => handleQuantityChangeLocal(item._id, value)}
                           style={{ width: "60px", textAlign: "center" }}
                         />
                         <Button
                           type="link"
                           icon={<PlusCircleOutlined />}
-                          onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
+                          onClick={() => handleQuantityChangeLocal(item._id, item.quantity + 1)}
                         />
                       </div>
                     </Space>

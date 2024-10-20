@@ -12,6 +12,7 @@ const initialState = {
   modalEditProduct: false,
   modalAddUser: false,
   modalEditUser: false,
+  modalEditAddress: false
 };
 
 export const toggleSlice = createSlice({
