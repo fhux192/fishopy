@@ -15,7 +15,7 @@ const ModalEditAddress = () => {
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
     useEffect(() => {
-      if(address.name) {
+      if(address?.name) {
         form.setFieldsValue({
           name: address.name,
           phone: address.phone,
