@@ -168,6 +168,26 @@ export const callDeleteOrderAdmin = async (id) => {
   return await axios.delete(`admin/order/${id}`);
 }
 
+export const callGetDetailComboAdmin = async (id) => {
+  return await axios.get(`admin/combo/${id}`);
+}
+
+export const callGetCombosAdmin = async (query, sort, page, limit) => {
+  return await axios.get(`admin/combo?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
+}
+
+export const callUpdateComboAdmin = async (id, data) => {
+  return await axios.put(`admin/combo/${id}`, data);
+}
+
+export const callCreateComboAdmin = async (data) => {
+  return await axios.post("admin/combo", data);
+}
+
+export const callDeleteComboAdmin = async (id) => {
+  return await axios.delete(`admin/combo/${id}`);
+}
+
 // -------------- DASHBOARD ---------------
 export const callGetDataDashboardAdmin = async () => {
   return await axios.get("admin/dashboard");

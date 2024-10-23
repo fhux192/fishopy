@@ -53,6 +53,13 @@ const items = [
       <FileOutlined />
     ),
   ]),
+  getItem("Combo", "sub4", <TeamOutlined />, [
+    getItem(
+      <Link to={"/admin/combo"}>Quản lý combo</Link>,
+      "/admin/combo",
+      <FileOutlined />
+    ),
+  ]),
 ];
 
 const AdminPage = () => {
@@ -110,7 +117,7 @@ const AdminPage = () => {
             items={items}
             style={{ marginTop: "1rem" }}
             defaultSelectedKeys={[location.pathname]}
-            openKeys={["sub1", "sub2", "sub3"]}
+            openKeys={["sub1", "sub2", "sub3", "sub4"]}
           />
         </Sider>
       )}

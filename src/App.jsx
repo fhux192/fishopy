@@ -35,6 +35,7 @@ import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import ManageCombo from "./pages/ManageCombo/ManageCombo.jsx";
 
 const User = () => {
   const { isShowModalLogin, modalRegister } = useSelector(
@@ -169,6 +170,7 @@ function App() {
           path: "infomation",
           element: <AllProductPage />,
         },
+        
       ],
     },
     {
@@ -194,6 +196,10 @@ function App() {
         {
           path: "user",
           element: <UserManagement />,
+        },
+        {
+          path: "combo",
+          element: <ManageCombo />,
         },
       ],
     },
