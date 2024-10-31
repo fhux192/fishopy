@@ -7,14 +7,14 @@ const AddressPage = () => {
     <div>
       <div className="mx-8">
         <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full justify-center whitespace-nowrap">
-          <h1 className="p-1 px-3 bg-Black border-[1px] border-Grey2 text-White rounded-full mt-[4rem] lg:mt-20 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
+          <h1 className="pt-1 px-3 bg-Teal text-White rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
             ĐỊA CHỈ TRẠI CÁ GUPPY HÓC MÔN
           </h1>
         </div>
-        <p className="font-bold md:mt-[2rem] border-0   mt-[2rem] lg:block lg:text-xl text-lg text-White">
+        <p className="font-bold md:mt-[2rem] border-0 mt-[1rem] lg:block lg:text-xl text-lg text-White">
           Guppy Hóc Môn - Trại Cá Guppy Bất Ổn
         </p>
-        <p className="lg:block lg:text-xl text-md text-White">
+        <p className="lg:block lg:text-xl text-md text-Grey2">
           22/9/2 ấp 3, Đông Thạnh, Hóc Môn, Hồ Chí Minh
         </p>
         <iframe

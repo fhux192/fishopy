@@ -71,7 +71,7 @@ const Navbar = () => {
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
       setIsNavbarVisible(false);
     } else {
       setIsNavbarVisible(true);
@@ -100,162 +100,162 @@ const Navbar = () => {
     <motion.div
       className="navbar"
       initial={{ y: -100 }}
-      animate={{ y: isNavbarVisible ? 0 : -100 }}
+      animate={{ y: isNavbarVisible ? 0 : -85 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
-      <div
-        className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0] `}
-      >
-        <div className="lg:flex w-full ml-2 lg:ml-0 ">
-          <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
-            <div className="flex rounded-xl nav-blur px-3 items-center">
-              <button
-                onClick={() => handleNavigation("Trang Chủ")}
-                className="logo"
-              >
-                GuppyHocMon
-              </button>
-            </div>
-          </div>
-
-          <div className="flex justify-start lg:justify-end w-full">
-            {" "}
-            <div className="flex h-full max-w-[12.92rem] nav-blur rounded-xl items-center mr-4 ">
-              <Input
-                placeholder="Tìm bằng tên cá..."
-                loading
-                enterButton
-                onChange={(e) => {
-                  debouncedSearch(e.target.value);
-                }}
-                className="lg:rounded-lg focus:bg-Teal3 hover:bg-Teal3 lg:bg-transparent font-bold h-[75%] m-2 border-none"
-                onPressEnter={(e) => {
-                  if (e.key === "Enter") {
-                    navigate("/product");
-                  }
-                }}
-              />
-            </div>
-          </div>
-          <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
-            {items.map((item) => (
-              <div
-                className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
-                  (item.name === "Trang Chủ" && location.pathname === "/") ||
-                  (item.name === "Sản Phẩm" &&
-                    location.pathname === "/product") ||
-                  (item.name === "Địa Chỉ" && location.pathname === "/address")
-                    ? "text-Teal font-bold"
-                    : "text-White"
-                }`}
-                key={item.name}
-                onClick={() => handleNavigation(item.name)}
-              >
-                {item.icon}
+      <div>
+        <div className="flex flex-col items-center">
+          {" "}
+          <div
+            className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0] `}
+          >
+            <div className="lg:flex gap-[0.5rem] w-full lg:ml-0 ">
+              <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
+                <div className="flex rounded-xl nav-blur px-3 items-center">
+                  <button
+                    onClick={() => handleNavigation("Trang Chủ")}
+                    className="logo text-white"
+                  >
+                    GuppyHócMôn
+                  </button>
+                </div>
               </div>
-            ))}
+              <div className="flex justify-start lg:justify-end w-full"> </div>
 
-            <div
-              style={{ color: "#f0f6f5" }}
-              className="border-l-[1px] border-primaryBlack pl-4 mr-[0rem]"
-            >
-              {" "}
-              <div className="relative" ref={dropdownRef}>
-                <FaUserTag
-                  title="Tài Khoản"
-                  onClick={handleUserTagClick}
-                  className="lg:block hidden icon mr-2 duration-500 cursor-pointer"
-                />
-                {isDropdownVisible && <ModalAuth />}
-              </div>
-            </div>
-            <div
-              className="relative lg:block hidden group"
-              onClick={() => dispatch(toggleDrawerCart())}
-            >
-              <motion.div
-                initial={{ scale: 1 }}
-                animate={{
-                  scale:
-                    user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) >
-                    0
-                      ? [1, 0.9, 1]
-                      : 1,
-                }}
-                transition={{ duration: 0.5, repeat: 1, repeatType: "reverse" }}
-                key={user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0)}
-              >
-                <FaBagShopping
-                  title="Giỏ Hàng"
-                  className=" bag-icon duration-500 text-White"
-                />
-              </motion.div>
-              <div
-                className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute ${
-                  user?.cart.reduce((acc, cur) => (acc += cur.quantity), 0) > 0
-                    ? "text-White bg-Teal border-0"
-                    : "bg-white text-Black "
-                }`}
-              >
-                <div className="">
-                  {user
-                    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-                    : JSON.parse(localStorage.getItem("cart"))?.reduce(
-                        (acc, cur) => acc + cur.quantity,
+              <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
+                {items.map((item) => (
+                  <div
+                    className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
+                      (item.name === "Trang Chủ" &&
+                        location.pathname === "/") ||
+                      (item.name === "Sản Phẩm" &&
+                        location.pathname === "/product") ||
+                      (item.name === "Địa Chỉ" &&
+                        location.pathname === "/address")
+                        ? "text-Teal font-bold"
+                        : "text-White"
+                    }`}
+                    key={item.name}
+                    onClick={() => handleNavigation(item.name)}
+                  >
+                    {item.icon}
+                  </div>
+                ))}
+
+                <div
+                  style={{ color: "#f0f6f5" }}
+                  className=""
+                >
+                  {" "}
+                  <div className="relative" ref={dropdownRef}>
+                    <FaUserTag
+                      title="Tài Khoản"
+                      onClick={handleUserTagClick}
+                      className="lg:block hidden icon mr-2 duration-500 cursor-pointer"
+                    />
+                    {isDropdownVisible && <ModalAuth />}
+                  </div>
+                </div>
+                <div
+                  className="relative lg:block hidden group"
+                  onClick={() => dispatch(toggleDrawerCart())}
+                >
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    animate={{
+                      scale:
+                        user?.cart.reduce(
+                          (acc, cur) => (acc += cur.quantity),
+                          0
+                        ) > 0
+                          ? [1, 0.9, 1]
+                          : 1,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      repeat: 1,
+                      repeatType: "reverse",
+                    }}
+                    key={user?.cart.reduce(
+                      (acc, cur) => (acc += cur.quantity),
+                      0
+                    )}
+                  >
+                    <FaBagShopping
+                      title="Giỏ Hàng"
+                      className=" bag-icon duration-500 text-White"
+                    />
+                  </motion.div>
+                  <div
+                    className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute ${
+                      user?.cart.reduce(
+                        (acc, cur) => (acc += cur.quantity),
                         0
-                      )}
+                      ) > 0
+                        ? "text-White bg-Teal border-0"
+                        : "bg-white text-Black "
+                    }`}
+                  >
+                    <div className="">
+                      {user
+                        ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
+                        : JSON.parse(localStorage.getItem("cart"))?.reduce(
+                            (acc, cur) => acc + cur.quantity,
+                            0
+                          )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
-          <a
-            href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
-            target="_blank"
-          >
-            <img
-              src={tiktok}
-              title="TikTok"
-              className="lg:hidden block w-[40px] lg:w-full lg:h-[35px] text-red-600 bg-white rounded-full p-1 lg:mr-[15px] md:mr-4 mr-10 duration-500"
+            <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
+              <a
+                href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
+                target="_blank"
+              >
+                <img
+                  src={tiktok}
+                  title="TikTok"
+                  className="lg:hidden block w-[38px]  text-red-600 bg-white rounded-lg p-1 lg:mr-[15px] md:mr-10 mr-10 duration-500"
+                />
+              </a>
+              <a
+                href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1"
+                target="_blank"
+              >
+                <FaYoutube
+                  title="Youtube Guppy Hóc Môn"
+                  className="lg:hidden block w-[42px] h-[38px] text-Red bg-white rounded-lg p-1 lg:mr-[15px] mr-2 duration-500"
+                />
+              </a>
+            </div>
+          </div>
+          <div className="flex w-full lg:w-[35rem] rounded-xl mt-1  text-white lg:ml-2  items-center">
+            <Input
+              placeholder="Tìm kiếm cá..."
+              loading
+              enterButton
+              onChange={(e) => {
+                debouncedSearch(e.target.value);
+              }}
+              className={`lg:rounded-md h-8 mt-2 font-bold mx-8 shadow-md border-none ${
+                isNavbarVisible ? "pt-0" : "pt-[0.32rem]"
+              } mobile-input`}
+              onPressEnter={(e) => {
+                if (e.key === "Enter") {
+                  navigate("/product");
+                }
+              }}
+              style={{ textTransform: "uppercase" }}
             />
-          </a>
-          <a
-            href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1"
-            target="_blank"
-          >
-            <FaYoutube
-              title="Youtube Guppy Hóc Môn"
-              className="lg:hidden block w-[42px] h-[38px] text-Red bg-white rounded-xl p-1 lg:mr-[15px] mr-2 duration-500"
-            />
-          </a>
+          </div>
         </div>
       </div>
     </motion.div>
   );
 };
 
-const BubbleText = () => {
-  const navigate = useNavigate();
-
-  const handleNavigateHome = () => {
-    navigate("/");
-  };
-
-  return (
-    <div
-      onClick={handleNavigateHome}
-      className="font-sans text-white mt-[1px] w-full text-2xl min-[320px]:text-[1.6rem] min-[381px]:text-[1.8rem] min-[425px]:text-3xl  min-[768px]:text-4xl z-10 lg:text-4xl cursor-pointer"
-    >
-      {"GuppyHocMon".split("").map((child, idx) => (
-        <span className="hoverText" key={idx}>
-          {child}
-        </span>
-      ))}
-    </div>
-  );
-};
 
 export default Navbar;

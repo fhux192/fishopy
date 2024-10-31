@@ -12,11 +12,12 @@ const Home = () => {
 
   const handleNavigation = () => {
     setStartAnimation(true);
-      navigate("/product");
+    navigate("/product");
   };
 
   const handleScroll = () => {
-    const scrollValue = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollValue =
+      document.documentElement.scrollHeight - window.innerHeight;
 
     window.scrollBy({
       top: scrollValue,
@@ -57,13 +58,13 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap"></div>
-      <div className="flex items-center lg:h-[100vh] h-[100vh] justify-center">
+      <div className="flex items-center lg:h-[70vh] h-[90vh] justify-center">
         <div className="flex-col flex items-center justify-center w-[65%] h-[80%]">
-          <motion.div className="flex items-center justify-center">
-            <p className="cursor-default text-Teal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[5rem] font-semibold">
+          <motion.div className="flex items-center justify-center mt-10">
+            <p className="cursor-default text-Teal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[4rem] font-semibold">
               cá{" "}
             </p>
-            <p className="cursor-default text-White max-[550px]:text-[5rem] max-[800px]:text-[10rem] text-[15rem] font-semibold">
+            <p className="cursor-default text-White max-[550px]:text-[5rem] max-[800px]:text-[10rem] text-[12rem] font-semibold">
               guppy{" "}
             </p>
           </motion.div>
@@ -83,7 +84,7 @@ const Home = () => {
           </div>
           <motion.div
             initial={{ y: 0 }}
-            animate={{ y:  [0, -20, 0] }}
+            animate={{ y: [0, -20, 0] }}
             transition={{
               duration: 0.6,
               ease: "easeInOut",
@@ -91,14 +92,10 @@ const Home = () => {
               repeatDelay: 3,
             }}
           >
-            <FaCircleArrowDown
-              onClick={handleScroll}
-              className="text-[2rem] text-White md:text-[2.5rem] lg:text-[3rem] mt-10 cursor-pointer"
-            />
+           
           </motion.div>
         </div>
       </div>
-     
     </div>
   );
 };

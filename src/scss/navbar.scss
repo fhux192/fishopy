@@ -109,8 +109,7 @@
       backdrop-filter: blur(10px);
       background-color: rgba(30, 30, 30, 0.5);
       border-radius: 15px;
-      width: 90%;
-      height: 80px;
+      height: 60px;
 
       .social {
         align-items: normal;
@@ -239,6 +238,16 @@
   .nav-blur {
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    
   }
+}
+
+@media (min-width: 1024px) {
+  .mobile-input {
+    padding-top: 0 !important;
+    text-transform: uppercase;
+  }
+}
+
+.mobile-input::placeholder {
+  text-transform: none;
 }

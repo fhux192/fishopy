@@ -92,7 +92,7 @@ const AllProductPage = () => {
     setSelectedPurchaseOption(option);
   };
 
-  const {search} = useSelector((state) => state.account);
+  const { search } = useSelector((state) => state.account);
 
   const columns = useColumns();
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,32 +102,30 @@ const AllProductPage = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
-  
-
   useEffect(() => {
-    console.log('search', search);
+    console.log("search", search);
 
     const fetchProducts = async () => {
       try {
         let current = currentPage;
-        if(search != '') {
+        if (search != "") {
           current = 1;
           setCurrentPage(1);
         }
-        
+
         let sort = {};
         switch (sortOption) {
           case "-discountedPrice":
-            sort = {discountedPrice: -1};
+            sort = { discountedPrice: -1 };
             break;
           case "discountedPrice":
-            sort = {discountedPrice: 1};
+            sort = { discountedPrice: 1 };
             break;
           case "-name":
-            sort = {name: -1};
+            sort = { name: -1 };
             break;
           case "name":
-            sort = {name: 1};
+            sort = { name: 1 };
             break;
           default:
             sort = {};
@@ -135,15 +133,14 @@ const AllProductPage = () => {
         }
 
         let query = {};
-        if(search != '') {
+        if (search != "") {
           query = {
-            $text: { $search: search }
+            $text: { $search: search },
           };
         }
-        
+
         const res = await callGetProducts(query, sort, current, pageSize);
 
-        
         if (res.vcode === 0) {
           setAllProducts(res.data);
           setTotalProducts(res.total);
@@ -176,7 +173,6 @@ const AllProductPage = () => {
     setCurrentPage(1);
   }, [columns]);
 
-  // Thêm useEffect để cuộn mượt lên đầu trang mỗi khi currentPage thay đổi
   useEffect(() => {
     smoothScrollToTop();
   }, [currentPage]);
@@ -193,20 +189,19 @@ const AllProductPage = () => {
   const handlePageChange = (page, newPageSize) => {
     setCurrentPage(page);
     setPageSize(newPageSize);
-    // Không cần gọi scroll ở đây vì đã xử lý trong useEffect
   };
 
   return (
     <motion.div className="min-h-screen bg-container">
-      <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full justify-center whitespace-nowrap">
-        <h1 className="p-1 px-3 bg-Black border-[1px] border-Grey2 text-White rounded-full mt-[4rem] lg:mt-20 font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
+      <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap">
+        <h1 className="pt-1 px-3 bg-Teal text-White rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
           SẢN PHẨM
         </h1>
       </div>
       <div className="lg:block md:block hidden">
         <ShiftingCountdown />
       </div>
-      <div className="flex shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0.2rem] items-center justify-center lg:p-4 py-4 w-full">
+      <div className="flex shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:p-4 py-4 w-full">
         <p className="font-bold cursor-default lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
