@@ -201,7 +201,7 @@ const AllProductPage = () => {
       <div className="lg:block md:block hidden">
         <ShiftingCountdown />
       </div>
-      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:pb-4 w-full">
+      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[1rem] items-center justify-center lg:pb-4 w-full">
         <p className="font-bold cursor-default lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
