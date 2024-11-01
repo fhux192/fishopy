@@ -465,9 +465,11 @@
   color: #2daab6 !important;
 }
 
-.type-blur {
-  background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px);
+@media (min-width: 1024px) {
+  .type-blur {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+  }
 }
 
 .light-effect {

@@ -133,7 +133,7 @@ const Navbar = () => {
                         location.pathname === "/product") ||
                       (item.name === "Địa Chỉ" &&
                         location.pathname === "/address")
-                        ? "text-Teal font-bold"
+                        ? "text-white"
                         : "text-White"
                     }`}
                     key={item.name}
@@ -194,7 +194,7 @@ const Navbar = () => {
                         0
                       ) > 0
                         ? "text-White bg-Teal border-0"
-                        : "bg-white text-Black "
+                        : "bg-white text-Grey "
                     }`}
                   >
                     <div className="">
@@ -241,7 +241,7 @@ const Navbar = () => {
                 debouncedSearch(e.target.value);
               }}
               className={`lg:rounded-md h-8 mt-2 font-bold mx-8 shadow-md border-none ${
-                isNavbarVisible ? "pt-0" : "pt-[0.32rem]"
+                isNavbarVisible ? "pt-[0.1rem]" : "pt-[0.32rem]"
               } mobile-input`}
               onPressEnter={(e) => {
                 if (e.key === "Enter") {

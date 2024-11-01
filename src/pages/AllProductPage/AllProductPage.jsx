@@ -194,19 +194,19 @@ const AllProductPage = () => {
   return (
     <motion.div className="min-h-screen bg-container">
       <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap">
-        <h1 className="pt-1 px-3 bg-Teal text-White rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
+        <h1 className="pt-1 px-3 bg-Teal text-white rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
           SẢN PHẨM
         </h1>
       </div>
       <div className="lg:block md:block hidden">
         <ShiftingCountdown />
       </div>
-      <div className="flex shadow-lg flex-col md:mt-[2rem] border-0 type-blur lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:p-4 py-4 w-full">
+      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[0rem] items-center justify-center lg:pb-4 w-full">
         <p className="font-bold cursor-default lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="text-Grey2 cursor-default text-[1.25rem]">
+          <p className="text-White cursor-default text-[1.25rem]">
             Bạn muốn mua như thế nào?
           </p>
           <div className="flex">
