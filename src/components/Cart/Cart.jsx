@@ -65,7 +65,7 @@ const Cart = ({ cart }) => {
       {cart &&
         cart.map((item) => {
           return (
-            <Card className="mx-2" key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor: '#000' }}>
+            <Card className="mx-2" key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor:"rgba(30, 30, 30, 1)",border:"2px solid rgba(255, 255, 255, 0.1)" }}>
               <div className={styles.cardContainer}>
                 <div className={styles.groupImage}>
                   <Checkbox
@@ -73,12 +73,12 @@ const Cart = ({ cart }) => {
                     className={styles.checkBox}
                     onClick={() => handleChooseProduct(item)}
                   />
-                  <div className="rounded-xl h-14 mr-4 overflow-hidden">
+                  <div className="rounded-lg h-16 mr-4 overflow-hidden">
                     <Image className={`${styles.imageProduct}`} src={item.product.images[0]} />
                   </div>
 
                   <Typography.Text
-                    style={{ color: "#707070", fontWeight: "bold", fontSize: "16px" }}
+                    style={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
                     className={styles.title}
                   >
                     {item.product.name}
@@ -86,7 +86,7 @@ const Cart = ({ cart }) => {
                 </div>
                 <div className={styles.groupSum}>
                   <Typography.Text
-                    style={{ color: "#707070", fontWeight: "bold", fontSize: "16px" }}
+                    style={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
                     className={styles.title2}
                   >
                     {item.product.name}
@@ -97,9 +97,9 @@ const Cart = ({ cart }) => {
                     {formatPrice(item.product.discountedPrice.toString())}đ{" "}
                   </Typography.Text>
                   <InputNumber
-                    className={styles.quantityInput}
+                    className="w-14 font-semibold"
                     min={1}
-                    max={10}
+                    max={100}
                     defaultValue={item.quantity}
                     onBlur={(value) => onChange(value, item)}
                   />

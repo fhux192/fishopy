@@ -22,7 +22,7 @@ const OrderPage = () => {
     <div className={styles.container}>
       { (
         <>
-          <Card className={`${styles.cardStep} mt-[3rem] mx-2 lg:mt-[8rem]`}>
+          <Card className={`${styles.cardStep} bg-Black mt-[3rem] mx-2 lg:mt-[8rem]`}>
             <Steps
               size="small"
               current={currentStep}

@@ -168,7 +168,7 @@ const AllProductPage = () => {
   }, []);
 
   useEffect(() => {
-    const newPageSize = columns * 3;
+    const newPageSize = columns * 6;
     setPageSize(newPageSize);
     setCurrentPage(1);
   }, [columns]);

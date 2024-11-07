@@ -241,7 +241,7 @@ const Navbar = () => {
                   debouncedSearch(e.target.value);
                 }}
                 className={`lg:rounded-md h-8 mt-2 text-Teal font-bold mx-8 shadow-md border-none ${
-                  isNavbarVisible ? "pt-[0.14rem]" : "pt-[0.373rem]"
+                  isNavbarVisible ? "pt-[0.18rem]" : "pt-[0.38rem]"
                 } mobile-input`}
                 onPressEnter={(e) => {
                   if (e.key === "Enter") {

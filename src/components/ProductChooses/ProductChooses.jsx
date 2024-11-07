@@ -34,7 +34,7 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
 
   return (
     <>
-      <Card className="mx-2" style={{ marginBottom: "20px", backgroundColor: '#000' }}>
+      <Card className="mx-2" style={{ marginBottom: "20px",backgroundColor:"rgba(30, 30, 30, 1)",border:"2px solid rgba(255, 255, 255, 0.1)" }}>
         {(addressDelivery) ? (
           <Flex justify="space-between" align="center">
             <div>

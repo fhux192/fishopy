@@ -8,6 +8,6 @@
 
 
 .main-body {
-  min-height: calc(100vh - 96px - 209px);
+  min-height: calc(110vh - 96px - 209px);
   background-color:#222;
 }
