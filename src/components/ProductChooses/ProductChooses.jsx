@@ -34,7 +34,7 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
 
   return (
     <>
-      <Card style={{ marginBottom: "10px", backgroundColor: '#0000004d' }}>
+      <Card className="mx-2" style={{ marginBottom: "20px", backgroundColor: '#000' }}>
         {(addressDelivery) ? (
           <Flex justify="space-between" align="center">
             <div>
@@ -63,7 +63,7 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
           </Flex>
         ) : (
           <Flex justify="space-between" align="center">
-            <Typography.Title level={5} style={{ color: "red" }}>
+            <Typography.Title level={5} style={{ color: "#ff0000" }}>
               Chưa có địa chỉ nhận hàng
             </Typography.Title>
             <Button style={{color: 'white'}} onClick={() => dispatch(toggleModalAddAddress())}>Thêm nhanh</Button>

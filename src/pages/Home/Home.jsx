@@ -57,8 +57,8 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="flex pt-4 pb-2 lg:pb-0 w-full justify-center whitespace-nowrap"></div>
-      <div className="flex items-center lg:h-[70vh] h-[90vh] justify-center">
+      <div className="flex pt-4 pb-12 lg:pb-0 w-full justify-center whitespace-nowrap"></div>
+      <div className="flex items-center lg:h-[73vh] h-[90vh] pb-[7rem] justify-center">
         <div className="flex-col flex items-center justify-center w-[65%] h-[80%]">
           <motion.div className="flex items-center justify-center mt-10">
             <p className="cursor-default text-Teal max-[550px]:text-[2rem] max-[800px]:text-[4rem] text-[4rem] font-semibold">

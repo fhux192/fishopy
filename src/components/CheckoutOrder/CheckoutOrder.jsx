@@ -17,7 +17,7 @@ const CheckoutOrder = ({ setCurrentStep }) => {
   return (
     <>
       {(user?.cart?.length > 0 || cart?.length > 0) && (
-        <div className={styles.checkOutOrder}>
+        <div className={` ${styles.checkOutOrder}`}>
           <div className={styles.checkOutOrderCard}>
             <Checkbox
               checked={ user ? user.cart.every((item) => item.checked) : cart.every((item) => item.checked)}

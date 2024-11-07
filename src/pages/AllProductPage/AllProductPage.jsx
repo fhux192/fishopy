@@ -201,12 +201,12 @@ const AllProductPage = () => {
       <div className="lg:block md:block hidden">
         <ShiftingCountdown />
       </div>
-      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[1rem] items-center justify-center lg:pb-4 w-full">
+      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[0.7rem] items-center justify-center lg:pb-4 w-full">
         <p className="font-bold cursor-default lg:text-[1.7rem] text-[1.5rem] text-white">
           Dành cho bạn
         </p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="text-White cursor-default text-[1.25rem]">
+          <p className="text-Grey2 cursor-default text-[1.25rem]">
             Bạn muốn mua như thế nào?
           </p>
           <div className="flex">

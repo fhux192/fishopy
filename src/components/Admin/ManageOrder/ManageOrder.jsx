@@ -137,7 +137,7 @@ const ManageOrder = () => {
         <Empty description="Không có đơn hàng" />
       ) : (
         orders.map((order) => (
-          <Card key={order._id} style={{ marginBottom: "15px" }}>
+          <Card key={order._id} style={{ marginBottom: "15px"  }}>
             {order.orderItems.map((item) => (
               <Row key={item._id} gutter={[16, 16]} align="middle" style={{ marginBottom: "10px" }}>
                 <Col xs={24} sm={6} md={4} className={styles.groupImage}>
@@ -148,7 +148,7 @@ const ManageOrder = () => {
                     style={{ cursor: "pointer" }}
                   />
                 </Col>
-                <Col xs={24} sm={18} md={20} className={styles.groupSum}>
+                <Col xs={24} sm={18} md={20} className={`${styles.groupSum}`}>
                   <Text
                     className={styles.title}
                     onClick={() => {

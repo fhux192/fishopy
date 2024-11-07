@@ -6,7 +6,7 @@ import "../../../scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef, useCallback } from "react";
 import "../../../scss/bubble.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
 import ModalAuth from "../../Modal/ModalAuth/ModalAuth.jsx";
 import { FaBagShopping } from "react-icons/fa6";
@@ -21,6 +21,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user, search } = useSelector((state) => state.account);
   const navigate = useNavigate();
+  const location = useLocation(); // Use useLocation to get the current path
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -101,12 +102,11 @@ const Navbar = () => {
       className="navbar"
       initial={{ y: -100 }}
       animate={{ y: isNavbarVisible ? 0 : -85 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      transition={{ type: "spring", stiffness: 1000, damping: 30 }}
       style={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}
     >
       <div>
         <div className="flex flex-col items-center">
-          {" "}
           <div
             className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0] `}
           >
@@ -147,7 +147,6 @@ const Navbar = () => {
                   style={{ color: "#f0f6f5" }}
                   className=""
                 >
-                  {" "}
                   <div className="relative" ref={dropdownRef}>
                     <FaUserTag
                       title="Tài Khoản"
@@ -232,30 +231,31 @@ const Navbar = () => {
               </a>
             </div>
           </div>
-          <div className="flex w-full lg:w-[35rem] rounded-xl mt-1  text-white lg:ml-2  items-center">
-            <Input
-              placeholder="Tìm kiếm cá..."
-              loading
-              enterButton
-              onChange={(e) => {
-                debouncedSearch(e.target.value);
-              }}
-              className={`lg:rounded-md h-8 mt-2 font-bold mx-8 shadow-md border-none ${
-                isNavbarVisible ? "pt-[0.1rem]" : "pt-[0.32rem]"
-              } mobile-input`}
-              onPressEnter={(e) => {
-                if (e.key === "Enter") {
-                  navigate("/product");
-                }
-              }}
-              style={{ textTransform: "uppercase" }}
-            />
-          </div>
+          {location.pathname === "/product" && ( // Conditionally render the Input based on the current path
+            <div className="flex w-[90%] lg:w-[35rem] rounded-xl mt-1 active:text-Teal text-white lg:ml-2  items-center">
+              <Input
+                placeholder="Tìm kiếm cá..."
+                loading
+                enterButton
+                onChange={(e) => {
+                  debouncedSearch(e.target.value);
+                }}
+                className={`lg:rounded-md h-8 mt-2 text-Teal font-bold mx-8 shadow-md border-none ${
+                  isNavbarVisible ? "pt-[0.14rem]" : "pt-[0.373rem]"
+                } mobile-input`}
+                onPressEnter={(e) => {
+                  if (e.key === "Enter") {
+                    navigate("/product");
+                  }
+                }}
+                style={{ textTransform: "uppercase" }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
   );
 };
-
 
 export default Navbar;

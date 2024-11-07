@@ -4,7 +4,7 @@ import formatPrice from "../../utils/formatPrice";
 
 const CartItemChoose = ({ item }) => {
   return (
-    <Card span={24} style={{ marginBottom: "10px", backgroundColor: '#0000004d' }}>
+    <Card span={24} className="mx-2" style={{ marginBottom: "10px",  backgroundColor: '#000' }}>
       <div className={styles.cardContainer}>
         <Flex gap={10}>
           <div className={styles.groupImage}>

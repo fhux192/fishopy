@@ -202,10 +202,10 @@ const CheckoutPayment = ({
               !shippingfee ||
               !addressDelivery
             }
-            className="bg-Teal rounded-full font-semibold"
+            className="bg-Teal mx-2 rounded-full"
             onClick={onOrder}
           >
-            Đặt hàng
+            <p className="text-white">Đặt hàng</p>
           </Button>
         </div>
       </div>

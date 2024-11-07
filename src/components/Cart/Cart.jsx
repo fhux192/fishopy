@@ -65,7 +65,7 @@ const Cart = ({ cart }) => {
       {cart &&
         cart.map((item) => {
           return (
-            <Card key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor: '#0000004d' }}>
+            <Card className="mx-2" key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor: '#000' }}>
               <div className={styles.cardContainer}>
                 <div className={styles.groupImage}>
                   <Checkbox

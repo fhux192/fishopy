@@ -7,7 +7,7 @@ const AddressPage = () => {
     <div>
       <div className="mx-8">
         <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full justify-center whitespace-nowrap">
-          <h1 className="pt-1 px-3 bg-Teal text-White rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
+          <h1 className="pt-1 px-3 bg-Teal text-white rounded-full mt-[2rem] lg:mt-[4.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
             ĐỊA CHỈ TRẠI CÁ GUPPY HÓC MÔN
           </h1>
         </div>
