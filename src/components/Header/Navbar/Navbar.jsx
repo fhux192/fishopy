@@ -217,7 +217,7 @@ const Navbar = () => {
                 <img
                   src={tiktok}
                   title="TikTok"
-                  className="lg:hidden block w-[38px]  text-red-600 bg-white rounded-lg p-1 lg:mr-[15px] md:mr-10 mr-10 duration-500"
+                  className="lg:hidden block w-[38px] h-[38px]  text-red-600 bg-white rounded-lg p-1 lg:mr-[15px] md:mr-10 mr-10 duration-500"
                 />
               </a>
               <a
@@ -241,7 +241,7 @@ const Navbar = () => {
                   debouncedSearch(e.target.value);
                 }}
                 className={`lg:rounded-md h-8 mt-2 text-Teal font-bold mx-8 shadow-md border-none ${
-                  isNavbarVisible ? "pt-[0.18rem]" : "pt-[0.38rem]"
+                  isNavbarVisible ? "pt-[0.22rem]" : "pt-[0.42rem]"
                 } mobile-input`}
                 onPressEnter={(e) => {
                   if (e.key === "Enter") {

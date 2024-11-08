@@ -206,7 +206,7 @@ const AllProductPage = () => {
           Dành cho bạn
         </p>
         <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="text-Grey2 cursor-default text-[1.25rem]">
+          <p className="text-Grey2 font-medium cursor-default text-[1.25rem]">
             Bạn muốn mua như thế nào?
           </p>
           <div className="flex">

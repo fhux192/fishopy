@@ -108,7 +108,7 @@ const ModalLogin = () => {
             )}
           </div>
         </label>
-        <Typography
+        {/* <Typography
           onClick={() => {
             message.info(
               "Quên thì thôi bạn"
@@ -117,7 +117,7 @@ const ModalLogin = () => {
           className="text-teal-700 ml-1 mt-2 cursor-pointer font-semibold"
         >
           Bạn quên mật khẩu?
-        </Typography>
+        </Typography> */}
         <Button
           onClick={handlelogin}
           className="h-10 w-full px-2 text-center font-semibold mt-4 rounded-3xl duration-150"
@@ -151,9 +151,9 @@ const ModalLogin = () => {
           </Typography.Link>
         </div>
         <div className="flex mt-5 justify-center">
-          <p className="text-Grey cursor-default">Hoặc đăng nhập bằng</p>
+          <p className="text-Grey cursor-default">Hoặc đăng nhập Gmail</p>
         </div>
-        <div className="flex mt-5 w-full justify-center">
+        <div className="flex mt-2 w-full justify-center">
           <Image
             src={logo}
             style={{

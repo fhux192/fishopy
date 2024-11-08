@@ -42,10 +42,12 @@
 .smallText {
   text-align: center;
   margin-top: 1rem;
+  margin-bottom: 8px;
 }
 
 .smallText span {
   color: black;
+  
 }
 
 @keyframes bound {
