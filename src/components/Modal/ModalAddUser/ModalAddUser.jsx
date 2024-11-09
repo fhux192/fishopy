@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from "antd";
 import { toggleModalAddUser } from "../../../redux/features/toggle/toggleSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {  callCreateUserAdmin } from "../../../services/api";
+import { callCreateUserAdmin } from "../../../services/api";
 
 const ModalAddUser = ({ setUsers }) => {
   const { modalAddUser } = useSelector((state) => state.toggle);
@@ -18,8 +18,10 @@ const ModalAddUser = ({ setUsers }) => {
         message.success(res.message);
         dispatch(toggleModalAddUser());
         setUsers((prev) => [...prev, res.data]);
+
+        form.resetFields();
       } else {
-        console.error(error);
+        message.error(res.message);
       }
     } catch (error) {
       console.error(error);
@@ -78,7 +80,9 @@ const ModalAddUser = ({ setUsers }) => {
           label="Quyền"
           labelCol={{ span: 24 }}
           name="role"
-          rules={[{ required: true, message: "Vui lòng chọn quyền của người dùng!" }]}
+          rules={[
+            { required: true, message: "Vui lòng chọn quyền của người dùng!" },
+          ]}
         >
           <Select
             options={[

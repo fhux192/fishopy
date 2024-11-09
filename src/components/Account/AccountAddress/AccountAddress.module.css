@@ -19,9 +19,12 @@
   width: 100%;
   margin-bottom: 1rem;
 }
-
+.addressTitle {
+  color: white;
+}
 .groupAction {
   gap: 10px;
+  color: white;
 }
 
 @media (max-width: 576px) {

@@ -2,7 +2,10 @@ import { Card, Divider, Dropdown, Flex, message, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./AccountAddress.module.css";
 import { callRemoveAddress } from "../../../services/api";
-import { toggle, toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
+import {
+  toggle,
+  toggleModalAddAddress,
+} from "../../../redux/features/toggle/toggleSlice";
 import { updateAccount } from "../../../redux/features/user/userSlice";
 import MyButton from "../../MyButton/MyButton";
 import ModalAddAddress from "../../Modal/ModalAddAddress";
@@ -19,7 +22,11 @@ const AccountAddress = () => {
       const res = await callRemoveAddress(id);
       if (res.vcode == 0) {
         message.success(res.message);
-        dispatch(updateAccount({ addresses: user.addresses.filter((item) => item._id !== id) }));
+        dispatch(
+          updateAccount({
+            addresses: user.addresses.filter((item) => item._id !== id),
+          })
+        );
       }
     } catch (error) {
       console.error("error", error);
@@ -28,10 +35,16 @@ const AccountAddress = () => {
 
   const items = (id) => [
     {
-      label: <Button onClick={() => {
-        dispatch(toggle('modalEditAddress'));
-        setAddressEdit(user.addresses.find((item) => item._id === id));
-      }}>Sửa</Button>,
+      label: (
+        <Button
+          onClick={() => {
+            dispatch(toggle("modalEditAddress"));
+            setAddressEdit(user.addresses.find((item) => item._id === id));
+          }}
+        >
+          Sửa
+        </Button>
+      ),
       key: "0",
     },
     {
@@ -43,11 +56,14 @@ const AccountAddress = () => {
     <div className={styles.address}>
       <div className={styles.addressHeader}>
         <h2 className={styles.addressTitle}>Địa chỉ của tôi</h2>
-        <MyButton text={"+Thêm địa chỉ mới"} onClick={() => dispatch(toggleModalAddAddress())} />
+        <MyButton
+          text={"+Thêm địa chỉ mới"}
+          onClick={() => dispatch(toggleModalAddAddress())}
+        />
       </div>
       {user.addresses.map((item) => {
         return (
-          <Card key={item._id} className={styles.cardItem}>
+          <Card key={item._id} className={"bg-Black text-white"}>
             <Flex justify="space-between">
               <div>
                 <div className={styles.groupInfo}>
@@ -59,7 +75,11 @@ const AccountAddress = () => {
                 <p>
                   {item.ward}, {item.city}, {item.district}
                 </p>
-                {item.active && <Button style={{ marginTop: "5px" }}>Mặc định</Button>}
+                {item.active && (
+                  <button className="mt-2 border border-white rounded py-1 px-2">
+                    Mặc định
+                  </button>
+                )}
               </div>
 
               <Flex className={styles.groupAction}>
@@ -69,18 +89,15 @@ const AccountAddress = () => {
                   }}
                   trigger={["click"]}
                 >
-                  <Button>...</Button>
+                  <Button className="text-white">...</Button>
                 </Dropdown>
               </Flex>
-
-              
             </Flex>
           </Card>
         );
       })}
       <ModalEditAddress address={addressEdit} />
       <ModalAddAddress />
-
     </div>
   );
 };

@@ -9,10 +9,11 @@ const AccountOrder = () => {
   };
 
   return (
-    <Card style={{ padding: "15px" }}>
+    <Card style={{ padding: "15px" }} className="bg-Black text-white">
       <Space direction="vertical" style={{ width: "100%" }}>
         <Segmented
           value={activeKey}
+          className="bg-Black text-white"
           options={[
             { label: "Chờ xác nhận", value: "pending" },
             { label: "Đang giao", value: "shipping" },

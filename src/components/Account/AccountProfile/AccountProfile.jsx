@@ -31,7 +31,7 @@ const AccountProfile = () => {
       values.avatar = user.avatar;
       const res = await callUpdateAccount(user._id, values);
       if (res.vcode == 0) {
-        dispatch(setCredentials({...user, ...res.data}));
+        dispatch(setCredentials({ ...user, ...res.data }));
         message.success(res.message);
       } else message.error(res.message);
     } catch (error) {
@@ -69,7 +69,7 @@ const AccountProfile = () => {
   );
 
   return (
-    <Card style={{ width: "100%" }}>
+    <Card style={{ width: "100%" }} className="bg-Black text-white">
       <h1>Hồ sơ của tôi</h1>
       <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
       <Divider />
@@ -102,7 +102,7 @@ const AccountProfile = () => {
             }}
           >
             <Form.Item
-              label="Họ và tên"
+              label={<span className="text-white"> Họ tên</span>}
               name="name"
               rules={[
                 {
@@ -114,7 +114,7 @@ const AccountProfile = () => {
               <Input />
             </Form.Item>
             <Form.Item
-              label="Số điện thoại"
+              label={<span className="text-white"> Số điện thoại</span>}
               name="phone"
               rules={[
                 {
@@ -126,7 +126,10 @@ const AccountProfile = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item label="Email" name="email">
+            <Form.Item
+              name="email"
+              label={<span className="text-white">Email</span>}
+            >
               <Input />
             </Form.Item>
 
