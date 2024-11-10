@@ -1,24 +1,29 @@
-import { Button, Form, Input, Modal, Select } from "antd";
+import { Button, Form, Input, message, Modal, Select } from "antd";
 import { toggleModalEditUser } from "../../../redux/features/toggle/toggleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { callUpdateUserAdmin } from "../../../services/api";
 
-const ModalEditUser = ({ userEdit, setUsers }) => {
+const ModalEditUser = ({ userEdit, setUsers, users }) => {
   const { modalEditUser } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
   useEffect(() => {
-    form.setFieldsValue(userEdit);
+    if (userEdit?._id) {
+      form.setFieldsValue(userEdit);
+    }
   }, [userEdit]);
 
   const onFinish = async (values) => {
     try {
-      const res = await callEditUser(values);
+      const res = await callUpdateUserAdmin(userEdit._id, values);
       if (res.vcode === 0) {
         message.success(res.message);
         dispatch(toggleModalEditUser());
-        setUsers((prev) => [...prev, res.data]);
+        setUsers(
+          users.map((user) => (user._id === userEdit._id ? res.data : user))
+        );
       }
     } catch (error) {
       console.error(error);
@@ -60,7 +65,9 @@ const ModalEditUser = ({ userEdit, setUsers }) => {
           label="Quyền"
           labelCol={{ span: 24 }}
           name="role"
-          rules={[{ required: true, message: "Vui lòng chọn quyền của người dùng!" }]}
+          rules={[
+            { required: true, message: "Vui lòng chọn quyền của người dùng!" },
+          ]}
         >
           <Select
             options={[

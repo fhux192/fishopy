@@ -19,7 +19,7 @@ import {
 
 import ModalAddUser from "../../components/Modal/ModalAddUser/ModalAddUser";
 import ModalEditUser from "../../components/Modal/ModalEditUser/ModalEditUser";
-import {  callDeleteUserAdmin, callGetUsersAdmin } from "../../services/api";
+import { callDeleteUserAdmin, callGetUsersAdmin } from "../../services/api";
 import {
   toggleModalAddUser,
   toggleModalEditUser,
@@ -182,7 +182,7 @@ const UserManagement = () => {
 
       <ModalAddUser setUsers={setUsers} />
 
-      <ModalEditUser userEdit={userEdit} setUsers={setUsers} />
+      <ModalEditUser users={users} userEdit={userEdit} setUsers={setUsers} />
     </div>
   );
 };
