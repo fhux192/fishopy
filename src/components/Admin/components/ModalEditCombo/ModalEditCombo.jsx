@@ -1,23 +1,20 @@
 import { Button, Form, Input, message, Modal, Table, Upload } from "antd";
 import { useEffect, useState } from "react";
-import { callCreateComboAdmin, callUploadImg } from "../../../services/api";
-import {
-  DeleteOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import ModalChooseProduct from "../ModalChooseProduct/ModalChooseProduct";
+import { DeleteOutlined } from "@ant-design/icons";
+import { callEditComboAdmin } from "../../../../services/api";
+import ModalChooseProduct from "../../ModalChooseProduct/ModalChooseProduct";
 
-const ModalAddCombo = ({
-  showModalAddCombo,
-  setShowModalAddCombo,
+const ModalEditCombo = ({
+  showModalEditCombo,
+  setShowModalEditCombo,
   setCombos,
+  comboEdit,
+  combos,
 }) => {
-  const [fileList, setFileList] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [showModalChooseProduct, setShowModalChooseProduct] = useState();
   const [productChoosed, setProductChoosed] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [form] = Form.useForm();
 
   const handleQuantityChange = (key, value) => {
     const updatedData = productChoosed.map((item) =>
@@ -83,6 +80,23 @@ const ModalAddCombo = ({
     calcTotalPrice();
   }, [productChoosed]);
 
+  useEffect(() => {
+    if (comboEdit) {
+      form.setFieldsValue({
+        name: comboEdit.name,
+        price: comboEdit.price,
+      });
+
+      setProductChoosed(
+        comboEdit.products.map((item) => ({
+          ...item.product,
+          quantity: item.quantity,
+          key: item.product._id,
+        }))
+      );
+    }
+  }, [comboEdit]);
+
   const onFinish = async (values) => {
     if (productChoosed.length === 0) {
       message.error("Hãy chọn sản phẩm cho combo");
@@ -97,23 +111,26 @@ const ModalAddCombo = ({
       })),
     };
 
-    const res = await callCreateComboAdmin(data);
+    const res = await callEditComboAdmin(comboEdit._id, data);
     if (res.vcode === 0) {
-      setCombos((pre) => [...pre, res.data]);
-      message.success("Thêm combo thành công");
-      setShowModalAddCombo(false);
+      const newCombos = combos.map((item) =>
+        item._id === comboEdit._id ? res.data : item
+      );
+      setCombos(newCombos);
+      message.success("Sửa combo thành công");
+      setShowModalEditCombo(false);
     } else message.error(res.message);
   };
 
   return (
     <Modal
-      open={showModalAddCombo}
+      open={showModalEditCombo}
       footer={null}
       title="Thêm combo"
-      onCancel={() => setShowModalAddCombo(false)}
+      onCancel={() => setShowModalEditCombo(false)}
       width={1000}
     >
-      <Form name="addCombo" onFinish={onFinish} autoComplete="off">
+      <Form name="addCombo" onFinish={onFinish} autoComplete="off" form={form}>
         <div className="flex flex-wrap justify-between">
           <Form.Item
             label="Tên "
@@ -159,7 +176,7 @@ const ModalAddCombo = ({
         </div>
         <Form.Item wrapperCol={24} className="text-right">
           <Button type="primary" htmlType="submit">
-            Thêm
+            Lưu
           </Button>
         </Form.Item>
       </Form>
@@ -173,4 +190,4 @@ const ModalAddCombo = ({
     </Modal>
   );
 };
-export default ModalAddCombo;
+export default ModalEditCombo;

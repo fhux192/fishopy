@@ -184,6 +184,10 @@ export const callCreateComboAdmin = async (data) => {
   return await axios.post("admin/combo", data);
 }
 
+export const callEditComboAdmin = async (id, data) => {
+  return await axios.put(`admin/combo/${id}`, data);
+}
+
 export const callDeleteComboAdmin = async (id) => {
   return await axios.delete(`admin/combo/${id}`);
 }

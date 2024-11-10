@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 import ModalAddCombo from "../../components/Admin/ModalAddCombo/ModalAddCombo";
-import { DeleteOutlined } from "@ant-design/icons";
-import { message, Popconfirm, Table } from "antd";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, message, Popconfirm, Table } from "antd";
 import { callDeleteComboAdmin, callGetCombosAdmin } from "../../services/api";
+import ModalEditCombo from "../../components/Admin/components/ModalEditCombo/ModalEditCombo";
 
 const ManageCombo = () => {
   const [showModalAddCombo, setShowModalAddCombo] = useState(false);
+  const [showModalEditCombo, setShowModalEditCombo] = useState(false);
   const [combos, setCombos] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(1);
+  const [comboEdit, setComboEdit] = useState(null);
 
   const columns = [
-    {
-      title: "Ảnh",
-      dataIndex: "imgs",
-      render: (imgs) => <img width={50} src={imgs?.[0]} />,
-    },
     {
       title: "Tên combo",
       dataIndex: "name",
@@ -28,15 +26,26 @@ const ManageCombo = () => {
     {
       title: "Thao tác",
       render: (record) => (
-        <Popconfirm
-          title="Xóa combo này?"
-          onConfirm={() => handleDeleteCombo(record._id)}
-          okText="Có"
-          cancelText="Không"
-          className="ml-4 cursor-pointer p-2"
-        >
-          <DeleteOutlined style={{ color: "red" }} />
-        </Popconfirm>
+        <div className="">
+          <Button
+            type="link"
+            icon={<EditOutlined style={{ color: "orange" }} />}
+            onClick={() => {
+              setShowModalEditCombo(!showModalEditCombo);
+              setComboEdit(record);
+            }}
+          />
+
+          <Popconfirm
+            title="Xóa combo này?"
+            onConfirm={() => handleDeleteCombo(record._id)}
+            okText="Có"
+            cancelText="Không"
+            className="ml-4 cursor-pointer p-2"
+          >
+            <DeleteOutlined style={{ color: "red" }} />
+          </Popconfirm>
+        </div>
       ),
     },
   ];
@@ -61,7 +70,7 @@ const ManageCombo = () => {
     try {
       const res = await callGetCombosAdmin({}, {}, page, limit);
       setTotal(res.total);
-      setCombos(res.data);
+      setCombos(res.data.map((item) => ({ ...item, key: item._id })));
     } catch (error) {
       console.error("error", error.message);
     }
@@ -99,6 +108,14 @@ const ManageCombo = () => {
         showModalAddCombo={showModalAddCombo}
         setShowModalAddCombo={setShowModalAddCombo}
         setCombos={setCombos}
+      />
+
+      <ModalEditCombo
+        showModalEditCombo={showModalEditCombo}
+        setShowModalEditCombo={setShowModalEditCombo}
+        comboEdit={comboEdit}
+        setCombos={setCombos}
+        combos={combos}
       />
     </div>
   );

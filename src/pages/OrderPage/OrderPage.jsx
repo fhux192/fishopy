@@ -99,8 +99,12 @@ const OrderPage = () => {
                 {(user ? user?.cart.length == 0 : cart.length == 0) &&
                   currentStep != 2 && (
                     <Result
-                      icon={<SmileOutlined />}
-                      title="Không có sản phẩm nào trong giỏ hàng"
+                      icon={<SmileOutlined style={{ color: "white" }} />}
+                      title={
+                        <span className="text-white">
+                          Không có sản phẩm nào trong giỏ hàng
+                        </span>
+                      }
                       extra={
                         <Link to={"/"}>
                           <Button type="primary">Tiếp tục mua</Button>
