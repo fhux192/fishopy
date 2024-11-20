@@ -214,7 +214,7 @@ const AllProductPage = () => {
               onClick={() => handlePurchaseOptionClick("single")}
               className={`flex justify-center rounded-l-xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "single"
-                  ? "bg-Black text-teal-500 font-[600] cursor-default"
+                  ? "bg-Black text-teal-500 font-[700] cursor-default"
                   : "bg-Black2 text-Grey2"
               }`}
             >
@@ -227,7 +227,7 @@ const AllProductPage = () => {
               onClick={() => handlePurchaseOptionClick("combo")}
               className={`flex justify-center rounded-r-xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "combo"
-                  ? "bg-Black text-teal-500 font-[600] cursor-default"
+                  ? "bg-Black text-teal-500 font-[700] cursor-default"
                   : "bg-Black2 text-Grey2"
               }`}
             >

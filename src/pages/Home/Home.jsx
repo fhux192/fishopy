@@ -48,7 +48,7 @@ const Home = () => {
   return (
     <div className="min-h-screen  flex items-center justify-center">
       <div className="container px-6">
-        <div className="bg-black rounded-3xl shadow-xl overflow-hidden">
+        <div className="bg-black mt-20 rounded-3xl shadow-xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Nội dung */}
             <div className="md:w-1/2 p-8 flex flex-col justify-center">
