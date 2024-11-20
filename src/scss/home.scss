@@ -27,4 +27,7 @@
     .button-container:not(:hover) {
         transition: all 0.5s ease-in;
     }
+    .textTeal{
+        color: linear-gradient(10deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478);
+    }
 }

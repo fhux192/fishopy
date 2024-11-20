@@ -232,7 +232,7 @@ const Navbar = () => {
             </div>
           </div>
           {location.pathname === "/product" && ( // Conditionally render the Input based on the current path
-            <div className="flex w-[90%] lg:w-[35rem] rounded-xl mt-1 active:text-Teal text-white lg:ml-2  items-center">
+            <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2  items-center">
               <Input
                 placeholder="Tìm kiếm cá..."
                 loading
@@ -240,7 +240,7 @@ const Navbar = () => {
                 onChange={(e) => {
                   debouncedSearch(e.target.value);
                 }}
-                className={`lg:rounded-md h-8 mt-2 text-Teal font-bold mx-8 shadow-md border-none ${
+                className={`lg:rounded-md h-8 mt-2 text-teal-500 font-bold mx-8 shadow-md border-none ${
                   isNavbarVisible ? "pt-[0.22rem]" : "pt-[0.42rem]"
                 } mobile-input`}
                 onPressEnter={(e) => {

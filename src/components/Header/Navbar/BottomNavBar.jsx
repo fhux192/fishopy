@@ -95,7 +95,7 @@ const BottomNavBar = () => {
     }
   };
 
-  const activeColor = "#2daab6"; // Active icon color
+  const activeColor = "#09D1C7"; // Active icon color
   const inactiveColor = "#f0f6f5"; // Inactive icon color
 
   return (

@@ -168,7 +168,7 @@ const AllProductPage = () => {
   }, []);
 
   useEffect(() => {
-    const newPageSize = columns * 6;
+    const newPageSize = columns * 3;
     setPageSize(newPageSize);
     setCurrentPage(1);
   }, [columns]);
@@ -194,7 +194,7 @@ const AllProductPage = () => {
   return (
     <motion.div className="min-h-screen bg-container">
       <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap">
-        <h1 className="pt-1 px-3 bg-Teal text-white rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
+        <h1 className="pt-1 px-3 bg-teal-500 text-white rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
           SẢN PHẨM
         </h1>
       </div>
@@ -212,28 +212,28 @@ const AllProductPage = () => {
           <div className="flex">
             <button
               onClick={() => handlePurchaseOptionClick("single")}
-              className={`flex justify-center rounded-l-3xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+              className={`flex justify-center rounded-l-xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "single"
-                  ? "bg-Black text-Teal cursor-default"
+                  ? "bg-Black text-teal-500 font-[600] cursor-default"
                   : "bg-Black2 text-Grey2"
               }`}
             >
               <div className="flex items-center gap-1">
                 <FaBoxOpen />
-                <p className="text-md font-[500]"> 1 Cặp theo loại</p>
+                <p className="text-md "> 1 Cặp theo loại</p>
               </div>
             </button>
             <button
               onClick={() => handlePurchaseOptionClick("combo")}
-              className={`flex justify-center rounded-r-3xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+              className={`flex justify-center rounded-r-xl w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                 selectedPurchaseOption === "combo"
-                  ? "bg-Black text-Teal cursor-default"
+                  ? "bg-Black text-teal-500 font-[600] cursor-default"
                   : "bg-Black2 text-Grey2"
               }`}
             >
               <div className="flex items-center gap-1">
                 <FaBoxesStacked />
-                <p className="text-md font-[500]">Combo giá rẻ</p>
+                <p className="text-md ">Combo giá rẻ</p>
               </div>
             </button>
           </div>

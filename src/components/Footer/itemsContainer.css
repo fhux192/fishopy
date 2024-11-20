@@ -23,7 +23,7 @@
   content: "";
   width: 50px;
   height: 3px;
-  background: #2daab6;
+  background: #09D1C7;
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -43,7 +43,7 @@
 
 .highlight-text,
 .highlight-icon {
-  color: #2daab6;
+  color: #09D1C7;
 }
 
 .footer-divider {
@@ -75,12 +75,12 @@
 }
 
 .footer-text .ant-typography-copy {
-  color: #2daab6;
+  color: #09D1C7;
 }
 
 /* Nếu biểu tượng copy là một SVG, cần thay đổi thuộc tính fill */
 .footer-text .ant-typography-copy svg {
-  fill: #2daab6;
+  fill: #09D1C7;
 }
 
 /* Thay đổi màu khi hover vào nút copy */
