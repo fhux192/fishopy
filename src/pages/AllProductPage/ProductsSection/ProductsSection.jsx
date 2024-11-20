@@ -156,7 +156,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
       <div className="product-section rounded-xl">
         <div className="product-container">
           <div className="flex w-full justify-center">
-            <div className="product-grid grid gap-4 lg:mx-0 ">
+            <div className="product-grid grid gap-2 mx-2 lg:mx-0 ">
               {currentPageProducts.map((product, index) => (
                 <ProductCard
                   key={product._id}

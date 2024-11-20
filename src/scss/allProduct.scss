@@ -30,8 +30,8 @@
 
 /* Base styles for .product-card with the dealIn animation */
 .product-card {
-  height: 17rem;
-  width: 12rem;
+  max-height: 17rem;
+  max-width: 12rem;
   border-radius: 1.6rem;
   backdrop-filter: blur(30px);
   background-color: rgba(30, 30, 30, 0.1);
@@ -41,12 +41,9 @@
   position: relative;
   overflow: hidden;
 
-  /* Set initial opacity to 0 */
   opacity: 0;
 
-  /* Apply the dealIn animation */
   animation: dealIn 2s forwards;
-  /* Optional: Add staggered animation delay for each card */
   animation-delay: calc(0.1s * var(--animation-order));
 
   .image-wrapper {
@@ -285,7 +282,7 @@
   .product-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
+    gap: 0.5m;
   }
 
   .banner {
