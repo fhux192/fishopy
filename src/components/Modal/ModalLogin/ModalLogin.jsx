@@ -71,22 +71,22 @@ const ModalLogin = () => {
       ></div>
       <div className={styles.modalContent}>
         <p className={styles.modalTitle}>Đăng Nhập</p>
-        <label htmlFor="phone" className="text-black font-semibold ">
+        <label htmlFor="phone" className="text-Black font-semibold ">
           Số điện thoại:
           <input
             type="text"
-            className="w-full mt-2 p-2 border-2 outline-none text-primaryBlack rounded-lg mb-[0.5rem]"
+            className="w-full mt-1 p-2 border-2 outline-none text-Black rounded-lg mb-[0.5rem]"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </label>
-        <label htmlFor="passwordLogin" className="text-black font-semibold">
+        <label htmlFor="passwordLogin" className="text-Black font-semibold">
           Mật khẩu:
           <div className="relative">
             <input
               type={isShowPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 outline-none p-2 text-primaryBlack rounded-lg mb-[0.5rem]"
+              className="w-full mt-1 border-2 outline-none p-2 text-Black rounded-lg mb-[0.5rem]"
               id="passwordLogin"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -138,9 +138,9 @@ const ModalLogin = () => {
         </Button>
 
         <div className={styles.smallText}>
-          <span className=" cursor-default">Bạn chưa có tài khoản? </span>
+          <span className=" cursor-default font-semibold text-Black">Bạn chưa có tài khoản? </span>
           <Typography.Link
-            className="pl-1 font-semibold"
+            className="pl-1 font-bold"
             style={{ color: "teal" }}
             onClick={() => {
               dispatch(toggleModalLogin());
@@ -151,7 +151,7 @@ const ModalLogin = () => {
           </Typography.Link>
         </div>
         <div className="flex mt-5 justify-center">
-          <p className="text-Grey cursor-default">Hoặc đăng nhập Gmail</p>
+          <p className="text-Grey font-medium cursor-default">Hoặc đăng nhập bằng Gmail</p>
         </div>
         <div className="flex mt-2 w-full justify-center">
           <Image

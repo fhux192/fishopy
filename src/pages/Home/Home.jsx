@@ -46,7 +46,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen  flex items-center justify-center">
+    <div className="min-h-screen pb-10 flex items-center justify-center">
       <div className="container px-6">
         <div className="bg-black mt-20 rounded-3xl shadow-xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
@@ -58,7 +58,7 @@ const Home = () => {
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage:
-                      "linear-gradient(10deg,#15919B, #09D1C7, #46DFB1 47%, #0C6478)",
+                      "linear-gradient(90deg,#15919B, #09D1C7, #46DFB1 47%, #0C6478)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}

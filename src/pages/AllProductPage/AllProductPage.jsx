@@ -194,48 +194,59 @@ const AllProductPage = () => {
   return (
     <motion.div className="min-h-screen bg-container">
       <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap">
-        <h1 className="pt-1 px-3 bg-teal-500 text-white rounded-full mt-[5.8rem] lg:mt-[6.7rem] font-bold cursor-default lg:text-[1.2rem] text-[0.9rem] text-center">
-          SẢN PHẨM
-        </h1>
+        <h1 className=" text-white rounded-full  mt-[4.5rem] lg:mt-[6.5rem] font-bold cursor-default lg:text-[1.2rem] text-[1.3rem] text-center"></h1>
       </div>
       <div className="lg:block md:block hidden">
         <ShiftingCountdown />
       </div>
-      <div className="flex flex-col md:mt-[2rem] border-0 lg:mt-[0.6rem] mt-[0.7rem] items-center justify-center lg:pb-4 w-full">
-        <p className="font-bold cursor-default lg:text-[1.7rem] text-[1.5rem] text-white">
-          Dành cho bạn
-        </p>
-        <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
-          <p className="text-Grey2 font-medium cursor-default text-[1.25rem]">
-            Bạn muốn mua như thế nào?
-          </p>
-          <div className="flex">
-            <button
-              onClick={() => handlePurchaseOptionClick("single")}
-              className={`flex justify-center rounded-l-xl max-w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                selectedPurchaseOption === "single"
-                  ? "bg-Black text-teal-500 font-[700] cursor-default"
-                  : "bg-Black2 text-Grey2"
-              }`}
+      <div className="flex w-full justify-center">
+        {" "}
+        <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-2 ">
+          <div className="bg-Black md:mt-[1.5rem] lg:mt-[0rem] lg:rounded-full rounded-3xl">
+            <p
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg,#15919B, #09D1C7, #46DFB1 47%, #0C6478)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+              className="font-[800] cursor-default lg:text-[1.9rem] text-[1.7rem] text-white"
             >
-              <div className="flex items-center gap-1">
-                <FaBoxOpen />
-                <p className="text-md "> 1 Cặp theo loại</p>
-              </div>
-            </button>
-            <button
-              onClick={() => handlePurchaseOptionClick("combo")}
-              className={`flex justify-center rounded-r-xl max-w-[10rem] lg:w-[10.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                selectedPurchaseOption === "combo"
-                  ? "bg-Black text-teal-500 font-[700] cursor-default"
-                  : "bg-Black2 text-Grey2"
-              }`}
-            >
-              <div className="flex items-center gap-1">
-                <FaBoxesStacked />
-                <p className="text-md ">Combo giá rẻ</p>
-              </div>
-            </button>
+              Dành Cho Bạn
+            </p>
+          </div>
+          <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
+            <p className="text-White font-bold cursor-default text-[1.125rem] lg:text-[1.25rem]">
+              Bạn muốn mua như thế nào?
+            </p>
+            <div className="flex">
+              <button
+                onClick={() => handlePurchaseOptionClick("single")}
+                className={`flex justify-center rounded-l-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                  selectedPurchaseOption === "single"
+                    ? "bg-Black text-teal-500 font-[700] cursor-default"
+                    : "bg-Black2 text-Grey2"
+                }`}
+              >
+                <div className="flex items-center gap-1">
+                  <FaBoxOpen />
+                  <p className="text-md px-1"> 1 Cặp theo loại</p>
+                </div>
+              </button>
+              <button
+                onClick={() => handlePurchaseOptionClick("combo")}
+                className={`flex justify-center rounded-r-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                  selectedPurchaseOption === "combo"
+                    ? "bg-Black text-teal-500 font-[700] cursor-default"
+                    : "bg-Black2 text-Grey2"
+                }`}
+              >
+                <div className="flex items-center gap-1">
+                  <FaBoxesStacked />
+                  <p className="text-md px-1">Combo giá rẻ</p>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>

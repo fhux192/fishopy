@@ -63,12 +63,12 @@ const ModalRegister = () => {
         onClick={() => dispatch(toggleModalRegister())}
       ></div>
       <div className={styles.modalContent}>
-        <h1 className={styles.modalTitle}>Đăng ký</h1>
+        <h1 className={styles.modalTitle}>Đăng Ký</h1>
         <label htmlFor="name" className="text-black font-semibold">
           Họ và tên:
           <input
             type="text"
-            className="w-full mt-2 p-2 outline-none border-2 text-primaryBlack rounded-lg mb-4"
+            className="w-full mt-1 p-2 outline-none border-2 text-primaryBlack rounded-lg mb-4"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -78,7 +78,7 @@ const ModalRegister = () => {
           Số điện thoại:
           <input
             type="text"
-            className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
+            className="w-full mt-1 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
             id="phone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -89,7 +89,7 @@ const ModalRegister = () => {
           <div className="relative">
             <input
               type={isShowPassword.showPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
+              className="w-full mt-1 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-4"
               id="passwordRegister"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -127,7 +127,7 @@ const ModalRegister = () => {
           <div className="relative">
             <input
               type={isShowPassword.showConfirmPassword ? "text" : "password"}
-              className="w-full mt-2 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-2"
+              className="w-full mt-1 border-2 p-2 outline-none text-primaryBlack rounded-lg mb-2"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -178,9 +178,9 @@ const ModalRegister = () => {
           Đăng Ký
         </Button>
         <div className={styles.smallText}>
-          <span>Bạn đã có tài khoản? </span>
+          <span className="font-semibold text-Black"> Bạn đã có tài khoản? </span>
           <Typography.Link
-            className="pl-1 text-Teal font-semibold cursor-pointer"
+            className="pl-1 text-Teal font-bold cursor-pointer"
             style={{ color: "teal" }}
             onClick={() => {
               dispatch(toggleModalLogin());

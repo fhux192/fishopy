@@ -97,9 +97,9 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           />
         </Image.PreviewGroup>
         <div className="text-content">
-          <h2 className="title">{product.name}</h2>
+          <h2 className="title pb-[1.5px]">{product.name}</h2>
           <div className="h-full w-full flex items-center ">
-            <p className="text-primaryTeal font-bold">
+            <p className=" font-bold">
               {product.price === product.discountedPrice ? (
                 <span>{formatPrice(product.price)}₫</span>
               ) : (
@@ -127,12 +127,12 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           <button
             onClick={(e) => handleAddToCart(e)}
             className={`add-to-cart  ${
-              !product.status ? "opacity-50 cursor-not-allowed" : ""
+              !product.status ? "opacity-30 cursor-not-allowed" : ""
             }`}
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >
-            <FaCartShopping /> Mua ngay
+            <FaCartShopping /> Thêm vào giỏ
           </button>
         </div>
       </Link>

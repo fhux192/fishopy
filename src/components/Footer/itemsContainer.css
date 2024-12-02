@@ -2,14 +2,12 @@
   background-color: rgba(30, 30, 30, 1);
   color: #fff;
   padding-top:1.25rem;
-
-  
   position: relative;
   overflow: hidden;
+  font-weight: 500;
 }
 
 .footer-content {
-  max-width: 1300px;
   margin: 0 0;
 }
 
@@ -45,7 +43,6 @@
 .highlight-icon {
   color: #09D1C7;
 }
-
 .footer-divider {
   background-color: #707070;
   height: 2px;
@@ -64,6 +61,13 @@
   }
   .custom-footer{
     padding-bottom: 6rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .custom-footer{
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
@@ -87,5 +91,5 @@
 
 /* Thay đổi màu khi hover vào nút copy */
 .footer-text .ant-typography-copy:hover {
-  color: #1a7a80; /* Màu đậm hơn khi hover, tùy chỉnh theo ý bạn */
+  color: #1a7a80;
 }

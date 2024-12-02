@@ -19,7 +19,7 @@ const ShiftingCountdown = () => {
     <div className="flex h-full lg:border-b-0 lg:mx-0 md:border-b-0 md:mx-0 border-Grey border-b-[1px] mx-8  items-center justify-center mt-[0rem] md:mt-[2rem] lg:mt-[0rem]">
       {" "}
       <div className="flex flex-col  justify-center countdown-container lg:rounded-3xl md:rounded-3xl lg:mt-50 xl:w-[40%] lg:w-[50%] md:w-[70%] w-[100%]  lg:mb-0 md:h-[5rem]  h-[8rem] lg:h-full px-3  bg-primaryBlack lg:p-3">
-        <p className="text-center font-bold  text-white text-[1.4rem] lg:text-[1.5rem]">
+        <p className="text-center font-bold  text-white text-[1.6rem] lg:text-[1.7rem]">
           Kết Thúc Ưu Đãi Sau
         </p>
         <div className="mx-auto mt-[0rem]  rounded-xl flex w-full h-20 lg:h-28 max-w-xl items-center type-blur2 shadow-lg ">

@@ -248,7 +248,6 @@ const Navbar = () => {
                     navigate("/product");
                   }
                 }}
-                style={{ textTransform: "uppercase" }}
               />
             </div>
           )}

@@ -211,13 +211,13 @@ const BottomNavBar = () => {
                     {/* Options for guests */}
                     <button
                       onClick={() => dispatch(toggleModalLogin())}
-                      className="block px-2 py-2 text-Black font-semibold rounded-t-xl w-full text-left"
+                      className="block  px-2 py-2 text-Black font-bold rounded-t-xl w-full text-left"
                     >
                       Đăng Nhập
                     </button>
                     <button
                       onClick={() => dispatch(toggleModalRegister())}
-                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] rounded-b-xl w-full text-left"
+                      className="block px-2 py-2 text-Black font-bold border-t-[1px] rounded-b-xl w-full text-left"
                     >
                       Đăng Ký
                     </button>
