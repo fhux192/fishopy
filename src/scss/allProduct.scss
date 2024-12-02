@@ -4,7 +4,7 @@
 }
 
 .bg-container {
-  
+  background-image: url("../assets/background.JPG");
   background-size: cover;
 }
 
@@ -222,10 +222,10 @@
 /* Pagination styles */
 .ant-pagination-item a {
   color: #bfbfbf !important;
+  font-weight: 600!important;
 }
 
 .ant-pagination-item {
-  background-color: #161617 !important;
   
   border-radius: 20% !important;
   margin-left: 5px !important;
@@ -233,7 +233,7 @@
 
 .ant-pagination-item-active {
   background-color: rgba(30, 30, 30, 1) !important;
-  border: 1px solid #cfcfcf !important;
+  border: 1px solid rgba(30, 30, 30, 1) !important;
   border-width: 1px !important;
   border-radius: 20% !important;
 }
@@ -450,7 +450,6 @@
         color: #fff;
         font-weight: 700;
         background-color: #161617;
-        border: 1px solid #cfcfcf;
       }
 
       @media (min-width: 1024px) {

@@ -1,7 +1,5 @@
-// src/components/YourPath/ProductsSection.jsx
-
-import React, { useState, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +14,7 @@ const formatPrice = (price) =>
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const {user, cart} = useSelector((state) => state.account); // Corrected selector
-
+  const { user } = useSelector((state) => state.account); // Corrected selector
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
   const discountPercentage =
@@ -43,16 +39,21 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         toast.error("Error adding to cart");
         console.error(error);
       }
-    } else { 
-      toast.success('Thêm vào giỏ hàng thành công!');
-      let cart = JSON.parse(localStorage.getItem('cart')) || []
-      const productExist = cart.find((item) => item.product._id === product._id);
+    } else {
+      toast.success(`Thêm ${product.name} vào giỏ hàng thành công! `);
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const productExist = cart.find(
+        (item) => item.product._id === product._id
+      );
       if (productExist) {
         productExist.quantity += 1;
       } else
-        cart = [...cart, { product: { ...product}, quantity: 1, _id: product._id }];
+        cart = [
+          ...cart,
+          { product: { ...product }, quantity: 1, _id: product._id },
+        ];
       dispatch(updateCartLocal(cart));
-      localStorage.setItem('cart', JSON.stringify(cart));
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   };
 
@@ -87,7 +88,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           top: `${lightPosition.y}px`,
         }}
       ></div>
-      {/* to={`/fish/${product._id}`} */}
       <Link className="image-wrapper">
         <Image.PreviewGroup>
           <Image
@@ -99,40 +99,48 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         <div className="text-content">
           <h2 className="title pb-[1.5px]">{product.name}</h2>
           <div className="h-full w-full flex items-center ">
-            <p className=" font-bold">
-              {product.price === product.discountedPrice ? (
-                <span>{formatPrice(product.price)}₫</span>
-              ) : (
-                <>
-                  {priceStage === 0 && (
+            <div className="">
+              <div className="flex items-center">
+                {" "}
+                <p className=" font-bold">
+                  {product.price === product.discountedPrice ? (
                     <span>{formatPrice(product.price)}₫</span>
+                  ) : (
+                    <>
+                      {priceStage === 0 && (
+                        <span>{formatPrice(product.price)}₫</span>
+                      )}
+                      {priceStage === 1 && (
+                        <span className="line-through">
+                          {formatPrice(product.price)}₫
+                        </span>
+                      )}
+                      {priceStage === 2 && (
+                        <span>{formatPrice(product.discountedPrice)}₫</span>
+                      )}
+                    </>
                   )}
-                  {priceStage === 1 && (
-                    <span className="line-through">
-                      {formatPrice(product.price)}₫
-                    </span>
-                  )}
-                  {priceStage === 2 && (
-                    <span>{formatPrice(product.discountedPrice)}₫</span>
-                  )}
-                </>
-              )}
-            </p>
-            {product.price !== product.discountedPrice && (
-              <div className="discount">-{Math.round(discountPercentage)}%</div>
-            )}
+                </p>
+                {product.price !== product.discountedPrice && (
+                  <div className="discount">
+                    -{Math.round(discountPercentage)}%
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
         <div className="w-full flex justify-center">
           <button
             onClick={(e) => handleAddToCart(e)}
-            className={`add-to-cart  ${
-              !product.status ? "opacity-30 cursor-not-allowed" : ""
+            className={`add-to-cart ${
+              !product.status ? " opacity-30 cursor-not-allowed" : ""
             }`}
             aria-label={`Add ${product.name} to cart`}
             disabled={!product.status}
           >
-            <FaCartShopping /> Thêm vào giỏ
+            <FaCartShopping />
+            {product.status ? "Thêm vào giỏ" : "Hết hàng"}
           </button>
         </div>
       </Link>

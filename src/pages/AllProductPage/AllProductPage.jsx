@@ -202,11 +202,11 @@ const AllProductPage = () => {
       <div className="flex w-full justify-center">
         {" "}
         <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-2 ">
-          <div className="bg-Black md:mt-[1.5rem] lg:mt-[0rem] lg:rounded-full rounded-3xl">
+          <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl">
             <p
               style={{
                 backgroundImage:
-                  "linear-gradient(90deg,#15919B, #09D1C7, #46DFB1 47%, #0C6478)",
+                  "linear-gradient(50deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -215,7 +215,7 @@ const AllProductPage = () => {
               Dành Cho Bạn
             </p>
           </div>
-          <div className="flex flex-col lg:flex-row lg:mt-[0.5rem] mt-[0rem] items-center gap-2">
+          <div className="flex flex-col lg:flex-row lg:mt-[0.7rem] mt-[0rem] items-center gap-2">
             <p className="text-White font-bold cursor-default text-[1.125rem] lg:text-[1.25rem]">
               Bạn muốn mua như thế nào?
             </p>
