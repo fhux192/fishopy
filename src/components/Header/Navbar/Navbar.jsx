@@ -72,7 +72,7 @@ const Navbar = () => {
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+    if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
       setIsNavbarVisible(false);
     } else {
       setIsNavbarVisible(true);
@@ -89,11 +89,10 @@ const Navbar = () => {
     };
   }, []);
 
-  // Create a debounced function
   const debouncedSearch = useCallback(
     debounce((value) => {
       dispatch(setSearch(value));
-    }, 400), // 400 milliseconds delay
+    }, 400), 
     [dispatch]
   );
 
