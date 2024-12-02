@@ -161,7 +161,7 @@ const BottomNavBar = () => {
                     {user.role === "ADMIN" && (
                       <div className="admin-section">
                         <div
-                          className="admin-header flex justify-between items-center px-2 py-2 cursor-pointer"
+                          className="admin-header font-bold flex justify-between items-center px-2 py-2 cursor-pointer"
                           onClick={toggleAdminSection}
                         >
                           <span>Quản lý Admin</span>
@@ -170,19 +170,19 @@ const BottomNavBar = () => {
                         {isAdminSectionOpen && (
                           <div className="admin-options pl-4">
                             <Link
-                              className="block px-2 py-2 text-Black font-semibold w-full text-left"
+                              className="block font-bold px-2 py-2 text-Black w-full text-left"
                               to="/admin/product"
                             >
                               Quản lý sản phẩm
                             </Link>
                             <Link
-                              className="block px-2 py-2 text-Black font-semibold w-full text-left"
+                              className="block font-bold px-2 py-2 text-Black w-full text-left"
                               to="/admin/order"
                             >
                               Quản lý đơn hàng
                             </Link>
                             <Link
-                              className="block px-2 py-2 text-Black font-semibold w-full text-left"
+                              className="block font-bold px-2 py-2 text-Black w-full text-left"
                               to="/admin/user"
                             >
                               Quản lý người dùng
@@ -195,13 +195,13 @@ const BottomNavBar = () => {
                     {/* Common options for logged-in users */}
                     <Link
                       to="/account"
-                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] w-full text-left"
+                      className="block px-2 py-2 text-Black font-bold border-t-[1px] w-full text-left"
                     >
                       Quản lý tài khoản
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block px-2 py-2 text-Black font-semibold border-t-[1px] w-full text-left"
+                      className="block px-2 py-2 text-Black font-bold border-t-[1px] w-full text-left"
                     >
                       Đăng Xuất
                     </button>

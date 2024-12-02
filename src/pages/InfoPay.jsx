@@ -7,18 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleVerify } from "../redux/features/toggle/toggleSlice.js";
 import OTPInput from "react-otp-input";
 import { CloseOutlined } from "@ant-design/icons";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation } from "react-router-dom"; 
 
-import "../scss/infoPay.scss"; // Import your new SCSS file
-
+import "../scss/infoPay.scss"; 
 const { Option } = Select;
 
 const InfoPay = ({ setStep }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-  const location = useLocation(); // Use useLocation to get passed state
-  const { product, quantity } = location.state; // Extract product and quantity from state
+  const location = useLocation(); 
+  const { product, quantity } = location.state; 
 
   const dispatch = useDispatch();
   const { isShowVerify } = useSelector((state) => state.toggle);

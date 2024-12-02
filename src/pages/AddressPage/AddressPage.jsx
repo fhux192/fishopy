@@ -17,7 +17,7 @@ const AddressPage = () => {
             className="text-3xl text-center lg:text-4xl"
             style={{
               backgroundImage:
-                "linear-gradient(90deg,#15919B, #09D1C7, #46DFB1 47%, #0C6478)",
+                "linear-gradient(70deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}

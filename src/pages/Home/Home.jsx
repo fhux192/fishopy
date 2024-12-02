@@ -58,7 +58,7 @@ const Home = () => {
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage:
-                      "linear-gradient(90deg, #0C6478 5%, #15919B, #09D1C7 50%, #46DFB1 , #0C6478)",
+                      "linear-gradient(10deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                   }}

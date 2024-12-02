@@ -13,8 +13,8 @@ const CartItemChoose = ({ item }) => {
           </div>
           <div className={styles.groupSum}>
             <Typography.Text style={{color: 'white'}} className={styles.title2}>{item.product.name}</Typography.Text>
-            <Typography.Text style={{color: 'white'}}>{formatPrice(item.product.discountedPrice)}đ </Typography.Text>
-            <Typography.Text style={{color: 'white'}}>Số lượng: {item.quantity} </Typography.Text>
+            <Typography.Text className="font-bold" style={{color: 'white'}}>{formatPrice(item.product.discountedPrice)}đ </Typography.Text>
+            <Typography.Text className="font-bold" style={{color: 'white'}}>Số lượng: {item.quantity} </Typography.Text>
           </div>
         </Flex>
         <Typography.Text style={{color: 'white'}} className={styles.sumProduct}>
