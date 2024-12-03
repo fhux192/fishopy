@@ -101,7 +101,7 @@ const ModalLogin = () => {
             ) : (
               <FaEyeSlash
                 onClick={() => setIsShowPassword(!isShowPassword)}
-                className="absolute right-2 top-[42%] -translate-y-1/4 text-white cursor-pointer"
+                className="absolute right-2 top-[38%] -translate-y-1/4 text-white cursor-pointer"
                 color="black"
                 size={20}
               />

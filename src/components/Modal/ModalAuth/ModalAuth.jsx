@@ -59,13 +59,13 @@ const ModalAuth = () => {
         <>
           <button
             onClick={() => dispatch(toggleModalLogin())}
-            className=" block px-4 py-2 font-bold text-Black hover:text-white rounded-t-xl w-40 font-bold text-left"
+            className=" block px-4 py-2 font-bold text-Black  rounded-t-xl w-40  text-left"
           >
             Đăng Nhập
           </button>
           <button
             onClick={() => dispatch(toggleModalRegister())}
-            className="block px-4 py-2 font-bold text-Black border-t-[1px] border-gray-100 hover:text-white rounded-b-xl w-full text-left"
+            className="block px-4 py-2 font-bold text-Black border-t-[1px] border-gray-100  rounded-b-xl w-full text-left"
           >
             Đăng Ký
           </button>

@@ -102,7 +102,7 @@ const ModalRegister = () => {
                     showPassword: !prev.showPassword,
                   }))
                 }
-                className="absolute right-2 top-1/2 -translate-y-[68%] text-black font-semibold cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-[80%] text-black font-semibold cursor-pointer"
                 color="black"
                 size={20}
               />
@@ -114,7 +114,7 @@ const ModalRegister = () => {
                     showPassword: !prev.showPassword,
                   }))
                 }
-                className="absolute right-2 top-1/2 -translate-y-[68%] text-black font-semibold cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-[80%] text-black font-semibold cursor-pointer"
                 color="black"
                 size={20}
               />
@@ -140,7 +140,7 @@ const ModalRegister = () => {
                     showConfirmPassword: !prev.showConfirmPassword,
                   }))
                 }
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-black cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-[60%] text-black cursor-pointer"
                 color="black"
                 size={20}
               />
@@ -152,7 +152,7 @@ const ModalRegister = () => {
                     showConfirmPassword: !prev.showConfirmPassword,
                   }))
                 }
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-black cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-[60%] text-black cursor-pointer"
                 color="black"
                 size={20}
               />

@@ -75,9 +75,9 @@ const Home = () => {
 
               <button
                 onClick={handleNavigation}
-                className="flex items-center justify-center bg-teal-500 py-3 text-white font-semibold rounded-full transition duration-300"
+                className="flex items-center justify-center bg-teal-500 py-3 text-white font-bold rounded-full transition duration-300"
               >
-                <FaFishFins className="mr-3 min-w-[20px] text-lg" />
+                <FaFishFins className="mr-3 min-w-[20px] font-bold text-lg" />
                 Xem Tất Cả Sản Phẩm
               </button>
             </div>

@@ -11,51 +11,163 @@ const MessageBox = () => {
     "Bạn dẫn mình đi mua cá đi!",
   ];
 
+  // Cập nhật danh sách khách hàng và số lượng
+  const customers = [
+    { name: "Nguyễn Phúc An", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Long Quang", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Duy Khánh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Minh Tùng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Hoàng Thiên Sơn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Tân Huy", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đặng Quang Bình", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Bùi Hùng Dũng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đỗ Bình An", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Ngô Hải Long", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Quang Hùng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Minh Châu", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Thị Lan", quantity: Math.floor(Math.random() * 7) + 1 },
+    {
+      name: "Nguyễn Thị Hải Yến",
+      quantity: Math.floor(Math.random() * 7) + 1,
+    },
+    { name: "Phan Đức Lộc", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Quang Huy", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lương Thị Kiều", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Quang Tiến", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Quỳnh Hoa", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Hoàng Thị Lan Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đặng Tuấn Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trương Thị Lệ", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Duy Khánh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Tiến Lộc", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Tâm Hồng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Minh Trường", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Tuấn Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Lan Phương", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đinh Ngọc Trâm", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Quang Minh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Thanh Mai", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đỗ Quang Huy", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Bùi Duy Kiên", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lý Thị Thu", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Duy Quang", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Hải Long", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Ngọc Quỳnh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Thanh Mai", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Hoàng Quốc Toàn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phan Thanh Tâm", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Hồng Thái", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Hoài An", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Trí Duy", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Xuân Dương", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Thị Thanh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Bảo Quân", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Thanh Tài", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Quỳnh Hoa", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Kiều Ngân", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Minh Tân", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Bùi Khánh Minh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lý Minh Tuấn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Hoài Thu", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Quỳnh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Thanh Lan", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Hoài Thu", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Minh Đức", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Thị Thu", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Thanh Vân", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lý Hải Duy", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Tạ Tuấn Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phan Văn Tú", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Đình Khoa", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Minh Trí", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Tín Hoàng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Hải Đăng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Bùi Lương Tuấn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Hoàng Duy Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Cảnh Lâm", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Tiến Dũng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trương Anh Khoa", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Hữu Sơn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Bá Tuấn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Đặng Trọng Quân", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Tuấn Anh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Cao Xuân Tùng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Thị Yến", quantity: Math.floor(Math.random() * 7) + 1 },
+    {
+      name: "Nguyễn Hương Giang",
+      quantity: Math.floor(Math.random() * 7) + 1,
+    },
+    { name: "Trần Khánh Linh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phan Trường Giang", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Bùi Thanh Tú", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Tiến Thanh", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Bảo Nam", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Đinh Trí", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Minh Tuấn", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Thu Giang", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Trần Hồng Lan", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Vũ Thanh Đào", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Lê Quang Thắng", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Nguyễn Hữu Thiện", quantity: Math.floor(Math.random() * 7) + 1 },
+    { name: "Phạm Thảo My", quantity: Math.floor(Math.random() * 7) + 1 },
+  ];
+
   const [showMessage, setShowMessage] = useState(false);
   const [animateWave, setAnimateWave] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
 
+  // Hàm để tạo thời gian ngẫu nhiên giữa các lần hiển thị tin nhắn (3 đến 7 giây)
+  const getRandomTime = () => Math.floor(Math.random() * 9000) + 3000;
+
   useEffect(() => {
-    const showTimer = setTimeout(() => {
+    const showMessageInterval = setInterval(() => {
       setShowMessage(true);
       setCurrentMessage(messages[Math.floor(Math.random() * messages.length)]);
+
+      // Tạo tin nhắn ngẫu nhiên sau tin nhắn đầu tiên
+      const customer = customers[Math.floor(Math.random() * customers.length)];
+      const randomMessage = `${customer.name} vừa mua ${customer.quantity} cặp cá`;
+      setCurrentMessage(randomMessage);
+
+      // Làm icon Zalo "wave" khi tin nhắn xuất hiện
+      setAnimateWave(true);
+
+      // Ẩn tin nhắn sau 4 giây với hiệu ứng mờ dần
       const hideTimer = setTimeout(() => {
         setShowMessage(false);
-      }, 5000);
+        setAnimateWave(false); // Tắt hiệu ứng sóng sau khi tin nhắn ẩn
+      }, 4000); // Ẩn sau 4 giây
 
+      // Dọn dẹp timeout khi interval kết thúc
       return () => clearTimeout(hideTimer);
-    }, 5000);
+    }, getRandomTime()); // Thời gian ngẫu nhiên cho mỗi lần hiển thị tin nhắn
 
-    return () => clearTimeout(showTimer);
-  }, []);
+    // Dọn dẹp interval khi component unmounts
+    return () => clearInterval(showMessageInterval);
+  }, []); // Chạy một lần khi component mount
 
   useEffect(() => {
-    const waveTimer = setTimeout(() => {
+    // Kích hoạt lại hiệu ứng sóng khi tin nhắn hiển thị
+    if (showMessage) {
       setAnimateWave(true);
-      const stopWaveTimer = setTimeout(() => {
-        setAnimateWave(false);
-      }, 5000);
-
-      return () => clearTimeout(stopWaveTimer);
-    }, 5000);
-
-    return () => clearTimeout(waveTimer);
-  }, []);
+    }
+  }, [showMessage]);
 
   return (
     <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[22]">
       <div className="flex flex-col items-end">
         {showMessage && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="bg-Black rounded-xl rounded-b-none rounded-l-xl p-3 mb-2 text-sm text-gray-800"
+            initial={{ opacity: 0 }} // Ban đầu độ mờ là 0
+            animate={{ opacity: 1 }} // Khi tin nhắn hiển thị, độ mờ là 1
+            exit={{ opacity: 0 }} // Khi tin nhắn ẩn đi, độ mờ giảm xuống 0
+            transition={{ opacity: { duration: 1 } }} // Hiệu ứng mờ dần trong 1 giây
+            className="bg-Black min-w-[9rem] rounded-xl rounded-b-none rounded-l-xl font-semibold p-3 mb-2 text-sm text-gray-800"
             style={{
               position: "absolute",
               bottom: "30px",
               right: "45px",
-              width: "200px",
+
               textAlign: "center",
             }}
           >
@@ -69,7 +181,7 @@ const MessageBox = () => {
           href="https://zalo.me/0388811160"
           target="_blank"
           rel="noopener noreferrer"
-          className={`relative w-[40px] h-[40px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer flex justify-center items-center ${
+          className={`relative max-w-[100px] h-[40px] shadow-md shadow-gray-500 rounded-full bg-white cursor-pointer flex justify-center items-center ${
             animateWave ? "waving-icon" : ""
           }`}
         >
@@ -84,7 +196,7 @@ const MessageBox = () => {
         {`
           @keyframes wave {
             0% { transform: rotate(0deg); }
-            10% { transform: rotate(14deg); }
+            7% { transform: rotate(14deg); }
             20% { transform: rotate(-8deg); }
             30% { transform: rotate(14deg); }
             40% { transform: rotate(-4deg); }
@@ -93,7 +205,7 @@ const MessageBox = () => {
             100% { transform: rotate(0deg); }
           }
           .waving-icon {
-            animation: wave 2s 1;
+            animation: wave 1s 1; /* Chỉnh sửa để animation hoàn thành sau 1 giây */
           }
           .light-rays {
             position: absolute;
