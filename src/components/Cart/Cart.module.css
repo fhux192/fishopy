@@ -1,8 +1,8 @@
 .imageProduct {
   border-radius: 10px;
-  width: 100%;
-  max-width: 100px; 
-  object-fit: contain; 
+  width: 120px !important; 
+  height: 70px !important;
+  object-fit: cover !important; 
 }
 
 .deleteIcon {
@@ -19,8 +19,7 @@
   flex-wrap: wrap;
   justify-content: center; 
   align-items: center;
-  gap: 20px; 
-  padding: 20px 30px;
+  padding: 20px 20px;
   background: #161617;
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.1);
@@ -30,22 +29,22 @@
 }
 
 .groupSum {
-  color: #08ea79;
   display: flex;
   align-items: center;
   gap: 30px; 
+  margin: 30px 10px;
   flex: 1 1 200px; 
 }
 
 .groupImage {
   display: flex;
   align-items: center;
-  flex: 1 1 200px; 
+  flex: 2 2 100px; 
 }
 
 .title2,
 .title {
-  margin-left: 20px;
+  margin-left: 0px;
   width: 200px; /* Tăng độ rộng để chứa tên sản phẩm dài hơn */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -63,6 +62,7 @@
 
 .sumProduct {
   color: #08ea79;
+  
   display: block;
   flex: 1 1 150px; /* Cho phép phần tử co giãn */
 }
@@ -72,16 +72,19 @@
     gap: 20px;
   }
   .imageProduct {
-    max-width: 100px;
-    max-height: 120px;
+    width: 140px !important;
+    height: 100px !important;
   }
   .title,
   .title2 {
-    width: 180px;
+    width: auto;
+  }
+  .sumProduct {
+    display: none;
   }
 }
 
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 325px) {
   .title2 {
     display: block;
   }
@@ -89,7 +92,6 @@
     display: none !important;
   }
   .groupSum {
-    flex: 2;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;

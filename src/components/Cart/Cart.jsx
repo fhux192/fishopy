@@ -99,7 +99,7 @@ const Cart = () => {
             <Card
               key={item._id}
               span={24}
-              className="mx-2 lg:px-2"
+              className="mx-2 lg:px-2 p-0"
               style={{
                 marginBottom: "20px",
                 background:
@@ -116,7 +116,7 @@ const Cart = () => {
                     className={styles.checkBox}
                     onClick={() => handleChooseProduct(item)}
                   />
-                  <div className="rounded-lg h-16 mr-4 overflow-hidden">
+                  <div className="rounded-lg mr-4 ">
                     <Image
                       className={`${styles.imageProduct}`}
                       src={item.product.images[0]}

@@ -14,14 +14,11 @@ import useColumns from "./utils/useColumns"; // Import custom hook
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
-// Shuffle function using the Fisher-Yates algorithm
 const shuffleArray = (array) => {
   let currentIndex = array.length,
     randomIndex;
 
-  // While there remain elements to shuffle.
   while (currentIndex !== 0) {
-    // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
@@ -35,19 +32,16 @@ const shuffleArray = (array) => {
   return array;
 };
 
-// Hàm easing (easeInOutCubic)
 const easeInOutCubic = (t) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
 
-// Hàm cuộn mượt mà lên đầu trang với khả năng can thiệp
 const smoothScrollToTop = () => {
   const scrollDuration = 2000; // Thời gian cuộn (ms)
   const startPosition = window.scrollY;
   const startTime = performance.now();
   let animationFrameId;
 
-  // Hàm kiểm tra sự can thiệp của người dùng
   const handleUserScroll = () => {
     cancelAnimationFrame(animationFrameId);
     removeEventListeners();
