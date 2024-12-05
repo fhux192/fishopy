@@ -20,11 +20,11 @@ import {
   updateCartLocal,
 } from "../../redux/features/user/userSlice";
 
-const Cart = () => { // Removed cart prop
+const Cart = () => { 
   const { isAuthenticated, cart: cartLocal } = useSelector(
     (state) => state.account
   );
-  const cart = isAuthenticated ? cartLocal : cartLocal; // Adjust if necessary
+  const cart = isAuthenticated ? cartLocal : cartLocal; 
   const dispatch = useDispatch();
 
   const onChange = async (e, item) => {
@@ -72,7 +72,7 @@ const Cart = () => { // Removed cart prop
     if (isAuthenticated) {
       try {
         const res = await callRemoveCartItem(item._id);
-        console.log('API Response:', res); // Debugging
+        console.log('API Response:', res); 
         if (res.vcode === 0) {
           message.success(res.message);
           const newCart = cart.filter((prod) => prod._id !== item._id);
@@ -201,7 +201,7 @@ const Cart = () => { // Removed cart prop
                 >
                   <button
                     className="flex justify-center bg-Black border-[1px] border-Grey3 w-full rounded-xl p-1"
-                    type="button" // Added type attribute
+                    type="button" 
                   >
                     <DeleteOutlined
                       className={styles.deleteIcon}

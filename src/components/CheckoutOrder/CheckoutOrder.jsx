@@ -54,9 +54,9 @@ const CheckoutOrder = ({ setCurrentStep }) => {
                 </p>
                 <span style={{ color: '#bdc3c7' }}>
                   {checkedItemsCount !== 0 && (
-                    <small>
+                    <p>
                       ({checkedItemsCount} sản phẩm)
-                    </small>
+                    </p>
                   )}
                 </span>
               </div>

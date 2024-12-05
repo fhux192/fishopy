@@ -1,4 +1,3 @@
-/* Card container */
 .cardContainer {
   display: flex;
   flex-wrap: wrap;
@@ -7,13 +6,12 @@
   gap: 0px;
   padding: 0px 30px;
   background: #161617;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Phần hình ảnh */
 .groupImage {
   justify-content: center;
   position: relative;
@@ -25,7 +23,7 @@
 }
 
 .imageProduct {
-  border-radius: 10px;
+  border-radius: 5px;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -33,7 +31,6 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Phần thông tin sản phẩm */
 .groupInfo {
   flex: 1;
   align-items: center;
@@ -45,7 +42,6 @@
   overflow: hidden;
 }
 
-/* Tên sản phẩm */
 .productName {
   font-weight: bold;
   font-size: 18px;
@@ -60,7 +56,6 @@
   width: 100%;
 }
 
-/* Chi tiết sản phẩm (Giá, số lượng) */
 .productDetails {
   display: flex;
   gap: 10px;
@@ -80,7 +75,6 @@
   flex: 1;
 }
 
-/* Hiển thị tổng tiền */
 .sumProduct {
   font-weight: bold;
   font-size: 18px;
@@ -94,9 +88,9 @@
 
 @media only screen and (max-width: 575px) {
   .cardContainer {
-    flex-direction: column !important; /* Chuyển sang layout 1 cột */
+    flex-direction: column !important; 
     padding: 10px 10px;
-    align-items: center; /* Căn giữa các phần tử trong card */
+    align-items: center; 
   }
 
   .groupImage {
@@ -104,26 +98,26 @@
     margin-right: 0;
     margin-bottom: 10px;
     align-self: center;
-    width: 150px; /* Tỉ lệ hình ảnh */
+    width: 150px; 
     height: 150px;
     margin-top: 10px;
   }
 
   .groupInfo {
     width: 100%;
-    text-align: left; /* Căn trái thông tin */
-    padding-right: 0; /* Loại bỏ padding nếu có */
+    text-align: left; 
+    padding-right: 0; 
   }
 
   .productName {
     font-size: 16px;
-    text-align: left; /* Căn trái tên sản phẩm */
+    text-align: left; 
   }
 
   .productDetails {
     flex-direction: column;
     gap: 0px;
-    text-align: left; /* Căn trái cho các chi tiết sản phẩm */
+    text-align: left; 
   }
 
   .sumProduct {

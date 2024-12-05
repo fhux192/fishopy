@@ -10,10 +10,10 @@ const CartItemChoose = ({ item }) => {
       style={{
         marginBottom: "20px",
         background:
-          "linear-gradient(10deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478)", // Phối màu xám xanh dịu
+          "linear-gradient(90deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478)", 
         border: "2px solid rgba(255, 255, 255, 0.2)",
-        borderRadius: "18px",
-        boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)", // Shadow nhẹ
+        borderRadius: "10px",
+        boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)", 
       }}
     >
       <div className={styles.cardContainer}>
