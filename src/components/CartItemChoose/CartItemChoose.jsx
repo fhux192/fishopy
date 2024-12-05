@@ -4,24 +4,65 @@ import formatPrice from "../../utils/formatPrice";
 
 const CartItemChoose = ({ item }) => {
   return (
-    <Card span={24} className="mx-2" style={{ marginBottom: "10px" ,backgroundColor:"rgba(30, 30, 30, 1)",border:"2px solid rgba(255, 255, 255, 0.1)"}}>
+    <Card
+      span={24}
+      className="mx-2 lg:px-2 px-10"
+      style={{
+        marginBottom: "20px",
+        background:
+          "linear-gradient(10deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478)", // Phối màu xám xanh dịu
+        border: "2px solid rgba(255, 255, 255, 0.2)",
+        borderRadius: "18px",
+        boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)", // Shadow nhẹ
+      }}
+    >
       <div className={styles.cardContainer}>
-        <Flex gap={10}>
-          <div className={styles.groupImage}>
-            <Image className={styles.imageProduct} src={item.product.images[0]} />
-            <Typography.Text style={{color: 'white'}} className={styles.title}>{item.product.name}</Typography.Text>
-          </div>
-          <div className={styles.groupSum}>
-            <Typography.Text style={{color: 'white'}} className={styles.title2}>{item.product.name}</Typography.Text>
-            <Typography.Text className="font-bold" style={{color: 'white'}}>{formatPrice(item.product.discountedPrice)}đ </Typography.Text>
-            <Typography.Text className="font-bold" style={{color: 'white'}}>Số lượng: {item.quantity} </Typography.Text>
+        <div className={styles.groupImage}>
+          <Image
+            className={styles.imageProduct}
+            src={item.product.images[0]}
+            alt={item.product.name}
+          />
+        </div>
+        <Flex
+          direction="row"
+          align="center"
+          justify="space-between"
+          wrap="wrap"
+          gap={20}
+        >
+          <div className={styles.groupInfo}>
+            <p className={styles.productName}>
+              {item.product.name}
+            </p>
+
+            <div className={styles.productDetails}>
+              <p
+                className="font-bold price"
+                style={{ color: "#46DFB1" }}
+              >
+                Đơn giá: {formatPrice(item.product.discountedPrice)}đ
+              </p>
+              <p
+                className="font-bold quantity"
+                style={{ color: "#bdc3c7" }}
+              >
+                Số lượng: {item.quantity}
+              </p>
+            </div>
+            <p
+              className={styles.sumProduct}
+            >
+              Tổng:{" "}
+              <strong>
+                {formatPrice(item.quantity * item.product.discountedPrice)}đ
+              </strong>
+            </p>
           </div>
         </Flex>
-        <Typography.Text style={{color: 'white'}} className={styles.sumProduct}>
-          Tổng : <strong>{formatPrice(item.quantity * item.product.discountedPrice)}đ</strong>
-        </Typography.Text>
       </div>
     </Card>
   );
 };
+
 export default CartItemChoose;

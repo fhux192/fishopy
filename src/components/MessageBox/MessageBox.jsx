@@ -11,7 +11,6 @@ const MessageBox = () => {
     "Bạn dẫn mình đi mua cá đi!",
   ];
 
-  // Cập nhật danh sách khách hàng và số lượng
   const customers = [
     { name: "Nguyễn Phúc An", quantity: Math.floor(Math.random() * 7) + 1 },
     { name: "Trần Long Quang", quantity: Math.floor(Math.random() * 7) + 1 },
@@ -116,8 +115,7 @@ const MessageBox = () => {
   const [animateWave, setAnimateWave] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
 
-  // Hàm để tạo thời gian ngẫu nhiên giữa các lần hiển thị tin nhắn (3 đến 7 giây)
-  const getRandomTime = () => Math.floor(Math.random() * 9000) + 3000;
+  const getRandomTime = () => Math.floor(Math.random() * 20000) + 5000;
 
   useEffect(() => {
     const showMessageInterval = setInterval(() => {
@@ -127,47 +125,48 @@ const MessageBox = () => {
       // Tạo tin nhắn ngẫu nhiên sau tin nhắn đầu tiên
       const customer = customers[Math.floor(Math.random() * customers.length)];
       const randomMessage = `${customer.name} vừa mua ${customer.quantity} cặp cá`;
-      setCurrentMessage(randomMessage);
 
-      // Làm icon Zalo "wave" khi tin nhắn xuất hiện
+      // Thêm màu sắc cho tên
+      setCurrentMessage(
+        <span>
+          <span style={{ color: "#09D1C7" ,fontWeight:"bold" }}>{customer.name}</span> vừa mua{" "}
+          {customer.quantity} cặp cá
+        </span>
+      );
+
       setAnimateWave(true);
 
-      // Ẩn tin nhắn sau 4 giây với hiệu ứng mờ dần
       const hideTimer = setTimeout(() => {
         setShowMessage(false);
         setAnimateWave(false); // Tắt hiệu ứng sóng sau khi tin nhắn ẩn
-      }, 4000); // Ẩn sau 4 giây
+      }, 4000);
 
-      // Dọn dẹp timeout khi interval kết thúc
       return () => clearTimeout(hideTimer);
-    }, getRandomTime()); // Thời gian ngẫu nhiên cho mỗi lần hiển thị tin nhắn
+    }, getRandomTime());
 
-    // Dọn dẹp interval khi component unmounts
     return () => clearInterval(showMessageInterval);
-  }, []); // Chạy một lần khi component mount
+  }, []);
 
   useEffect(() => {
-    // Kích hoạt lại hiệu ứng sóng khi tin nhắn hiển thị
     if (showMessage) {
       setAnimateWave(true);
     }
   }, [showMessage]);
 
   return (
-    <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[22]">
+    <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[9999]">
       <div className="flex flex-col items-end">
         {showMessage && (
           <motion.div
-            initial={{ opacity: 0 }} // Ban đầu độ mờ là 0
-            animate={{ opacity: 1 }} // Khi tin nhắn hiển thị, độ mờ là 1
-            exit={{ opacity: 0 }} // Khi tin nhắn ẩn đi, độ mờ giảm xuống 0
-            transition={{ opacity: { duration: 1 } }} // Hiệu ứng mờ dần trong 1 giây
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ opacity: { duration: 1 } }}
             className="bg-Black min-w-[9rem] rounded-xl rounded-b-none rounded-l-xl font-semibold p-3 mb-2 text-sm text-gray-800"
             style={{
               position: "absolute",
               bottom: "30px",
               right: "45px",
-
               textAlign: "center",
             }}
           >
@@ -175,7 +174,6 @@ const MessageBox = () => {
           </motion.div>
         )}
 
-        {/* Zalo Icon with larger clickable area */}
         <motion.a
           whileHover={{ scale: 1.3 }}
           href="https://zalo.me/0388811160"
@@ -205,7 +203,7 @@ const MessageBox = () => {
             100% { transform: rotate(0deg); }
           }
           .waving-icon {
-            animation: wave 1s 1; /* Chỉnh sửa để animation hoàn thành sau 1 giây */
+            animation: wave 1s 1;
           }
           .light-rays {
             position: absolute;

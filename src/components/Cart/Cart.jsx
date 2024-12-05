@@ -1,21 +1,39 @@
-import { Button, Card, Checkbox, Image, InputNumber, message, Popconfirm, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Image,
+  InputNumber,
+  message,
+  Popconfirm,
+  Typography,
+} from "antd";
 import styles from "./Cart.module.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import formatPrice from "../../utils/formatPrice";
 import { callRemoveCartItem, callUpdateCartItem } from "../../services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { chooseProduct, chooseProductLocal, updateAccount, updateCartLocal } from "../../redux/features/user/userSlice";
+import {
+  chooseProduct,
+  chooseProductLocal,
+  updateAccount,
+  updateCartLocal,
+} from "../../redux/features/user/userSlice";
 
-const Cart = ({ cart }) => {
-  const {isAuthenticated, cart:cartLocal} = useSelector((state) => state.account);
+const Cart = () => { // Removed cart prop
+  const { isAuthenticated, cart: cartLocal } = useSelector(
+    (state) => state.account
+  );
+  const cart = isAuthenticated ? cartLocal : cartLocal; // Adjust if necessary
   const dispatch = useDispatch();
+
   const onChange = async (e, item) => {
-    if(isAuthenticated) {
+    if (isAuthenticated) {
       try {
         const res = await callUpdateCartItem(item._id, {
           quantity: Number(e.target.value),
         });
-        if (res.vcode == 0) {
+        if (res.vcode === 0) {
           const newCart = cart.map((cartItem) => {
             if (cartItem._id === item._id) {
               return { ...cartItem, quantity: Number(e.target.value) };
@@ -23,9 +41,12 @@ const Cart = ({ cart }) => {
             return cartItem;
           });
           dispatch(updateAccount({ cart: newCart }));
+        } else {
+          message.error(res.message || 'Failed to update quantity');
         }
       } catch (error) {
         console.error(error.message);
+        message.error('An error occurred while updating the quantity.');
       }
     } else {
       const newCart = cartLocal.map((cartItem) => {
@@ -35,28 +56,38 @@ const Cart = ({ cart }) => {
         return cartItem;
       });
       dispatch(updateCartLocal(newCart));
+      message.success('Quantity updated.');
     }
   };
 
   const handleChooseProduct = (item) => {
-    dispatch(isAuthenticated ? chooseProduct({ _id: item._id }) : chooseProductLocal({ _id: item.product._id }));
+    dispatch(
+      isAuthenticated
+        ? chooseProduct({ _id: item._id })
+        : chooseProductLocal({ _id: item.product._id })
+    );
   };
 
   const onDeleteItem = async (item) => {
-    if(isAuthenticated) {
+    if (isAuthenticated) {
       try {
         const res = await callRemoveCartItem(item._id);
-        if (res.vcode == 0) {
+        console.log('API Response:', res); // Debugging
+        if (res.vcode === 0) {
           message.success(res.message);
           const newCart = cart.filter((prod) => prod._id !== item._id);
           dispatch(updateAccount({ cart: newCart }));
+        } else {
+          message.error(res.message || 'Failed to remove item');
         }
       } catch (error) {
-        console.error(error.message);
+        console.error('Error removing item:', error.message);
+        message.error('An error occurred while removing the item.');
       }
     } else {
       const newCart = cartLocal.filter((prod) => prod._id !== item._id);
       dispatch(updateCartLocal(newCart));
+      message.success('Xóa sản phẩm thành công.');
     }
   };
 
@@ -65,7 +96,19 @@ const Cart = ({ cart }) => {
       {cart &&
         cart.map((item) => {
           return (
-            <Card className="mx-2" key={item._id} span={24} style={{ marginBottom: "10px", backgroundColor:"rgba(30, 30, 30, 1)",border:"2px solid rgba(255, 255, 255, 0.1)" }}>
+            <Card
+              key={item._id}
+              span={24}
+              className="mx-2 lg:px-2"
+              style={{
+                marginBottom: "20px",
+                background:
+                  "linear-gradient(70deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478)",
+                border: "2px solid rgba(255, 255, 255, 0.2)",
+                borderRadius: "18px",
+                boxShadow: "0 6px 15px rgba(0, 0, 0, 0.2)",
+              }}
+            >
               <div className={styles.cardContainer}>
                 <div className={styles.groupImage}>
                   <Checkbox
@@ -74,11 +117,18 @@ const Cart = ({ cart }) => {
                     onClick={() => handleChooseProduct(item)}
                   />
                   <div className="rounded-lg h-16 mr-4 overflow-hidden">
-                    <Image className={`${styles.imageProduct}`} src={item.product.images[0]} />
+                    <Image
+                      className={`${styles.imageProduct}`}
+                      src={item.product.images[0]}
+                    />
                   </div>
 
                   <Typography.Text
-                    style={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
+                    style={{
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                    }}
                     className={styles.title}
                   >
                     {item.product.name}
@@ -86,18 +136,27 @@ const Cart = ({ cart }) => {
                 </div>
                 <div className={styles.groupSum}>
                   <Typography.Text
-                    style={{ color: "#fff", fontWeight: "bold", fontSize: "16px" }}
+                    style={{
+                      color: "#fff",
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                    }}
                     className={styles.title2}
                   >
                     {item.product.name}
                   </Typography.Text>
                   <Typography.Text
-                    style={{ color: "#2daab6", fontWeight: "600", fontSize: "16px" }}
+                    style={{
+                      color: "#46DFB1",
+                      fontWeight: "700",
+                      fontSize: "14px",
+                    }}
                   >
+                    Đơn giá:{" "}
                     {formatPrice(item.product.discountedPrice.toString())}đ{" "}
                   </Typography.Text>
                   <InputNumber
-                    className="w-14 font-semibold"
+                    className="w-12 mt-1 rounded-lg font-bold"
                     min={1}
                     max={100}
                     defaultValue={item.quantity}
@@ -105,21 +164,51 @@ const Cart = ({ cart }) => {
                   />
                 </div>
                 <Typography.Text
-                  style={{ fontWeight: "bold", fontSize: "16px", color: 'white' }}
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    color: "#08ea79",
+                  }}
                   className={styles.sumProduct}
                 >
-                  Tổng : {formatPrice((item.quantity * item.product.discountedPrice).toString())}đ
+                  Tổng :{" "}
+                  {formatPrice(
+                    (item.quantity * item.product.discountedPrice).toString()
+                  )}
+                  đ
                 </Typography.Text>
 
                 <Popconfirm
                   title="Bạn có chắc chắn muốn xóa sản phẩm này?"
-                  onConfirm={()  => onDeleteItem(item)}
+                  onConfirm={() => onDeleteItem(item)}
                   okText="Có"
                   cancelText="Không"
+                  okButtonProps={{
+                    style: {
+                      fontWeight: "500",
+                      backgroundColor: "#ffb700",
+                      borderColor: "#ffb700",
+                      color: "#fff",
+                    },
+                  }}
+                  cancelButtonProps={{
+                    style: {
+                      backgroundColor: "#f0f0f0",
+                      borderColor: "#d9d9d9",
+                      color: "#000",
+                    },
+                  }}
                 >
-                  <DeleteOutlined  className={styles.deleteIcon} style={{color: 'red'}} />
+                  <button
+                    className="flex justify-center bg-Black border-[1px] border-Grey3 w-full rounded-xl p-1"
+                    type="button" // Added type attribute
+                  >
+                    <DeleteOutlined
+                      className={styles.deleteIcon}
+                      style={{ color: "red", fontSize: "18px" }}
+                    />
+                  </button>
                 </Popconfirm>
-                
               </div>
             </Card>
           );
@@ -127,4 +216,5 @@ const Cart = ({ cart }) => {
     </>
   );
 };
+
 export default Cart;

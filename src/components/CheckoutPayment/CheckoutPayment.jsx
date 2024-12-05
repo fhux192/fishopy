@@ -23,6 +23,30 @@ const CheckoutPayment = ({
   const dispatch = useDispatch();
 
   const onOrder = async () => {
+    // Kiểm tra nếu địa chỉ chưa đầy đủ
+    if (!addressDelivery?.address || !addressDelivery?.city || !addressDelivery?.district || !addressDelivery?.ward) {
+      // Hiện thông báo cảnh báo với thiết kế nhỏ gọn và chữ in đậm
+      message.error({
+        content: "Vui lòng thêm địa chỉ nhận hàng!",
+        style: {
+          color: "#161617",  // Màu chữ tối
+          padding: "10px",  // Khoảng cách trong thông báo
+          borderRadius: "5px",  // Bo tròn góc
+          fontSize: "14px",  // Kích thước chữ nhỏ gọn
+        }
+      });
+
+      // Cuộn trang lên đầu từ từ
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0, // Cuộn lên đầu trang
+          behavior: 'smooth', // Hiệu ứng cuộn mượt mà
+        });
+      }, 300); // Delay một chút sau khi thông báo xuất hiện
+
+      return; // Dừng lại không thực hiện tiếp
+    }
+
     try {
       const cartLocal = isAuthenticated
         ? user.cart.filter((item) => item.checked)
@@ -76,7 +100,9 @@ const CheckoutPayment = ({
           message.info(res.data);
           window.location.href = res.data;
         }
-      } else message.error(res.message);
+      } else {
+        message.error(res.message);
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -120,13 +146,13 @@ const CheckoutPayment = ({
   return (
     <div className={styles.checkOutOrder}>
       <div className={styles.checkOutOrderCard}>
-        <Flex vertical gap={10}>
-          <Flex justify="space-between" vertical gap={5}>
+        <Flex vertical gap={1} >
+          <Flex justify="space-between" vertical gap={3}>
             <p className="font-bold" style={{ color: "white" }}>
               Phương thức thanh toán:
             </p>
-            <Select
-              style={{ color: "white" }}
+            <Select className="mb-1"
+              style={{ color: "white"}} 
               value={paymentMethod}
               options={[
                 {
@@ -139,8 +165,8 @@ const CheckoutPayment = ({
             />
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <p style={{ color: "white" }}>Tổng tiền hàng: </p>
-            <p style={{ color: "white" }}>
+            <p style={{ color: "#46DFB1", fontWeight: "bold" }}>Tổng tiền hàng: </p>
+            <p style={{ color: "#46DFB1", fontWeight: "bold" }}>
               {formatPrice(
                 user
                   ? user.cart.reduce(
@@ -161,34 +187,7 @@ const CheckoutPayment = ({
               đ
             </p>
           </Flex>
-          <Flex justify="space-between" gap={5}>
-            <p style={{ color: "white" }}>Phí vận chuyển: </p>
-            <p style={{ color: "white" }}>{formatPrice(shippingfee)} đ</p>
-          </Flex>
-          <Flex justify="space-between" gap={5}>
-            <strong style={{ color: "white" }}>Tổng thanh toán: </strong>
-            <p style={{ color: "white" }}>
-              {formatPrice(
-                user
-                  ? user.cart.reduce(
-                      (acc, cur) =>
-                        cur.checked
-                          ? (acc += cur.product.discountedPrice * cur.quantity)
-                          : acc,
-                      0
-                    ) + shippingfee
-                  : cart.reduce(
-                      (acc, cur) =>
-                        cur.checked
-                          ? (acc += cur.product.discountedPrice * cur.quantity)
-                          : acc,
-                      0
-                    ) + shippingfee
-              )}
-              đ
-            </p>
-          </Flex>
-          <span style={{ color: "white" }}>
+          <span style={{ color: "#bdc3c7" }}>
             {(user
               ? user.cart.filter((item) => item.checked)
               : cart.filter((item) => item.checked)
@@ -202,11 +201,39 @@ const CheckoutPayment = ({
               </small>
             )}
           </span>
+          <Flex justify="space-between" gap={5}>
+            <p style={{ color: "#bdc3c7", fontWeight: "bold" }}>Phí vận chuyển: </p>
+            <p style={{ color: "#bdc3c7", fontWeight: "bold" }}>
+              {formatPrice(shippingfee)} đ
+            </p>
+          </Flex>
+          <Flex justify="space-between" gap={5}>
+            <strong style={{ color: "#08ea79", fontWeight: "bold" }}>Tổng thanh toán: </strong>
+            <p style={{ color: "#08ea79", fontWeight: "bold" }}>
+              {formatPrice(
+                user
+                  ? user.cart.reduce(
+                      (acc, cur) =>
+                        cur.checked
+                          ? (acc += cur.product.discountedPrice * cur.quantity)
+                          : acc,
+                      0
+                    ) + shippingfee
+                  : cart.reduce(
+                      (acc, cur) =>
+                        cur.checked
+                          ? (acc += cur.product.discountedPrice * cur.quantity)
+                          : acc,
+                      0
+                    ) + shippingfee
+              )}
+              đ
+            </p>
+          </Flex>
         </Flex>
         <div className={styles.groupSum}>
           <MyButton
             text="Đặt hàng"
-            disabled={!shippingfee || !addressDelivery}
             onClick={onOrder}
           />
         </div>

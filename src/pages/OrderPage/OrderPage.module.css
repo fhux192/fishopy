@@ -9,3 +9,20 @@
   margin: 0 auto;  
   padding: 2rem 0;
 }
+
+.stepActive {
+  color: #09D1C7 !important; 
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.stepInactive {
+  color: white !important; 
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ant-steps-item-title {
+  font-weight: bold;
+}
+

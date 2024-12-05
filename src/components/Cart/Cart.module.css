@@ -1,38 +1,61 @@
+/* Cart.module.css */
+
 .imageProduct {
-  width: 100px !important ;
-  height: 100px;
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  max-width: 140px; /* Tăng kích thước tối đa */
+  max-height: 140px; /* Tăng chiều cao tối đa */
+  object-fit: cover; /* Đảm bảo hình ảnh không bị biến dạng */
 }
 
 .deleteIcon {
   cursor: pointer;
+  transition: color 0.3s;
+}
+
+.deleteIcon:hover {
+  color: #ff4d4f;
 }
 
 .cardContainer {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Canh giữa các phần tử */
   align-items: center;
-  justify-content: space-between;
-  
+  gap: 20px; /* Tăng khoảng cách để không bị dính quá */
+  padding: 20px 30px;
+  background: #161617;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.1); 
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .groupSum {
+  color: #08ea79;
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 30px; /* Giảm khoảng cách để tối ưu không gian */
+  flex: 1 1 200px; /* Cho phép phần tử co giãn */
 }
 
 .groupImage {
   display: flex;
   align-items: center;
+  flex: 1 1 200px; /* Cho phép phần tử co giãn */
 }
 
 .title2,
 .title {
   margin-left: 20px;
-  width: 160px;
+  width: 200px; /* Tăng độ rộng để chứa tên sản phẩm dài hơn */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .title2 {
   display: none;
   margin: 0;
@@ -40,6 +63,26 @@
 
 .checkBox {
   margin-right: 10px;
+}
+
+.sumProduct {
+  color: #08ea79;
+  display: block;
+  flex: 1 1 150px; /* Cho phép phần tử co giãn */
+}
+
+@media only screen and (max-width: 768px) {
+  .groupSum {
+    gap: 20px;
+  }
+  .imageProduct {
+    max-width: 100px;
+    max-height: 120px;
+  }
+  .title,
+  .title2 {
+    width: 180px;
+  }
 }
 
 @media only screen and (max-width: 575px) {

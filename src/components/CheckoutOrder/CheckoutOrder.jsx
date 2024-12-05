@@ -23,7 +23,7 @@ const CheckoutOrder = ({ setCurrentStep }) => {
             <Checkbox
               checked={user ? user.cart.every((item) => item.checked) : cart.every((item) => item.checked)}
               onClick={() => dispatch(user ? checkAllProduct() : checkAllProductLocal())}
-              style={{ color: 'white' }}
+              style={{ color: 'white',fontWeight:"bold" }}
             >
               {user?.cart?.every((item) => item.checked) || cart?.every((item) => item.checked) ? (
                 <>Bỏ chọn tất cả sản phẩm</>
@@ -33,7 +33,7 @@ const CheckoutOrder = ({ setCurrentStep }) => {
             </Checkbox>
             <div className={styles.summaryGroup}>
               <div className={styles.summaryInfo}>
-                <p style={{ color: 'white' }}>
+                <p style={{ color: '#08ea79',fontWeight:"bold" }}>
                   <strong>Tạm tính: </strong>
                   {formatPrice(
                     user
@@ -52,7 +52,7 @@ const CheckoutOrder = ({ setCurrentStep }) => {
                   )}
                   đ
                 </p>
-                <span style={{ color: 'white' }}>
+                <span style={{ color: '#bdc3c7' }}>
                   {checkedItemsCount !== 0 && (
                     <small>
                       ({checkedItemsCount} sản phẩm)
