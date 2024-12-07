@@ -108,6 +108,10 @@ export const callGetOrders = async (query, sort, page, limit) => {
   return await axios.get(`user/order?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
 }
 
+export const callGetCombos = async (query, sort, page, limit) => {
+  return await axios.get(`user/combo?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
+}
+
 // ================== ADMIN ==================
 // -------------- PRODUCT ---------------
 export const callGetProductsAdmin = async (query, sort, page, limit) => {

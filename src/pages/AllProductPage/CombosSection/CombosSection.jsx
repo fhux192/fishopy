@@ -13,7 +13,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
 const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ".") || 0;
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
@@ -93,11 +93,11 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       ></div>
       <Link className="image-wrapper">
         <Image.PreviewGroup>
-          <Image
+          {/* <Image
             src={product.images[0]}
             className="rounded-t-3xl w-full h-64 object-cover"
             alt={`${product.name} image`}
-          />
+          /> */}
         </Image.PreviewGroup>
         <div className="text-content">
           <h2 className="title pb-[1.5px]">{product.name}</h2>
@@ -151,14 +151,14 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   );
 };
 
-const ProductsSection = ({ currentPageProducts, priceStage }) => {
+const CombosSection = ({ currentPageProducts, priceStage }) => {
   return (
     <div className="lg:bg-transparent pb-4">
       <div className="product-section rounded-xl">
         <div className="product-container">
           <div className="flex w-full justify-center">
             <div className="product-grid grid gap-2 mx-2 lg:mx-0 ">
-              {currentPageProducts?.map((product, index) => (
+              {currentPageProducts.map((product, index) => (
                 <ProductCard
                   key={product._id}
                   product={product}
@@ -174,4 +174,4 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
   );
 };
 
-export default ProductsSection;
+export default CombosSection;

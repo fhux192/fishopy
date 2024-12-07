@@ -5,7 +5,7 @@ import ShiftingCountdown from "../../components/CountDown/ShiftingCountdown";
 import SortSection from "./SortSection/SortSection";
 import ProductsSection from "./ProductsSection/ProductsSection";
 import { Pagination } from "antd";
-import { callGetProducts } from "../../services/api";
+import { callGetCombos, callGetProducts } from "../../services/api";
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../scss/navbar.scss";
@@ -13,6 +13,7 @@ import "../../scss/allProduct.scss";
 import useColumns from "./utils/useColumns"; // Import custom hook
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import CombosSection from "./CombosSection/CombosSection";
 
 const shuffleArray = (array) => {
   let currentIndex = array.length,
@@ -142,9 +143,59 @@ const AllProductPage = () => {
       }
     };
 
-    fetchProducts();
+    const fetchCombos = async () => {
+      try {
+        let current = currentPage;
+        if (search != "") {
+          current = 1;
+          setCurrentPage(1);
+        }
+
+        let sort = {};
+        switch (sortOption) {
+          case "-discountedPrice":
+            sort = { discountedPrice: -1 };
+            break;
+          case "discountedPrice":
+            sort = { discountedPrice: 1 };
+            break;
+          case "-name":
+            sort = { name: -1 };
+            break;
+          case "name":
+            sort = { name: 1 };
+            break;
+          default:
+            sort = {};
+            break;
+        }
+
+        let query = {};
+        if (search != "") {
+          query = {
+            $text: { $search: search },
+          };
+        }
+
+        const res = await callGetCombos(query, sort, current, pageSize);
+
+        if (res.vcode === 0) {
+          setAllProducts(res.data);
+          setTotalProducts(res.total);
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    if (selectedPurchaseOption == "single") {
+      fetchProducts();
+    } else if (selectedPurchaseOption == "combo") {
+      fetchCombos();
+    }
+
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, [sortOption, currentPage, pageSize, search]);
+  }, [sortOption, currentPage, pageSize, search, selectedPurchaseOption]);
 
   useEffect(() => {
     const cyclePrices = () => {
@@ -192,7 +243,6 @@ const AllProductPage = () => {
         <ShiftingCountdown />
       </div>
       <div className="flex w-full justify-center">
-        {" "}
         <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-[0.7rem] ">
           <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl">
             <p
@@ -243,10 +293,19 @@ const AllProductPage = () => {
         </div>
       </div>
       <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      <ProductsSection
-        currentPageProducts={allProducts}
-        priceStage={priceStage}
-      />
+      {selectedPurchaseOption === "single" ? (
+        <ProductsSection
+          currentPageProducts={allProducts}
+          priceStage={priceStage}
+          selectedPurchaseOption={selectedPurchaseOption}
+        />
+      ) : (
+        <CombosSection
+          currentPageProducts={allProducts}
+          priceStage={priceStage}
+          selectedPurchaseOption={selectedPurchaseOption}
+        />
+      )}
       <Pagination
         current={currentPage}
         pageSize={pageSize}
