@@ -234,8 +234,6 @@ const Navbar = () => {
             <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2  items-center">
               <Input
                 placeholder="Tìm kiếm cá..."
-                loading
-                enterButton
                 onChange={(e) => {
                   debouncedSearch(e.target.value);
                 }}

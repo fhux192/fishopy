@@ -97,8 +97,6 @@ const AllProductPage = () => {
   const [totalProducts, setTotalProducts] = useState(0);
 
   useEffect(() => {
-    console.log("search", search);
-
     const fetchProducts = async () => {
       try {
         let current = currentPage;
