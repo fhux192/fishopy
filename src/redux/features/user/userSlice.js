@@ -19,11 +19,17 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.isLoading = false;
       localStorage.setItem("status_login", 0);
+      state.cart = []
+      state.address = null;
+      localStorage.setItem('cart', [])
+      localStorage.setItem('address', null)
     },
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
+      localStorage.setItem('cart', [])
+      localStorage.setItem('address', null)
       localStorage.setItem("status_login", 1);
     },
     addToCart: (state, action) => {

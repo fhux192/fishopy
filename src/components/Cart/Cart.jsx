@@ -20,11 +20,8 @@ import {
   updateCartLocal,
 } from "../../redux/features/user/userSlice";
 
-const Cart = () => { 
-  const { isAuthenticated, cart: cartLocal } = useSelector(
-    (state) => state.account
-  );
-  const cart = isAuthenticated ? cartLocal : cartLocal; 
+const Cart = ({cart}) => {
+  const { isAuthenticated } = useSelector((state) => state.account); 
   const dispatch = useDispatch();
 
   const onChange = async (e, item) => {
@@ -46,7 +43,6 @@ const Cart = () => {
         }
       } catch (error) {
         console.error(error.message);
-        message.error('An error occurred while updating the quantity.');
       }
     } else {
       const newCart = cartLocal.map((cartItem) => {

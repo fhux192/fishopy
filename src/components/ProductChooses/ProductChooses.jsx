@@ -35,7 +35,6 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  console.log("addressDelivery", addressDelivery);
 
   useEffect(() => {
     if (user) {

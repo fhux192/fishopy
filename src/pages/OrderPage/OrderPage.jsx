@@ -21,6 +21,7 @@ const OrderPage = () => {
   const [addressDelivery, setAddressDelivery] = useState(null);
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);
+  console.log('user', user)
 
   return (
     <div className={styles.container}>
@@ -89,7 +90,7 @@ const OrderPage = () => {
 
           <Row>
             <Col span={24}>
-              {currentStep === 0 && <Cart cart={user?.cart || cart} />}
+              {currentStep === 0 && <Cart cart={user?.cart ? user.cart : cart} />}
               {currentStep === 1 && (
                 <ProductChooses
                   addressDelivery={addressDelivery}
