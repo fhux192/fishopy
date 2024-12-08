@@ -189,8 +189,10 @@ const AllProductPage = () => {
     };
 
     if (selectedPurchaseOption == "single") {
+      setAllProducts([]);
       fetchProducts();
     } else if (selectedPurchaseOption == "combo") {
+      setAllProducts([]);
       fetchCombos();
     }
 
