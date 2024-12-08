@@ -154,10 +154,10 @@ const AllProductPage = () => {
         let sort = {};
         switch (sortOption) {
           case "-discountedPrice":
-            sort = { discountedPrice: -1 };
+            sort = { price: -1 };
             break;
           case "discountedPrice":
-            sort = { discountedPrice: 1 };
+            sort = { price: 1 };
             break;
           case "-name":
             sort = { name: -1 };
@@ -187,12 +187,10 @@ const AllProductPage = () => {
         console.error(error.message);
       }
     };
-
+    setAllProducts([]);
     if (selectedPurchaseOption == "single") {
-      setAllProducts([]);
       fetchProducts();
     } else if (selectedPurchaseOption == "combo") {
-      setAllProducts([]);
       fetchCombos();
     }
 

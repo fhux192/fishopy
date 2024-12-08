@@ -13,7 +13,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
 const formatPrice = (price) =>
-  price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") || 0;
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
@@ -94,7 +94,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       <Link className="image-wrapper">
         <Image.PreviewGroup>
           <Image
-            src={product.images[0]}
+            src={product.images?.[0]}
             className="rounded-t-3xl w-full h-64 object-cover"
             alt={`${product.name} image`}
           />
