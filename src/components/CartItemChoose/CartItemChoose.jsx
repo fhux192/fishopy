@@ -6,7 +6,8 @@ const CartItemChoose = ({ item }) => {
   return (
     <Card
       span={24}
-      className="mx-2 lg:px-2 px-10"
+      bodyStyle={{ padding: "10px" }}
+      className="mx-2 lg:px-0 lg:p-0 md:p-0 p-4 px-20"
       style={{
         marginBottom: "20px",
         background:

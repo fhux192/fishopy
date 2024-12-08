@@ -8,27 +8,25 @@
   background-size: cover;
 }
 
-/* Define the keyframes for the card dealing animation */
 @keyframes dealIn {
   0% {
-    transform: translateY(100%);
+    transform: translateY(100%) scale(0.8) rotate(10deg);
     opacity: 0;
   }
-  60% {
-    transform: translateY(-10%);
+  50% {
+    transform: translateY(-10%) scale(1.05) rotate(-5deg);
     opacity: 1;
   }
   80% {
-    transform: translateY(5%);
+    transform: translateY(5%) scale(0.95) rotate(2deg);
     opacity: 1;
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(0) scale(1) rotate(0deg);
     opacity: 1;
   }
 }
 
-/* Base styles for .product-card with the dealIn animation */
 .product-card {
   max-height: 17rem;
   max-width: 12rem;
@@ -41,8 +39,7 @@
   overflow: hidden;
 
   opacity: 0;
-
-  animation: dealIn 2s forwards;
+  animation: dealIn 1.5s forwards cubic-bezier(0.23, 1, 0.32, 1);
   animation-delay: calc(0.1s * var(--animation-order));
 
   .image-wrapper {
@@ -134,7 +131,6 @@
 
   .discount {
     font-weight: 600;
-
     bottom: 0;
     right: 0;
     background-color: #e90808;
@@ -164,8 +160,6 @@
     width: 90%;
     gap: 0.5rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    // backdrop-filter: blur(10px);
     color: #f0f6f5;
     font-weight: 500;
     text-align: center;
@@ -235,7 +229,6 @@
 .ant-pagination-item-active {
   background-color: rgba(30, 30, 30, 1) !important;
   border: 1px solid rgba(30, 30, 30, 1) !important;
-  border-width: 1px !important;
   border-radius: 20% !important;
 }
 
@@ -292,7 +285,7 @@
 
 @media (min-width: 580px) {
   .product-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

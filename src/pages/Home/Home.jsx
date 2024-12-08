@@ -14,6 +14,13 @@ const Home = () => {
     navigate("/product");
   };
 
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     // Cập nhật các thẻ meta để tối ưu SEO và chia sẻ trên mạng xã hội
     const ogImage = document.querySelector('meta[property="og:image"]');
@@ -82,10 +89,9 @@ const Home = () => {
               </button>
             </div>
 
-            {/* Hình ảnh với hiệu ứng mờ ở dưới */}
             <div className="md:w-1/2 relative">
               <img
-                src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-guppy-fish-isolated-on-white-background-small-png-image_10243212.png" // Thay thế bằng URL hình ảnh của bạn
+                src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-guppy-fish-isolated-on-white-background-small-png-image_10243212.png"
                 alt="Guppy Fish"
                 className="w-full h-full object-cover"
               />
@@ -102,9 +108,10 @@ const Home = () => {
             ease: "easeInOut",
             repeat: Infinity,
           }}
-          className="flex justify-center mt-8"
+          className="flex justify-center mt-8 cursor-pointer"
+          onClick={handleScrollDown} // Gọi hàm cuộn xuống khi click
         >
-          <FaCircleArrowDown className="text-white text-3xl animate-bounce" />
+          <FaCircleArrowDown className="text-white text-3xl" />
         </motion.div>
       </div>
     </div>

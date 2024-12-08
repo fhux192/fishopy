@@ -11,7 +11,7 @@
 }
 
 .stepActive {
-  color: #09D1C7 !important; 
+  color: white !important; 
   font-weight: bold;
   cursor: pointer;
 }

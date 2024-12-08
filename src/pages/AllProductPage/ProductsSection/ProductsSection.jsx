@@ -17,7 +17,7 @@ const formatPrice = (price) =>
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.account); // Corrected selector
+  const { user } = useSelector((state) => state.account); 
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
   const discountPercentage =
@@ -25,7 +25,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Prevent default <a> action
-    event.stopPropagation(); // Prevent event bubbling
+    event.stopPropagation(); 
     if (user) {
       try {
         const res = await callAddToCart({
@@ -65,7 +65,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
 
-    // Giới hạn vị trí x và y để hiệu ứng không vượt ra ngoài card
     const effectSize = 150; // Kích thước của hiệu ứng sáng (px)
     x = Math.max(effectSize / 2, Math.min(x, rect.width - effectSize / 2));
     y = Math.max(effectSize / 2, Math.min(y, rect.height - effectSize / 2));

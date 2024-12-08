@@ -11,23 +11,32 @@ import {
   Typography,
   Space,
   Spin,
+  Card,
 } from "antd";
-import { CloseCircleOutlined, MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  CloseCircleOutlined,
+  MinusCircleOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { toggleDrawerCart } from "../../redux/features/toggle/toggleSlice";
 import { callRemoveCartItem, callUpdateCartItem } from "../../services/api";
-import { updateAccount, updateCartLocal } from "../../redux/features/user/userSlice";
+import {
+  updateAccount,
+  updateCartLocal,
+} from "../../redux/features/user/userSlice";
 import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion";
 
 const { Text } = Typography;
 
 const CartDrawer = () => {
   const dispatch = useDispatch();
   const { isShowDawerCart } = useSelector((state) => state.toggle);
-  const {user, cart} = useSelector((state) => state.account);
+  const { user, cart } = useSelector((state) => state.account);
   const [drawerWidth, setDrawerWidth] = useState(400);
   const [loading, setLoading] = useState(false);
-  
+  const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,29 +46,31 @@ const CartDrawer = () => {
         setDrawerWidth(400);
       }
     };
-
-    // Initial check
     handleResize();
-
-    // Add event listener
     window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (isShowDawerCart) {
+      setAnimationKey((prev) => prev + 1);
+    }
+  }, [isShowDawerCart]);
 
   const handleViewCart = () => {
     dispatch(toggleDrawerCart());
   };
 
   const handleRemoveCartItem = async (id) => {
-    if(user) {
+    if (user) {
       try {
         setLoading(true);
         const res = await callRemoveCartItem(id);
         if (res.vcode === 0) {
           message.success(res.message);
-          dispatch(updateAccount({ cart: user.cart.filter((item) => item._id !== id) }));
+          dispatch(
+            updateAccount({ cart: user.cart.filter((item) => item._id !== id) })
+          );
         } else {
           message.error(res.message);
         }
@@ -69,7 +80,7 @@ const CartDrawer = () => {
         setLoading(false);
       }
     } else {
-      toast.success('Xóa sản phẩm khỏi giỏ hàng thành công!');
+      toast.success("Xóa sản phẩm khỏi giỏ hàng thành công!");
       const updatedCart = cart.filter((item) => item.product._id !== id);
       dispatch(updateCartLocal(updatedCart));
       localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -80,9 +91,7 @@ const CartDrawer = () => {
     if (value < 1) return;
     try {
       setLoading(true);
-      const res = await callUpdateCartItem(id, {
-        quantity: value,
-      });
+      const res = await callUpdateCartItem(id, { quantity: value });
       if (res.vcode === 0) {
         const updatedCart = user.cart.map((item) =>
           item._id === id ? { ...item, quantity: value } : item
@@ -102,7 +111,143 @@ const CartDrawer = () => {
       item.product._id === id ? { ...item, quantity: value } : item
     );
     dispatch(updateCartLocal(updatedCart));
-  }
+  };
+
+  const getItemVariants = (index) => {
+    const isEven = index % 2 === 0;
+    return {
+      initial: { opacity: 0, y: isEven ? 100 : 0, x: isEven ? 0 : 100 },
+      animate: { opacity: 1, y: 0, x: 0 },
+      exit: { opacity: 0, y: isEven ? 100 : 0, x: isEven ? 0 : 100 },
+    };
+  };
+
+  const renderItemCard = (item, index, handleQuantity, handleRemove, isUser) => {
+    const variants = getItemVariants(index);
+    return (
+      <motion.div
+        key={item._id || item.product._id}
+        variants={variants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{
+          type: "spring",
+          stiffness: 80,
+          damping: 15,
+          duration: 0.5,
+          delay: index * 0.1,
+        }}
+        style={{ marginBottom: "20px" }}
+      >
+        <Card
+          bodyStyle={{ padding: "10px" }}
+          style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
+        >
+          <Row gutter={[16, 16]} align="middle">
+            <Col xs={8}>
+              <Image
+                width={80}
+                style={{ borderRadius: "8px" }}
+                src={item.product.images[0]}
+                alt={item.product.name}
+                preview={false}
+              />
+            </Col>
+            <Col xs={16}>
+              <Space direction="horizontal" size="small" style={{ justifyContent: "space-between", width: "100%" }} align="center">
+                <Text strong style={{ fontSize: "16px",fontWeight:"bold" }}>
+                  {item.product.name}
+                </Text>
+                <CloseCircleOutlined
+                  onClick={() =>
+                    handleRemove(isUser ? item._id : item.product._id)
+                  }
+                  style={{
+                    color: "red",
+                    fontSize: "18px",
+                    cursor: "pointer",
+                  }}
+                />
+              </Space>
+              <Space direction="horizontal" size="small" style={{ marginTop: "4px" }}>
+                <Text
+                  style={{
+                    color: "#2daab6",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.product.discountedPrice
+                    ? `${item.product.discountedPrice.toLocaleString()}₫`
+                    : "N/A"}
+                </Text>
+              </Space>
+
+              <Space style={{ marginTop: "8px" }}>
+                <Button
+                style={{  marginLeft:"12px" }}
+                  type="link"
+                  icon={<MinusCircleOutlined />}
+                  onClick={() =>
+                    handleQuantity(
+                      isUser ? item._id : item.product._id,
+                      (isUser ? item.quantity : item.quantity) - 1
+                    )
+                  }
+                  disabled={(isUser ? item.quantity : item.quantity) <= 1}
+                />
+                <InputNumber
+                  min={1}
+                  value={isUser ? item.quantity : item.quantity}
+                  onChange={(value) =>
+                    handleQuantity(isUser ? item._id : item.product._id, value)
+                  }
+                  style={{ width: "50px", textAlign: "center" ,fontWeight:"bold"}}
+                />
+                <Button
+                  type="link"
+                  icon={<PlusCircleOutlined />}
+                  onClick={() =>
+                    handleQuantity(
+                      isUser ? item._id : item.product._id,
+                      (isUser ? item.quantity : item.quantity) + 1
+                    )
+                  }
+                />
+              </Space>
+            </Col>
+          </Row>
+        </Card>
+      </motion.div>
+    );
+  };
+
+  const renderList = (list, isUser) => (
+    <div
+      className="overflow-y-auto"
+      style={{
+        flexGrow: 1,
+        overflowY: "auto",
+        padding: "20px",
+        maxHeight: "calc(100vh - 120px)",
+      }}
+    >
+      <AnimatePresence key={animationKey} initial={true}>
+        {list.map((item, index) => (
+          <React.Fragment key={item._id || item.product._id}>
+            {renderItemCard(
+              item,
+              index,
+              isUser ? handleQuantityChange : handleQuantityChangeLocal,
+              handleRemoveCartItem,
+              isUser
+            )}
+          </React.Fragment>
+        ))}
+      </AnimatePresence>
+    </div>
+  );
 
   return (
     <Drawer
@@ -118,106 +263,24 @@ const CartDrawer = () => {
           flexDirection: "column",
           height: "100%",
           position: "relative",
+          background: "#f7f7f7",
         },
       }}
-      // Ensure the Drawer takes the full height on mobile
       height={drawerWidth === "100%" ? "100vh" : undefined}
-      // Optional: Adjust other styles if needed
     >
-      { user?.cart?.length > 0 ? (
+      {user?.cart?.length > 0 ? (
         <>
-          <div
-            className="overflow-y-auto"
-            style={{
-              flexGrow: 1,
-              overflowY: "auto",
-              padding: "20px",
-              maxHeight: "calc(100vh - 120px)", // Ensures the cart content doesn't overflow beyond screen height
-            }}
-          >
-            {user.cart.map((item, index) => (
-              <div key={item._id} style={{ marginBottom: "20px" }}>
-                <Row gutter={[32, 32]} align={"middle"}>
-                  <Col xs={6}>
-                    <Image
-                      width={80}
-                      style={{ borderRadius: "10px" }}
-                      src={item.product.images[0]}
-                      alt={item.product.name}
-                    />
-                  </Col>
-                  <Col xs={14}>
-                    <Space direction="vertical" size={""}>
-                      <Text className="text-Grey" style={{ fontSize: "20px" }} strong>
-                        {item.product.name}
-                      </Text>
-                      <Text
-                        type="secondary"
-                        style={{
-                          color: "#2daab6",
-                          fontSize: "17px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        {item.product.discountedPrice
-                          ? `${item.product.discountedPrice.toLocaleString()}₫`
-                          : "Price not available"}
-                      </Text>
-                      <div className="quantity-control mt-2">
-                        <Button
-                          type="link"
-                          icon={<MinusCircleOutlined />}
-                          onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
-                          disabled={item.quantity <= 1}
-                        />
-                        <InputNumber
-                          min={1}
-                          value={item.quantity}
-                          onChange={(value) => handleQuantityChange(item._id, value)}
-                          style={{ width: "60px", textAlign: "center" }}
-                        />
-                        <Button
-                          type="link"
-                          icon={<PlusCircleOutlined />}
-                          onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
-                        />
-                      </div>
-                    </Space>
-                  </Col>
-                  <Col xs={4} style={{ textAlign: "right" }}>
-                    <CloseCircleOutlined
-                      onClick={() => handleRemoveCartItem(item._id)}
-                      style={{
-                        color: "red",
-                        fontSize: "20px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </Col>
-                </Row>
-
-                {/* Add divider after each product, except the last one */}
-                {index < user.cart.length - 1 && (
-                  <div
-                    style={{
-                      borderBottom: "1px solid #f0f0f0",
-                      marginTop: "20px",
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
+          {renderList(user.cart, true)}
           <div
             className="cart-footer"
             style={{
               display: "flex",
               justifyContent: "center",
-              padding: "20px", // Padding around the button
+              padding: "20px",
               borderTop: "1px solid #f0f0f0",
               textAlign: "center",
               width: "100%",
+              background: "#fff",
             }}
           >
             <Link to="/order">
@@ -232,108 +295,27 @@ const CartDrawer = () => {
                   fontSize: "16px",
                   color: "#2daab6",
                   borderColor: "#cfefeb",
-                  padding: "20px 30px",
+                  padding: "10px 20px",
                 }}
               >
-                <p>Xem giỏ hàng</p>
+                Xem giỏ hàng
               </Button>
             </Link>
           </div>
         </>
-      ) : cart?.length > 0 ?  (
+      ) : cart?.length > 0 ? (
         <>
-          <div
-            className="overflow-y-auto"
-            style={{
-              flexGrow: 1,
-              overflowY: "auto",
-              padding: "20px",
-              maxHeight: "calc(100vh - 120px)", // Ensures the cart content doesn't overflow beyond screen height
-            }}
-          >
-            {cart.map((item, index) => (
-              <div key={item.product._id} style={{ marginBottom: "20px" }}>
-                <Row gutter={[32, 32]} align={"middle"}>
-                  <Col xs={6}>
-                    <Image
-                      width={80}
-                      style={{ borderRadius: "10px" }}
-                      src={item.product.images[0]}
-                      alt={item.product.name}
-                    />
-                  </Col>
-                  <Col xs={14}>
-                    <Space direction="vertical" size={""}>
-                      <Text className="text-Grey" style={{ fontSize: "20px" }} strong>
-                        {item.product.name}
-                      </Text>
-                      <Text
-                        type="secondary"
-                        style={{
-                          color: "#2daab6",
-                          fontSize: "17px",
-                          fontWeight: "700",
-                        }}
-                      >
-                        {item.product.discountedPrice
-                          ? `${item.product.discountedPrice.toLocaleString()}₫`
-                          : "Price not available"}
-                      </Text>
-                      <div className="quantity-control mt-2">
-                        <Button
-                          type="link"
-                          icon={<MinusCircleOutlined />}
-                          onClick={() => handleQuantityChangeLocal(item._id, item.quantity - 1)}
-                          disabled={item.quantity <= 1}
-                        />
-                        <InputNumber
-                          min={1}
-                          value={item.quantity}
-                          onChange={(value) => handleQuantityChangeLocal(item._id, value)}
-                          style={{ width: "60px", textAlign: "center" }}
-                        />
-                        <Button
-                          type="link"
-                          icon={<PlusCircleOutlined />}
-                          onClick={() => handleQuantityChangeLocal(item._id, item.quantity + 1)}
-                        />
-                      </div>
-                    </Space>
-                  </Col>
-                  <Col xs={4} style={{ textAlign: "right" }}>
-                    <CloseCircleOutlined
-                      onClick={() => handleRemoveCartItem(item.product._id)}
-                      style={{
-                        color: "red",
-                        fontSize: "20px",
-                        cursor: "pointer",
-                      }}
-                    />
-                  </Col>
-                </Row>
-
-                {/* Add divider after each product, except the last one */}
-                {index < cart.length - 1 && (
-                  <div
-                    style={{
-                      borderBottom: "1px solid #f0f0f0",
-                      marginTop: "20px",
-                    }}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
+          {renderList(cart, false)}
           <div
             className="cart-footer"
             style={{
               display: "flex",
               justifyContent: "center",
-              padding: "20px", // Padding around the button
+              padding: "20px",
               borderTop: "1px solid #f0f0f0",
               textAlign: "center",
               width: "100%",
+              background: "#fff",
             }}
           >
             <Link to="/order">
@@ -348,21 +330,19 @@ const CartDrawer = () => {
                   fontSize: "16px",
                   color: "#2daab6",
                   borderColor: "#cfefeb",
-                  padding: "20px 30px",
+                  padding: "10px 20px",
                 }}
               >
-                <p>Xem giỏ hàng</p>
+                Xem giỏ hàng
               </Button>
             </Link>
           </div>
         </>
-      )
-      : <div style={{ textAlign: "center", paddingTop: "50px" }}>
-      <Text type="secondary">Giỏ hàng trống</Text>
-     </div>
-    }
-
-      
+      ) : (
+        <div style={{ textAlign: "center", paddingTop: "50px" }}>
+          <Text type="secondary">Giỏ hàng trống</Text>
+        </div>
+      )}
 
       {loading && (
         <div className="flex justify-center items-center absolute w-full h-full bg-overlay">

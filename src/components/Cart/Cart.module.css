@@ -1,103 +1,128 @@
-.imageProduct {
-  border-radius: 10px;
-  width: 120px !important; 
-  height: 70px !important;
-  object-fit: cover !important; 
-}
-
-.deleteIcon {
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.deleteIcon:hover {
-  color: #ff4d4f;
+.cardCustom {
+  margin-bottom: 20px;
+  margin-right: 10px;
+  margin-left: 10px;
+  background: linear-gradient(70deg, #15919b, #09d1c7, #46dfb1 47%, #0c6478);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cardContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 20px;
   align-items: center;
-  padding: 20px 20px;
   background: #161617;
   border-radius: 10px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   width: 100%;
   box-sizing: border-box;
+  padding: 15px;
 }
 
-.groupSum {
+/* Cột 1 (Ảnh, checkbox, tên) */
+.col1 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leftRow {
   display: flex;
   align-items: center;
-  gap: 30px; 
-  margin: 30px 10px;
-  flex: 1 1 200px; 
+  gap: 10px;
 }
 
-.groupImage {
-  display: flex;
-  align-items: center;
-  flex: 2 2 100px; 
-}
-
-.title2,
-.title {
-  margin-left: 0px;
-  width: 200px; /* Tăng độ rộng để chứa tên sản phẩm dài hơn */
+.imageWrapper {
+  border-radius: 10px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.title2 {
-  display: none;
-  margin: 0;
+.imageProduct {
+  border-radius: 10px;
+  width: 100px !important;
+  height: 60px !important;
+  object-fit: cover !important;
 }
 
-.checkBox {
-  margin-right: 10px;
+/* Tên sản phẩm có thể xuống dòng nếu hẹp */
+.productName {
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  word-break: break-word;
+  /* Cho phép xuống dòng thoải mái */
 }
 
-.sumProduct {
+/* Cột 2 (Đơn giá, số lượng) */
+.col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.priceText {
+  color: #46dfb1;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.quantityInput {
+  width: 60px !important;
+  text-align: center !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+}
+
+/* Cột 3 (Tổng, nút xóa) */
+.col3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.totalText {
+  font-weight: bold;
+  font-size: 18px;
   color: #08ea79;
-  
-  display: block;
-  flex: 1 1 150px; /* Cho phép phần tử co giãn */
 }
 
-@media only screen and (max-width: 768px) {
-  .groupSum {
-    gap: 20px;
-  }
-  .imageProduct {
-    width: 140px !important;
-    height: 100px !important;
-  }
-  .title,
-  .title2 {
-    width: auto;
-  }
-  .sumProduct {
-    display: none;
-  }
+.deleteButton {
+  background: #000;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media only screen and (max-width: 325px) {
-  .title2 {
-    display: block;
+.deleteIcon {
+  color: red;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+.deleteIcon:hover {
+  color: #ff4d4f;
+}
+
+/* Mobile <768px: chuyển về 1 cột */
+@media only screen and (max-width: 425px) {
+  .cardCustom {
+    display: flex;
+    justify-content: center;
   }
-  .title {
-    display: none !important;
+  .cardContainer {
+    grid-template-columns: 2fr;
+    min-width: 250px;
   }
-  .groupSum {
-    flex-direction: column;
+  .col3 {
     align-items: flex-start;
-    gap: 10px;
-  }
-
-  .sumProduct {
-    display: none;
   }
 }

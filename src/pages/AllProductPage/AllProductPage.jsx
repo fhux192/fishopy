@@ -23,7 +23,6 @@ const shuffleArray = (array) => {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    // Swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
@@ -38,7 +37,7 @@ const easeInOutCubic = (t) => {
 };
 
 const smoothScrollToTop = () => {
-  const scrollDuration = 2000; // Thời gian cuộn (ms)
+  const scrollDuration = 2000; 
   const startPosition = window.scrollY;
   const startTime = performance.now();
   let animationFrameId;
@@ -48,21 +47,18 @@ const smoothScrollToTop = () => {
     removeEventListeners();
   };
 
-  // Thêm các event listeners để phát hiện sự can thiệp
   const addEventListeners = () => {
     window.addEventListener("wheel", handleUserScroll, { passive: true });
     window.addEventListener("touchstart", handleUserScroll, { passive: true });
     window.addEventListener("keydown", handleUserScroll, { passive: true });
   };
 
-  // Loại bỏ các event listeners khi kết thúc
   const removeEventListeners = () => {
     window.removeEventListener("wheel", handleUserScroll);
     window.removeEventListener("touchstart", handleUserScroll);
     window.removeEventListener("keydown", handleUserScroll);
   };
 
-  // Hàm hoạt động của animation
   const scrollStep = (currentTime) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / scrollDuration, 1); // Giới hạn progress <= 1
