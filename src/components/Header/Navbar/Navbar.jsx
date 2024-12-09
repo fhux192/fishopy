@@ -13,15 +13,13 @@ import { FaBagShopping } from "react-icons/fa6";
 import { toggleDrawerCart } from "../../../redux/features/toggle/toggleSlice.js";
 import tiktok from "../../../assets/icon/tik-tok.png";
 import { setSearch } from "../../../redux/features/user/userSlice";
-import Search from "antd/es/transfer/search.js";
 import { debounce } from "lodash";
-import { Input } from "antd";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { user, search } = useSelector((state) => state.account);
   const navigate = useNavigate();
-  const location = useLocation(); // Use useLocation to get the current path
+  const location = useLocation();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
@@ -92,9 +90,23 @@ const Navbar = () => {
   const debouncedSearch = useCallback(
     debounce((value) => {
       dispatch(setSearch(value));
-    }, 400), 
+    }, 400),
     [dispatch]
   );
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      navigate("/product");
+    }
+  };
+
+  // Kiểm tra số lượng sản phẩm trong giỏ
+  const cartQuantity = user
+    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
+    : JSON.parse(localStorage.getItem("cart"))?.reduce(
+        (acc, cur) => acc + cur.quantity,
+        0
+      ) || 0;
 
   return (
     <motion.div
@@ -126,12 +138,9 @@ const Navbar = () => {
                 {items.map((item) => (
                   <div
                     className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
-                      (item.name === "Trang Chủ" &&
-                        location.pathname === "/") ||
-                      (item.name === "Sản Phẩm" &&
-                        location.pathname === "/product") ||
-                      (item.name === "Địa Chỉ" &&
-                        location.pathname === "/address")
+                      (item.name === "Trang Chủ" && location.pathname === "/") ||
+                      (item.name === "Sản Phẩm" && location.pathname === "/product") ||
+                      (item.name === "Địa Chỉ" && location.pathname === "/address")
                         ? "text-white"
                         : "text-White"
                     }`}
@@ -142,10 +151,7 @@ const Navbar = () => {
                   </div>
                 ))}
 
-                <div
-                  style={{ color: "#f0f6f5" }}
-                  className=""
-                >
+                <div style={{ color: "#f0f6f5" }} className="">
                   <div className="relative" ref={dropdownRef}>
                     <FaUserTag
                       title="Tài Khoản"
@@ -162,47 +168,26 @@ const Navbar = () => {
                   <motion.div
                     initial={{ scale: 1 }}
                     animate={{
-                      scale:
-                        user?.cart.reduce(
-                          (acc, cur) => (acc += cur.quantity),
-                          0
-                        ) > 0
-                          ? [1, 0.9, 1]
-                          : 1,
+                      scale: cartQuantity > 0 ? [1, 0.9, 1] : 1,
                     }}
                     transition={{
                       duration: 0.5,
                       repeat: 1,
                       repeatType: "reverse",
                     }}
-                    key={user?.cart.reduce(
-                      (acc, cur) => (acc += cur.quantity),
-                      0
-                    )}
+                    key={cartQuantity}
                   >
                     <FaBagShopping
                       title="Giỏ Hàng"
-                      className=" bag-icon duration-500 text-White"
+                      className={`bag-icon duration-500 text-White ${
+                        cartQuantity > 0 ? "cart-notify" : ""
+                      }`}
                     />
                   </motion.div>
                   <div
-                    className={`flex font-bold w-[1.35rem] h-[1.25rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute ${
-                      user?.cart.reduce(
-                        (acc, cur) => (acc += cur.quantity),
-                        0
-                      ) > 0
-                        ? "text-White bg-Teal border-0"
-                        : "bg-white text-Grey "
-                    }`}
+                    className={`flex font-bold bg-Teal3 text-white  w-[1.35rem] h-[1.15rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute `}
                   >
-                    <div className="">
-                      {user
-                        ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-                        : JSON.parse(localStorage.getItem("cart"))?.reduce(
-                            (acc, cur) => acc + cur.quantity,
-                            0
-                          )}
-                    </div>
+                    <div className="">{cartQuantity}</div>
                   </div>
                 </div>
               </div>
@@ -212,44 +197,91 @@ const Navbar = () => {
               <a
                 href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <img
                   src={tiktok}
                   title="TikTok"
-                  className="lg:hidden block w-[38px] h-[38px]  text-red-600 bg-white rounded-lg p-1 lg:mr-[15px] md:mr-10 mr-10 duration-500"
+                  className="lg:hidden block w-[38px] h-[38px] p-1 bg-white rounded-lg object-contain mr-10 duration-500"
                 />
               </a>
               <a
                 href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw/?sub_confirmation=1"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaYoutube
                   title="Youtube Guppy Hóc Môn"
-                  className="lg:hidden block w-[42px] h-[38px] text-Red bg-white rounded-lg p-1 lg:mr-[15px] mr-2 duration-500"
+                  className="lg:hidden block w-[42px] h-[38px] text-Red bg-white rounded-lg p-1 mr-2 duration-500"
                 />
               </a>
             </div>
           </div>
-          {location.pathname === "/product" && ( // Conditionally render the Input based on the current path
-            <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2  items-center">
-              <Input
+          {location.pathname === "/product" && (
+            <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2 items-center">
+              <input
+                type="text"
                 placeholder="Tìm kiếm cá..."
                 onChange={(e) => {
                   debouncedSearch(e.target.value);
                 }}
-                className={`lg:rounded-md h-8 mt-2 text-teal-500 font-bold mx-8 shadow-md border-none ${
-                  isNavbarVisible ? "pt-[0.22rem]" : "pt-[0.42rem]"
+                onKeyDown={handleKeyDown}
+                className={`rounded-xl h-8 mt-2 text-Teal3 font-bold mx-8 shadow-md border-none ${
+                  isNavbarVisible ? "pt-[0.1rem]" : "pt-[0.3rem]"
                 } mobile-input`}
-                onPressEnter={(e) => {
-                  if (e.key === "Enter") {
-                    navigate("/product");
-                  }
+                style={{
+                  backgroundColor: "#fff",
+                  outline: "none",
+                  border: "none",
+                  width: "100%",
+                  fontSize: "16px",
+                  paddingLeft: "10px",
+                  paddingRight: "10px",
+                  borderRadius: "4px",
                 }}
               />
             </div>
           )}
         </div>
       </div>
+
+      <style>
+        {`
+          @keyframes wiggleLoop {
+            0% {
+              transform: rotate(0deg);
+            }
+            10% {
+              transform: rotate(-15deg);
+            }
+            20% {
+              transform: rotate(10deg);
+            }
+            30% {
+              transform: rotate(-5deg);
+            }
+            40% {
+              transform: rotate(5deg);
+            }
+            50% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(0deg);
+            }
+          }
+
+          /* 
+            Thời gian animation: 5.5s 
+            0% - 50% (0-0.5s): lắc 
+            50% - 100% (0.5-5.5s): đứng yên 
+            Lặp vô hạn => cứ 5.5s lắc 1 lần
+          */
+          .cart-notify {
+            animation: wiggleLoop 7.5s infinite;
+          }
+        `}
+      </style>
     </motion.div>
   );
 };

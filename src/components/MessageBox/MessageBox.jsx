@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { SiZalo } from "react-icons/si";
 
 const MessageBox = () => {
@@ -115,22 +115,21 @@ const MessageBox = () => {
   const [animateWave, setAnimateWave] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
 
-  const getRandomTime = () => Math.floor(Math.random() * 20000) + 5000;
+  const getRandomTime = () => Math.floor(Math.random() * 30000) + 7000;
 
   useEffect(() => {
     const showMessageInterval = setInterval(() => {
       setShowMessage(true);
       setCurrentMessage(messages[Math.floor(Math.random() * messages.length)]);
 
-      // Tạo tin nhắn ngẫu nhiên sau tin nhắn đầu tiên
       const customer = customers[Math.floor(Math.random() * customers.length)];
-      const randomMessage = `${customer.name} vừa mua ${customer.quantity} cặp cá`;
 
-      // Thêm màu sắc cho tên
       setCurrentMessage(
         <span>
-          <span style={{ color: "#09D1C7" ,fontWeight:"bold" }}>{customer.name}</span> vừa mua{" "}
-          {customer.quantity} cặp cá
+          <span style={{ color: "#09D1C7", fontWeight: "bold" }}>
+            {customer.name}
+          </span>{" "}
+          vừa mua {customer.quantity} cặp cá
         </span>
       );
 
@@ -156,23 +155,26 @@ const MessageBox = () => {
   return (
     <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[9999]">
       <div className="flex flex-col items-end">
-        {showMessage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ opacity: { duration: 1 } }}
-            className="bg-Black min-w-[9rem] rounded-xl rounded-b-none rounded-l-xl font-semibold p-3 mb-2 text-sm text-gray-800"
-            style={{
-              position: "absolute",
-              bottom: "30px",
-              right: "45px",
-              textAlign: "center",
-            }}
-          >
-            <p className="text-White">{currentMessage}</p>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {showMessage && (
+            <motion.div
+              key="message" // Thêm key để AnimatePresence quản lý
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.5 } }} // Thêm hiệu ứng fade out
+              transition={{ opacity: { duration: 1 } }}
+              className="bg-Black min-w-[9rem] rounded-xl rounded-b-none rounded-l-xl font-semibold p-3 mb-2 text-sm text-gray-800"
+              style={{
+                position: "absolute",
+                bottom: "30px",
+                right: "45px",
+                textAlign: "center",
+              }}
+            >
+              <p className="text-White">{currentMessage}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <motion.a
           whileHover={{ scale: 1.3 }}

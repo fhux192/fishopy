@@ -68,6 +68,8 @@ const Home = () => {
                       "linear-gradient(10deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
+                    backgroundSize: "200% auto",
+                    animation: "gradientCycle 10s infinite",
                   }}
                 >
                   Guppy
@@ -114,6 +116,24 @@ const Home = () => {
           <FaCircleArrowDown className="text-white text-3xl" />
         </motion.div>
       </div>
+      <style>
+        {`
+          @keyframes gradientCycle {
+            0% {
+              background-position: 0% 50%;
+            }
+            30% {
+              background-position: 100% 50%;
+            }
+            70% {
+              background-position: 0% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+        `}
+      </style>
     </div>
   );
 };

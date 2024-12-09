@@ -24,6 +24,14 @@ const BottomNavBar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.account);
 
+  // Tính số lượng sản phẩm trong giỏ
+  const cartQuantity = user
+    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
+    : JSON.parse(localStorage.getItem("cart"))?.reduce(
+        (acc, cur) => acc + cur.quantity,
+        0
+      ) || 0;
+
   // References for detecting clicks outside
   const dropdownRef = useRef(null);
   const accountNavRef = useRef(null);
@@ -35,7 +43,6 @@ const BottomNavBar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // If the dropdown is open and the click is outside both the account nav and dropdown
       if (
         isDropdownOpen &&
         dropdownRef.current &&
@@ -58,7 +65,6 @@ const BottomNavBar = () => {
     document.addEventListener("click", handleClickOutside);
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup event listeners on unmount
     return () => {
       document.removeEventListener("click", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
@@ -74,7 +80,7 @@ const BottomNavBar = () => {
   };
 
   const toggleAdminSection = (event) => {
-    event.stopPropagation(); // Prevent event from bubbling up
+    event.stopPropagation();
     setIsAdminSectionOpen((prev) => !prev);
   };
 
@@ -130,18 +136,18 @@ const BottomNavBar = () => {
 
         {/* Account Icon with Dropdown */}
         <motion.div
-          ref={accountNavRef} // Attach ref to the account nav
+          ref={accountNavRef}
           className={`nav-item font-semibold ${isDropdownOpen ? "active" : ""}`}
           onClick={toggleDropdown}
           animate={{
-            color: user ? activeColor : inactiveColor, // Use active color when user is logged in
+            color: user ? activeColor : inactiveColor,
           }}
           transition={{ duration: 0.5 }}
         >
           <FaUserTag />
           <p>Tài khoản</p>
           <motion.div
-            ref={dropdownRef} // Attach ref to the dropdown menu
+            ref={dropdownRef}
             initial={{ opacity: 0, y: 50, scale: 0.5 }}
             animate={{
               opacity: isDropdownOpen ? 1 : 0,
@@ -157,7 +163,6 @@ const BottomNavBar = () => {
               <div className="dropdown-content">
                 {user ? (
                   <>
-                    {/* Admin options if user is ADMIN */}
                     {user.role === "ADMIN" && (
                       <div className="admin-section">
                         <div
@@ -191,8 +196,6 @@ const BottomNavBar = () => {
                         )}
                       </div>
                     )}
-
-                    {/* Common options for logged-in users */}
                     <Link
                       to="/account"
                       className="block px-2 py-2 text-Black font-bold border-t-[1px] w-full text-left"
@@ -208,7 +211,6 @@ const BottomNavBar = () => {
                   </>
                 ) : (
                   <>
-                    {/* Options for guests */}
                     <button
                       onClick={() => dispatch(toggleModalLogin())}
                       className="block  px-2 py-2 text-Black font-bold rounded-t-xl w-full text-left"
@@ -228,17 +230,41 @@ const BottomNavBar = () => {
           </motion.div>
         </motion.div>
 
-        {/* Cart Icon */}
+        {/* Cart Icon with Badge and Wiggle */}
         <motion.div
-          className="nav-item font-semibold"
+          className={`nav-item font-semibold relative`}
           animate={{
             color: location.pathname === "/cart" ? activeColor : inactiveColor,
           }}
           transition={{ duration: 0.5 }}
           onClick={() => dispatch(toggleDrawerCart())}
         >
-          <FaBagShopping />
+          <FaBagShopping
+            className={cartQuantity > 0 ? "cart-notify" : ""}
+          />
           <p>Giỏ hàng</p>
+          {cartQuantity > 0 && (
+            <div
+              className="cart-badge"
+              style={{
+                position: "absolute",
+                top: "-8px",
+                right: "-0px",
+                background: "#09D1C7",
+                color: "#fff",
+                borderRadius: "50%",
+                width: "18px",
+                height: "18px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "12px",
+                fontWeight: "bold",
+              }}
+            >
+              {cartQuantity}
+            </div>
+          )}
         </motion.div>
 
         {/* Address Icon */}
@@ -255,6 +281,43 @@ const BottomNavBar = () => {
           <p>Địa chỉ</p>
         </motion.div>
       </div>
+
+      {/* Style nội bộ cho animation */}
+      <style>
+        {`
+          @keyframes wiggleLoop {
+            0% {
+              transform: rotate(0deg);
+            }
+            10% {
+              transform: rotate(-15deg);
+            }
+            20% {
+              transform: rotate(10deg);
+            }
+            30% {
+              transform: rotate(-5deg);
+            }
+            40% {
+              transform: rotate(5deg);
+            }
+            50% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(0deg);
+            }
+          }
+
+          /* Animation lắc lư với chu kỳ 5.5s
+             - 0-0.5s: lắc
+             - 0.5-5.5s: đứng yên
+           */
+          .cart-notify {
+            animation: wiggleLoop 7.5s infinite;
+          }
+        `}
+      </style>
     </div>
   );
 };

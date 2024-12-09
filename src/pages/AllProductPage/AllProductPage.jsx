@@ -1,4 +1,3 @@
-// src/pages/AllProductPage/AllProductPage.jsx
 import { useEffect, useState, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import ShiftingCountdown from "../../components/CountDown/ShiftingCountdown";
@@ -10,34 +9,17 @@ import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../scss/navbar.scss";
 import "../../scss/allProduct.scss";
-import useColumns from "./utils/useColumns"; // Import custom hook
+import useColumns from "./utils/useColumns";
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import CombosSection from "./CombosSection/CombosSection";
-
-const shuffleArray = (array) => {
-  let currentIndex = array.length,
-    randomIndex;
-
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-};
 
 const easeInOutCubic = (t) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
 
 const smoothScrollToTop = () => {
-  const scrollDuration = 2000; 
+  const scrollDuration = 2000;
   const startPosition = window.scrollY;
   const startTime = performance.now();
   let animationFrameId;
@@ -61,8 +43,8 @@ const smoothScrollToTop = () => {
 
   const scrollStep = (currentTime) => {
     const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / scrollDuration, 1); // Giới hạn progress <= 1
-    const ease = easeInOutCubic(progress); // Hàm easing
+    const progress = Math.min(elapsed / scrollDuration, 1);
+    const ease = easeInOutCubic(progress);
     window.scrollTo(0, startPosition * (1 - ease));
 
     if (progress < 1) {
@@ -77,8 +59,7 @@ const smoothScrollToTop = () => {
 };
 
 const AllProductPage = () => {
-  const [selectedPurchaseOption, setSelectedPurchaseOption] =
-    useState("single");
+  const [selectedPurchaseOption, setSelectedPurchaseOption] = useState("single");
   const handlePurchaseOptionClick = (option) => {
     setSelectedPurchaseOption(option);
   };
@@ -97,7 +78,7 @@ const AllProductPage = () => {
     const fetchProducts = async () => {
       try {
         let current = currentPage;
-        if (search != "") {
+        if (search !== "") {
           current = 1;
           setCurrentPage(1);
         }
@@ -122,7 +103,7 @@ const AllProductPage = () => {
         }
 
         let query = {};
-        if (search != "") {
+        if (search !== "") {
           query = {
             $text: { $search: search },
           };
@@ -142,7 +123,7 @@ const AllProductPage = () => {
     const fetchCombos = async () => {
       try {
         let current = currentPage;
-        if (search != "") {
+        if (search !== "") {
           current = 1;
           setCurrentPage(1);
         }
@@ -167,7 +148,7 @@ const AllProductPage = () => {
         }
 
         let query = {};
-        if (search != "") {
+        if (search !== "") {
           query = {
             $text: { $search: search },
           };
@@ -184,9 +165,9 @@ const AllProductPage = () => {
       }
     };
     setAllProducts([]);
-    if (selectedPurchaseOption == "single") {
+    if (selectedPurchaseOption === "single") {
       fetchProducts();
-    } else if (selectedPurchaseOption == "combo") {
+    } else if (selectedPurchaseOption === "combo") {
       fetchCombos();
     }
 
@@ -240,19 +221,23 @@ const AllProductPage = () => {
       </div>
       <div className="flex w-full justify-center">
         <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-[0.7rem] ">
-          <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl">
+          <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl text-center">
             <p
               style={{
                 backgroundImage:
                   "linear-gradient(50deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
+                backgroundSize: "200% auto", 
+                animation: "gradientCycle 10s infinite"
               }}
               className="font-[800] cursor-default lg:text-[1.9rem] text-[1.7rem] text-white"
             >
               Dành Cho Bạn
             </p>
           </div>
+
+          {/* Button chọn loại mua */}
           <div className="flex flex-col lg:flex-row lg:mt-[0.7rem] mt-[0rem] items-center gap-2">
             <p className="text-White font-bold cursor-default text-[1.125rem] lg:text-[1.25rem]">
               Bạn muốn mua như thế nào?
@@ -262,7 +247,7 @@ const AllProductPage = () => {
                 onClick={() => handlePurchaseOptionClick("single")}
                 className={`flex justify-center rounded-l-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                   selectedPurchaseOption === "single"
-                    ? "bg-Black text-teal-500 font-[700] cursor-default"
+                    ? "bg-Black text-Teal3 font-[700] cursor-default"
                     : "bg-Black2 text-Grey2"
                 }`}
               >
@@ -275,7 +260,7 @@ const AllProductPage = () => {
                 onClick={() => handlePurchaseOptionClick("combo")}
                 className={`flex justify-center rounded-r-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                   selectedPurchaseOption === "combo"
-                    ? "bg-Black text-teal-500 font-[700] cursor-default"
+                    ? "bg-Black text-Teal3 font-[700] cursor-default"
                     : "bg-Black2 text-Grey2"
                 }`}
               >
@@ -315,6 +300,25 @@ const AllProductPage = () => {
           justifyContent: "center",
         }}
       />
+
+      <style>
+        {`
+          @keyframes gradientCycle {
+            0% {
+              background-position: 0% 50%;
+            }
+            30% {
+              background-position: 100% 50%;
+            }
+            70% {
+              background-position: 0% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+        `}
+      </style>
     </motion.div>
   );
 };
