@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { SiZalo } from "react-icons/si";
 
 const MessageBox = () => {
+
+  const location = useLocation();
+
+  if (location.pathname === "/order") {
+    return null;
+  }
   const messages = [
     "Bạn cần giúp gì không?",
     "Hôm nay của bạn thế nào?",
@@ -126,10 +133,8 @@ const MessageBox = () => {
 
       setCurrentMessage(
         <span>
-          <span style={{ color: "#09D1C7", fontWeight: "bold" }}>
-            {customer.name}
-          </span>{" "}
-          vừa mua {customer.quantity} cặp cá
+          <span style={{ color: "#09D1C7", fontWeight:"bold" }}>{customer.name}</span> vừa mua{" "}
+          {customer.quantity} cặp cá
         </span>
       );
 
@@ -158,7 +163,7 @@ const MessageBox = () => {
         <AnimatePresence>
           {showMessage && (
             <motion.div
-              key="message" // Thêm key để AnimatePresence quản lý
+              key="message"  // Thêm key để AnimatePresence quản lý
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: { duration: 0.5 } }} // Thêm hiệu ứng fade out

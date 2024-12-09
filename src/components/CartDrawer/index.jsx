@@ -4,8 +4,6 @@ import {
   Button,
   Drawer,
   Image,
-  InputNumber,
-  message,
   Row,
   Col,
   Typography,
@@ -88,29 +86,30 @@ const CartDrawer = () => {
   };
 
   const handleQuantityChange = async (id, value) => {
-    if (value < 1) return;
-    try {
-      setLoading(true);
-      const res = await callUpdateCartItem(id, { quantity: value });
-      if (res.vcode === 0) {
-        const updatedCart = user.cart.map((item) =>
-          item._id === id ? { ...item, quantity: value } : item
-        );
-        dispatch(updateAccount({ cart: updatedCart }));
+    const numericValue = parseInt(value, 10);
+    if (isNaN(numericValue) || numericValue < 1) return;
+    if (user) {
+      try {
+        setLoading(true);
+        const res = await callUpdateCartItem(id, { quantity: numericValue });
+        if (res.vcode === 0) {
+          const updatedCart = user.cart.map((item) =>
+            item._id === id ? { ...item, quantity: numericValue } : item
+          );
+          dispatch(updateAccount({ cart: updatedCart }));
+        }
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error(error.message);
-    } finally {
-      setLoading(false);
+    } else {
+      const updatedCart = cart.map((item) =>
+        item.product._id === id ? { ...item, quantity: numericValue } : item
+      );
+      dispatch(updateCartLocal(updatedCart));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
-  };
-
-  const handleQuantityChangeLocal = (id, value) => {
-    if (value < 1) return;
-    const updatedCart = cart.map((item) =>
-      item.product._id === id ? { ...item, quantity: value } : item
-    );
-    dispatch(updateCartLocal(updatedCart));
   };
 
   const getItemVariants = (index) => {
@@ -155,8 +154,13 @@ const CartDrawer = () => {
               />
             </Col>
             <Col xs={16}>
-              <Space direction="horizontal" size="small" style={{ justifyContent: "space-between", width: "100%" }} align="center">
-                <Text strong style={{ fontSize: "16px",fontWeight:"bold" }}>
+              <Space
+                direction="horizontal"
+                size="small"
+                style={{ justifyContent: "space-between", width: "100%" }}
+                align="center"
+              >
+                <Text strong style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {item.product.name}
                 </Text>
                 <CloseCircleOutlined
@@ -170,7 +174,11 @@ const CartDrawer = () => {
                   }}
                 />
               </Space>
-              <Space direction="horizontal" size="small" style={{ marginTop: "4px" }}>
+              <Space
+                direction="horizontal"
+                size="small"
+                style={{ marginTop: "4px" }}
+              >
                 <Text
                   style={{
                     color: "#2daab6",
@@ -186,7 +194,7 @@ const CartDrawer = () => {
 
               <Space style={{ marginTop: "8px" }}>
                 <Button
-                style={{  marginLeft:"12px" }}
+                  style={{ marginLeft: "12px" }}
                   type="link"
                   icon={<MinusCircleOutlined />}
                   onClick={() =>
@@ -197,13 +205,25 @@ const CartDrawer = () => {
                   }
                   disabled={(isUser ? item.quantity : item.quantity) <= 1}
                 />
-                <InputNumber
-                  min={1}
+                <input
+                  type="number"
+                  min="1"
                   value={isUser ? item.quantity : item.quantity}
-                  onChange={(value) =>
-                    handleQuantity(isUser ? item._id : item.product._id, value)
+                  onChange={(e) =>
+                    handleQuantity(
+                      isUser ? item._id : item.product._id,
+                      e.target.value
+                    )
                   }
-                  style={{ width: "50px", textAlign: "center" ,fontWeight:"bold"}}
+                  style={{
+                    width: "50px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    border: "1px solid #d9d9d9",
+                    borderRadius: "4px",
+                    fontSize: "16px",
+                    padding: "4px 8px",
+                  }}
                 />
                 <Button
                   type="link"
@@ -239,7 +259,7 @@ const CartDrawer = () => {
             {renderItemCard(
               item,
               index,
-              isUser ? handleQuantityChange : handleQuantityChangeLocal,
+              isUser ? handleQuantityChange : handleQuantityChange,
               handleRemoveCartItem,
               isUser
             )}

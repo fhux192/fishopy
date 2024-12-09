@@ -24,42 +24,29 @@ const Cart = ({ cart }) => {
   const { isAuthenticated, cartLocal } = useSelector((state) => state.account);
   const dispatch = useDispatch();
 
-  const onChangeQuantity = (value, item) => {
-    if (value == null) return; // value null khi người dùng xóa hết số
-    const quantityValue = Number(value);
+  const onChangeQuantity = async (value, item) => {
+    if (value === "") return; // Trường hợp người dùng xóa hết số
+    const quantityValue = parseInt(value, 10);
+
+    if (isNaN(quantityValue) || quantityValue < 1) {
+      message.error("Số lượng phải là số nguyên lớn hơn hoặc bằng 1.");
+      return;
+    }
 
     if (isAuthenticated) {
-      const newCart = cart.map((cartItem) => {
-        if (cartItem._id === item._id) {
-          return { ...cartItem, quantity: quantityValue };
-        }
-        return cartItem;
-      });
-      dispatch(updateAccount({ cart: newCart }));
-
-      callUpdateCartItem(item._id, { quantity: quantityValue })
-        .then((res) => {
-          if (res.vcode !== 0) {
-            message.error(res.message || "Failed to update quantity");
-          }
-        })
-        .catch((error) => {
-          console.error(error.message);
-          message.error("Error updating quantity");
-        });
-    } else {
-      if (!cartLocal) {
-        console.error("cartLocal is not defined or not from Redux state");
-        return;
+      try {
+        setLoading(true);
+        await handleQuantityChange(item._id, quantityValue);
+        message.success("Cập nhật số lượng thành công.");
+      } catch (error) {
+        console.error(error.message);
+        message.error("Lỗi khi cập nhật số lượng.");
+      } finally {
+        setLoading(false);
       }
-      const updatedCart = cartLocal.map((cartItem) => {
-        if (cartItem._id === item._id) {
-          return { ...cartItem, quantity: quantityValue };
-        }
-        return cartItem;
-      });
-      dispatch(updateCartLocal(updatedCart));
-      message.success("Quantity updated.");
+    } else {
+      handleQuantityChange(item._id, quantityValue);
+      message.success("Cập nhật số lượng thành công.");
     }
   };
 
@@ -132,14 +119,16 @@ const Cart = ({ cart }) => {
 
                 <div className={styles.col2}>
                   <Typography.Text className={styles.priceText}>
-                    Đơn giá: {formatPrice(item.product.discountedPrice.toString())}đ
+                    Đơn giá:{" "}
+                    {formatPrice(item.product.discountedPrice.toString())}đ
                   </Typography.Text>
-                  <InputNumber
+                  <input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={item.quantity}
+                    onChange={(e) => onChangeQuantity(e.target.value, item)}
                     className={styles.quantityInput}
-                    min={1}
-                    max={100}
-                    value={item.quantity} 
-                    onChange={(value) => onChangeQuantity(value, item)}
                   />
                 </div>
 
@@ -168,10 +157,7 @@ const Cart = ({ cart }) => {
                       },
                     }}
                   >
-                    <button
-                      className={styles.deleteButton}
-                      type="button"
-                    >
+                    <button className={styles.deleteButton} type="button">
                       <DeleteOutlined className={styles.deleteIcon} />
                     </button>
                   </Popconfirm>

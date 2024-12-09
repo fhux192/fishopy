@@ -71,7 +71,11 @@
 }
 
 .quantityInput {
-  width: 60px !important;
+  width: 30px ;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+  justify-self: center;
   text-align: center !important;
   border-radius: 8px !important;
   font-weight: bold !important;
