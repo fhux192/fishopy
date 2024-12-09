@@ -71,7 +71,7 @@
 }
 
 .quantityInput {
-  width: 30px ;
+  width: 60px !important;
   justify-content: center;
   justify-items: center;
   text-align: center;
