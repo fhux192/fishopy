@@ -28,14 +28,14 @@ import AddressPage from "./pages/AddressPage/AddressPage.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
 import AllProductPage from "./pages/AllProductPage/AllProductPage.jsx";
-import ManageProduct from "./components/Admin/ManageProduct/ManageProduct.jsx";
 import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import ManageCombo from "./pages/ManageCombo/ManageCombo.jsx";
-import AdminPage from "./pages/AdminPage/AdminPage.jsx";
+import AdminPage from "./pages/Admin/AdminPage/AdminPage.jsx";
+import ManageProduct from "./pages/Admin/ManageProduct/ManageProduct.jsx";
 
 const User = () => {
   const { isShowModalLogin, modalRegister } = useSelector(

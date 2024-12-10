@@ -32,8 +32,6 @@ const ModalRegister = () => {
 
       const res = await callRegister({ name, password, phone });
 
-      console.log("check res", res);
-
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
         toast.success(res.message);
@@ -178,7 +176,10 @@ const ModalRegister = () => {
           Đăng Ký
         </Button>
         <div className={styles.smallText}>
-          <span className="font-semibold text-Black"> Bạn đã có tài khoản? </span>
+          <span className="font-semibold text-Black">
+            {" "}
+            Bạn đã có tài khoản?{" "}
+          </span>
           <Typography.Link
             className="pl-1 text-Teal font-bold cursor-pointer"
             style={{ color: "teal" }}

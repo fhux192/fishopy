@@ -122,7 +122,13 @@ const CartDrawer = () => {
     };
   };
 
-  const renderItemCard = (item, index, handleQuantity, handleRemove, isUser) => {
+  const renderItemCard = (
+    item,
+    index,
+    handleQuantity,
+    handleRemove,
+    isUser
+  ) => {
     const variants = getItemVariants(index);
     return (
       <motion.div
@@ -142,7 +148,10 @@ const CartDrawer = () => {
       >
         <Card
           bodyStyle={{ padding: "10px" }}
-          style={{ borderRadius: "10px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}
+          style={{
+            borderRadius: "10px",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          }}
         >
           <Row gutter={[16, 16]} align="middle">
             <Col xs={8}>
@@ -155,8 +164,13 @@ const CartDrawer = () => {
               />
             </Col>
             <Col xs={16}>
-              <Space direction="horizontal" size="small" style={{ justifyContent: "space-between", width: "100%" }} align="center">
-                <Text strong style={{ fontSize: "16px",fontWeight:"bold" }}>
+              <Space
+                direction="horizontal"
+                size="small"
+                style={{ justifyContent: "space-between", width: "100%" }}
+                align="center"
+              >
+                <Text strong style={{ fontSize: "16px", fontWeight: "bold" }}>
                   {item.product.name}
                 </Text>
                 <CloseCircleOutlined
@@ -170,7 +184,11 @@ const CartDrawer = () => {
                   }}
                 />
               </Space>
-              <Space direction="horizontal" size="small" style={{ marginTop: "4px" }}>
+              <Space
+                direction="horizontal"
+                size="small"
+                style={{ marginTop: "4px" }}
+              >
                 <Text
                   style={{
                     color: "#2daab6",
@@ -186,7 +204,7 @@ const CartDrawer = () => {
 
               <Space style={{ marginTop: "8px" }}>
                 <Button
-                style={{  marginLeft:"12px" }}
+                  style={{ marginLeft: "12px" }}
                   type="link"
                   icon={<MinusCircleOutlined />}
                   onClick={() =>
@@ -203,7 +221,11 @@ const CartDrawer = () => {
                   onChange={(value) =>
                     handleQuantity(isUser ? item._id : item.product._id, value)
                   }
-                  style={{ width: "50px", textAlign: "center" ,fontWeight:"bold"}}
+                  style={{
+                    width: "50px",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
                 />
                 <Button
                   type="link"
@@ -251,7 +273,9 @@ const CartDrawer = () => {
 
   return (
     <Drawer
-      title={<span style={{ color: "#707070", fontSize: "18px" }}>Giỏ hàng</span>}
+      title={
+        <span style={{ color: "#707070", fontSize: "18px" }}>Giỏ hàng</span>
+      }
       placement="right"
       onClose={() => dispatch(toggleDrawerCart())}
       open={isShowDawerCart}
@@ -266,90 +290,7 @@ const CartDrawer = () => {
           background: "#f7f7f7",
         },
       }}
-      height={drawerWidth === "100%" ? "100vh" : undefined}
-    >
-      {user?.cart?.length > 0 ? (
-        <>
-          {renderList(user.cart, true)}
-          <div
-            className="cart-footer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "20px",
-              borderTop: "1px solid #f0f0f0",
-              textAlign: "center",
-              width: "100%",
-              background: "#fff",
-            }}
-          >
-            <Link to="/order">
-              <Button
-                onClick={handleViewCart}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "auto",
-                  borderRadius: "20px",
-                  fontWeight: "600",
-                  fontSize: "16px",
-                  color: "#2daab6",
-                  borderColor: "#cfefeb",
-                  padding: "10px 20px",
-                }}
-              >
-                Xem giỏ hàng
-              </Button>
-            </Link>
-          </div>
-        </>
-      ) : cart?.length > 0 ? (
-        <>
-          {renderList(cart, false)}
-          <div
-            className="cart-footer"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              padding: "20px",
-              borderTop: "1px solid #f0f0f0",
-              textAlign: "center",
-              width: "100%",
-              background: "#fff",
-            }}
-          >
-            <Link to="/order">
-              <Button
-                onClick={handleViewCart}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "auto",
-                  borderRadius: "20px",
-                  fontWeight: "600",
-                  fontSize: "16px",
-                  color: "#2daab6",
-                  borderColor: "#cfefeb",
-                  padding: "10px 20px",
-                }}
-              >
-                Xem giỏ hàng
-              </Button>
-            </Link>
-          </div>
-        </>
-      ) : (
-        <div style={{ textAlign: "center", paddingTop: "50px" }}>
-          <Text type="secondary">Giỏ hàng trống</Text>
-        </div>
-      )}
-
-      {loading && (
-        <div className="flex justify-center items-center absolute w-full h-full bg-overlay">
-          <Spin />
-        </div>
-      )}
-    </Drawer>
+    ></Drawer>
   );
 };
 

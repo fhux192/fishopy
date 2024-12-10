@@ -1,67 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Table, Pagination, Modal, message, Row, Image, Col, Popconfirm } from "antd";
+import { Button, Table, message, Row, Image, Col, Popconfirm } from "antd";
 import {
   PlusCircleOutlined,
   ReloadOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import {
-  toggleModalAddProduct,
-  toggleModalEditProduct,
-} from "../../../redux/features/toggle/toggleSlice";
-import ModalAddProduct from "../../Modal/ModalAddProduct/ModalAddProduct";
-import ModalEditProduct from "../../Modal/ModalEditProduct/ModalEditProduct";
-import { callDeleteProductAdmin, callGetProductsAdmin } from "../../../services/api";
-import formatPrice from "../../../utils/formatPrice";
+import { toggle } from "@redux/features/toggle/toggleSlice";
+import ModalAddProduct from "@components/Modal/ModalAddProduct/ModalAddProduct";
+import ModalEditProduct from "@components/Modal/ModalEditProduct/ModalEditProduct";
+import { admin_getProducts_byFields } from "@services/api";
+import formatPrice from "@utils/formatPrice";
 
 const ManageProduct = () => {
-  const [isLoading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [limit, setLimit] = useState(1);
+  const [page, setPage] = useState(10);
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
   const [productEdit, setProductEdit] = useState({});
 
   const handleDeleteProduct = async (id) => {
-    try {
-      const res = await callDeleteProductAdmin(id);
-      if (res.vcode === 0) {
-        const newProducts = products.filter((product) => product._id !== id);
-        setProducts(newProducts);
-        message.success(res.message);
-      } else {
-        message.error(res.message);
-      }
-    } catch (error) {
-      console.error("error", error.message);
-      message.error(error.message);
-    }
-  };
-
-  const fetchProduct = async (page) => {
     setLoading(true);
     try {
-      const res = await callGetProductsAdmin({}, {}, page, pageSize);
-      const products = res.data.map((item) => ({
-        ...item,
-        key: item._id,
-      }));
-      setTotal(res.total);
-      setProducts(products);
+      const res = await admin_deleteProduct(id);
+      if (res.vcode !== 0) {
+        return message.error(res.message);
+      }
+
+      const newProducts = products.filter((product) => product._id !== id);
+      setProducts(newProducts);
+      message.success(res.message);
     } catch (error) {
       console.error(error.message);
-      message.error(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchProduct(current);
-  }, [current, pageSize]);
+  const getProducts = async (query, sort, limit, page) => {
+    setLoading(true);
+    try {
+      const res = await admin_getProducts_byFields(query, sort, limit, page);
+      if (res.vcode != 0) {
+        return message.error(res.message);
+      }
+
+      let products = res.data.map((p) => ({
+        ...p,
+        key: p._id,
+      }));
+      setProducts(products);
+      setTotal(res.total);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const columns = [
     {
@@ -86,14 +84,18 @@ const ManageProduct = () => {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (text) => <span style={{ fontWeight: "bold", color: "#707070" }}>{text}</span>,
+      render: (text) => (
+        <span style={{ fontWeight: "bold", color: "#707070" }}>{text}</span>
+      ),
     },
     {
       title: "Giá gốc",
       dataIndex: "price",
       key: "price",
       render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#20a69f" }}>{formatPrice(text)}đ</span>
+        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
+          {formatPrice(text)}đ
+        </span>
       ),
     },
     {
@@ -101,7 +103,9 @@ const ManageProduct = () => {
       dataIndex: "discountedPrice",
       key: "discountedPrice",
       render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#20a69f" }}>{formatPrice(text)}đ</span>
+        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
+          {formatPrice(text)}đ
+        </span>
       ),
     },
     {
@@ -128,20 +132,20 @@ const ManageProduct = () => {
             type="link"
             icon={<EditOutlined style={{ color: "orange" }} />}
             onClick={() => {
-              dispatch(toggleModalEditProduct());
+              dispatch(toggle("modalEditProduct"));
               setProductEdit(record);
             }}
           />
           <Popconfirm
             title="Bạn có chắc chắn muốn xóa sản phẩm này?"
-            okText="Yes"
-            cancelText="No"
+            okText="Có"
+            cancelText="Không"
             onConfirm={() => handleDeleteProduct(record._id)}
-            >
-              <Button
-                type="link"
-                icon={<DeleteOutlined style={{ color: "red" }} />}
-                />
+          >
+            <Button
+              type="link"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
+            />
           </Popconfirm>
         </>
       ),
@@ -152,37 +156,42 @@ const ManageProduct = () => {
     <div>
       <Row gutter={[16, 16]} style={{ marginBottom: 16, flexWrap: "wrap" }}>
         <Col>
-          <Button icon={<PlusCircleOutlined />} onClick={() => dispatch(toggleModalAddProduct())}>
+          <Button
+            icon={<PlusCircleOutlined />}
+            onClick={() => dispatch(toggle("modalAddProduct"))}
+          >
             Thêm sản phẩm
           </Button>
         </Col>
         <Col>
-          <Button icon={<ReloadOutlined />} onClick={() => fetchProduct(current)} />
+          <Button
+            onClick={() => {
+              setPage(1);
+              setLimit(10);
+              getProducts({}, {}, 10, 1);
+            }}
+          >
+            Xem
+          </Button>
         </Col>
       </Row>
 
       <Table
         columns={columns}
         dataSource={products}
-        loading={isLoading}
-        pagination={false}
-        rowKey="_id"
-        scroll={{ x: "max-content" }}
-      />
-
-      <Pagination
-        current={current}
-        pageSize={pageSize}
-        total={total}
-        onChange={(page, pageSize) => {
-          setCurrent(page);
-          setPageSize(pageSize);
+        loading={loading}
+        pagination={{
+          current: page,
+          pageSize: limit,
+          total: total,
+          onChange: (page, pageSize) => {
+            setPage(page);
+            setLimit(pageSize);
+            getProducts({}, {}, pageSize, page);
+          },
         }}
-        
-        style={{ marginTop: 16, textAlign: "center" }}
-        showSizeChanger
-        pageSizeOptions={[5, 10, 20, 50]}
-        responsive
+        rowKey="_id"
+        scroll={{ x: "max-content", y: 500 }}
       />
 
       <ModalAddProduct setProducts={setProducts} />

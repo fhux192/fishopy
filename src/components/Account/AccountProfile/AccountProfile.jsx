@@ -113,25 +113,29 @@ const AccountProfile = () => {
             >
               <Input />
             </Form.Item>
-            <Form.Item
-              label={<span className="text-white"> Số điện thoại</span>}
-              name="phone"
-              rules={[
-                {
-                  required: true,
-                  message: "Vui lòng nhập số điện thoại!",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+            {user.phone && (
+              <Form.Item
+                label={<span className="text-white"> Số điện thoại</span>}
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập số điện thoại!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+            )}
 
-            <Form.Item
-              name="email"
-              label={<span className="text-white">Email</span>}
-            >
-              <Input />
-            </Form.Item>
+            {user.email && (
+              <Form.Item
+                name="email"
+                label={<span className="text-white">Email</span>}
+              >
+                <Input />
+              </Form.Item>
+            )}
 
             <Form.Item xs={24}>
               <Button

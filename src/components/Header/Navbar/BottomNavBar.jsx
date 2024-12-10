@@ -25,12 +25,7 @@ const BottomNavBar = () => {
   const { user } = useSelector((state) => state.account);
 
   // Tính số lượng sản phẩm trong giỏ
-  const cartQuantity = user
-    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-    : JSON.parse(localStorage.getItem("cart"))?.reduce(
-        (acc, cur) => acc + cur.quantity,
-        0
-      ) || 0;
+  const cartQuantity = 0;
 
   // References for detecting clicks outside
   const dropdownRef = useRef(null);
@@ -239,9 +234,7 @@ const BottomNavBar = () => {
           transition={{ duration: 0.5 }}
           onClick={() => dispatch(toggleDrawerCart())}
         >
-          <FaBagShopping
-            className={cartQuantity > 0 ? "cart-notify" : ""}
-          />
+          <FaBagShopping className={cartQuantity > 0 ? "cart-notify" : ""} />
           <p>Giỏ hàng</p>
           {cartQuantity > 0 && (
             <div

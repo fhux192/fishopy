@@ -101,12 +101,7 @@ const Navbar = () => {
   };
 
   // Kiểm tra số lượng sản phẩm trong giỏ
-  const cartQuantity = user
-    ? user.cart.reduce((acc, cur) => acc + cur.quantity, 0)
-    : JSON.parse(localStorage.getItem("cart"))?.reduce(
-        (acc, cur) => acc + cur.quantity,
-        0
-      ) || 0;
+  const cartQuantity = 0;
 
   return (
     <motion.div
@@ -138,9 +133,12 @@ const Navbar = () => {
                 {items.map((item) => (
                   <div
                     className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
-                      (item.name === "Trang Chủ" && location.pathname === "/") ||
-                      (item.name === "Sản Phẩm" && location.pathname === "/product") ||
-                      (item.name === "Địa Chỉ" && location.pathname === "/address")
+                      (item.name === "Trang Chủ" &&
+                        location.pathname === "/") ||
+                      (item.name === "Sản Phẩm" &&
+                        location.pathname === "/product") ||
+                      (item.name === "Địa Chỉ" &&
+                        location.pathname === "/address")
                         ? "text-white"
                         : "text-White"
                     }`}

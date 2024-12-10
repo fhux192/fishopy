@@ -9,11 +9,11 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
-import { logout } from "../../redux/features/user/userSlice";
+import { logout } from "../../../redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callLogout } from "../../services/api";
+import { callLogout } from "../../../services/api";
 import { googleLogout } from "@react-oauth/google";
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 import "./AdminPage.css";
 function getItem(label, key, icon, children) {
   return {

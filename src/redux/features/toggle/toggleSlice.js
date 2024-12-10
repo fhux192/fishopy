@@ -52,6 +52,9 @@ export const toggleSlice = createSlice({
     toggleModalEditUser: (state) => {
       state.modalEditUser = !state.modalEditUser;
     },
+
+    // chỉ dùng hàm toggle, bỏ hàm hết cách hàm phía trên
+    // toggle modal nào truyền vào payload là tên modal
     toggle: (state, action) => {
       state[action.payload] = !state[action.payload];
     }

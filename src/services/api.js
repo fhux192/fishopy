@@ -200,3 +200,58 @@ export const callDeleteComboAdmin = async (id) => {
 export const callGetDataDashboardAdmin = async () => {
   return await axios.get("admin/dashboard");
 }
+
+//Lưu ý: làm theo cách mới sẽ dùng những hàm nảy, bỏ hết các hàm phía trên
+
+// -------------- UPLOAD IMAGE ---------------
+/**
+ * 
+ * @param fileImg: file hình ảnh
+ * @param uploadType: 'avatar' | 'fish' upload avatar thì truyền vào 'avatar', upload cá thì truyền vào 'fish'
+ * @param oldImage: string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác
+ * @returns
+ */
+export const user_uploadImage = async (fileImg,  uploadType, oldImage = '') => {
+  const formData = new FormData();
+  formData.append("fileImg", fileImg);
+  if (oldImage) {
+    formData.append("oldImage", oldImage);
+  }
+
+  return axios({
+    url: "file/upload",
+    method: "POST",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "upload-type": uploadType,
+    },
+  });
+};
+
+/**
+ * 
+ * @param {*} oldImage string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác
+ * @returns 
+ */
+export const user_deleteImage = async (oldImage) => {
+  return axios.post("/file/delete", { oldImage });
+}
+
+// ---------------- ADMIN ----------------
+export const admin_getProducts_byFields = async (query, sort, limit, page) => {
+  return await axios.get(`product?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&limit=${limit}&page=${page}`);
+}
+
+export const admin_updateProduct = async (id, data) => {
+  return await axios.put(`product/${id}`, data);
+}
+
+export const admin_addProduct = async (data) => {
+  return await axios.post("product", data);
+}
+
+export const admin_deleteProduct = async (id) => {
+  return await axios.delete(`product/${id}`);
+}
+

@@ -1,9 +1,13 @@
 const formatPrice = (value) => {
-  if (!value) {
-    return;
+  if (value == null || value === "" || value == undefined) {
+    return 0;
   }
   if (typeof value === "number") {
     value = value.toString();
+  }
+
+  if(value.startsWith("0") && value.length > 1) {
+    value = value.slice(1);
   }
 
   // Bước 1: Loại bỏ ký tự không phải số
