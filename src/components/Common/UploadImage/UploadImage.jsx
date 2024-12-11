@@ -22,9 +22,7 @@ const UploadImage = ({ multiple = false, dataImage, onChange, uploadType }) => {
     <div>
       <Input ref={textInputRef} type="text" placeholder="Nhập đường dẫn ảnh" />
       <div style={{ textAlign: "right", marginTop: "8px" }}>
-        <Button type="primary" onClick={handleConfirm}>
-          Xác nhận
-        </Button>
+        <Button onClick={handleConfirm}>Xác nhận</Button>
       </div>
     </div>
   );
@@ -88,8 +86,13 @@ const UploadImage = ({ multiple = false, dataImage, onChange, uploadType }) => {
       }
     }
 
-    fileInputRef.current.value = "";
-    textInputRef.current.input.value = "";
+    if (fileInputRef && fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
+    if (textInputRef && textInputRef.current) {
+      textInputRef.current.input.value = "";
+    }
   };
 
   const items = [

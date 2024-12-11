@@ -7,17 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleVerify } from "../redux/features/toggle/toggleSlice.js";
 import OTPInput from "react-otp-input";
 import { CloseOutlined } from "@ant-design/icons";
-import { useLocation } from "react-router-dom"; 
+import { useLocation } from "react-router-dom";
 
-import "../scss/infoPay.scss"; 
+import "../scss/infoPay.scss";
 const { Option } = Select;
 
 const InfoPay = ({ setStep }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-  const location = useLocation(); 
-  const { product, quantity } = location.state; 
+  const location = useLocation();
+  const { product, quantity } = location.state;
 
   const dispatch = useDispatch();
   const { isShowVerify } = useSelector((state) => state.toggle);
@@ -148,9 +148,7 @@ const InfoPay = ({ setStep }) => {
               label="Tên người nhận"
               name="name"
               labelCol={{ span: 24 }}
-              rules={[
-                { required: true, message: "Vui lòng nhập tên người nhận!" },
-              ]}
+              rules={[{ required: true, msg: "Vui lòng nhập tên người nhận!" }]}
             >
               <Input />
             </Form.Item>
@@ -160,7 +158,7 @@ const InfoPay = ({ setStep }) => {
               labelCol={{ span: 24 }}
               name="phone"
               rules={[
-                { required: true, message: "Vui lòng nhập số điện thoại!" },
+                { required: true, msg: "Vui lòng nhập số điện thoại!" },
                 () => ({
                   validator(_, value) {
                     if (!value) {
@@ -188,7 +186,7 @@ const InfoPay = ({ setStep }) => {
               label="Thành phố"
               labelCol={{ span: 24 }}
               name="province"
-              rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
+              rules={[{ required: true, msg: "Vui lòng chọn thành phố!" }]}
             >
               <Select options={provinces} onChange={handleChangeProvince} />
             </Form.Item>
@@ -197,7 +195,7 @@ const InfoPay = ({ setStep }) => {
               label="Quận/huyện"
               labelCol={{ span: 24 }}
               name="district"
-              rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
+              rules={[{ required: true, msg: "Vui lòng chọn quận/huyện!" }]}
             >
               <Select options={districts} onChange={handleChangeDistrict} />
             </Form.Item>
@@ -205,7 +203,7 @@ const InfoPay = ({ setStep }) => {
               label="Xã/phường"
               labelCol={{ span: 24 }}
               name="ward"
-              rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
+              rules={[{ required: true, msg: "Vui lòng chọn xã/phường!" }]}
             >
               <Select options={wards} />
             </Form.Item>
@@ -215,7 +213,7 @@ const InfoPay = ({ setStep }) => {
               name="address"
               labelCol={{ span: 24 }}
               rules={[
-                { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
+                { required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" },
               ]}
             >
               <Input />
@@ -228,7 +226,7 @@ const InfoPay = ({ setStep }) => {
               rules={[
                 {
                   required: true,
-                  message: "Vui lòng chọn phương thức thanh toán!",
+                  msg: "Vui lòng chọn phương thức thanh toán!",
                 },
               ]}
             >
@@ -243,24 +241,16 @@ const InfoPay = ({ setStep }) => {
             </div>
 
             <div className="product-image">
-              <img
-                src={product.proImg}
-                alt="Cá Dumbo"
-                className="image"
-              />
+              <img src={product.proImg} alt="Cá Dumbo" className="image" />
             </div>
             <h3 className="total">
               Tổng thanh toán:
               <div className="total-amount">
-                <div className="amount">
-                  {product.discount * quantity}.000₫
-                </div>
+                <div className="amount">{product.discount * quantity}.000₫</div>
               </div>
             </h3>
             <Form.Item>
-              <button
-                className="pay-button"
-              >
+              <button className="pay-button">
                 <p className="button-text">THANH TOÁN</p>
               </button>
             </Form.Item>

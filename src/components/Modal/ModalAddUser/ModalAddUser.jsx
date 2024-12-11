@@ -15,13 +15,13 @@ const ModalAddUser = ({ setUsers }) => {
     try {
       const res = await callCreateUserAdmin(values);
       if (res.vcode === 0) {
-        message.success(res.message);
+        message.success(res.msg);
         dispatch(toggleModalAddUser());
         setUsers((prev) => [...prev, res.data]);
 
         form.resetFields();
       } else {
-        message.error(res.message);
+        message.error(res.msg);
       }
     } catch (error) {
       console.error(error);
@@ -48,7 +48,7 @@ const ModalAddUser = ({ setUsers }) => {
           label="Tên người dùng"
           labelCol={{ span: 24 }}
           name="name"
-          rules={[{ required: true, message: "Vui lòng nhập tên người dùng!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập tên người dùng!" }]}
         >
           <Input />
         </Form.Item>
@@ -56,7 +56,7 @@ const ModalAddUser = ({ setUsers }) => {
           label="Số điện thoại"
           labelCol={{ span: 24 }}
           name="phone"
-          rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập số điện thoại!" }]}
         >
           <Input />
         </Form.Item>
@@ -64,7 +64,7 @@ const ModalAddUser = ({ setUsers }) => {
           label="Mật khẩu"
           labelCol={{ span: 24 }}
           name="password"
-          rules={[{ required: true, message: "Vui lòng nhập mật khẩu!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập mật khẩu!" }]}
         >
           <Input.Password />
         </Form.Item>
@@ -72,7 +72,7 @@ const ModalAddUser = ({ setUsers }) => {
           label="Xác nhận mật khẩu"
           labelCol={{ span: 24 }}
           name="confirmPassword"
-          rules={[{ required: true, message: "Vui lòng xác nhận mật khẩu!" }]}
+          rules={[{ required: true, msg: "Vui lòng xác nhận mật khẩu!" }]}
         >
           <Input.Password />
         </Form.Item>
@@ -81,7 +81,7 @@ const ModalAddUser = ({ setUsers }) => {
           labelCol={{ span: 24 }}
           name="role"
           rules={[
-            { required: true, message: "Vui lòng chọn quyền của người dùng!" },
+            { required: true, msg: "Vui lòng chọn quyền của người dùng!" },
           ]}
         >
           <Select

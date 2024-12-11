@@ -86,7 +86,7 @@ const BottomNavBar = () => {
       const res = await callLogout();
       if (res.vcode === 0) {
         dispatch(logout());
-        message.success(res.message);
+        message.success(res.msg);
       }
     } catch (error) {
       console.error(error);

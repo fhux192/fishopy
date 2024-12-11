@@ -1,38 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Table, message, Row, Image, Col, Popconfirm } from "antd";
+import { Button, Table, message, Image, Popconfirm, Space } from "antd";
 import {
   PlusCircleOutlined,
-  ReloadOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { toggle } from "@redux/features/toggle/toggleSlice";
-import ModalAddProduct from "@components/Modal/ModalAddProduct/ModalAddProduct";
-import ModalEditProduct from "@components/Modal/ModalEditProduct/ModalEditProduct";
-import { admin_getProducts_byFields } from "@services/api";
-import formatPrice from "@utils/formatPrice";
+import ModalAddProduct from "@components/Admin/Product/ModalAddProduct/ModalAddProduct";
+import ModalEditProduct from "@components/Admin/Product/ModalEditProduct/ModalEditProduct";
+import { admin_getProducts_byFields, admin_deleteProduct } from "@services/api";
+import { formatPrice } from "@utils/function";
 
 const ManageProduct = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [limit, setLimit] = useState(1);
-  const [page, setPage] = useState(10);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [products, setProducts] = useState([]);
-  const [productEdit, setProductEdit] = useState({});
+  const [productEdit, setProductEdit] = useState();
 
   const handleDeleteProduct = async (id) => {
     setLoading(true);
     try {
       const res = await admin_deleteProduct(id);
       if (res.vcode !== 0) {
-        return message.error(res.message);
+        return message.error(res.msg);
       }
 
       const newProducts = products.filter((product) => product._id !== id);
       setProducts(newProducts);
-      message.success(res.message);
+      message.success(res.msg);
     } catch (error) {
       console.error(error.message);
     } finally {
@@ -41,13 +40,16 @@ const ManageProduct = () => {
   };
 
   const getProducts = async (query, sort, limit, page) => {
+    // console.log("Data", Data);
+    // Data.forEach(async (p) => {
+    //   const res = await admin_addProduct({ ...p, link: convertToSlug(p.name) });
+    // });
     setLoading(true);
     try {
       const res = await admin_getProducts_byFields(query, sort, limit, page);
       if (res.vcode != 0) {
-        return message.error(res.message);
+        return message.error(res.msg);
       }
-
       let products = res.data.map((p) => ({
         ...p,
         key: p._id,
@@ -64,60 +66,40 @@ const ManageProduct = () => {
   const columns = [
     {
       title: "Hình ảnh",
-      dataIndex: "images",
-      key: "image",
-      render: (images, record) => (
-        <Image
-          src={images[0]}
-          alt={record.name}
-          width={100}
-          style={{
-            height: "auto",
-            objectFit: "cover",
-            display: "block",
-            borderRadius: "10px",
-          }}
-        />
+      dataIndex: "imgs",
+      key: "imgs",
+      render: (imgs, record) => (
+        <Image src={imgs[0]} alt={record.name} width={100} />
       ),
     },
     {
       title: "Tên",
       dataIndex: "name",
       key: "name",
-      render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#707070" }}>{text}</span>
-      ),
+      render: (text) => <span>{text}</span>,
     },
     {
-      title: "Giá gốc",
+      title: "Giá bán",
       dataIndex: "price",
       key: "price",
-      render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
-          {formatPrice(text)}đ
-        </span>
-      ),
+      render: (price) => <span>{formatPrice(price)}đ</span>,
     },
     {
-      title: "Giá bán sau giảm giá",
-      dataIndex: "discountedPrice",
-      key: "discountedPrice",
-      render: (text) => (
-        <span style={{ fontWeight: "bold", color: "#20a69f" }}>
-          {formatPrice(text)}đ
-        </span>
-      ),
+      title: "Giá khuyến mãi",
+      dataIndex: "price_sale",
+      key: "price_sale",
+      width: 150,
+      render: (price_sale) => <span>{formatPrice(price_sale)}đ</span>,
     },
     {
       title: "Tình trạng",
       dataIndex: "status",
       key: "status",
+      width: 150,
+
       render: (status) => (
         <span
-          style={{
-            fontWeight: "bold",
-            color: status ? "green" : "red",
-          }}
+          className={`font-bold ${status ? "text-green-500" : "text-red-500"}`}
         >
           {status ? "Còn hàng" : "Hết hàng"}
         </span>
@@ -126,7 +108,9 @@ const ManageProduct = () => {
     {
       title: "Thao tác",
       key: "action",
-      render: (text, record) => (
+      width: 100,
+      fixed: "right",
+      render: (record) => (
         <>
           <Button
             type="link"
@@ -152,18 +136,20 @@ const ManageProduct = () => {
     },
   ];
 
+  useEffect(() => {
+    getProducts({}, {}, limit, page);
+  }, []);
+
   return (
-    <div>
-      <Row gutter={[16, 16]} style={{ marginBottom: 16, flexWrap: "wrap" }}>
-        <Col>
+    <>
+      <Space className="flex justify-end items-center mb-4">
+        <Space>
           <Button
             icon={<PlusCircleOutlined />}
             onClick={() => dispatch(toggle("modalAddProduct"))}
           >
             Thêm sản phẩm
           </Button>
-        </Col>
-        <Col>
           <Button
             onClick={() => {
               setPage(1);
@@ -173,8 +159,8 @@ const ManageProduct = () => {
           >
             Xem
           </Button>
-        </Col>
-      </Row>
+        </Space>
+      </Space>
 
       <Table
         columns={columns}
@@ -184,19 +170,28 @@ const ManageProduct = () => {
           current: page,
           pageSize: limit,
           total: total,
+          showSizeChanger: true, // Show the size changer
+          pageSizeOptions: ["10", "20", "50", "100"], // Define the page size options
           onChange: (page, pageSize) => {
             setPage(page);
             setLimit(pageSize);
             getProducts({}, {}, pageSize, page);
           },
         }}
-        rowKey="_id"
-        scroll={{ x: "max-content", y: 500 }}
+        scroll={{
+          x: "max-content",
+          y: 600,
+        }}
       />
+      <span>{limit}/page</span>
 
       <ModalAddProduct setProducts={setProducts} />
-      <ModalEditProduct productEdit={productEdit} setProducts={setProducts} />
-    </div>
+      <ModalEditProduct
+        setProductEdit={setProductEdit}
+        productEdit={productEdit}
+        setProducts={setProducts}
+      />
+    </>
   );
 };
 

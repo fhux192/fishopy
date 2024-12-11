@@ -24,23 +24,28 @@ const CheckoutPayment = ({
 
   const onOrder = async () => {
     // Kiểm tra nếu địa chỉ chưa đầy đủ
-    if (!addressDelivery?.address || !addressDelivery?.city || !addressDelivery?.district || !addressDelivery?.ward) {
+    if (
+      !addressDelivery?.address ||
+      !addressDelivery?.city ||
+      !addressDelivery?.district ||
+      !addressDelivery?.ward
+    ) {
       // Hiện thông báo cảnh báo với thiết kế nhỏ gọn và chữ in đậm
       message.error({
         content: "Vui lòng thêm địa chỉ nhận hàng!",
         style: {
-          color: "#161617",  // Màu chữ tối
-          padding: "10px",  // Khoảng cách trong thông báo
-          borderRadius: "5px",  // Bo tròn góc
-          fontSize: "14px",  // Kích thước chữ nhỏ gọn
-        }
+          color: "#161617", // Màu chữ tối
+          padding: "10px", // Khoảng cách trong thông báo
+          borderRadius: "5px", // Bo tròn góc
+          fontSize: "14px", // Kích thước chữ nhỏ gọn
+        },
       });
 
       // Cuộn trang lên đầu từ từ
       setTimeout(() => {
         window.scrollTo({
           top: 0, // Cuộn lên đầu trang
-          behavior: 'smooth', // Hiệu ứng cuộn mượt mà
+          behavior: "smooth", // Hiệu ứng cuộn mượt mà
         });
       }, 300); // Delay một chút sau khi thông báo xuất hiện
 
@@ -95,13 +100,13 @@ const CheckoutPayment = ({
             );
           }
           setCurrentStep((prevStep) => prevStep + 1);
-          message.success(res.message);
+          message.success(res.msg);
         } else if (paymentMethod === "bank_transfer") {
           message.info(res.data);
           window.location.href = res.data;
         }
       } else {
-        message.error(res.message);
+        message.error(res.msg);
       }
     } catch (error) {
       console.log(error.message);
@@ -146,13 +151,14 @@ const CheckoutPayment = ({
   return (
     <div className={styles.checkOutOrder}>
       <div className={styles.checkOutOrderCard}>
-        <Flex vertical gap={2} >
+        <Flex vertical gap={2}>
           <Flex justify="space-between" vertical gap={3}>
             <p className="font-bold" style={{ color: "white" }}>
               Phương thức thanh toán:
             </p>
-            <Select className="mb-1"
-              style={{ color: "white"}} 
+            <Select
+              className="mb-1"
+              style={{ color: "white" }}
               value={paymentMethod}
               options={[
                 {
@@ -165,7 +171,9 @@ const CheckoutPayment = ({
             />
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <p style={{ color: "#46DFB1", fontWeight: "bold" }}>Tổng tiền sản phẩm: </p>
+            <p style={{ color: "#46DFB1", fontWeight: "bold" }}>
+              Tổng tiền sản phẩm:{" "}
+            </p>
             <p style={{ color: "#46DFB1", fontWeight: "bold" }}>
               {formatPrice(
                 user
@@ -202,13 +210,17 @@ const CheckoutPayment = ({
             )}
           </span>
           <Flex justify="space-between" gap={5}>
-            <p style={{ color: "#bdc3c7", fontWeight: "bold" }}>Phí vận chuyển:</p>
+            <p style={{ color: "#bdc3c7", fontWeight: "bold" }}>
+              Phí vận chuyển:
+            </p>
             <p style={{ color: "#bdc3c7", fontWeight: "bold" }}>
               {formatPrice(shippingfee)}đ
             </p>
           </Flex>
           <Flex justify="space-between" gap={5}>
-            <strong style={{ color: "#08ea79", fontWeight: "bold" }}>Tổng thanh toán: </strong>
+            <strong style={{ color: "#08ea79", fontWeight: "bold" }}>
+              Tổng thanh toán:{" "}
+            </strong>
             <p style={{ color: "#08ea79", fontWeight: "bold" }}>
               {formatPrice(
                 user
@@ -232,10 +244,7 @@ const CheckoutPayment = ({
           </Flex>
         </Flex>
         <div className={styles.groupSum}>
-          <MyButton
-            text="Đặt hàng"
-            onClick={onOrder}
-          />
+          <MyButton text="Đặt hàng" onClick={onOrder} />
         </div>
       </div>
     </div>

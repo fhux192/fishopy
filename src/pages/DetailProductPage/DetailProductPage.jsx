@@ -12,7 +12,7 @@ import {
 } from "../../redux/features/user/userSlice.js";
 import "../../scss/detailProduct.scss";
 import { toast } from "react-toastify";
-import background from"../../assets/logo.png"
+import background from "../../assets/logo.png";
 
 const ProductDescription = ({ description }) => (
   <div
@@ -48,7 +48,7 @@ const DetailProductPage = () => {
       try {
         const res = await callAddToCart({ product: product._id, quantity });
         if (res.vcode === 0) {
-          toast.success(res.message);
+          toast.success(res.msg);
           dispatch(updateAccount({ cart: res.data }));
         }
       } catch (error) {
@@ -91,7 +91,7 @@ const DetailProductPage = () => {
         const res = await getDetailProduct(id);
         if (res.vcode == 0) {
           setProduct(res.data);
-        } else console.error(res.message);
+        } else console.error(res.msg);
       } catch (error) {
         console.error(error);
       }

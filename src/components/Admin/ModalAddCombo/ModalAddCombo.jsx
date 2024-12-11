@@ -102,7 +102,7 @@ const ModalAddCombo = ({
       setCombos((pre) => [...pre, res.data]);
       message.success("Thêm combo thành công");
       setShowModalAddCombo(false);
-    } else message.error(res.message);
+    } else message.error(res.msg);
   };
 
   return (
@@ -123,7 +123,7 @@ const ModalAddCombo = ({
             rules={[
               {
                 required: true,
-                message: "Hãy nhập tên combo!",
+                msg: "Hãy nhập tên combo!",
               },
             ]}
           >
@@ -138,7 +138,7 @@ const ModalAddCombo = ({
             rules={[
               {
                 required: true,
-                message: "Hãy nhập giá!",
+                msg: "Hãy nhập giá!",
               },
             ]}
           >

@@ -68,17 +68,23 @@ const Payment = ({ setStep, cart }) => {
   };
 
   const setupRecaptcha = () => {
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
-      size: "invisible",
-      defaultCountry: "VN",
-    });
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+      "recaptcha-container",
+      {
+        size: "invisible",
+        defaultCountry: "VN",
+      }
+    );
   };
 
   const sentOTP = async () => {
     const appVerifier = window.recaptchaVerifier;
     await firebase
       .auth()
-      .signInWithPhoneNumber(formatPhoneNumber(form.getFieldValue("phone")), appVerifier)
+      .signInWithPhoneNumber(
+        formatPhoneNumber(form.getFieldValue("phone")),
+        appVerifier
+      )
       .then((confirmationResult) => {
         window.confirmationResult = confirmationResult;
         message.success("Sent OTP successfully!");
@@ -95,7 +101,11 @@ const Payment = ({ setStep, cart }) => {
   }, []);
 
   const handleChangeProvice = async () => {
-    const res = await axios.get(`https://vapi.vnappmob.com/api/province/district/${form.getFieldValue("province")}`);
+    const res = await axios.get(
+      `https://vapi.vnappmob.com/api/province/district/${form.getFieldValue(
+        "province"
+      )}`
+    );
     if (res.status === 200) {
       setDistricts(
         res.data.results.map((item) => {
@@ -109,7 +119,11 @@ const Payment = ({ setStep, cart }) => {
   };
 
   const handleChangeDistrict = async () => {
-    const res = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${form.getFieldValue("district")}`);
+    const res = await axios.get(
+      `https://vapi.vnappmob.com/api/province/ward/${form.getFieldValue(
+        "district"
+      )}`
+    );
     if (res.status === 200) {
       setWards(
         res.data.results.map((item) => {
@@ -138,12 +152,17 @@ const Payment = ({ setStep, cart }) => {
 
   return (
     <Card>
-      <Form form={form} variant="filled" style={{ maxWidth: 600 }} onFinish={sentOTP}>
+      <Form
+        form={form}
+        variant="filled"
+        style={{ maxWidth: 600 }}
+        onFinish={sentOTP}
+      >
         <Form.Item
           label="Tên người nhận"
           name="name"
           labelCol={{ span: 24 }}
-          rules={[{ required: true, message: "Vui lòng nhập tên người nhận!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập tên người nhận!" }]}
         >
           <Input />
         </Form.Item>
@@ -153,17 +172,21 @@ const Payment = ({ setStep, cart }) => {
           labelCol={{ span: 24 }}
           name="phone"
           rules={[
-            { required: true, message: "Vui lòng nhập số điện thoại!" },
+            { required: true, msg: "Vui lòng nhập số điện thoại!" },
             () => ({
               validator(_, value) {
                 if (!value) {
                   return Promise.resolve();
                 }
                 if (!value.startsWith("0")) {
-                  return Promise.reject(new Error("Số điện thoại phải bắt đầu bằng 0."));
+                  return Promise.reject(
+                    new Error("Số điện thoại phải bắt đầu bằng 0.")
+                  );
                 }
                 if (value.length !== 10) {
-                  return Promise.reject(new Error("Số điện thoại phải có 10 chữ số."));
+                  return Promise.reject(
+                    new Error("Số điện thoại phải có 10 chữ số.")
+                  );
                 }
                 return Promise.resolve();
               },
@@ -177,7 +200,7 @@ const Payment = ({ setStep, cart }) => {
           label="Thành phố "
           labelCol={{ span: 24 }}
           name="province"
-          rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn thành phố!" }]}
         >
           <Select options={provinces} onChange={handleChangeProvice} />
         </Form.Item>
@@ -186,7 +209,7 @@ const Payment = ({ setStep, cart }) => {
           label="Quận/huyện"
           labelCol={{ span: 24 }}
           name="district"
-          rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn quận/huyện!" }]}
         >
           <Select options={districts} onChange={handleChangeDistrict} />
         </Form.Item>
@@ -194,7 +217,7 @@ const Payment = ({ setStep, cart }) => {
           label="Xã/phường"
           labelCol={{ span: 24 }}
           name="ward"
-          rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn xã/phường!" }]}
         >
           <Select options={wards} />
         </Form.Item>
@@ -203,7 +226,7 @@ const Payment = ({ setStep, cart }) => {
           label="Địa chỉ nhận hàng"
           name="address"
           labelCol={{ span: 24 }}
-          rules={[{ required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
           <Input />
         </Form.Item>
@@ -212,7 +235,9 @@ const Payment = ({ setStep, cart }) => {
           label="Phương thức thanh toán"
           name="paymentmethod"
           labelCol={{ span: 24 }}
-          rules={[{ required: true, message: "Vui lòng chọn phương thức thanh toán!" }]}
+          rules={[
+            { required: true, msg: "Vui lòng chọn phương thức thanh toán!" },
+          ]}
         >
           <Select options={paymentMethods} />
         </Form.Item>
@@ -247,7 +272,11 @@ const Payment = ({ setStep, cart }) => {
             numInputs={6}
             renderSeparator={<span>-</span>}
             renderInput={(props) => <input {...props} />}
-            inputStyle={{ width: "100%", border: "1px solid black", height: "3rem" }}
+            inputStyle={{
+              width: "100%",
+              border: "1px solid black",
+              height: "3rem",
+            }}
           />
         </div>
       </Modal>

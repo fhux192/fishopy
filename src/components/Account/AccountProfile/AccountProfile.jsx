@@ -32,8 +32,8 @@ const AccountProfile = () => {
       const res = await callUpdateAccount(user._id, values);
       if (res.vcode == 0) {
         dispatch(setCredentials({ ...user, ...res.data }));
-        message.success(res.message);
-      } else message.error(res.message);
+        message.success(res.msg);
+      } else message.error(res.msg);
     } catch (error) {
       console.error("error", error.message);
     }
@@ -44,7 +44,7 @@ const AccountProfile = () => {
       const res = await callUploadImg(file, "avatar");
       if (res.vcode == 0) {
         dispatch(updateAccount({ avatar: res.data.fileUploaded }));
-      } else message.error(res.message);
+      } else message.error(res.msg);
     } catch (error) {
       console.error("error", error.message);
     }
@@ -107,7 +107,7 @@ const AccountProfile = () => {
               rules={[
                 {
                   required: true,
-                  message: "Vui lòng nhập họ tên!",
+                  msg: "Vui lòng nhập họ tên!",
                 },
               ]}
             >
@@ -120,7 +120,7 @@ const AccountProfile = () => {
                 rules={[
                   {
                     required: true,
-                    message: "Vui lòng nhập số điện thoại!",
+                    msg: "Vui lòng nhập số điện thoại!",
                   },
                 ]}
               >

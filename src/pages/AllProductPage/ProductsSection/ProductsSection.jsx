@@ -17,7 +17,7 @@ const formatPrice = (price) =>
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.account); 
+  const { user } = useSelector((state) => state.account);
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
   const discountPercentage =
@@ -25,7 +25,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Prevent default <a> action
-    event.stopPropagation(); 
+    event.stopPropagation();
     if (user) {
       try {
         const res = await callAddToCart({
@@ -33,10 +33,10 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           quantity: 1,
         });
         if (res.vcode === 0) {
-          toast.success(res.message);
+          toast.success(res.msg);
           dispatch(updateAccount({ cart: res.data }));
         } else {
-          toast.error(res.message || "Failed to add to cart");
+          toast.error(res.msg || "Failed to add to cart");
         }
       } catch (error) {
         toast.error("Error adding to cart");

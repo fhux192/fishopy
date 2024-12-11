@@ -40,7 +40,7 @@ const Cart = ({ cart }) => {
       callUpdateCartItem(item._id, { quantity: quantityValue })
         .then((res) => {
           if (res.vcode !== 0) {
-            message.error(res.message || "Failed to update quantity");
+            message.error(res.msg || "Failed to update quantity");
           }
         })
         .catch((error) => {
@@ -76,11 +76,11 @@ const Cart = ({ cart }) => {
       try {
         const res = await callRemoveCartItem(item._id);
         if (res.vcode === 0) {
-          message.success(res.message);
+          message.success(res.msg);
           const newCart = cart.filter((prod) => prod._id !== item._id);
           dispatch(updateAccount({ cart: newCart }));
         } else {
-          message.error(res.message || "Failed to remove item");
+          message.error(res.msg || "Failed to remove item");
         }
       } catch (error) {
         console.error("Error removing item:", error.message);
@@ -132,13 +132,14 @@ const Cart = ({ cart }) => {
 
                 <div className={styles.col2}>
                   <Typography.Text className={styles.priceText}>
-                    Đơn giá: {formatPrice(item.product.discountedPrice.toString())}đ
+                    Đơn giá:{" "}
+                    {formatPrice(item.product.discountedPrice.toString())}đ
                   </Typography.Text>
                   <InputNumber
                     className={styles.quantityInput}
                     min={1}
                     max={100}
-                    value={item.quantity} 
+                    value={item.quantity}
                     onChange={(value) => onChangeQuantity(value, item)}
                   />
                 </div>
@@ -168,10 +169,7 @@ const Cart = ({ cart }) => {
                       },
                     }}
                   >
-                    <button
-                      className={styles.deleteButton}
-                      type="button"
-                    >
+                    <button className={styles.deleteButton} type="button">
                       <DeleteOutlined className={styles.deleteIcon} />
                     </button>
                   </Popconfirm>

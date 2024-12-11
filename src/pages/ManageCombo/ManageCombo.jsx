@@ -55,7 +55,7 @@ const ManageCombo = () => {
       const res = await callDeleteComboAdmin(id);
       if (res.vcode === 0) {
         setCombos(combos.filter((item) => item._id !== id));
-        message.success(res.message);
+        message.success(res.msg);
       }
     } catch (error) {
       console.error("error", error.message);

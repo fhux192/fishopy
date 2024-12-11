@@ -19,7 +19,7 @@ const ModalEditUser = ({ userEdit, setUsers, users }) => {
     try {
       const res = await callUpdateUserAdmin(userEdit._id, values);
       if (res.vcode === 0) {
-        message.success(res.message);
+        message.success(res.msg);
         dispatch(toggleModalEditUser());
         setUsers(
           users.map((user) => (user._id === userEdit._id ? res.data : user))
@@ -49,7 +49,7 @@ const ModalEditUser = ({ userEdit, setUsers, users }) => {
           label="Tên người dùng"
           labelCol={{ span: 24 }}
           name="name"
-          rules={[{ required: true, message: "Vui lòng nhập tên người dùng!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập tên người dùng!" }]}
         >
           <Input />
         </Form.Item>
@@ -57,7 +57,7 @@ const ModalEditUser = ({ userEdit, setUsers, users }) => {
           label="Số điện thoại"
           labelCol={{ span: 24 }}
           name="phone"
-          rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập số điện thoại!" }]}
         >
           <Input />
         </Form.Item>
@@ -66,7 +66,7 @@ const ModalEditUser = ({ userEdit, setUsers, users }) => {
           labelCol={{ span: 24 }}
           name="role"
           rules={[
-            { required: true, message: "Vui lòng chọn quyền của người dùng!" },
+            { required: true, msg: "Vui lòng chọn quyền của người dùng!" },
           ]}
         >
           <Select

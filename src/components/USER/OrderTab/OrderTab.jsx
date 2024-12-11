@@ -52,7 +52,7 @@ const OrderTab = ({ activeKey }) => {
         setOrders(orders.filter((item) => item._id !== orderId));
         message.success("Hủy đơn hàng thành công");
       } else {
-        console.error(res.message);
+        console.error(res.msg);
       }
     } catch (error) {
       console.log(error);

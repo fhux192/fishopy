@@ -185,7 +185,7 @@ const ManageOrder = () => {
         setOrders(res.data);
         setTotal(res.total);
       } else {
-        message.error(res.message);
+        message.error(res.msg);
       }
     } catch (error) {
       message.error("Failed to fetch orders.");
@@ -198,10 +198,10 @@ const ManageOrder = () => {
     try {
       const res = await callUpdateOrderAdmin(orderId, { status: value });
       if (res.vcode === 0) {
-        message.success(res.message);
+        message.success(res.msg);
         fetchOrders();
       } else {
-        message.error(res.message);
+        message.error(res.msg);
       }
     } catch (error) {
       message.error("Failed to update order.");
@@ -213,9 +213,9 @@ const ManageOrder = () => {
       const res = await callDeleteOrderAdmin(orderId);
       if (res.vcode === 0) {
         setOrders(orders.filter((order) => order._id !== orderId));
-        message.success(res.message);
+        message.success(res.msg);
       } else {
-        message.error(res.message);
+        message.error(res.msg);
       }
     } catch (error) {
       message.error("Failed to delete order.");

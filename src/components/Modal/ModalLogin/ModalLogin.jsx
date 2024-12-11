@@ -26,12 +26,12 @@ const ModalLogin = () => {
       const res = await callLogin({ phone, password });
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
-        toast.success(res.message);
+        toast.success(res.msg);
         dispatch(toggleModalLogin());
         setPhone("");
         setPassword("");
       } else {
-        toast.error(res.message);
+        toast.error(res.msg);
       }
     } catch (error) {
       message.error(error.message);
@@ -44,7 +44,7 @@ const ModalLogin = () => {
       const res = await callGooglelogin(response.access_token);
       if (res.vcode == 0) {
         dispatch(setCredentials(res.data));
-        message.success(res.message);
+        message.success(res.msg);
         dispatch(toggle("isShowModalLogin"));
       }
     } catch (error) {
@@ -138,7 +138,9 @@ const ModalLogin = () => {
         </Button>
 
         <div className={styles.smallText}>
-          <span className=" cursor-default font-semibold text-Black">Bạn chưa có tài khoản? </span>
+          <span className=" cursor-default font-semibold text-Black">
+            Bạn chưa có tài khoản?{" "}
+          </span>
           <Typography.Link
             className="pl-1 font-bold"
             style={{ color: "teal" }}
@@ -151,7 +153,9 @@ const ModalLogin = () => {
           </Typography.Link>
         </div>
         <div className="flex mt-5 justify-center">
-          <p className="text-Grey font-medium cursor-default">Hoặc đăng nhập bằng Gmail</p>
+          <p className="text-Grey font-medium cursor-default">
+            Hoặc đăng nhập bằng Gmail
+          </p>
         </div>
         <div className="flex mt-2 w-full justify-center">
           <Image

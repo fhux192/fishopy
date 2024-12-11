@@ -33,10 +33,10 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           quantity: 1,
         });
         if (res.vcode === 0) {
-          toast.success(res.message);
+          toast.success(res.msg);
           dispatch(updateAccount({ cart: res.data }));
         } else {
-          toast.error(res.message || "Failed to add to cart");
+          toast.error(res.msg || "Failed to add to cart");
         }
       } catch (error) {
         toast.error("Error adding to cart");

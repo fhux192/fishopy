@@ -21,7 +21,7 @@ const AccountAddress = () => {
     try {
       const res = await callRemoveAddress(id);
       if (res.vcode == 0) {
-        message.success(res.message);
+        message.success(res.msg);
         dispatch(
           updateAccount({
             addresses: user.addresses.filter((item) => item._id !== id),

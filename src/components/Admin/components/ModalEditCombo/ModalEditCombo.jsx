@@ -119,7 +119,7 @@ const ModalEditCombo = ({
       setCombos(newCombos);
       message.success("Sửa combo thành công");
       setShowModalEditCombo(false);
-    } else message.error(res.message);
+    } else message.error(res.msg);
   };
 
   return (
@@ -140,7 +140,7 @@ const ModalEditCombo = ({
             rules={[
               {
                 required: true,
-                message: "Hãy nhập tên combo!",
+                msg: "Hãy nhập tên combo!",
               },
             ]}
           >
@@ -155,7 +155,7 @@ const ModalEditCombo = ({
             rules={[
               {
                 required: true,
-                message: "Hãy nhập giá!",
+                msg: "Hãy nhập giá!",
               },
             ]}
           >

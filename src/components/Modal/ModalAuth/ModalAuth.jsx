@@ -20,7 +20,7 @@ const ModalAuth = () => {
       const res = await callLogout();
       if (res.vcode == 0) {
         dispatch(logout());
-        message.success(res.message);
+        message.success(res.msg);
       }
       googleLogout();
       dispatch(setLoading(false));

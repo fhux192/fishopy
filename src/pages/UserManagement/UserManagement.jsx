@@ -105,9 +105,9 @@ const UserManagement = () => {
       if (res.vcode === 0) {
         const newUsers = users.filter((user) => user._id !== id);
         setUsers(newUsers);
-        message.success(res.message);
+        message.success(res.msg);
       } else {
-        console.log(res.message);
+        console.log(res.msg);
       }
     } catch (error) {
       console.error("error", error.message);
@@ -126,7 +126,7 @@ const UserManagement = () => {
         setTotal(res.total);
         setUsers(users);
       } else {
-        console.error(res.message);
+        console.error(res.msg);
       }
     } catch (error) {
       console.error(error.message);

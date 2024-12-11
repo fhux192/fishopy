@@ -14,7 +14,6 @@ import Navbar from "./components/Header/Navbar/Navbar";
 import BottomNavBar from "./components/Header/Navbar/BottomNavBar";
 import { callFetchAccount } from "./services/api";
 import { setCredentials, setLoading } from "./redux/features/user/userSlice";
-import ModalAddAddress from "./components/Modal/ModalAddAddress/index";
 import Loader from "./components/Loader/Loader";
 import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
 import AccountManagement from "./pages/AccountManagement/AccountManagement.jsx";

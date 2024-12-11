@@ -17,7 +17,7 @@ class MyUploadAdapter {
               default: res.data.fileUploaded,
             });
           } else {
-            reject(res.message);
+            reject(res.msg);
           }
         })
     );

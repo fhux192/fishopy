@@ -55,7 +55,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Tên người nhận"
           labelCol={{ span: 24 }}
           name="name"
-          rules={[{ required: true, message: "Vui lòng nhập tên người nhận!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập tên người nhận!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -63,7 +63,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Số điện thoại"
           labelCol={{ span: 24 }}
           name="phone"
-          rules={[{ required: true, message: "Vui lòng nhập số điện thoại!" }]}
+          rules={[{ required: true, msg: "Vui lòng nhập số điện thoại!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -71,7 +71,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Thành phố "
           labelCol={{ span: 24 }}
           name="province"
-          rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn thành phố!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -80,7 +80,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Quận/huyện"
           labelCol={{ span: 24 }}
           name="district"
-          rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn quận/huyện!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -88,7 +88,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Xã/phường"
           labelCol={{ span: 24 }}
           name="ward"
-          rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn xã/phường!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -97,9 +97,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Địa chỉ nhận hàng"
           name="address"
           labelCol={{ span: 24 }}
-          rules={[
-            { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
-          ]}
+          rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -107,9 +105,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Thời gian đặt hàng"
           name="createdAt"
           labelCol={{ span: 24 }}
-          rules={[
-            { required: true, message: "Vui lòng nhập thời gian đặt hàng!" },
-          ]}
+          rules={[{ required: true, msg: "Vui lòng nhập thời gian đặt hàng!" }]}
         >
           <DatePicker disabled format={"DD/MM/YYYY"} />
         </Form.Item>
@@ -117,9 +113,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Tiền hàng"
           name="itemsPrice"
           labelCol={{ span: 24 }}
-          rules={[
-            { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
-          ]}
+          rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>
@@ -128,9 +122,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
           label="Phí vận chuyển"
           name="shippingPrice"
           labelCol={{ span: 24 }}
-          rules={[
-            { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
-          ]}
+          rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
           <Input disabled readOnly />
         </Form.Item>

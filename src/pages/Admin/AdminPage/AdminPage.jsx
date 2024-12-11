@@ -7,14 +7,17 @@ import {
   TeamOutlined,
   UserOutlined,
   ShoppingCartOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
-import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
-import { logout } from "../../../redux/features/user/userSlice";
+import { Avatar, Drawer, Dropdown, Layout, Menu, Space } from "antd";
+import { logout } from "@redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callLogout } from "../../../services/api";
+import { callLogout } from "@services/api";
 import { googleLogout } from "@react-oauth/google";
 const { Header, Content, Sider } = Layout;
-import "./AdminPage.css";
+import styles from "./AdminPage.module.css";
+import { toggle } from "../../../redux/features/toggle/toggleSlice";
+
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -57,15 +60,16 @@ const items = [
 
 const AdminPage = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { user } = useSelector((state) => state.account);
+  const [menuAdmin, setMenuAdmin] = useState(false);
 
+  const { user } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
       const res = await callLogout();
       if (res.vcode === 0) {
         dispatch(logout());
-        message.success(res.message);
+        message.success(res.msg);
       }
 
       googleLogout();
@@ -87,72 +91,59 @@ const AdminPage = () => {
       label: <div onClick={handleLogout}>Đăng xuất</div>,
     },
   ];
-
-  const isDesktop = window.innerWidth >= 1024;
-
   const location = useLocation();
 
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      {isDesktop && (
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+    <Layout className="min-h-screen">
+      <Sider
+        className={styles.sider}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <Menu
+          theme="dark"
+          mode="inline"
+          items={items}
+          className="mt-4"
+          defaultSelectedKeys={[location.pathname]}
+          openKeys={["sub1", "sub2", "sub3", "sub4"]}
+        />
+      </Sider>
+
+      <Layout>
+        <Header className="bg-white px-4 flex justify-between lg:justify-end">
+          <MenuOutlined
+            className="lg:hidden"
+            onClick={() => setMenuAdmin(!menuAdmin)}
+          />
+          <Space>
+            <Avatar icon={<UserOutlined />} />
+            <Dropdown menu={{ items: dropdownList }} trigger={"click"}>
+              <Space className="font-bold text-Grey cursor-pointer lg:text-xl md:text-lg text-md">
+                {user?.name}
+                <DownOutlined />
+              </Space>
+            </Dropdown>
+          </Space>
+        </Header>
+        <Content className="p-4">
+          <Outlet />
+        </Content>
+
+        <Drawer
+          placement={"left"}
+          open={menuAdmin}
+          onClose={() => setMenuAdmin(!menuAdmin)}
         >
           <Menu
-            theme="dark"
             mode="inline"
             items={items}
-            style={{ marginTop: "1rem" }}
+            onClick={() => setMenuAdmin(!menuAdmin)}
             defaultSelectedKeys={[location.pathname]}
             openKeys={["sub1", "sub2", "sub3", "sub4"]}
           />
-        </Sider>
-      )}
-
-      <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: "white",
-            textAlign: "right",
-            paddingRight: "40px",
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <Avatar icon={<UserOutlined />} />
-          <Dropdown menu={{ items: dropdownList }} trigger={"click"}>
-            <Space className="font-bold text-Grey cursor-pointer lg:text-xl md:text-lg text-md">
-              {user?.name}
-              <DownOutlined />
-            </Space>
-          </Dropdown>
-        </Header>
-        <Content
-          style={{
-            margin: "0 16px",
-          }}
-        >
-          <div
-            style={{
-              marginTop: "16px",
-              padding: 24,
-              minHeight: 360,
-              background: "white",
-              borderRadius: "5px",
-            }}
-          >
-            <Outlet />
-          </div>
-        </Content>
+        </Drawer>
       </Layout>
     </Layout>
   );

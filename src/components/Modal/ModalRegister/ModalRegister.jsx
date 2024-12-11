@@ -34,7 +34,7 @@ const ModalRegister = () => {
 
       if (res.vcode === 0) {
         dispatch(setCredentials(res.data));
-        toast.success(res.message);
+        toast.success(res.msg);
         dispatch(toggleModalRegister());
 
         // Reset form
@@ -43,7 +43,7 @@ const ModalRegister = () => {
         setPassword("");
         setConfirmPassword("");
       } else {
-        toast.error(res.message);
+        toast.error(res.msg);
       }
     } catch (error) {
       message.error(error.message);

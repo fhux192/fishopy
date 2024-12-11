@@ -67,12 +67,12 @@ const CartDrawer = () => {
         setLoading(true);
         const res = await callRemoveCartItem(id);
         if (res.vcode === 0) {
-          message.success(res.message);
+          message.success(res.msg);
           dispatch(
             updateAccount({ cart: user.cart.filter((item) => item._id !== id) })
           );
         } else {
-          message.error(res.message);
+          message.error(res.msg);
         }
       } catch (error) {
         message.error("Failed to remove item from cart.");

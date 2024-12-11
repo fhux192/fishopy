@@ -28,7 +28,7 @@ const ModalChooseProduct = ({
           res.data.map((item) => ({ ...item, key: item._id, quantity: 1 }))
         );
         setTotal(res.total);
-      } else console.error("error", res.message);
+      } else console.error("error", res.msg);
       setLoading(false);
     } catch (error) {
       console.error("error", error.message);

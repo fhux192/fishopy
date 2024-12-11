@@ -34,7 +34,7 @@ export const userSlice = createSlice({
     },
     addToCart: (state, action) => {
       if (!state.user) {
-        notification.error({ message: "Vui lòng đăng nhập" });
+        notification.error({ msg:"Vui lòng đăng nhập" });
         return;
       }
 

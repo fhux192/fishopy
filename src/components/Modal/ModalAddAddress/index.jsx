@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
-import { setAddress, updateAccount } from "../../../redux/features/user/userSlice";
+import {
+  setAddress,
+  updateAccount,
+} from "../../../redux/features/user/userSlice";
 import { toggleModalAddAddress } from "../../../redux/features/toggle/toggleSlice";
 import { callAddAddress } from "../../../services/api";
 
-const phoneRegex = /^0\d{9}$/; 
+const phoneRegex = /^0\d{9}$/;
 const nameRegex = /^[a-zA-ZÀ-Ỷà-ỷ\s]{3,50}$/u;
 const addressRegex = /^.{5,}$/;
 
@@ -94,8 +97,12 @@ const ModalAddAddress = () => {
   };
 
   const onFinish = async (values) => {
-    const selectedProvince = provinces.find((item) => item.value === values.province);
-    const selectedDistrict = districts.find((item) => item.value === values.district);
+    const selectedProvince = provinces.find(
+      (item) => item.value === values.province
+    );
+    const selectedDistrict = districts.find(
+      (item) => item.value === values.district
+    );
     const selectedWard = wards.find((item) => item.value === values.ward);
 
     if (!selectedProvince || !selectedDistrict || !selectedWard) {
@@ -118,9 +125,9 @@ const ModalAddAddress = () => {
         if (res && res.vcode === 0) {
           dispatch(updateAccount({ addresses: res.data }));
           dispatch(toggleModalAddAddress());
-          message.success(res.message || "Thêm địa chỉ thành công!");
+          message.success(res.msg || "Thêm địa chỉ thành công!");
         } else {
-          message.error(res.message || "Thêm địa chỉ thất bại!");
+          message.error(res.msg || "Thêm địa chỉ thất bại!");
         }
       } else {
         // Lưu vào localStorage nếu người dùng chưa đăng nhập
@@ -153,7 +160,7 @@ const ModalAddAddress = () => {
           label="Tên người nhận"
           name="name"
           rules={[
-            { required: true, message: "Vui lòng nhập tên người nhận!" },
+            { required: true, msg: "Vui lòng nhập tên người nhận!" },
             {
               validator: (_, value) => {
                 if (!value || nameRegex.test(value.trim())) {
@@ -173,7 +180,7 @@ const ModalAddAddress = () => {
           label="Số điện thoại"
           name="phone"
           rules={[
-            { required: true, message: "Vui lòng nhập số điện thoại!" },
+            { required: true, msg: "Vui lòng nhập số điện thoại!" },
             {
               validator: (_, value) => {
                 if (!value || phoneRegex.test(value.trim())) {
@@ -192,21 +199,21 @@ const ModalAddAddress = () => {
         <Form.Item
           label="Thành phố"
           name="province"
-          rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn thành phố!" }]}
         >
           <Select options={provinces} onChange={handleChangeProvice} />
         </Form.Item>
         <Form.Item
           label="Quận/huyện"
           name="district"
-          rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn quận/huyện!" }]}
         >
           <Select options={districts} onChange={handleChangeDistrict} />
         </Form.Item>
         <Form.Item
           label="Xã/phường"
           name="ward"
-          rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
+          rules={[{ required: true, msg: "Vui lòng chọn xã/phường!" }]}
         >
           <Select options={wards} />
         </Form.Item>
@@ -214,7 +221,7 @@ const ModalAddAddress = () => {
           label="Địa chỉ nhận hàng"
           name="address"
           rules={[
-            { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
+            { required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" },
             {
               validator: (_, value) => {
                 if (!value || addressRegex.test(value.trim())) {
@@ -229,7 +236,17 @@ const ModalAddAddress = () => {
           <Input />
         </Form.Item>
         <Form.Item>
-          <button type="submit" style={{ padding: '8px 16px', background: '#1890ff', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          <button
+            type="submit"
+            style={{
+              padding: "8px 16px",
+              background: "#1890ff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
             Thêm địa chỉ
           </button>
         </Form.Item>
