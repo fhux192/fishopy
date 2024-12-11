@@ -5,6 +5,7 @@ import {
   PlusCircleOutlined,
   EditOutlined,
   DeleteOutlined,
+  ReloadOutlined,
 } from "@ant-design/icons";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import ModalAddProduct from "@components/Admin/Product/ModalAddProduct/ModalAddProduct";
@@ -142,7 +143,7 @@ const ManageProduct = () => {
 
   return (
     <>
-      <Space className="flex justify-end items-center mb-4">
+      <div className="flex justify-end items-center mb-4">
         <Space>
           <Button
             icon={<PlusCircleOutlined />}
@@ -151,16 +152,15 @@ const ManageProduct = () => {
             Thêm sản phẩm
           </Button>
           <Button
+            icon={<ReloadOutlined />}
             onClick={() => {
               setPage(1);
               setLimit(10);
               getProducts({}, {}, 10, 1);
             }}
-          >
-            Xem
-          </Button>
+          ></Button>
         </Space>
-      </Space>
+      </div>
 
       <Table
         columns={columns}
@@ -183,7 +183,6 @@ const ManageProduct = () => {
           y: 600,
         }}
       />
-      <span>{limit}/page</span>
 
       <ModalAddProduct setProducts={setProducts} />
       <ModalEditProduct

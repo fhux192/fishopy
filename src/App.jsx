@@ -22,7 +22,6 @@ import AccountAddress from "./components/Account/AccountAddress/AccountAddress.j
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import OrderPage from "./pages/OrderPage/OrderPage.jsx";
 import AccountOrder from "./components/AccountOrder/AccountOrder.jsx";
-import UserManagement from "./pages/UserManagement/UserManagement.jsx";
 import AddressPage from "./pages/AddressPage/AddressPage.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
@@ -32,9 +31,10 @@ import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import ManageCombo from "./pages/ManageCombo/ManageCombo.jsx";
+import ManageCombo from "./pages/Admin/ManageCombo/ManageCombo.jsx";
 import AdminPage from "./pages/Admin/AdminPage/AdminPage.jsx";
 import ManageProduct from "./pages/Admin/ManageProduct/ManageProduct.jsx";
+import ManageUser from "./pages/Admin/ManageUser/ManageUser.jsx";
 
 const User = () => {
   const { isShowModalLogin, modalRegister } = useSelector(
@@ -191,7 +191,7 @@ function App() {
         },
         {
           path: "user",
-          element: <UserManagement />,
+          element: <ManageUser />,
         },
         {
           path: "combo",

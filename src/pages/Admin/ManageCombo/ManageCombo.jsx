@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ModalAddCombo from "../../components/Admin/ModalAddCombo/ModalAddCombo";
+import ModalAddCombo from "@components/Admin/Combo/ModalAddCombo/ModalAddCombo";
+import ModalEditCombo from "@components/Admin/Combo/ModalEditCombo/ModalEditCombo";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, message, Popconfirm, Table } from "antd";
-import { callDeleteComboAdmin, callGetCombosAdmin } from "../../services/api";
-import ModalEditCombo from "../../components/Admin/components/ModalEditCombo/ModalEditCombo";
+import { callDeleteComboAdmin, callGetCombosAdmin } from "@services/api";
 
 const ManageCombo = () => {
   const [showModalAddCombo, setShowModalAddCombo] = useState(false);

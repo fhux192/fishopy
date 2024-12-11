@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Modal, Select } from "antd";
-import { toggleModalAddUser } from "../../../redux/features/toggle/toggleSlice";
+import { toggle } from "@redux/features/toggle/toggleSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callCreateUserAdmin } from "../../../services/api";
+import { admin_addUser } from "@services/api";
 
 const ModalAddUser = ({ setUsers }) => {
   const { modalAddUser } = useSelector((state) => state.toggle);
@@ -11,18 +11,17 @@ const ModalAddUser = ({ setUsers }) => {
     if (values.password !== values.confirmPassword) {
       return message.error("Xác nhận mật khẩu không trùng khớp");
     }
-
     try {
-      const res = await callCreateUserAdmin(values);
-      if (res.vcode === 0) {
-        message.success(res.msg);
-        dispatch(toggleModalAddUser());
-        setUsers((prev) => [...prev, res.data]);
-
-        form.resetFields();
-      } else {
-        message.error(res.msg);
+      const res = await admin_addUser(values);
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
       }
+
+      message.success(res.msg);
+      dispatch(toggle("modalAddUser"));
+      setUsers((prev) => [...prev, res.data]);
+
+      form.resetFields();
     } catch (error) {
       console.error(error);
     }
@@ -32,7 +31,7 @@ const ModalAddUser = ({ setUsers }) => {
     <Modal
       title="Thêm người dùng"
       open={modalAddUser}
-      onCancel={() => dispatch(toggleModalAddUser())}
+      onCancel={() => dispatch(toggle("modalAddUser"))}
       footer={null}
       centered={true}
     >
@@ -92,9 +91,7 @@ const ModalAddUser = ({ setUsers }) => {
           />
         </Form.Item>
         <Form.Item style={{ textAlign: "right" }}>
-          <Button type="primary" htmlType="submit">
-            Thêm
-          </Button>
+          <Button htmlType="submit">Thêm</Button>
         </Form.Item>
       </Form>
     </Modal>

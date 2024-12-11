@@ -67,7 +67,7 @@ export const callAddAddress = async (data) => {
 
 export const callEditAddress = async (addressId, data) => {
   return await axios.put(`user/address/${addressId}`, data);
-}
+};
 
 // ---------------- SHIPPING FEE ----------------
 export const callCalcFee = async (data) => {
@@ -76,142 +76,183 @@ export const callCalcFee = async (data) => {
 
 export const callGetCity = async () => {
   return await axios.get("user/city");
-}
+};
 
 export const callGetDistrict = async (provinceId) => {
   return await axios.get(`user/district?provinceId=${provinceId}`);
-}
+};
 
 export const callGetWard = async (districtId) => {
   return await axios.get(`user/ward?districtId=${districtId}`);
-}
+};
 
 // ---------------- PRODUCT ----------------
 export const callGetProductDetail = async (id) => {
   return await axios.get(`user/product/${id}`);
-}
+};
 
 export const callGetProducts = async (query, sort, page, limit) => {
-  return await axios.get(`user/product?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `user/product?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 // ---------------- ORDER ----------------
 export const callUpdateOrder = async (id, data) => {
   return await axios.put(`user/order/${id}`, data);
-}
+};
 
 export const callCreateOrder = async (data) => {
   return await axios.post("user/order", data);
-}
+};
 
 export const callGetOrders = async (query, sort, page, limit) => {
-  return await axios.get(`user/order?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `user/order?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 export const callGetCombos = async (query, sort, page, limit) => {
-  return await axios.get(`user/combo?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `user/combo?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 // ================== ADMIN ==================
 // -------------- PRODUCT ---------------
 export const callGetProductsAdmin = async (query, sort, page, limit) => {
-  return await axios.get(`admin/product?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `admin/product?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 export const callGetProductDetailAdmin = async (id) => {
   return await axios.get(`admin/product/${id}`);
-}
+};
 
 export const callUpdateProductAdmin = async (id, data) => {
   return await axios.put(`admin/product/${id}`, data);
-}
+};
 
 export const callCreateProductAdmin = async (data) => {
   return await axios.post("admin/product", data);
-}
+};
 
 export const callDeleteProductAdmin = async (id) => {
   return await axios.delete(`admin/product/${id}`);
-}
+};
 // -------------- USER ---------------
 export const callGetUsersAdmin = async (query, sort, page, limit) => {
-  return await axios.get(`admin/user?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `admin/user?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 export const callGetUserDetailAdmin = async (id) => {
   return await axios.get(`admin/user/${id}`);
-}
+};
 
 export const callUpdateUserAdmin = async (id, data) => {
   return await axios.put(`admin/user/${id}`, data);
-}
+};
 
 export const callCreateUserAdmin = async (data) => {
   return await axios.post("admin/user", data);
-}
+};
 
 export const callDeleteUserAdmin = async (id) => {
   return await axios.delete(`admin/user/${id}`);
-}
-
+};
 
 export const callGetOrdersAdmin = async (query, sort, page, limit) => {
-  return await axios.get(`admin/order?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `admin/order?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 // -------------- ORDER ---------------
 export const callGetOrderDetailAdmin = async (id) => {
   return await axios.get(`admin/order/${id}`);
-}
+};
 
 export const callUpdateOrderAdmin = async (id, data) => {
   return await axios.put(`admin/order/${id}`, data);
-}
+};
 
 export const callDeleteOrderAdmin = async (id) => {
   return await axios.delete(`admin/order/${id}`);
-}
+};
 
 export const callGetDetailComboAdmin = async (id) => {
   return await axios.get(`admin/combo/${id}`);
-}
+};
 
 export const callGetCombosAdmin = async (query, sort, page, limit) => {
-  return await axios.get(`admin/combo?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&page=${page}&limit=${limit}`);
-}
+  return await axios.get(
+    `admin/combo?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&page=${page}&limit=${limit}`
+  );
+};
 
 export const callUpdateComboAdmin = async (id, data) => {
   return await axios.put(`admin/combo/${id}`, data);
-}
+};
 
 export const callCreateComboAdmin = async (data) => {
   return await axios.post("admin/combo", data);
-}
+};
 
 export const callEditComboAdmin = async (id, data) => {
   return await axios.put(`admin/combo/${id}`, data);
-}
+};
 
 export const callDeleteComboAdmin = async (id) => {
   return await axios.delete(`admin/combo/${id}`);
-}
+};
 
 // -------------- DASHBOARD ---------------
 export const callGetDataDashboardAdmin = async () => {
   return await axios.get("admin/dashboard");
-}
+};
 
 //Lưu ý: làm theo cách mới sẽ dùng những hàm nảy, bỏ hết các hàm phía trên
 
 // -------------- UPLOAD IMAGE ---------------
 /**
- * 
+ *
  * @param fileImg: file hình ảnh
  * @param uploadType: 'avatar' | 'fish' upload avatar thì truyền vào 'avatar', upload cá thì truyền vào 'fish'
  * @param oldImage: string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác
  * @returns
  */
-export const user_uploadImage = async (fileImg,  uploadType, oldImage = '') => {
+export const user_uploadImage = async (fileImg, uploadType, oldImage = "") => {
   const formData = new FormData();
   formData.append("fileImg", fileImg);
   if (oldImage) {
@@ -230,28 +271,57 @@ export const user_uploadImage = async (fileImg,  uploadType, oldImage = '') => {
 };
 
 /**
- * 
+ *
  * @param {*} oldImage string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác
- * @returns 
+ * @returns
  */
 export const user_deleteImage = async (oldImage) => {
   return axios.post("/file/delete", { oldImage });
-}
+};
 
 // ---------------- ADMIN ----------------
+// -------------- PRODUCT ---------------
 export const admin_getProducts_byFields = async (query, sort, limit, page) => {
-  return await axios.get(`product?query=${encodeURIComponent(JSON.stringify(query))}&sort=${encodeURIComponent(JSON.stringify(sort))}&limit=${limit}&page=${page}`);
-}
+  return await axios.get(
+    `product?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
 
 export const admin_updateProduct = async (id, data) => {
   return await axios.put(`product/${id}`, data);
-}
+};
 
 export const admin_addProduct = async (data) => {
   return await axios.post("product", data);
-}
+};
 
 export const admin_deleteProduct = async (id) => {
   return await axios.delete(`product/${id}`);
-}
+};
 
+// -------------- USER ---------------
+export const admin_getUsers_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `user?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const admin_updateUser = async (id, data) => {
+  return await axios.put(`user/${id}`, data);
+};
+
+export const admin_addUser = async (data) => {
+  return await axios.post("user", data);
+};
+
+export const admin_deleteUser = async (id) => {
+  return await axios.delete(`user/${id}`);
+};

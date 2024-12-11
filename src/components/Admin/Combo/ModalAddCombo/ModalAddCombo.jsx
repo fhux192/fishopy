@@ -1,12 +1,8 @@
-import { Button, Form, Input, message, Modal, Table, Upload } from "antd";
+import { Button, Form, Input, message, Modal, Table } from "antd";
 import { useEffect, useState } from "react";
-import { callCreateComboAdmin, callUploadImg } from "../../../services/api";
-import {
-  DeleteOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import ModalChooseProduct from "../ModalChooseProduct/ModalChooseProduct";
+import { callCreateComboAdmin } from "@services/api";
+import { DeleteOutlined } from "@ant-design/icons";
+import ModalChooseProduct from "../../ModalChooseProduct/ModalChooseProduct";
 
 const ModalAddCombo = ({
   showModalAddCombo,
