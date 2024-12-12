@@ -3,9 +3,6 @@ import {
   Button,
   Select,
   DatePicker,
-  Row,
-  Col,
-  Typography,
   Divider,
   message,
   Table,
@@ -14,32 +11,22 @@ import {
   Tag,
 } from "antd";
 import { useDispatch } from "react-redux";
-import {
-  callDeleteOrderAdmin,
-  callGetOrdersAdmin,
-  callUpdateOrderAdmin,
-} from "../../../services/api";
-import ModalOrderDetail from "../../ModalOrderDetail/ModalOrderDetail";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
-import formatPrice from "../../../utils/formatPrice";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import formatPrice from "@utils/formatPrice";
 import moment from "moment";
-import { toggle } from "../../../redux/features/toggle/toggleSlice";
-import "./ManageOrder.css";
-import DrawerOrderDetail from "../components/DrawerOrderDetail/DrawerOrderDetail";
-
-const { Text } = Typography;
+import { toggle } from "@redux/features/toggle/toggleSlice";
+import "./ManageOrder.module.css";
+import DrawerOrderDetail from "@components/Admin/Order/DrawerOrderDetail/DrawerOrderDetail";
+import { admin_getOrders_byFields } from "@services/api";
+import dayjs from "dayjs";
+import { admin_deleteOrder, admin_updateOrder } from "@services/api";
 
 const ManageOrder = () => {
   const [status, setStatus] = useState("");
-  const [from, setFrom] = useState(null);
-  const [to, setTo] = useState(null);
+  const [dates, setDates] = useState([dayjs(), dayjs()]);
   const [loading, setLoading] = useState(false);
-  const [current, setCurrent] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
   const [orders, setOrders] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
@@ -164,31 +151,32 @@ const ManageOrder = () => {
   ];
 
   useEffect(() => {
-    fetchOrders();
-  }, [current, pageSize, status, from, to]);
+    getOrders({}, {}, page, limit);
+  }, []);
 
-  const fetchOrders = async () => {
+  const getOrders = async (query, sort, limit, page) => {
     setLoading(true);
     try {
-      let query = {};
-      if (status) query.status = { $eq: status };
-      if (from) query.from = { $gte: from };
-      if (to) query.to = { $lte: to };
-      const res = await callGetOrdersAdmin(
-        query,
-        { createdAt: -1 },
-        current,
-        pageSize
-      );
-
-      if (res.vcode === 0) {
-        setOrders(res.data);
-        setTotal(res.total);
-      } else {
-        message.error(res.msg);
+      let q = query;
+      if (status) {
+        q.status = { $eq: status };
       }
+
+      if (dates?.[0] && dates?.[1]) {
+        q.createdAt = {
+          $gte: dates[0].startOf("day").toISOString(),
+          $lte: dates[1].endOf("day").toISOString(),
+        };
+      }
+
+      const res = await admin_getOrders_byFields(q, sort, limit, page);
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
+      }
+      setOrders(res.data);
+      setTotal(res.total);
     } catch (error) {
-      message.error("Failed to fetch orders.");
+      message.error(error);
     } finally {
       setLoading(false);
     }
@@ -196,72 +184,64 @@ const ManageOrder = () => {
 
   const handleUpdateOrder = async (orderId, value) => {
     try {
-      const res = await callUpdateOrderAdmin(orderId, { status: value });
-      if (res.vcode === 0) {
-        message.success(res.msg);
-        fetchOrders();
-      } else {
-        message.error(res.msg);
+      const res = await admin_updateOrder(orderId, { status: value });
+      if (res.vcode != 0) {
+        return message.error(res.msg);
       }
+      message.success(res.msg);
     } catch (error) {
       message.error("Failed to update order.");
     }
   };
 
-  const handleDeleteOrder = async (orderId) => {
+  const handleDeleteOrder = async (id) => {
     try {
-      const res = await callDeleteOrderAdmin(orderId);
-      if (res.vcode === 0) {
-        setOrders(orders.filter((order) => order._id !== orderId));
-        message.success(res.msg);
-      } else {
-        message.error(res.msg);
+      const res = await admin_deleteOrder(id);
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
       }
+      message.success(res.msg);
+      setOrders(orders.filter((order) => order._id !== id));
     } catch (error) {
-      message.error("Failed to delete order.");
+      message.error(error);
     }
   };
 
   return (
     <>
-      <Row gutter={[16, 16]} justify="space-between" align="middle">
-        <Col xs={24} sm={12} md={8}>
-          <Select
-            value={status}
-            onChange={(value) => setStatus(value)}
-            options={[
-              { value: "", label: "Tất cả" },
-              { value: "pending", label: "Chờ xác nhận" },
-              { value: "shipping", label: "Đang giao" },
-              { value: "canceled", label: "Đã hủy" },
-              { value: "delivered", label: "Đã giao" },
-            ]}
-            style={{ width: "100%" }}
-          />
-        </Col>
-        <Col xs={24} sm={12} md={16}>
-          <Row justify="end" align="middle" gutter={[8, 8]}>
-            <Col flex="auto">
-              <DatePicker.RangePicker
-                value={[from, to]}
-                format={"DD/MM/YYYY"}
-                onChange={(dates) => {
-                  setFrom(dates[0]);
-                  setTo(dates[1]);
-                }}
-                style={{ width: "100%" }}
-              />
-            </Col>
-            <Col>
-              <Button
-                icon={<ReloadOutlined />}
-                onClick={fetchOrders}
-                shape="circle"
-              />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <div className="flex justify-end items-center gap-4 flex-wrap">
+        <Select
+          value={status}
+          onChange={(value) => setStatus(value)}
+          options={[
+            { value: "", label: "Tất cả" },
+            { value: "pending", label: "Chờ xác nhận" },
+            { value: "shipping", label: "Đang giao" },
+            { value: "canceled", label: "Đã hủy" },
+            { value: "delivered", label: "Đã giao" },
+          ]}
+        />
+        <Button onClick={() => getOrders({}, {}, limit, page)}>Xem</Button>
+
+        <DatePicker
+          placeholder="Từ ngày"
+          format={"DD/MM/YYYY"}
+          value={dates[0]}
+          onChange={(date) => {
+            setDates((prevDates) => [date, prevDates[1]]);
+          }}
+        />
+
+        <DatePicker
+          placeholder="Đến ngày"
+          format={"DD/MM/YYYY"}
+          value={dates[1]}
+          onChange={(date) => {
+            setDates((prevDates) => [prevDates[0], date]);
+          }}
+        />
+      </div>
+
       <Divider />
 
       <Table
@@ -271,12 +251,13 @@ const ManageOrder = () => {
         rowKey="_id"
         scroll={{ x: "max-content" }}
         pagination={{
-          current: current,
-          pageSize: pageSize,
+          current: page,
+          pageSize: limit,
           total: total,
           onChange: (page, pageSize) => {
-            setCurrent(page);
-            setPageSize(pageSize);
+            setPage(page);
+            setLimit(pageSize);
+            getOrders({}, {}, pageSize, page);
           },
         }}
       />

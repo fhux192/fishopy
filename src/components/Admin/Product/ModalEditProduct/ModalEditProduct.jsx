@@ -16,8 +16,6 @@ const ModalEditProduct = ({ productEdit, setProducts, setProductEdit }) => {
 
   const onFinish = async (values) => {
     try {
-      console.log("values", values);
-
       if (loading) return;
       setLoading(true);
       let dataProduct = {
@@ -53,7 +51,7 @@ const ModalEditProduct = ({ productEdit, setProducts, setProductEdit }) => {
       form.setFieldsValue(productEdit);
       setImgs(productEdit.imgs);
     } else {
-      form.resetFields();
+      form?.resetFields();
       setImgs([]);
       setProductEdit(null);
     }

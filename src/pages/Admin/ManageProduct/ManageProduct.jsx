@@ -185,11 +185,13 @@ const ManageProduct = () => {
       />
 
       <ModalAddProduct setProducts={setProducts} />
-      <ModalEditProduct
-        setProductEdit={setProductEdit}
-        productEdit={productEdit}
-        setProducts={setProducts}
-      />
+      {productEdit && (
+        <ModalEditProduct
+          setProductEdit={setProductEdit}
+          productEdit={productEdit}
+          setProducts={setProducts}
+        />
+      )}
     </>
   );
 };

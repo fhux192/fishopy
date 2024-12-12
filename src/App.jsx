@@ -26,7 +26,7 @@ import AddressPage from "./pages/AddressPage/AddressPage.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
 import AllProductPage from "./pages/AllProductPage/AllProductPage.jsx";
-import ManageOrder from "./components/Admin/ManageOrder/ManageOrder.jsx";
+import ManageOrder from "./pages/Admin/ManageOrder/ManageOrder.jsx";
 import InfoPay from "./pages/InfoPay.jsx";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

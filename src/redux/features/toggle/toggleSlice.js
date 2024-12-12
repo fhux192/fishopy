@@ -7,12 +7,14 @@ const initialState = {
   isShowSlideBar: false,
   modalRegister: false,
   modalAddProduct: false,
+  modalEditProduct: false,
   modalAddAddress: false,
   modalOrderDetail: false,
-  modalEditProduct: false,
   modalAddUser: false,
   modalEditUser: false,
-  modalEditAddress: false
+  modalEditAddress: false,
+  modalAddCombo: false,
+  modalEditCombo: false,
 };
 
 export const toggleSlice = createSlice({
@@ -57,7 +59,7 @@ export const toggleSlice = createSlice({
     // toggle modal nào truyền vào payload là tên modal
     toggle: (state, action) => {
       state[action.payload] = !state[action.payload];
-    }
+    },
   },
 });
 
@@ -73,7 +75,7 @@ export const {
   toggleModalEditProduct,
   toggleModalAddUser,
   toggleModalEditUser,
-  toggle
+  toggle,
 } = toggleSlice.actions;
 
 export default toggleSlice.reducer;

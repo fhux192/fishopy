@@ -325,3 +325,45 @@ export const admin_addUser = async (data) => {
 export const admin_deleteUser = async (id) => {
   return await axios.delete(`user/${id}`);
 };
+
+// -------------- ORDER ---------------
+export const admin_getOrders_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `order?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const admin_updateOrder = async (id, data) => {
+  return await axios.put(`order/${id}`, data);
+};
+
+export const admin_deleteOrder = async (id) => {
+  return await axios.delete(`order/${id}`);
+};
+
+// -------------- COMBO ---------------
+export const admin_getCombos_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `combo?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const admin_updateCombo = async (id, data) => {
+  return await axios.put(`combo/${id}`, data);
+};
+
+export const admin_addCombo = async (data) => {
+  return await axios.post("combo", data);
+};
+
+export const admin_deleteCombo = async (id) => {
+  return await axios.delete(`combo/${id}`);
+};

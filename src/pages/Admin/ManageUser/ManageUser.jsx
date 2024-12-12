@@ -20,7 +20,7 @@ const ManageUser = () => {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
   const [users, setUsers] = useState([]);
-  const [userEdit, setUserEdit] = useState({});
+  const [userEdit, setUserEdit] = useState(null);
 
   const columns = [
     {
@@ -177,7 +177,9 @@ const ManageUser = () => {
 
       <ModalAddUser setUsers={setUsers} />
 
-      <ModalEditUser users={users} userEdit={userEdit} setUsers={setUsers} />
+      {userEdit && (
+        <ModalEditUser users={users} userEdit={userEdit} setUsers={setUsers} />
+      )}
     </div>
   );
 };

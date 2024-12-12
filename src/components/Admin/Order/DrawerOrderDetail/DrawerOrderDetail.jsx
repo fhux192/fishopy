@@ -1,7 +1,7 @@
 import { DatePicker, Divider, Drawer, Form, Input, List } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { toggle } from "../../../../redux/features/toggle/toggleSlice";
-import formatPrice from "../../../../utils/formatPrice";
+import { toggle } from "@redux/features/toggle/toggleSlice";
+import { formatPrice } from "@utils/function";
 import { useEffect } from "react";
 import moment from "moment";
 
