@@ -35,6 +35,7 @@ import ManageCombo from "./pages/Admin/ManageCombo/ManageCombo.jsx";
 import AdminPage from "./pages/Admin/AdminPage/AdminPage.jsx";
 import ManageProduct from "./pages/Admin/ManageProduct/ManageProduct.jsx";
 import ManageUser from "./pages/Admin/ManageUser/ManageUser.jsx";
+import { message } from "antd";
 
 const User = () => {
   const { isShowModalLogin, modalRegister } = useSelector(
@@ -71,12 +72,14 @@ function App() {
   const handleFetchAccount = async () => {
     try {
       const res = await callFetchAccount();
-      if (res.vcode === 0) {
-        dispatch(setCredentials(res.data));
+      if (res.vcode != 0) {
+        return message.error(res.msg);
       }
-      dispatch(setLoading(false));
+      dispatch(setCredentials(res.data));
     } catch (error) {
-      console.error("Lỗi khi tải tài khoản:", error);
+      console.error(error);
+    } finally {
+      dispatch(setLoading(false));
     }
   };
 

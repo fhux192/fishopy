@@ -5,9 +5,13 @@ const initialState = {
   isAuthenticated: false,
   user: null,
   isLoading: true,
-  cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
-  address: localStorage.getItem("address") ? JSON.parse(localStorage.getItem("address")) : null,
-  search: ''
+  cart: localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [],
+  address: localStorage.getItem("address")
+    ? JSON.parse(localStorage.getItem("address"))
+    : null,
+  search: "",
 };
 
 export const userSlice = createSlice({
@@ -19,28 +23,35 @@ export const userSlice = createSlice({
       state.isAuthenticated = true;
       state.isLoading = false;
       localStorage.setItem("status_login", 0);
-      state.cart = []
+      state.cart = [];
       state.address = null;
-      localStorage.setItem('cart', [])
-      localStorage.setItem('address', null)
+      localStorage.setItem("cart", []);
+      localStorage.setItem("address", null);
     },
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
-      localStorage.setItem('cart', [])
-      localStorage.setItem('address', null)
+      localStorage.setItem("cart", []);
+      localStorage.setItem("address", null);
       localStorage.setItem("status_login", 1);
     },
+
+    updateAccount: (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+    },
+
     addToCart: (state, action) => {
       if (!state.user) {
-        notification.error({ msg:"Vui lòng đăng nhập" });
+        notification.error({ msg: "Vui lòng đăng nhập" });
         return;
       }
 
       const { product, quantity } = action.payload;
 
-      const productExist = state.user.cart.find((item) => item._id == product._id);
+      const productExist = state.user.cart.find(
+        (item) => item._id == product._id
+      );
 
       if (productExist) {
         productExist.quantity += quantity;
@@ -68,7 +79,9 @@ export const userSlice = createSlice({
       }
     },
     chooseProduct: (state, action) => {
-      const findProduct = state.user.cart.find((item) => item._id === action.payload._id);
+      const findProduct = state.user.cart.find(
+        (item) => item._id === action.payload._id
+      );
       if (findProduct) {
         findProduct.checked = !findProduct.checked;
       }
@@ -78,7 +91,9 @@ export const userSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(action.payload));
     },
     chooseProductLocal: (state, action) => {
-      const findProduct = state.cart.find((item) => item._id === action.payload._id);
+      const findProduct = state.cart.find(
+        (item) => item._id === action.payload._id
+      );
       if (findProduct) {
         findProduct.checked = !findProduct.checked;
       }
@@ -102,8 +117,7 @@ export const userSlice = createSlice({
     },
     setSearch: (state, action) => {
       state.search = action.payload;
-    }
-    
+    },
   },
 });
 
@@ -119,7 +133,7 @@ export const {
   chooseProductLocal,
   checkAllProductLocal,
   setAddress,
-  setSearch
+  setSearch,
 } = userSlice.actions;
 
 export default userSlice.reducer;

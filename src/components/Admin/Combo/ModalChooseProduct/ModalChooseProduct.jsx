@@ -1,4 +1,4 @@
-import { Button, Modal, Table } from "antd";
+import { Button, Checkbox, Modal, Switch, Table } from "antd";
 import { useEffect, useState } from "react";
 import { admin_getProducts_byFields } from "@services/api";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,20 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [productSelected, setProductSelected] = useState([]);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (modalChooseProduct) {
+      setProductSelected(productChoosed);
+    } else {
+      setProducts([]);
+      setProductSelected([]);
+      setPage(1);
+      setLimit(5);
+      setTotal(1);
+    }
+  }, [modalChooseProduct]);
 
   const getProducts = async (query, sort, limit, page) => {
     try {
@@ -22,13 +33,16 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
       if (res.vcode != 0) {
         return console.error(res.msg);
       }
+
       setProducts(
         res.data.map((item) => ({
           ...item,
           key: item._id,
           quantity: 1,
+          checked: productSelected.some((e) => e._id === item._id),
         }))
       );
+
       setTotal(res.total);
     } catch (error) {
       console.error(error.message);
@@ -38,6 +52,30 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
   };
 
   const columns = [
+    {
+      title: "Chọn",
+      render: (_, record) => (
+        <Checkbox
+          checked={record.checked}
+          onChange={() => {
+            console.log("record", record);
+            record.checked = !record.checked;
+            const index = productSelected.findIndex(
+              (item) => item._id === record._id
+            );
+            if (index === -1) {
+              setProductSelected([...productSelected, record]);
+            } else {
+              setProductSelected(
+                productSelected.filter((item) => item._id !== record._id)
+              );
+            }
+          }}
+        >
+          Checkbox
+        </Checkbox>
+      ),
+    },
     {
       title: "Ảnh",
       dataIndex: "imgs",
@@ -58,15 +96,6 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
     dispatch(toggle("modalChooseProduct"));
   };
 
-  const onSelectChange = (newSelectedRowKeys, newSelectedRow) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    console.log("newSelectedRow ", newSelectedRow);
-    setSelectedRowKeys(newSelectedRowKeys);
-    setProductSelected(newSelectedRow);
-  };
-
-  console.log("productSelected", productSelected);
-
   return (
     <Modal
       open={modalChooseProduct}
@@ -80,43 +109,6 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
       </div>
 
       <Table
-        rowSelection={{
-          selectedRowKeys,
-          onChange: onSelectChange,
-          selections: [
-            Table.SELECTION_ALL,
-            Table.SELECTION_INVERT,
-            Table.SELECTION_NONE,
-            {
-              key: "odd",
-              text: "Select Odd Row",
-              onSelect: (changeableRowKeys) => {
-                let newSelectedRowKeys = [];
-                newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
-                  if (index % 2 !== 0) {
-                    return false;
-                  }
-                  return true;
-                });
-                setSelectedRowKeys(newSelectedRowKeys);
-              },
-            },
-            {
-              key: "even",
-              text: "Select Even Row",
-              onSelect: (changeableRowKeys) => {
-                let newSelectedRowKeys = [];
-                newSelectedRowKeys = changeableRowKeys.filter((_, index) => {
-                  if (index % 2 !== 0) {
-                    return true;
-                  }
-                  return false;
-                });
-                setSelectedRowKeys(newSelectedRowKeys);
-              },
-            },
-          ],
-        }}
         loading={loading}
         columns={columns}
         dataSource={products}

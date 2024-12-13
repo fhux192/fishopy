@@ -10,6 +10,7 @@ import { Button, message, Popconfirm, Space, Table } from "antd";
 import { admin_deleteCombo, admin_getCombos_byFields } from "@services/api";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { useDispatch } from "react-redux";
+import { admin_getProduct } from "../../../services/api";
 
 const ManageCombo = () => {
   const [combos, setCombos] = useState([]);
@@ -21,16 +22,23 @@ const ManageCombo = () => {
 
   const columns = [
     {
+      title: "Ảnh",
+      dataIndex: "imgs",
+      render: (imgs) => <img width={50} src={imgs[0]} />,
+    },
+    {
       title: "Tên combo",
       dataIndex: "name",
     },
     {
-      title: "Giá",
+      title: "Giá bán",
       dataIndex: "price",
+      render: (price) => <span>{price.toLocaleString()}đ</span>,
     },
     {
       title: "Giá khuyến mãi",
       dataIndex: "price_sale",
+      render: (price_sale) => <span>{price_sale.toLocaleString()}đ</span>,
     },
     {
       title: "Thao tác",
@@ -85,7 +93,11 @@ const ManageCombo = () => {
       }
 
       setTotal(res.total);
-      setCombos(res.data.map((item) => ({ ...item, key: item._id })));
+      setCombos(
+        res.data.map((item) => {
+          return { ...item, key: item._id };
+        })
+      );
     } catch (error) {
       console.error("error", error.message);
     }
@@ -125,11 +137,13 @@ const ManageCombo = () => {
 
       <ModalAddCombo setCombos={setCombos} />
 
-      <ModalEditCombo
-        comboEdit={comboEdit}
-        setCombos={setCombos}
-        combos={combos}
-      />
+      {comboEdit && (
+        <ModalEditCombo
+          comboEdit={comboEdit}
+          setCombos={setCombos}
+          combos={combos}
+        />
+      )}
     </div>
   );
 };

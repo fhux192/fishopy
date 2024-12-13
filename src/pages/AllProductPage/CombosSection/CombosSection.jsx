@@ -13,19 +13,19 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
 
 const formatPrice = (price) =>
-  price?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ".") || 0;
+  price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") || 0;
 
 const ProductCard = ({ product, priceStage, animationDelay }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.account); // Corrected selector
+  const { user } = useSelector((state) => state.account);
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
   const discountPercentage =
-    ((product.price - product.discountedPrice) / product.price) * 100;
+    ((product.price_sale - product.price) / product.price_sale) * 100;
 
   const handleAddToCart = async (event) => {
     event.preventDefault(); // Prevent default <a> action
-    event.stopPropagation(); // Prevent event bubbling
+    event.stopPropagation();
     if (user) {
       try {
         const res = await callAddToCart({
@@ -65,7 +65,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
 
-    // Giới hạn vị trí x và y để hiệu ứng không vượt ra ngoài card
     const effectSize = 150; // Kích thước của hiệu ứng sáng (px)
     x = Math.max(effectSize / 2, Math.min(x, rect.width - effectSize / 2));
     y = Math.max(effectSize / 2, Math.min(y, rect.height - effectSize / 2));
@@ -93,38 +92,37 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       ></div>
       <Link className="image-wrapper">
         <Image.PreviewGroup>
-          {/* <Image
-            src={product.images[0]}
+          <Image
+            src={product.imgs?.[0]}
             className="rounded-t-3xl w-full h-64 object-cover"
             alt={`${product.name} image`}
-          /> */}
+          />
         </Image.PreviewGroup>
         <div className="text-content">
           <h2 className="title pb-[1.5px]">{product.name}</h2>
           <div className="h-full w-full flex items-center ">
             <div className="">
               <div className="flex items-center">
-                {" "}
                 <p className=" font-bold">
-                  {product.price === product.discountedPrice ? (
-                    <span>{formatPrice(product.price)}₫</span>
+                  {product.price_sale === product.price ? (
+                    <span>{formatPrice(product.price_sale)}₫</span>
                   ) : (
                     <>
                       {priceStage === 0 && (
-                        <span>{formatPrice(product.price)}₫</span>
+                        <span>{formatPrice(product.price_sale)}₫</span>
                       )}
                       {priceStage === 1 && (
                         <span className="line-through">
-                          {formatPrice(product.price)}₫
+                          {formatPrice(product.price_sale)}₫
                         </span>
                       )}
                       {priceStage === 2 && (
-                        <span>{formatPrice(product.discountedPrice)}₫</span>
+                        <span>{formatPrice(product.price)}₫</span>
                       )}
                     </>
                   )}
                 </p>
-                {product.price !== product.discountedPrice && (
+                {product.price_sale !== product.price && (
                   <div className="discount">
                     -{Math.round(discountPercentage)}%
                   </div>
@@ -158,7 +156,7 @@ const CombosSection = ({ currentPageProducts, priceStage }) => {
         <div className="product-container">
           <div className="flex w-full justify-center">
             <div className="product-grid grid gap-2 mx-2 lg:mx-0 ">
-              {currentPageProducts.map((product, index) => (
+              {currentPageProducts?.map((product, index) => (
                 <ProductCard
                   key={product._id}
                   product={product}

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
-import { Image } from "antd";
+import { Image, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateAccount,
   updateCartLocal,
 } from "../../../redux/features/user/userSlice.js";
-import { callAddToCart } from "../../../services/api.js";
+import { user_addToCart, user_updateCartItem } from "@services/api.js";
 import { toast } from "react-toastify";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../../scss/allProduct.scss";
@@ -21,25 +21,55 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   const [lightPosition, setLightPosition] = useState({ x: -100, y: -100 });
 
   const discountPercentage =
-    ((product.price - product.discountedPrice) / product.price) * 100;
+    ((product.price_sale - product.price) / product.price_sale) * 100;
 
-  const handleAddToCart = async (event) => {
+  const handleAddToCart = async (event, product) => {
     event.preventDefault(); // Prevent default <a> action
     event.stopPropagation();
+
     if (user) {
       try {
-        const res = await callAddToCart({
-          product: product._id,
-          quantity: 1,
-        });
-        if (res.vcode === 0) {
+        // nếu đã có thì update giỏ hàng
+        if (user.cart.some((e) => e.id_product?._id === product._id)) {
+          let itemEdit = {};
+          const newCart = user.cart.map((item) => {
+            if (item.id_product._id === product._id) {
+              itemEdit = { ...item, quantity: item.quantity + 1 }; // Create a new object with updated quantity
+              return itemEdit;
+            }
+            return item;
+          });
+          if (!itemEdit._id) return;
+          const res = await user_updateCartItem(itemEdit?._id, {
+            quantity: itemEdit.quantity,
+          });
+          if (res.vcode != 0) {
+            return message.error(res.msg);
+          }
           toast.success(res.msg);
-          dispatch(updateAccount({ cart: res.data }));
+          dispatch(updateAccount({ cart: newCart }));
         } else {
-          toast.error(res.msg || "Failed to add to cart");
+          // nếu chưa có thì thêm mới
+          const res = await user_addToCart({
+            id_product: product._id,
+            quantity: 1,
+          });
+          if (res.vcode != 0) {
+            return message.error(res.msg);
+          }
+          toast.success(res.msg);
+          dispatch(
+            updateAccount({
+              cart: [
+                {
+                  ...res.data,
+                  id_product: { ...product },
+                },
+              ],
+            })
+          );
         }
       } catch (error) {
-        toast.error("Error adding to cart");
         console.error(error);
       }
     } else {
@@ -93,7 +123,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       <Link className="image-wrapper">
         <Image.PreviewGroup>
           <Image
-            src={product.images?.[0]}
+            src={product.imgs?.[0]}
             className="rounded-t-3xl w-full h-64 object-cover"
             alt={`${product.name} image`}
           />
@@ -105,25 +135,25 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
               <div className="flex items-center">
                 {" "}
                 <p className=" font-bold">
-                  {product.price === product.discountedPrice ? (
-                    <span>{formatPrice(product.price)}₫</span>
+                  {product.price_sale === product.price ? (
+                    <span>{formatPrice(product.price_sale)}₫</span>
                   ) : (
                     <>
                       {priceStage === 0 && (
-                        <span>{formatPrice(product.price)}₫</span>
+                        <span>{formatPrice(product.price_sale)}₫</span>
                       )}
                       {priceStage === 1 && (
                         <span className="line-through">
-                          {formatPrice(product.price)}₫
+                          {formatPrice(product.price_sale)}₫
                         </span>
                       )}
                       {priceStage === 2 && (
-                        <span>{formatPrice(product.discountedPrice)}₫</span>
+                        <span>{formatPrice(product.price)}₫</span>
                       )}
                     </>
                   )}
                 </p>
-                {product.price !== product.discountedPrice && (
+                {product.price_sale !== product.price && (
                   <div className="discount">
                     -{Math.round(discountPercentage)}%
                   </div>
@@ -134,7 +164,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         </div>
         <div className="w-full flex justify-center">
           <button
-            onClick={(e) => handleAddToCart(e)}
+            onClick={(e) => handleAddToCart(e, product)}
             className={`add-to-cart ${
               !product.status ? " opacity-30 cursor-not-allowed" : ""
             }`}

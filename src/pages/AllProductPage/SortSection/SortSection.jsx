@@ -1,31 +1,39 @@
-import React from "react";
+import React, { memo } from "react";
+
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 
 const SortSection = ({ sortOption, setSortOption }) => {
   const sortButtons = [
-    { option: "", label: "Mặc Định" },
+    { option: {}, label: "Mặc Định", field: "default" },
     {
-      option: "-discountedPrice",
+      option: { price: -1 },
+      field: "price",
       label: "Cao - Thấp",
       icon: <FaSortAmountDown className="mr-2" />,
     },
     {
-      option: "discountedPrice",
+      option: { price: 1 },
+      field: "price",
       label: "Thấp - Cao",
       icon: <FaSortAmountUp className="mr-2" />,
     },
-    { option: "name", label: "Tên từ A - Z" },
-    { option: "-name", label: "Tên từ Z - A" },
+    { option: { name: -1 }, field: "name", label: "Tên từ A - Z" },
+    { option: { name: 1 }, field: "name", label: "Tên từ Z - A" },
   ];
 
   return (
     <div className="flex w-full justify-center">
       <div className="sort-section">
         <div className="sort-buttons">
-          {sortButtons.map(({ option, label, icon }) => (
+          {sortButtons.map(({ option, label, icon, field }) => (
             <button
-              key={option}
-              className={`sort-button ${sortOption === option ? "selected" : "unselected"}`}
+              key={label}
+              className={`sort-button ${
+                Number(sortOption[field]) == option[field] ||
+                (field === "default" && Object.keys(sortOption).length === 0)
+                  ? "selected"
+                  : "unselected"
+              }`}
               onClick={() => setSortOption(option)}
             >
               {icon}
@@ -38,4 +46,4 @@ const SortSection = ({ sortOption, setSortOption }) => {
   );
 };
 
-export default SortSection;
+export default memo(SortSection);

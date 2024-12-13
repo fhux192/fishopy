@@ -1,7 +1,11 @@
 import { Card } from "antd";
 import { useEffect, useState } from "react";
-import {  callGetDataDashboardAdmin } from "../../../services/api";
-import { FileDoneOutlined, ProductOutlined, UserOutlined } from "@ant-design/icons";
+import { admin_getDataDashboard } from "@services/api";
+import {
+  FileDoneOutlined,
+  ProductOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import CountUp from "react-countup";
 
 const Dashboard = () => {
@@ -14,7 +18,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await callGetDataDashboardAdmin();
+        const res = await admin_getDataDashboard();
         if (res.vcode == 0) {
           setData(res.data);
         }

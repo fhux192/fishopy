@@ -270,6 +270,38 @@ export const user_uploadImage = async (fileImg, uploadType, oldImage = "") => {
   });
 };
 
+export const free_getProducts_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `product?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const free_getCombos_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `combo?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const user_addToCart = async (data) => {
+  return await axios.post("/cart", data);
+};
+
+export const user_deleteCartItem = async (id) => {
+  return await axios.delete(`/cart/${id}`);
+};
+
+export const user_updateCartItem = async (id, data) => {
+  return await axios.put(`/cart/${id}`, data);
+};
+
 /**
  *
  * @param {*} oldImage string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác
@@ -280,6 +312,11 @@ export const user_deleteImage = async (oldImage) => {
 };
 
 // ---------------- ADMIN ----------------
+
+export const admin_getDataDashboard = async () => {
+  return await axios.get("dashboard");
+};
+
 // -------------- PRODUCT ---------------
 export const admin_getProducts_byFields = async (query, sort, limit, page) => {
   return await axios.get(
@@ -289,6 +326,10 @@ export const admin_getProducts_byFields = async (query, sort, limit, page) => {
       JSON.stringify(sort)
     )}&limit=${limit}&page=${page}`
   );
+};
+
+export const admin_getProduct = async (id) => {
+  return await axios.get(`product/${id}`);
 };
 
 export const admin_updateProduct = async (id, data) => {

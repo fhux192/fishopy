@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import ShiftingCountdown from "../../components/CountDown/ShiftingCountdown";
 import SortSection from "./SortSection/SortSection";
 import ProductsSection from "./ProductsSection/ProductsSection";
-import { Pagination } from "antd";
-import { callGetCombos, callGetProducts } from "../../services/api";
+import { message, Pagination } from "antd";
 import "aos/dist/aos.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import "../../scss/navbar.scss";
@@ -13,6 +12,10 @@ import useColumns from "./utils/useColumns";
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import CombosSection from "./CombosSection/CombosSection";
+import {
+  free_getProducts_byFields,
+  free_getCombos_byFields,
+} from "@services/api";
 
 const easeInOutCubic = (t) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -59,120 +62,57 @@ const smoothScrollToTop = () => {
 };
 
 const AllProductPage = () => {
-  const [selectedPurchaseOption, setSelectedPurchaseOption] = useState("single");
+  const [selectedPurchaseOption, setSelectedPurchaseOption] =
+    useState("single");
   const handlePurchaseOptionClick = (option) => {
     setSelectedPurchaseOption(option);
   };
 
   const { search } = useSelector((state) => state.account);
-
   const columns = useColumns();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(columns * 3);
-  const [sortOption, setSortOption] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(columns * 3);
+  const [sortOption, setSortOption] = useState({});
   const [priceStage, setPriceStage] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
+  const getProducts = async (query, sort, limit, page) => {
+    try {
+      let q = { ...query };
+      const res = await free_getProducts_byFields(q, sort, limit, page);
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
+      }
+      setAllProducts(res.data);
+      setTotalProducts(res.total);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
+  const getCombos = async (query, sort, limit, page) => {
+    try {
+      let q = { ...query };
+      const res = await free_getCombos_byFields(q, sort, limit, page);
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
+      }
+      setAllProducts(res.data);
+      setTotalProducts(res.total);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        let current = currentPage;
-        if (search !== "") {
-          current = 1;
-          setCurrentPage(1);
-        }
-
-        let sort = {};
-        switch (sortOption) {
-          case "-discountedPrice":
-            sort = { discountedPrice: -1 };
-            break;
-          case "discountedPrice":
-            sort = { discountedPrice: 1 };
-            break;
-          case "-name":
-            sort = { name: -1 };
-            break;
-          case "name":
-            sort = { name: 1 };
-            break;
-          default:
-            sort = {};
-            break;
-        }
-
-        let query = {};
-        if (search !== "") {
-          query = {
-            $text: { $search: search },
-          };
-        }
-
-        const res = await callGetProducts(query, sort, current, pageSize);
-
-        if (res.vcode === 0) {
-          setAllProducts(res.data);
-          setTotalProducts(res.total);
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-
-    const fetchCombos = async () => {
-      try {
-        let current = currentPage;
-        if (search !== "") {
-          current = 1;
-          setCurrentPage(1);
-        }
-
-        let sort = {};
-        switch (sortOption) {
-          case "-discountedPrice":
-            sort = { price: -1 };
-            break;
-          case "discountedPrice":
-            sort = { price: 1 };
-            break;
-          case "-name":
-            sort = { name: -1 };
-            break;
-          case "name":
-            sort = { name: 1 };
-            break;
-          default:
-            sort = {};
-            break;
-        }
-
-        let query = {};
-        if (search !== "") {
-          query = {
-            $text: { $search: search },
-          };
-        }
-
-        const res = await callGetCombos(query, sort, current, pageSize);
-
-        if (res.vcode === 0) {
-          setAllProducts(res.data);
-          setTotalProducts(res.total);
-        }
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
     setAllProducts([]);
     if (selectedPurchaseOption === "single") {
-      fetchProducts();
+      getProducts({}, sortOption, limit, page);
     } else if (selectedPurchaseOption === "combo") {
-      fetchCombos();
+      getCombos({}, sortOption, limit, page);
     }
 
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";
-  }, [sortOption, currentPage, pageSize, search, selectedPurchaseOption]);
+  }, [sortOption, search, selectedPurchaseOption]);
 
   useEffect(() => {
     const cyclePrices = () => {
@@ -189,13 +129,13 @@ const AllProductPage = () => {
 
   useEffect(() => {
     const newPageSize = columns * 3;
-    setPageSize(newPageSize);
-    setCurrentPage(1);
+    setLimit(newPageSize);
+    setPage(1);
   }, [columns]);
 
   useEffect(() => {
     smoothScrollToTop();
-  }, [currentPage]);
+  }, [page]);
 
   const pageSizeOptions = useMemo(() => {
     const options = [];
@@ -207,8 +147,14 @@ const AllProductPage = () => {
   }, [columns, totalProducts]);
 
   const handlePageChange = (page, newPageSize) => {
-    setCurrentPage(page);
-    setPageSize(newPageSize);
+    setPage(page);
+    setLimit(newPageSize);
+
+    if (selectedPurchaseOption == "single") {
+      getProducts({}, {}, newPageSize, page);
+    } else {
+      // callGetCombos()
+    }
   };
 
   return (
@@ -228,8 +174,8 @@ const AllProductPage = () => {
                   "linear-gradient(50deg,#fff, #09D1C7, #fff, #46DFB1 ,#fff)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                backgroundSize: "200% auto", 
-                animation: "gradientCycle 10s infinite"
+                backgroundSize: "200% auto",
+                animation: "gradientCycle 10s infinite",
               }}
               className="font-[800] cursor-default lg:text-[1.9rem] text-[1.7rem] text-white"
             >
@@ -288,8 +234,8 @@ const AllProductPage = () => {
         />
       )}
       <Pagination
-        current={currentPage}
-        pageSize={pageSize}
+        current={page}
+        pageSize={limit}
         total={totalProducts}
         onChange={handlePageChange}
         pageSizeOptions={pageSizeOptions}
