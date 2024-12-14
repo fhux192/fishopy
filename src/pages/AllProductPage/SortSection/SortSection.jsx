@@ -17,8 +17,8 @@ const SortSection = ({ sortOption, setSortOption }) => {
       label: "Thấp - Cao",
       icon: <FaSortAmountUp className="mr-2" />,
     },
-    { option: { name: -1 }, field: "name", label: "Tên từ A - Z" },
-    { option: { name: 1 }, field: "name", label: "Tên từ Z - A" },
+    { option: { name: 1 }, field: "name", label: "Tên từ A - Z" },
+    { option: { name: -1 }, field: "name", label: "Tên từ Z - A" },
   ];
 
   return (
