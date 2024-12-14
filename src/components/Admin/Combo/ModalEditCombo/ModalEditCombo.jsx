@@ -91,7 +91,7 @@ const ModalEditCombo = ({ comboEdit, setCombos }) => {
           ...item,
           name: item.id_product?.name,
           imgs: item.id_product?.imgs || [],
-          key: item._id,
+          key: item.id_product?._id,
         }))
       );
     } else {
@@ -116,7 +116,7 @@ const ModalEditCombo = ({ comboEdit, setCombos }) => {
         imgs: imgs,
         link: convertToSlug(values.name),
         products: productChoosed.map((item) => ({
-          id_product: item._id,
+          id_product: item.id_product._id,
           quantity: item.quantity,
         })),
       };

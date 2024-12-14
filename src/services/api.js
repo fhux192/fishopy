@@ -1,23 +1,23 @@
 import axios from "../utils/axios-customize";
 
 // -------------- AUTH ---------------
-export const callLogin = async (data) => {
+export const free_login = async (data) => {
   return await axios.post("auth/login", data);
 };
 
-export const callRegister = async (data) => {
+export const free_register = async (data) => {
   return await axios.post("auth/register", data);
 };
 
-export const callFetchAccount = async () => {
+export const user_fetchAccount = async () => {
   return await axios.post("auth/account");
 };
 
-export const callLogout = async () => {
+export const user_logout = async () => {
   return await axios.post("auth/logout");
 };
 
-export const callGooglelogin = async (tokenId) => {
+export const free_google_login = async (tokenId) => {
   return await axios.post("/auth/google_login", { tokenId });
 };
 
@@ -38,6 +38,7 @@ export const callRemoveCartItem = async (id) => {
 export const callUpdateCartItem = async (id, data) => {
   return await axios.put(`/user/cart/${id}`, data);
 };
+
 /**
  * @param fileImg
  * @returns
@@ -244,6 +245,46 @@ export const callGetDataDashboardAdmin = async () => {
 
 //Lưu ý: làm theo cách mới sẽ dùng những hàm nảy, bỏ hết các hàm phía trên
 
+export const free_getCities = async () => {
+  return await axios.get("location/city");
+};
+
+export const free_getDistricts = async (provinceId) => {
+  return await axios.get(`location/district/${provinceId}`);
+};
+
+export const free_getWards = async (districtId) => {
+  return await axios.get(`location/ward/${districtId}`);
+};
+
+export const free_addOrderDetail = async (data) => {
+  return await axios.post("/cart", data);
+};
+
+export const free_getProducts_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `product?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const free_getCombos_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `combo?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const free_addOrder = async (data) => {
+  return await axios.post("order", data);
+};
+
 // -------------- UPLOAD IMAGE ---------------
 /**
  *
@@ -270,26 +311,6 @@ export const user_uploadImage = async (fileImg, uploadType, oldImage = "") => {
   });
 };
 
-export const free_getProducts_byFields = async (query, sort, limit, page) => {
-  return await axios.get(
-    `product?query=${encodeURIComponent(
-      JSON.stringify(query)
-    )}&sort=${encodeURIComponent(
-      JSON.stringify(sort)
-    )}&limit=${limit}&page=${page}`
-  );
-};
-
-export const free_getCombos_byFields = async (query, sort, limit, page) => {
-  return await axios.get(
-    `combo?query=${encodeURIComponent(
-      JSON.stringify(query)
-    )}&sort=${encodeURIComponent(
-      JSON.stringify(sort)
-    )}&limit=${limit}&page=${page}`
-  );
-};
-
 export const user_addToCart = async (data) => {
   return await axios.post("/cart", data);
 };
@@ -300,6 +321,14 @@ export const user_deleteCartItem = async (id) => {
 
 export const user_updateCartItem = async (id, data) => {
   return await axios.put(`/cart/${id}`, data);
+};
+
+export const user_updateAccount = async (id, data) => {
+  return await axios.put(`user/${id}`, data);
+};
+
+export const user_addAddress = async (data) => {
+  return await axios.post("/address", data);
 };
 
 /**
@@ -384,6 +413,21 @@ export const admin_updateOrder = async (id, data) => {
 
 export const admin_deleteOrder = async (id) => {
   return await axios.delete(`order/${id}`);
+};
+
+export const admin_getOrderDetail_byFields = async (
+  query,
+  sort,
+  limit,
+  page
+) => {
+  return await axios.get(
+    `cart?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
 };
 
 // -------------- COMBO ---------------

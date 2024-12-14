@@ -10,9 +10,10 @@ import { Button, message, Popconfirm, Space, Table } from "antd";
 import { admin_deleteCombo, admin_getCombos_byFields } from "@services/api";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { useDispatch } from "react-redux";
-import { admin_getProduct } from "../../../services/api";
 
 const ManageCombo = () => {
+  const [loading, setLoading] = useState(false);
+
   const [combos, setCombos] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
@@ -71,13 +72,12 @@ const ManageCombo = () => {
     try {
       const res = await admin_deleteCombo(id);
       if (res.vcode != 0) {
-        message.error(res.msg);
+        return message.error(res.msg);
       }
-
       setCombos(combos.filter((item) => item._id !== id));
       message.success(res.msg);
     } catch (error) {
-      console.error("error", error.message);
+      console.error(error.message);
     }
   };
 
@@ -86,6 +86,7 @@ const ManageCombo = () => {
   }, []);
 
   const getCombos = async (query, sort, limit, page) => {
+    setLoading(true);
     try {
       const res = await admin_getCombos_byFields(query, sort, limit, page);
       if (res.vcode != 0) {
@@ -100,6 +101,8 @@ const ManageCombo = () => {
       );
     } catch (error) {
       console.error("error", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -124,6 +127,7 @@ const ManageCombo = () => {
       <Table
         columns={columns}
         dataSource={combos}
+        loading={loading}
         pagination={{
           total: total,
           pageSize: limit,

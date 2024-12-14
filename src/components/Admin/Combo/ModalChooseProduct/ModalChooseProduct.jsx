@@ -15,6 +15,8 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("productChoosed", productChoosed);
+
     if (modalChooseProduct) {
       setProductSelected(productChoosed);
     } else {
@@ -39,7 +41,7 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
           ...item,
           key: item._id,
           quantity: 1,
-          checked: productSelected.some((e) => e._id === item._id),
+          checked: productSelected.some((e) => e.id_product?._id === item._id),
         }))
       );
 
@@ -61,13 +63,27 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
             console.log("record", record);
             record.checked = !record.checked;
             const index = productSelected.findIndex(
-              (item) => item._id === record._id
+              (item) => item.id_product._id === record._id
             );
             if (index === -1) {
-              setProductSelected([...productSelected, record]);
+              setProductSelected([
+                ...productSelected,
+                {
+                  id_product: {
+                    ...record,
+                  },
+                  name: record.name,
+                  imgs: record.imgs,
+                  price: record.price,
+                  quantity: record.quantity,
+                  key: record._id,
+                },
+              ]);
             } else {
               setProductSelected(
-                productSelected.filter((item) => item._id !== record._id)
+                productSelected.filter(
+                  (item) => item.id_product._id !== record._id
+                )
               );
             }
           }}
@@ -92,6 +108,8 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
   ];
 
   const handleSave = () => {
+    console.log("productSelected", productSelected);
+
     setProductChoosed(productSelected);
     dispatch(toggle("modalChooseProduct"));
   };

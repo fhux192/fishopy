@@ -53,11 +53,16 @@ const ModalAddCombo = ({ setCombos }) => {
         <div className="ml-4 cursor-pointer p-2">
           <DeleteOutlined
             style={{ color: "red" }}
-            onClick={() =>
+            onClick={() => {
+              console.log("record", record);
+              console.log("productChoosed", productChoosed);
+
               setProductChoosed(
-                productChoosed.filter((item) => item._id != record._id)
-              )
-            }
+                productChoosed.filter(
+                  (item) => item.id_product._id != record.id_product._id
+                )
+              );
+            }}
           />
         </div>
       ),
@@ -90,7 +95,7 @@ const ModalAddCombo = ({ setCombos }) => {
         imgs: imgs,
         link: convertToSlug(values.name),
         products: productChoosed.map((item) => ({
-          id_product: item._id,
+          id_product: item.id_product._id,
           quantity: item.quantity,
         })),
       };
@@ -100,7 +105,10 @@ const ModalAddCombo = ({ setCombos }) => {
         return message.error(res.msg);
       }
 
-      setCombos((pre) => [...pre, { ...res.data, key: res.data._id }]);
+      setCombos((pre) => [
+        ...pre,
+        { ...res.data, products: productChoosed, key: res.data._id },
+      ]);
       message.success("Thêm combo thành công");
       dispatch(toggle("modalAddCombo"));
     } catch (error) {

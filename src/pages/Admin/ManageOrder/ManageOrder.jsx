@@ -30,6 +30,7 @@ const ManageOrder = () => {
   const [total, setTotal] = useState(0);
   const [orders, setOrders] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
+  const sort = { createdAt: -1 };
   const dispatch = useDispatch();
   const optionsStatus = [
     { value: "", label: "Tất cả" },
@@ -58,33 +59,39 @@ const ManageOrder = () => {
     },
     {
       title: "Số điện thoại",
-      dataIndex: "shippingAddress",
+      dataIndex: "shipping_address",
       key: "phone",
       width: 150,
-      render: (shippingAddress) => <p>{shippingAddress.phone}</p>,
+      render: (shipping_address) => <p>{shipping_address.phone}</p>,
     },
     {
       title: "Tên khách hàng",
-      dataIndex: "shippingAddress",
+      dataIndex: "shipping_address",
       key: "name",
       width: 200,
-      render: (shippingAddress) => <p>{shippingAddress.name}</p>,
+      render: (shipping_address) => <p>{shipping_address.name}</p>,
     },
     {
       title: "Tiền hàng",
-      dataIndex: "itemsPrice",
-      key: "itemsPrice",
+      dataIndex: "items_price",
+      key: "items_price",
       width: 150,
-      render: (itemsPrice) => <p>{formatPrice(itemsPrice)}</p>,
+      render: (items_price) => <p>{formatPrice(items_price)}</p>,
     },
     {
       title: "Phí vận chuyển",
-      dataIndex: "shippingPrice",
-      key: "shippingPrice",
+      dataIndex: "shipping_price",
+      key: "shipping_price",
       width: 150,
-      render: (shippingPrice) => <p>{formatPrice(shippingPrice)}</p>,
+      render: (shipping_price) => <p>{formatPrice(shipping_price)}</p>,
     },
-
+    {
+      title: "Tổng tiền",
+      width: 150,
+      render: (_, record) => (
+        <p>{formatPrice(record.shipping_price + record.items_price)}</p>
+      ),
+    },
     {
       title: "Trạng thái",
       dataIndex: "status",
@@ -151,7 +158,7 @@ const ManageOrder = () => {
   ];
 
   useEffect(() => {
-    getOrders({}, {}, page, limit);
+    getOrders({}, sort, limit, page);
   }, []);
 
   const getOrders = async (query, sort, limit, page) => {
@@ -221,7 +228,7 @@ const ManageOrder = () => {
             { value: "delivered", label: "Đã giao" },
           ]}
         />
-        <Button onClick={() => getOrders({}, {}, limit, page)}>Xem</Button>
+        <Button onClick={() => getOrders({}, sort, limit, page)}>Xem</Button>
 
         <DatePicker
           placeholder="Từ ngày"
@@ -257,12 +264,12 @@ const ManageOrder = () => {
           onChange: (page, pageSize) => {
             setPage(page);
             setLimit(pageSize);
-            getOrders({}, {}, pageSize, page);
+            getOrders({}, sort, pageSize, page);
           },
         }}
       />
 
-      <DrawerOrderDetail orderDetail={orderDetail} />
+      {orderDetail && <DrawerOrderDetail orderDetail={orderDetail} />}
     </>
   );
 };

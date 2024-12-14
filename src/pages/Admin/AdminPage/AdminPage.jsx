@@ -9,14 +9,13 @@ import {
   ShoppingCartOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import { Avatar, Drawer, Dropdown, Layout, Menu, Space } from "antd";
+import { Avatar, Drawer, Dropdown, Layout, Menu, message, Space } from "antd";
 import { logout } from "@redux/features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { callLogout } from "@services/api";
+import { user_logout } from "@services/api";
 import { googleLogout } from "@react-oauth/google";
 const { Header, Content, Sider } = Layout;
 import styles from "./AdminPage.module.css";
-import { toggle } from "../../../redux/features/toggle/toggleSlice";
 
 function getItem(label, key, icon, children) {
   return {
@@ -66,11 +65,12 @@ const AdminPage = () => {
   const dispatch = useDispatch();
   const handleLogout = async () => {
     try {
-      const res = await callLogout();
-      if (res.vcode === 0) {
-        dispatch(logout());
-        message.success(res.msg);
+      const res = await user_logout();
+      if (res.vcode !== 0) {
+        return message.error(res.msg);
       }
+      dispatch(logout());
+      message.success(res.msg);
 
       googleLogout();
     } catch (error) {

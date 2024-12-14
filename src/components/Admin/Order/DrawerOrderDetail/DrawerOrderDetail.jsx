@@ -1,52 +1,84 @@
-import { DatePicker, Divider, Drawer, Form, Input, List } from "antd";
+import { DatePicker, Divider, Drawer, Form, Input, List, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { formatPrice } from "@utils/function";
 import { useEffect } from "react";
 import moment from "moment";
+import { admin_getOrderDetail_byFields } from "@services/api";
+import { useState } from "react";
 
 const DrawerOrderDetail = ({ orderDetail }) => {
   const { modalOrderDetail } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (orderDetail) {
-      form.setFieldsValue({
-        name: orderDetail.shippingAddress.name,
-        phone: orderDetail.shippingAddress.phone,
-        province: orderDetail.shippingAddress.city,
-        district: orderDetail.shippingAddress.district,
-        ward: orderDetail.shippingAddress.ward,
-        address: orderDetail.shippingAddress.address,
-        createdAt: moment(orderDetail.createdAt),
-        itemsPrice: formatPrice(orderDetail.itemsPrice),
-        shippingPrice: formatPrice(orderDetail.shippingPrice),
-      });
+    if (modalOrderDetail) {
+      const getOrderDetails = async () => {
+        setLoading(true);
+        try {
+          const res = await admin_getOrderDetail_byFields(
+            { id_order: { $eq: orderDetail._id } },
+            {},
+            10000,
+            1
+          );
+          if (res.vcode != 0) return message.error(res.msg);
+
+          form.setFieldsValue({
+            name: orderDetail.shipping_address.name,
+            phone: orderDetail.shipping_address.phone,
+            province: orderDetail.shipping_address.city,
+            district: orderDetail.shipping_address.district,
+            ward: orderDetail.shipping_address.ward,
+            address: orderDetail.shipping_address.address,
+            createdAt: moment(orderDetail.createdAt),
+            items_price: formatPrice(orderDetail.items_price),
+            shipping_price: formatPrice(orderDetail.shipping_price),
+            total: formatPrice(
+              orderDetail.items_price + orderDetail.shipping_price
+            ),
+            order_items: res.data,
+          });
+        } catch (error) {
+          message.error(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      getOrderDetails();
     }
-  });
+  }, [modalOrderDetail]);
 
   return (
     <Drawer
       open={modalOrderDetail}
       onClose={() => dispatch(toggle("modalOrderDetail"))}
     >
-      <List
-        itemLayout="horizontal"
-        dataSource={orderDetail?.orderItems}
-        renderItem={(item, index) => (
-          <List.Item>
-            <div className="flex  gap-4">
-              <img className="w-24 h-24" src={item.product.images[0]} alt="" />
-              <div>
-                <strong> {item.product.name}</strong>
-                <p>{formatPrice(item.product.discountedPrice)}đ</p>
-                <p>x{item.quantity}</p>
+      {!loading && (
+        <List
+          itemLayout="horizontal"
+          dataSource={form?.getFieldValue("order_items")}
+          renderItem={(item, index) => (
+            <List.Item>
+              <div className="flex  gap-4">
+                <img
+                  className="w-24 h-24"
+                  src={item.id_product.imgs[0]}
+                  alt=""
+                />
+                <div>
+                  <strong> {item.id_product.name}</strong>
+                  <p>{formatPrice(item.id_product.price)}đ</p>
+                  <p>x{item.quantity}</p>
+                </div>
               </div>
-            </div>
-          </List.Item>
-        )}
-      />
+            </List.Item>
+          )}
+        />
+      )}
 
       <Divider />
 
@@ -111,7 +143,7 @@ const DrawerOrderDetail = ({ orderDetail }) => {
         </Form.Item>
         <Form.Item
           label="Tiền hàng"
-          name="itemsPrice"
+          name="items_price"
           labelCol={{ span: 24 }}
           rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
@@ -120,8 +152,16 @@ const DrawerOrderDetail = ({ orderDetail }) => {
 
         <Form.Item
           label="Phí vận chuyển"
-          name="shippingPrice"
+          name="shipping_price"
           labelCol={{ span: 24 }}
+          rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
+        >
+          <Input disabled readOnly />
+        </Form.Item>
+        <Form.Item
+          label="Tổng tiền"
+          labelCol={{ span: 24 }}
+          name="total"
           rules={[{ required: true, msg: "Vui lòng nhập địa chỉ nhận hàng!" }]}
         >
           <Input disabled readOnly />

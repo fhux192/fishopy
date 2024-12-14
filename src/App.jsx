@@ -1,46 +1,41 @@
-import "./App.css";
-import Footer from "./components/Footer/Footer";
-import MessageBox from "./components/MessageBox/MessageBox";
-import ModalLogin from "./components/Modal/ModalLogin/ModalLogin";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import ModalRegister from "./components/Modal/ModalRegister/ModalRegister";
+import { ToastContainer } from "react-toastify";
+import { message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import CartDrawer from "./components/CartDrawer";
-import Navbar from "./components/Header/Navbar/Navbar";
-import BottomNavBar from "./components/Header/Navbar/BottomNavBar";
-import { callFetchAccount } from "./services/api";
-import { setCredentials, setLoading } from "./redux/features/user/userSlice";
-import Loader from "./components/Loader/Loader";
-import OrderHistoryPage from "./pages/OrderHistoryPage.jsx";
-import AccountManagement from "./pages/AccountManagement/AccountManagement.jsx";
-import AccountProfile from "./components/Account/AccountProfile/AccountProfile.jsx";
-import AccountAddress from "./components/Account/AccountAddress/AccountAddress.jsx";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
-import OrderPage from "./pages/OrderPage/OrderPage.jsx";
-import AccountOrder from "./components/AccountOrder/AccountOrder.jsx";
-import AddressPage from "./pages/AddressPage/AddressPage.jsx";
-import Home from "./pages/Home/Home.jsx";
-import Dashboard from "./components/Admin/Dashboardd/Dashboardd.jsx";
-import AllProductPage from "./pages/AllProductPage/AllProductPage.jsx";
-import ManageOrder from "./pages/Admin/ManageOrder/ManageOrder.jsx";
-import InfoPay from "./pages/InfoPay.jsx";
-import DetailProductPage from "./pages/DetailProductPage/DetailProductPage.jsx";
+import { user_fetchAccount } from "./services/api";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import ManageCombo from "./pages/Admin/ManageCombo/ManageCombo.jsx";
-import AdminPage from "./pages/Admin/AdminPage/AdminPage.jsx";
-import ManageProduct from "./pages/Admin/ManageProduct/ManageProduct.jsx";
-import ManageUser from "./pages/Admin/ManageUser/ManageUser.jsx";
-import { message } from "antd";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import Footer from "@components/Common/Footer/Footer";
+import MessageBox from "@components/Common/MessageBox/MessageBox";
+import Navbar from "@components/Common/Header/Navbar/Navbar";
+import CartDrawer from "@components/Cart/DrawerCart/DrawerCart.jsx";
+import Loader from "@components/Common/Loader/Loader";
+import BottomNavBar from "@components/Common/Header/Navbar/BottomNavBar";
+import ManageAccount from "@pages/User/ManageAccount/ManageAccount.jsx";
+import Profile from "@pages/User/ManageAccount/Profile/Profile.jsx";
+import Addresses from "@pages/User/ManageAccount/Addresses/Addresses.jsx";
+import Order from "@pages/User/ManageAccount/Order/Order.jsx";
+import OrderPage from "@pages/Common/OrderPage/OrderPage.jsx";
+import ModalLogin from "@components/Auth/ModalLogin/ModalLogin.jsx";
+import ModalRegister from "@components/Auth/ModalRegister/ModalRegister.jsx";
+import ProtectedRoute from "@components/Auth/ProtectedRoute/ProtectedRoute.jsx";
+import AddressPage from "@pages/Common/AddressPage/AddressPage.jsx";
+import Home from "@pages/Common/Home/Home.jsx";
+import Dashboard from "@components/Admin/Dashboardd/Dashboardd.jsx";
+import AllProductPage from "@pages/Common/AllProductPage/AllProductPage.jsx";
+import ManageOrder from "@pages/Admin/ManageOrder/ManageOrder.jsx";
+import ManageCombo from "@pages/Admin/ManageCombo/ManageCombo.jsx";
+import AdminPage from "@pages/Admin/AdminPage/AdminPage.jsx";
+import ManageProduct from "@pages/Admin/ManageProduct/ManageProduct.jsx";
+import ManageUser from "@pages/Admin/ManageUser/ManageUser.jsx";
+import { setCredentials, setLoading } from "@redux/features/user/userSlice";
 
 const User = () => {
-  const { isShowModalLogin, modalRegister } = useSelector(
-    (state) => state.toggle
-  );
+  const { modalLogin, modalRegister } = useSelector((state) => state.toggle);
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -53,7 +48,7 @@ const User = () => {
         <Outlet />
       </main>
       <Footer />
-      {isShowModalLogin && <ModalLogin />}
+      {modalLogin && <ModalLogin />}
       {modalRegister && <ModalRegister />}
       <CartDrawer />
       <ToastContainer />
@@ -65,13 +60,9 @@ const User = () => {
 function App() {
   const { isLoading } = useSelector((state) => state.account);
   const dispatch = useDispatch();
-  if (!localStorage.getItem("cart")) {
-    localStorage.setItem("cart", JSON.stringify([]));
-  }
-
   const handleFetchAccount = async () => {
     try {
-      const res = await callFetchAccount();
+      const res = await user_fetchAccount();
       if (res.vcode != 0) {
         return message.error(res.msg);
       }
@@ -88,6 +79,14 @@ function App() {
       handleFetchAccount();
     } else {
       dispatch(setLoading(false));
+      localStorage.setItem("status_login", 1);
+      if (!localStorage.getItem("cart")) {
+        localStorage.setItem("cart", JSON.stringify([]));
+      }
+
+      if (!localStorage.getItem("addresses")) {
+        localStorage.setItem("addresses", JSON.stringify([]));
+      }
     }
     const originalTitle = document.title;
     const titles = [
@@ -123,36 +122,10 @@ function App() {
           element: <Home />,
         },
         {
-          path: "fish/:id",
-          element: <DetailProductPage />,
-        },
-        {
           path: "address",
           element: <AddressPage />,
         },
-        {
-          path: "account",
-          element: (
-            <ProtectedRoute>
-              <AccountManagement />
-            </ProtectedRoute>
-          ),
-          children: [
-            {
-              index: true,
 
-              element: <AccountProfile />,
-            },
-            {
-              path: "address",
-              element: <AccountAddress />,
-            },
-            {
-              path: "order",
-              element: <AccountOrder />,
-            },
-          ],
-        },
         {
           path: "product",
           element: <AllProductPage />,
@@ -162,20 +135,33 @@ function App() {
           element: <OrderPage />,
         },
         {
-          path: "/order-history",
-          element: <OrderHistoryPage />,
-        },
-        { path: "/payment", element: <InfoPay /> },
-        {
-          path: "infomation",
-          element: <AllProductPage />,
+          path: "account",
+          element: (
+            <ProtectedRoute roles={["USER", "ADMIN"]}>
+              <ManageAccount />
+            </ProtectedRoute>
+          ),
+          children: [
+            {
+              index: true,
+              element: <Profile />,
+            },
+            {
+              path: "address",
+              element: <Addresses />,
+            },
+            {
+              path: "order",
+              element: <Order />,
+            },
+          ],
         },
       ],
     },
     {
       path: "/admin",
       element: (
-        <ProtectedRoute role={"ADMIN"}>
+        <ProtectedRoute roles={["ADMIN"]}>
           <AdminPage />
         </ProtectedRoute>
       ),
