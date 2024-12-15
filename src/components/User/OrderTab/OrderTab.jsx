@@ -87,9 +87,6 @@ const OrderTab = ({ activeKey }) => {
                   key={proItem._id}
                   span={24}
                   style={{ marginBottom: "10px" }}
-                  onClick={() => {
-                    setOrderDetail(item);
-                  }}
                 >
                   <div className={styles.cardContainer}>
                     <Flex gap={10}>
