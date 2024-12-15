@@ -1,6 +1,6 @@
 import { Card, Segmented, Space } from "antd";
 import { useState } from "react";
-import OrderTab from "@components/User/OrderTab/OrderTab";
+import OrderTab from "@components/OrderTab/OrderTab";
 
 const Order = () => {
   const [activeKey, setActiveKey] = useState("pending");
