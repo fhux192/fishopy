@@ -111,9 +111,6 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
   };
 
   const onFinish = (values) => {
-    console.log("selectedProvince", provinces);
-    console.log("values", values);
-
     const selectedProvince = provinces.find(
       (item) => item.value === values.province || item.label === values.province
     );

@@ -12,9 +12,9 @@ import {
 } from "antd";
 import styles from "./OrderTab.module.css";
 import { useEffect, useState } from "react";
-import { callGetOrders, callUpdateOrder } from "../../../services/api";
+import { callGetOrders, callUpdateOrder } from "@services/api";
 import moment from "moment";
-import formatPrice from "../../../utils/formatPrice";
+import formatPrice from "@utils/formatPrice";
 
 const OrderTab = ({ activeKey }) => {
   const [orders, setOrders] = useState([]);
