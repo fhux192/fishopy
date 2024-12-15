@@ -133,7 +133,7 @@ const CheckoutPayment = ({
         0
       );
 
-      setShippingFee(total > 200000 ? 0 : 25000);
+      setShippingFee(total >= 200000 ? 0 : 25000);
     }
   }, [addressDelivery]);
 
