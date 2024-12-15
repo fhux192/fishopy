@@ -123,6 +123,9 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
     values.city = selectedProvince.label;
     values.district = selectedDistrict.label;
     values.ward = selectedWard.label;
+
+    console.log("values", values);
+
     setAddressDelivery({ ...values, default: true });
     dispatch(updateAccount({ addresses: [{ ...values, default: true }] }));
     localStorage.setItem(

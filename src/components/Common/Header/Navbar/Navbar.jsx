@@ -3,7 +3,13 @@ import { FaYoutube } from "react-icons/fa";
 import { FaFishFins } from "react-icons/fa6";
 import "@scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useRef, useCallback } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import "@scss/bubble.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
@@ -13,6 +19,7 @@ import { toggle } from "@redux/features/toggle/toggleSlice.js";
 import tiktok from "@assets/icon/tik-tok.png";
 import { setSearch } from "@redux/features/user/userSlice";
 import { debounce } from "lodash";
+import { setSearchRef } from "@redux/features/user/userSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -218,6 +225,7 @@ const Navbar = () => {
             <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2 items-center">
               <input
                 type="text"
+                id="search-input" // KHÔNG ĐưỢC XÓA ID NÀY
                 placeholder="Tìm kiếm cá..."
                 onChange={(e) => {
                   debouncedSearch(e.target.value);

@@ -1,25 +1,25 @@
 import { Button, Form, Input, message, Modal, Select, Switch } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  callEditAddress,
-  callGetCity,
-  callGetDistrict,
-  callGetWard,
-} from "@services/api";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { updateAccount } from "@redux/features/user/userSlice";
+import {
+  free_getCities,
+  free_getDistricts,
+  free_getWards,
+  user_updateAddress,
+} from "@services/api";
 
 const ModalEditAddress = ({ address }) => {
   const { modalEditAddress } = useSelector((state) => state.toggle);
-  const { user } = useSelector((state) => state.account);
+  const { user, isAuthenticated } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   useEffect(() => {
-    if (address.name) {
+    if (modalEditAddress) {
       form.setFieldsValue({
         name: address.name,
         phone: address.phone,
@@ -27,15 +27,19 @@ const ModalEditAddress = ({ address }) => {
         district: address.district,
         ward: address.ward,
         address: address.address,
-        active: address.active,
+        default: address.default,
       });
       getCities();
     }
-  }, [address]);
+  }, [modalEditAddress]);
 
   const getCities = async () => {
-    const res = await callGetCity();
-    const dataCities = res.results.map((item) => {
+    const res = await free_getCities();
+    if (res.vcode != 0)
+      return message.error(
+        "Không thể lấy danh sách thành phố. Vui lòng thử lại!"
+      );
+    const dataCities = res.data.map((item) => {
       return {
         value: item.province_id,
         label: item.province_name,
@@ -50,8 +54,12 @@ const ModalEditAddress = ({ address }) => {
   };
 
   const handleChangeProvice = async (idProvince) => {
-    const res = await callGetDistrict(idProvince);
-    const dataDistricts = res.results.map((item) => {
+    const res = await free_getDistricts(idProvince);
+    if (res.vcode != 0)
+      return message.error(
+        "Không thể lấy danh sách quận/huyện. Vui lòng thử lại!"
+      );
+    const dataDistricts = res.data.map((item) => {
       return {
         value: item.district_id,
         label: item.district_name,
@@ -64,9 +72,13 @@ const ModalEditAddress = ({ address }) => {
   };
 
   const handleChangeDistrict = async (idDistrict) => {
-    const res = await callGetWard(idDistrict);
+    const res = await free_getWards(idDistrict);
+    if (res.vcode != 0)
+      return message.error(
+        "Không thể lấy danh sách xã/phường. Vui lòng thử lại!"
+      );
     setWards(
-      res.results.map((item) => {
+      res.data.map((item) => {
         return {
           value: item.ward_id,
           label: item.ward_name,
@@ -76,7 +88,7 @@ const ModalEditAddress = ({ address }) => {
   };
 
   const onFinish = async (values) => {
-    if (user) {
+    if (isAuthenticated) {
       try {
         const data = {
           city: provinces.find(
@@ -93,33 +105,36 @@ const ModalEditAddress = ({ address }) => {
           name: values.name,
           phone: values.phone,
           address: values.address,
-          active: values.active,
+          default: values.default,
         };
 
-        const res = await callEditAddress(address._id, data);
-        if (res.vcode == 0) {
-          dispatch(updateAccount({ addresses: res.data }));
-          dispatch(toggle("modalEditAddress"));
-          message.success(res.msg);
-        } else message.error(res.msg);
-      } catch (error) {
-        console.error("error", error.message);
-      }
-    } else {
-      const data = {
-        city: provinces.find((item) => item.value === values.province).label,
-        district: districts.find((item) => item.value === values.district)
-          .label,
-        ward: wards.find((item) => item.value === values.ward).label,
-        name: values.name,
-        phone: values.phone,
-        address: values.address,
-      };
+        const res = await user_updateAddress(address._id, data);
+        if (res.vcode != 0) {
+          return message.error(res.msg);
+        }
 
-      localStorage.setItem("address", JSON.stringify(data));
-      dispatch(setAddress(data));
-      dispatch(toggleModalAddAddress());
-      message.success("Thêm địa chỉ thành công");
+        if (data.default) {
+          const newAddress = user.addresses.map((item) => {
+            return { ...item, default: item._id === address._id };
+          });
+          dispatch(updateAccount({ addresses: newAddress }));
+
+          newAddress.forEach(async (item) => {
+            if (item._id != address._id) {
+              await user_updateAddress(item._id, {
+                default: item.default,
+              });
+            }
+          });
+        } else {
+          dispatch(updateAccount({ addresses: res.data }));
+        }
+
+        dispatch(toggle("modalEditAddress"));
+        message.success(res.msg);
+      } catch (error) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -204,7 +219,7 @@ const ModalEditAddress = ({ address }) => {
 
         <Form.Item
           label="Đặt làm địa chỉ mặc định"
-          name="active"
+          name="default"
           labelCol={{ span: 24 }}
         >
           <Switch />

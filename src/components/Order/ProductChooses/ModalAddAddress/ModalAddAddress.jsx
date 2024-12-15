@@ -18,7 +18,7 @@ const addressRegex = /^.{5,}$/;
 
 const ModalAddAddress = () => {
   const { modalAddAddress } = useSelector((state) => state.toggle);
-  const { isAuthenticated } = useSelector((state) => state.account);
+  const { isAuthenticated, user } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const [form] = useForm();
   const [provinces, setProvinces] = useState([]);
@@ -123,7 +123,7 @@ const ModalAddAddress = () => {
       name: values.name.trim(),
       phone: values.phone.trim(),
       address: values.address.trim(),
-      default: true,
+      default: !user.addresses.length,
     };
 
     try {

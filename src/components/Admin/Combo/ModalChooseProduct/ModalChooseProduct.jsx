@@ -60,7 +60,6 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
         <Checkbox
           checked={record.checked}
           onChange={() => {
-            console.log("record", record);
             record.checked = !record.checked;
             const index = productSelected.findIndex(
               (item) => item.id_product._id === record._id
@@ -108,8 +107,6 @@ const ModalChooseProduct = ({ productChoosed, setProductChoosed }) => {
   ];
 
   const handleSave = () => {
-    console.log("productSelected", productSelected);
-
     setProductChoosed(productSelected);
     dispatch(toggle("modalChooseProduct"));
   };

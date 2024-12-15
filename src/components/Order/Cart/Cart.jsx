@@ -77,7 +77,9 @@ const Cart = () => {
   };
   const calculateTotal = () => {
     total = user.cart.reduce((acc, item) => {
-      return acc + item.id_product.price * item.quantity;
+      return (
+        acc + item.id_combo?.price || item.id_product.price * item.quantity
+      );
     }, 0);
   };
 
@@ -97,20 +99,25 @@ const Cart = () => {
                   <div className={styles.imageWrapper}>
                     <Image
                       className={styles.imageProduct}
-                      src={item.id_product.imgs[0]}
+                      src={item.id_combo?.imgs[0] || item.id_product.imgs[0]}
                       preview={false}
-                      alt={item.id_product.name}
+                      alt={item.id_combo?.name || item.id_product.name}
                     />
                   </div>
                 </div>
                 <Typography.Text className={styles.productName}>
-                  {item.id_product.name}
+                  {item.id_combo?.name || item.id_product.name}
                 </Typography.Text>
               </div>
 
               <div className={styles.col2}>
                 <Typography.Text className={styles.priceText}>
-                  Đơn giá: {formatPrice(item.id_product.price.toString())}đ
+                  Đơn giá:{" "}
+                  {formatPrice(
+                    item.id_combo?.price.toString() ||
+                      item.id_product.price.toString()
+                  )}
+                  đ
                 </Typography.Text>
                 <InputNumber
                   className={styles.quantityInput}
@@ -125,7 +132,12 @@ const Cart = () => {
 
               <div className={styles.col3}>
                 <Typography.Text className={styles.totalText}>
-                  Tổng: {formatPrice(item.quantity * item.id_product.price)}đ
+                  Tổng:{" "}
+                  {formatPrice(
+                    item.quantity * item.id_combo?.price ||
+                      item.id_product.price
+                  )}
+                  đ
                 </Typography.Text>
                 <Popconfirm
                   title="Bạn có chắc chắn muốn xóa sản phẩm này?"

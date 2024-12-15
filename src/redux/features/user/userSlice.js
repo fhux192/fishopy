@@ -49,7 +49,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout, updateAccount, setLoading, setSearch } =
-  userSlice.actions;
+export const {
+  setCredentials,
+  logout,
+  updateAccount,
+  setLoading,
+  setSearch,
+  setSearchRef,
+} = userSlice.actions;
 
 export default userSlice.reducer;

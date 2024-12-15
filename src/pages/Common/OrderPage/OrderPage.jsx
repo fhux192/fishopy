@@ -19,7 +19,7 @@ const OrderPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { user } = useSelector((state) => state.account);
   const [addressDelivery, setAddressDelivery] = useState(
-    user.addresses.find((item) => item.default)
+    user.addresses.find((item) => item.default) || user.addresses[0]
   );
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);

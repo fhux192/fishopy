@@ -331,6 +331,43 @@ export const user_addAddress = async (data) => {
   return await axios.post("/address", data);
 };
 
+export const user_deleteAddress = async (id) => {
+  return await axios.delete(`/address/${id}`);
+};
+
+export const user_updateAddress = async (id, data) => {
+  return await axios.put(`address/${id}`, data);
+};
+
+export const update_updateOrder = async (id, data) => {
+  return await axios.put(`order/${id}`, data);
+};
+
+export const user_getOrder_byFields = async (query, sort, limit, page) => {
+  return await axios.get(
+    `order?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
+export const user_getOrderDetail_byFields = async (
+  query,
+  sort,
+  limit,
+  page
+) => {
+  return await axios.get(
+    `cart?query=${encodeURIComponent(
+      JSON.stringify(query)
+    )}&sort=${encodeURIComponent(
+      JSON.stringify(sort)
+    )}&limit=${limit}&page=${page}`
+  );
+};
+
 /**
  *
  * @param {*} oldImage string link ảnh cũ, nếu có thì truyền vào để xóa trên cloudinary để không bị rác

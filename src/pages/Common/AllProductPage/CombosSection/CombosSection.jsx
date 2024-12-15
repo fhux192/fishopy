@@ -27,10 +27,10 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     if (isAuthenticated) {
       try {
         // nếu đã có thì update giỏ hàng
-        if (user.cart.some((e) => e.id_product?._id === product._id)) {
+        if (user.cart.some((e) => e.id_combo?._id === product._id)) {
           let itemEdit = {};
           const newCart = user.cart.map((item) => {
-            if (item.id_product._id === product._id) {
+            if (item.id_combo._id === product._id) {
               itemEdit = { ...item, quantity: item.quantity + 1 }; // Create a new object with updated quantity
               return itemEdit;
             }
@@ -49,7 +49,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           // nếu chưa có thì thêm mới
           const res = await user_addToCart({
             id_user: user._id,
-            id_product: product._id,
+            id_combo: product._id,
             quantity: 1,
           });
           if (res.vcode != 0) {
@@ -62,7 +62,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
                 ...user.cart,
                 {
                   ...res.data,
-                  id_product: { ...product },
+                  id_combo: { ...product },
                 },
               ],
             })
@@ -75,14 +75,14 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
       toast.success(`Thêm ${product.name} vào giỏ hàng thành công! `);
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       const productExist = cart.find(
-        (item) => item.id_product._id === product._id
+        (item) => item.id_combo._id === product._id
       );
       if (productExist) {
         productExist.quantity += 1;
       } else
         cart = [
           ...cart,
-          { id_product: { ...product }, quantity: 1, _id: product._id },
+          { id_combo: { ...product }, quantity: 1, _id: product._id },
         ];
       dispatch(updateAccount({ cart }));
       localStorage.setItem("cart", JSON.stringify(cart));
@@ -132,7 +132,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           <div className="h-full w-full flex items-center ">
             <div className="">
               <div className="flex items-center">
-                {" "}
                 <p className=" font-bold">
                   {product.price_sale === product.price ? (
                     <span>{formatPrice(product.price_sale)}₫</span>
@@ -168,6 +167,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
             aria-label={`Add ${product.name} to cart`}
           >
             <FaCartShopping />
+            Thêm vào giỏ
           </button>
         </div>
       </Link>

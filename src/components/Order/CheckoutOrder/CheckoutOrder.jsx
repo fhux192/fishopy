@@ -17,9 +17,11 @@ const CheckoutOrder = ({ setCurrentStep }) => {
   const checkedItemsCount = getCheckedItemsCount(user.cart);
 
   const handleCheckAll = () => {
+    let dataCheck = user?.cart?.every((item) => item.checked);
+
     const updatedCart = user.cart.map((item) => ({
       ...item,
-      checked: !item.checked,
+      checked: !dataCheck,
     }));
     dispatch(updateAccount({ cart: updatedCart }));
   };
@@ -48,7 +50,10 @@ const CheckoutOrder = ({ setCurrentStep }) => {
                     user.cart
                       .reduce((acc, cur) => {
                         if (cur.checked) {
-                          return acc + cur.id_product.price * cur.quantity;
+                          return (
+                            acc + cur.id_combo?.price ||
+                            cur.id_product.price * cur.quantity
+                          );
                         }
                         return acc;
                       }, 0)

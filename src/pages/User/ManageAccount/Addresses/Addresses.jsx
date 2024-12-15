@@ -1,30 +1,32 @@
 import { Card, Divider, Dropdown, Flex, message, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Addresses.module.css";
-import { callRemoveAddress } from "@services/api";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { updateAccount } from "@redux/features/user/userSlice";
 import MyButton from "@components/Common/MyButton/MyButton";
 import { useState } from "react";
 import ModalEditAddress from "@components/User/ModalEditAddress/ModalEditAddress";
-// import ModalAddAddress from "@components/User/ModalAddAddress/ModalAddAddress";
+import ModalAddAddress from "@components/Order/ProductChooses/ModalAddAddress/ModalAddAddress";
+import { user_deleteAddress } from "@services/api";
 
 const Address = () => {
-  const { user: user } = useSelector((state) => state.account);
+  const { user } = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const [addressEdit, setAddressEdit] = useState({});
 
   const removeAddress = async (id) => {
     try {
-      const res = await callRemoveAddress(id);
-      if (res.vcode == 0) {
-        message.success(res.msg);
-        dispatch(
-          updateAccount({
-            addresses: user.addresses.filter((item) => item._id !== id),
-          })
-        );
+      const res = await user_deleteAddress(id);
+      if (res.vcode != 0) {
+        return message.error(res.msg);
       }
+
+      message.success(res.msg);
+      dispatch(
+        updateAccount({
+          addresses: user.addresses.filter((item) => item._id !== id),
+        })
+      );
     } catch (error) {
       console.error("error", error);
     }
@@ -35,8 +37,8 @@ const Address = () => {
       label: (
         <Button
           onClick={() => {
-            dispatch(toggle("modalEditAddress"));
             setAddressEdit(user.addresses.find((item) => item._id === id));
+            dispatch(toggle("modalEditAddress"));
           }}
         >
           Sửa
@@ -55,7 +57,12 @@ const Address = () => {
         <h2 className={styles.addressTitle}>Địa chỉ của tôi</h2>
         <MyButton
           text={"+Thêm địa chỉ mới"}
-          onClick={() => dispatch(toggleModalAddAddress())}
+          onClick={() => {
+            if (user.addresses.length >= 3) {
+              return message.error("Bạn chỉ được thêm tối đa 3 địa chỉ");
+            }
+            dispatch(toggle("modalAddAddress"));
+          }}
         />
       </div>
       {user.addresses.map((item) => {
@@ -93,8 +100,8 @@ const Address = () => {
           </Card>
         );
       })}
-      {/* <ModalEditAddress address={addressEdit} />
-      <ModalAddAddress /> */}
+      <ModalEditAddress address={addressEdit} />
+      <ModalAddAddress />
     </div>
   );
 };

@@ -8,7 +8,6 @@ import {
   Table,
   Space,
   Popconfirm,
-  Tag,
 } from "antd";
 import { useDispatch } from "react-redux";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -33,11 +32,21 @@ const ManageOrder = () => {
   const sort = { createdAt: -1 };
   const dispatch = useDispatch();
   const optionsStatus = [
-    { value: "", label: "Tất cả" },
     { value: "pending", label: "Chờ xác nhận" },
     { value: "shipping", label: "Đang giao" },
     { value: "canceled", label: "Đã hủy" },
     { value: "delivered", label: "Đã giao" },
+  ];
+
+  const optionPaid = [
+    {
+      value: true,
+      label: "Đã thanh toán",
+    },
+    {
+      value: false,
+      label: "Chưa thanh toán",
+    },
   ];
 
   const columns = [
@@ -97,32 +106,39 @@ const ManageOrder = () => {
       dataIndex: "status",
       key: "status",
       render: (status, record) => (
-        <>
-          <Select
-            defaultValue={
-              optionsStatus.find((item) => item.value == status)?.label
-            }
-            style={{ width: 150 }}
-            onChange={(value) => handleUpdateOrder(record._id, value)}
-            options={[
-              { value: "pending", label: "Chờ xác nhận" },
-              { value: "shipping", label: "Đang giao" },
-              { value: "canceled", label: "Đã hủy" },
-              { value: "delivered", label: "Đã giao" },
-            ]}
-          />
-        </>
+        <Select
+          value={status}
+          style={{ width: 150 }}
+          onChange={(value) => handleUpdateOrder(record._id, value, "status")}
+          options={optionsStatus}
+        />
       ),
     },
 
     {
       title: "Thanh toán",
-      key: "isPaid",
-      dataIndex: "isPaid",
-      render: (_, { isPaid }) => (
-        <Tag color={isPaid ? "success" : "error"}>
-          {isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
-        </Tag>
+      key: "paid",
+      dataIndex: "paid",
+      render: (paid, record) => (
+        <Select
+          value={paid}
+          style={{ width: 160 }}
+          labelRender={(value) => {
+            return (
+              <span
+                className={`${
+                  paid
+                    ? "text-green-700 border-green-700 font-bold"
+                    : "text-red-700 border-red-700 font-bold"
+                }`}
+              >
+                {paid ? "Đã thanh toán" : "Chưa thanh toán"}
+              </span>
+            );
+          }}
+          onChange={(value) => handleUpdateOrder(record._id, value, "paid")}
+          options={optionPaid}
+        />
       ),
     },
     {
@@ -189,15 +205,23 @@ const ManageOrder = () => {
     }
   };
 
-  const handleUpdateOrder = async (orderId, value) => {
+  const handleUpdateOrder = async (orderId, value, field) => {
     try {
-      const res = await admin_updateOrder(orderId, { status: value });
+      const res = await admin_updateOrder(orderId, { [field]: value });
       if (res.vcode != 0) {
         return message.error(res.msg);
       }
       message.success(res.msg);
+      const newOrders = orders.map((order) => {
+        if (order._id === orderId) {
+          return { ...order, [field]: value };
+        }
+        return order;
+      });
+
+      setOrders(newOrders);
     } catch (error) {
-      message.error("Failed to update order.");
+      message.error(error);
     }
   };
 
@@ -216,17 +240,12 @@ const ManageOrder = () => {
 
   return (
     <>
-      <div className="flex justify-end items-center gap-4 flex-wrap">
+      <div className="flex justify-end items-center gap-4 flex-wrap ">
         <Select
           value={status}
           onChange={(value) => setStatus(value)}
-          options={[
-            { value: "", label: "Tất cả" },
-            { value: "pending", label: "Chờ xác nhận" },
-            { value: "shipping", label: "Đang giao" },
-            { value: "canceled", label: "Đã hủy" },
-            { value: "delivered", label: "Đã giao" },
-          ]}
+          style={{ width: 150 }}
+          options={[{ value: "", label: "Tất cả" }, ...optionsStatus]}
         />
         <Button onClick={() => getOrders({}, sort, limit, page)}>Xem</Button>
 

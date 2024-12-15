@@ -66,12 +66,18 @@ const DrawerOrderDetail = ({ orderDetail }) => {
               <div className="flex  gap-4">
                 <img
                   className="w-24 h-24"
-                  src={item.id_product.imgs[0]}
+                  src={item.id_combo?.imgs[0] || item.id_product.imgs[0]}
                   alt=""
                 />
                 <div>
-                  <strong> {item.id_product.name}</strong>
-                  <p>{formatPrice(item.id_product.price)}đ</p>
+                  <strong>
+                    {" "}
+                    {item.id_combo?.name || item.id_product.name}
+                  </strong>
+                  <p>
+                    {formatPrice(item.id_combo?.price || item.id_product.price)}
+                    đ
+                  </p>
                   <p>x{item.quantity}</p>
                 </div>
               </div>

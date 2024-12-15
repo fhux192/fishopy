@@ -138,8 +138,8 @@ const CartDrawer = () => {
               <Image
                 width={80}
                 style={{ borderRadius: "8px" }}
-                src={item.id_product?.imgs[0]}
-                alt={item.id_product.name}
+                src={item.id_combo?.imgs[0] || item.id_product?.imgs[0]}
+                alt={item.id_combo?.name || item.id_product?.name}
                 preview={false}
               />
             </Col>
@@ -151,7 +151,7 @@ const CartDrawer = () => {
                 align="center"
               >
                 <Text strong style={{ fontSize: "16px", fontWeight: "bold" }}>
-                  {item.id_product.name}
+                  {item.id_combo?.name || item.id_product?.name}
                 </Text>
                 <CloseCircleOutlined
                   onClick={() => handleDeleteCartItem(item._id)}
@@ -174,7 +174,9 @@ const CartDrawer = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  {item.id_product.price.toLocaleString()}đ
+                  {item.id_combo?.price.toLocaleString() ||
+                    item.id_product?.price.toLocaleString()}
+                  đ
                 </Text>
               </Space>
 
@@ -226,7 +228,7 @@ const CartDrawer = () => {
     >
       <AnimatePresence key={animationKey} initial={true}>
         {list.map((item, index) => (
-          <React.Fragment key={item.id_product._id}>
+          <React.Fragment key={item.id_combo?._id || item.id_product?._id}>
             {renderItemCard(item, index)}
           </React.Fragment>
         ))}

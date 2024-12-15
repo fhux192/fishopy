@@ -1,6 +1,6 @@
-import { Card, Flex, Image, Typography } from "antd";
+import { Card, Flex, Image } from "antd";
 import styles from "./CartItemChoose.module.css";
-import formatPrice from "../../../utils/formatPrice";
+import { formatPrice } from "@utils/function";
 
 const CartItemChoose = ({ item }) => {
   return (
@@ -21,8 +21,8 @@ const CartItemChoose = ({ item }) => {
         <div className={styles.groupImage}>
           <Image
             className={styles.imageProduct}
-            src={item.id_product.imgs[0]}
-            alt={item.id_product.name}
+            src={item.id_combo?.imgs[0] || item.id_product.imgs[0]}
+            alt={item.id_combo?.name || item.id_product.name}
           />
         </div>
         <Flex
@@ -33,11 +33,14 @@ const CartItemChoose = ({ item }) => {
           gap={20}
         >
           <div className={styles.groupInfo}>
-            <p className={styles.productName}>{item.id_product.name}</p>
+            <p className={styles.productName}>
+              {item.id_combo?.name || item.id_product.name}
+            </p>
 
             <div className={styles.productDetails}>
               <p className="font-bold price" style={{ color: "#46DFB1" }}>
-                Đơn giá: {formatPrice(item.id_product.price)}đ
+                Đơn giá:{" "}
+                {formatPrice(item.id_combo?.price || item.id_product.price)}đ
               </p>
               <p className="font-bold quantity" style={{ color: "#bdc3c7" }}>
                 Số lượng: {item.quantity}
@@ -46,7 +49,10 @@ const CartItemChoose = ({ item }) => {
             <p className={styles.sumProduct}>
               Tổng:{" "}
               <strong>
-                {formatPrice(item.quantity * item.id_product.price)}đ
+                {formatPrice(
+                  item.quantity * item.id_combo?.price || item.id_product.price
+                )}
+                đ
               </strong>
             </p>
           </div>

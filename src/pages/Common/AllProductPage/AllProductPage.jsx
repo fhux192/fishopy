@@ -10,12 +10,13 @@ import "@scss/navbar.scss";
 import "@scss/allProduct.scss";
 import useColumns from "./utils/useColumns";
 import { FaBoxesStacked, FaBoxOpen } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CombosSection from "./CombosSection/CombosSection";
 import {
   free_getProducts_byFields,
   free_getCombos_byFields,
 } from "@services/api";
+import { setSearch } from "../../../redux/features/user/userSlice";
 
 const easeInOutCubic = (t) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -64,8 +65,15 @@ const smoothScrollToTop = () => {
 const AllProductPage = () => {
   const [selectedPurchaseOption, setSelectedPurchaseOption] =
     useState("single");
+  const dispatch = useDispatch();
   const handlePurchaseOptionClick = (option) => {
     setSelectedPurchaseOption(option);
+    setPage(1);
+    const inputRef = document.getElementById("search-input");
+    if (inputRef) {
+      inputRef.value = "";
+      dispatch(setSearch(""));
+    }
   };
 
   const { search } = useSelector((state) => state.account);
@@ -103,12 +111,21 @@ const AllProductPage = () => {
       console.error(error.message);
     }
   };
+
   useEffect(() => {
     setAllProducts([]);
+    let query = {};
+    if (search) {
+      query = {
+        $text: {
+          $search: search,
+        },
+      };
+    }
     if (selectedPurchaseOption === "single") {
-      getProducts({}, sortOption, limit, page);
+      getProducts(query, sortOption, limit, page);
     } else if (selectedPurchaseOption === "combo") {
-      getCombos({}, sortOption, limit, page);
+      getCombos(query, sortOption, limit, page);
     }
 
     document.title = "Tất Cả Sản Phẩm | Guppy Hóc Môn";

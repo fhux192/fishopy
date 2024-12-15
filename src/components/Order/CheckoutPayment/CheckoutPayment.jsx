@@ -62,7 +62,10 @@ const CheckoutPayment = ({
         payment_method: paymentMethod,
         items_price: user.cart.reduce(
           (acc, cur) =>
-            cur.checked ? (acc += cur.id_product.price * cur.quantity) : acc,
+            cur.checked
+              ? (acc +=
+                  (cur.id_combo?.price || cur.id_product.price) * cur.quantity)
+              : acc,
           0
         ),
         shipping_price: shippingfee,
@@ -87,11 +90,18 @@ const CheckoutPayment = ({
           });
         } else {
           itemsChecked.forEach(async (item) => {
-            const resDelete = await free_addOrderDetail({
-              id_product: item.id_product._id,
+            let orderDetail = {
               quantity: item.quantity,
               id_order: res.data._id,
-            });
+            };
+            if (item.id_product) {
+              orderDetail.id_product = item.id_product._id;
+            }
+
+            if (item.id_combo) {
+              orderDetail.id_combo = item.id_combo._id;
+            }
+            const resDelete = await free_addOrderDetail(orderDetail);
             if (resDelete.vcode != 0) return message.error(resDelete.msg);
           });
           localStorage.setItem("cart", JSON.stringify(newCart));
@@ -116,11 +126,14 @@ const CheckoutPayment = ({
     ) {
       const total = user.cart.reduce(
         (acc, cur) =>
-          cur.checked ? (acc += cur.id_product.price * cur.quantity) : acc,
+          cur.checked
+            ? (acc +=
+                (cur.id_combo?.price || cur.id_product.price) * cur.quantity)
+            : acc,
         0
       );
 
-      setShippingFee(total > 250000 ? 0 : 25000);
+      setShippingFee(total > 200000 ? 0 : 25000);
     }
   }, [addressDelivery]);
 
@@ -148,14 +161,16 @@ const CheckoutPayment = ({
           </Flex>
           <Flex justify="space-between" gap={5}>
             <p style={{ color: "#46DFB1", fontWeight: "bold" }}>
-              Tổng tiền sản phẩm:{" "}
+              Tổng tiền sản phẩm:
             </p>
             <p style={{ color: "#46DFB1", fontWeight: "bold" }}>
               {formatPrice(
                 user.cart.reduce(
                   (acc, cur) =>
                     cur.checked
-                      ? (acc += cur.id_product.price * cur.quantity)
+                      ? (acc +=
+                          (cur.id_combo?.price || cur.id_product.price) *
+                          cur.quantity)
                       : acc,
                   0
                 )
@@ -169,9 +184,9 @@ const CheckoutPayment = ({
               .reduce((acc, cur) => (acc += cur.quantity), 0) !== 0 && (
               <p>
                 (
-                {(user ? user.cart : cart)
+                {user.cart
                   .filter((item) => item.checked)
-                  .reduce((acc, cur) => (acc += cur.quantity), 0)}{" "}
+                  .reduce((acc, cur) => (acc += cur.quantity), 0)}
                 sản phẩm)
               </p>
             )}
@@ -191,7 +206,7 @@ const CheckoutPayment = ({
                 {formatPrice(shippingfee)}đ
               </p>
               <small className="text-white">
-                (miễn phí ship đơn trên 250k)
+                (miễn phí ship đơn trên 200k)
               </small>
             </div>
           </Flex>
@@ -204,7 +219,9 @@ const CheckoutPayment = ({
                 user.cart.reduce(
                   (acc, cur) =>
                     cur.checked
-                      ? (acc += cur.id_product.price * cur.quantity)
+                      ? (acc +=
+                          (cur.id_combo?.price || cur.id_product.price) *
+                          cur.quantity)
                       : acc,
                   0
                 ) + shippingfee
