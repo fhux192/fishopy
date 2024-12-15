@@ -152,7 +152,7 @@ const BottomNavBar = () => {
           >
             {isDropdownOpen && (
               <div className="dropdown-content">
-                {user ? (
+                {isAuthenticated ? (
                   <>
                     {user.role === "ADMIN" && (
                       <div className="admin-section">
@@ -182,6 +182,12 @@ const BottomNavBar = () => {
                               to="/admin/user"
                             >
                               Quản lý người dùng
+                            </Link>
+                            <Link
+                              className="block font-bold px-2 py-2 text-Black w-full text-left"
+                              to="/admin/combo"
+                            >
+                              Quản lý combo
                             </Link>
                           </div>
                         )}
