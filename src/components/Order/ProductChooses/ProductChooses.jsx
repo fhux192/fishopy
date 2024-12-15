@@ -123,11 +123,11 @@ const ProductChooses = ({ addressDelivery, setAddressDelivery }) => {
     values.city = selectedProvince.label;
     values.district = selectedDistrict.label;
     values.ward = selectedWard.label;
-    setAddressDelivery({ ...values, default: false });
-    dispatch(updateAccount({ addresses: [{ ...values, default: false }] }));
+    setAddressDelivery({ ...values, default: true });
+    dispatch(updateAccount({ addresses: [{ ...values, default: true }] }));
     localStorage.setItem(
       "addresses",
-      JSON.stringify([{ ...values, default: false }])
+      JSON.stringify([{ ...values, default: true }])
     );
     setModalChooseAddress(false);
     form.resetFields();
