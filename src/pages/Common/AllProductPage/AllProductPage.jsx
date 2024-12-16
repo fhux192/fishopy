@@ -91,7 +91,13 @@ const AllProductPage = () => {
       if (res.vcode !== 0) {
         return message.error(res.msg);
       }
-      setAllProducts(res.data);
+
+      if (Object.keys(sort).length === 0) {
+        setAllProducts(res.data.sort(() => Math.random() - 0.5));
+      } else {
+        setAllProducts(res.data);
+      }
+
       setTotalProducts(res.total);
     } catch (error) {
       console.error(error.message);
@@ -105,7 +111,11 @@ const AllProductPage = () => {
       if (res.vcode !== 0) {
         return message.error(res.msg);
       }
-      setAllProducts(res.data);
+      if (Object.keys(sort).length === 0) {
+        setAllProducts(res.data.sort(() => Math.random() - 0.5));
+      } else {
+        setAllProducts(res.data);
+      }
       setTotalProducts(res.total);
     } catch (error) {
       console.error(error.message);
@@ -168,9 +178,9 @@ const AllProductPage = () => {
     setLimit(newPageSize);
 
     if (selectedPurchaseOption == "single") {
-      getProducts({}, {}, newPageSize, page);
+      getProducts({}, sortOption, newPageSize, page);
     } else {
-      getCombos({}, {}, newPageSize, page);
+      getCombos({}, sortOption, newPageSize, page);
     }
   };
 

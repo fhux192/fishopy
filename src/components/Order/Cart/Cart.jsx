@@ -51,6 +51,9 @@ const Cart = () => {
         : cartItem
     );
     dispatch(updateAccount({ cart: updatedCart }));
+    if (!isAuthenticated) {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
   };
 
   const handleDeleteCartItem = async (id) => {
@@ -78,7 +81,7 @@ const Cart = () => {
   const calculateTotal = () => {
     total = user.cart.reduce((acc, item) => {
       return (
-        acc + item.id_combo?.price || item.id_product.price * item.quantity
+        acc + (item.id_combo?.price || item.id_product.price) * item.quantity
       );
     }, 0);
   };
@@ -134,8 +137,8 @@ const Cart = () => {
                 <Typography.Text className={styles.totalText}>
                   Tổng:{" "}
                   {formatPrice(
-                    item.quantity * item.id_combo?.price ||
-                      item.id_product.price
+                    item.quantity *
+                      (item.id_combo?.price || item.id_product.price)
                   )}
                   đ
                 </Typography.Text>

@@ -1,4 +1,4 @@
-import { Button, Card, Result, Col, Row, Steps } from "antd";
+import { Button, Card, Result, Col, Row, Steps, message } from "antd";
 import styles from "./OrderPage.module.css";
 import { useEffect, useState } from "react";
 import {
@@ -6,14 +6,15 @@ import {
   SmileOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Cart from "@components/Order/Cart/Cart.jsx";
 import CheckoutPayment from "@components/Order/CheckoutPayment/CheckoutPayment.jsx";
 import CheckoutOrder from "@components/Order/CheckoutOrder/CheckoutOrder.jsx";
 import ProductChooses from "@components/Order/ProductChooses/ProductChooses.jsx";
+import { updateAccount } from "@redux/features/user/userSlice";
 
 const OrderPage = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -23,10 +24,34 @@ const OrderPage = () => {
   );
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);
+  const location = useLocation(); // Sử dụng useLocation để lấy thông tin URL hiện tại
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setAddressDelivery(user.addresses.find((item) => item.default));
   }, [user.addresses.length]);
+
+  // Lấy các giá trị từ query parameters
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("code");
+    const cancel = searchParams.get("cancel");
+    const status = searchParams.get("status");
+    if (code === "00" && cancel === "false" && status === "PAID") {
+      setCurrentStep(2);
+      if (Number(localStorage.getItem("status_login")) != 0) {
+        const cart = localStorage.getItem("cart")
+          ? JSON.parse(localStorage.getItem("cart"))
+          : [];
+        const newCart = cart.filter((item) => !item.checked);
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        dispatch(updateAccount({ cart: newCart }));
+      }
+
+      // xóa query parameters trên URL
+      window.history.replaceState({}, document.title, location.pathname);
+    }
+  }, [location.search]);
 
   return (
     <div className={styles.container}>

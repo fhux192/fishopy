@@ -39,7 +39,7 @@ const CartItemChoose = ({ item }) => {
 
             <div className={styles.productDetails}>
               <p className="font-bold price" style={{ color: "#46DFB1" }}>
-                Đơn giá:{" "}
+                Đơn giá:
                 {formatPrice(item.id_combo?.price || item.id_product.price)}đ
               </p>
               <p className="font-bold quantity" style={{ color: "#bdc3c7" }}>
@@ -47,10 +47,11 @@ const CartItemChoose = ({ item }) => {
               </p>
             </div>
             <p className={styles.sumProduct}>
-              Tổng:{" "}
+              Tổng:
               <strong>
                 {formatPrice(
-                  item.quantity * item.id_combo?.price || item.id_product.price
+                  item.quantity *
+                    (item.id_combo?.price || item.id_product.price)
                 )}
                 đ
               </strong>

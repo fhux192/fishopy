@@ -51,8 +51,9 @@ const CheckoutOrder = ({ setCurrentStep }) => {
                       .reduce((acc, cur) => {
                         if (cur.checked) {
                           return (
-                            acc + cur.id_combo?.price ||
-                            cur.id_product.price * cur.quantity
+                            acc +
+                            (cur.id_combo?.price || cur.id_product.price) *
+                              cur.quantity
                           );
                         }
                         return acc;

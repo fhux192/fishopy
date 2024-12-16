@@ -109,8 +109,62 @@ const CheckoutPayment = ({
         setCurrentStep((prevStep) => prevStep + 1);
         message.success(res.msg);
       } else if (paymentMethod === "bank_transfer") {
-        message.info(res.data);
-        window.location.href = res.data;
+        const itemsChecked = user.cart.filter((item) => item.checked);
+        const newCart = user.cart.filter((item) => !item.checked);
+        dispatch(updateAccount({ cart: newCart }));
+        const updatePromises = [];
+
+        if (isAuthenticated) {
+          itemsChecked.forEach(async (item) => {
+            const updatePromise = user_updateCartItem(item._id, {
+              id_order: res.data._id,
+            }).then((resUpdate) => {
+              console.log("resUpdate", resUpdate);
+
+              if (resUpdate.vcode != 0) {
+                message.error(resUpdate.msg);
+                throw new Error(resUpdate.msg);
+              }
+            });
+            updatePromises.push(updatePromise);
+          });
+        } else {
+          itemsChecked.forEach(async (item) => {
+            let orderDetail = {
+              quantity: item.quantity,
+              id_order: res.data._id,
+            };
+            if (item.id_product) {
+              orderDetail.id_product = item.id_product._id;
+            }
+
+            if (item.id_combo) {
+              orderDetail.id_combo = item.id_combo._id;
+            }
+            const addPromise = free_addOrderDetail(orderDetail).then(
+              (resAdd) => {
+                if (resAdd.vcode != 0) {
+                  message.error(resAdd.msg);
+                  throw new Error(resAdd.msg);
+                }
+              }
+            );
+            updatePromises.push(addPromise);
+          });
+        }
+        try {
+          // Sử dụng await để đợi tất cả các Promise hoàn thành
+          await Promise.all(updatePromises);
+          window.location.href = res.link;
+        } catch (error) {
+          console.error(
+            "Error updating cart items or adding order details:",
+            error
+          );
+          message.error(
+            "Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại."
+          );
+        }
       }
     } catch (error) {
       console.log(error.message);
@@ -134,6 +188,7 @@ const CheckoutPayment = ({
       );
 
       setShippingFee(total >= 200000 ? 0 : 25000);
+      // setShippingFee(0);
     }
   }, [addressDelivery]);
 
