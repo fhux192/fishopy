@@ -10,7 +10,6 @@ import {
   useCallback,
   useLayoutEffect,
 } from "react";
-import "@scss/bubble.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaHome, FaMapMarkedAlt, FaUserTag } from "react-icons/fa";
 import ModalAuth from "@components/Auth/ModalAuth/ModalAuth.jsx";
@@ -30,6 +29,57 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
   const [isNavbarVisible, setIsNavbarVisible] = useState(true);
   const lastScrollY = useRef(0);
+
+  const typedPlaceholders = [
+    "Tìm kiếm cá...", 
+    "Cá Koi Red Ear", 
+    "Tìm kiếm cá...", 
+    "Cá Full Gold", 
+    "Tìm kiếm cá...", 
+    "Cá Blue Tazan", 
+    "Tìm kiếm cá...", 
+    "Cá Full Black",
+  ];
+  const [typedText, setTypedText] = useState("");      
+  const [indexPlaceholder, setIndexPlaceholder] = useState(0); 
+  const [direction, setDirection] = useState("typing"); 
+  const [pauseCount, setPauseCount] = useState(0);
+  useEffect(() => {
+    const typingSpeed = 100; // tốc độ gõ (ms)
+    const interval = setInterval(() => {
+      const currentString = typedPlaceholders[indexPlaceholder] || "";
+
+      if (direction === "typing") {
+        // gõ từng ký tự
+        if (typedText.length < currentString.length) {
+          setTypedText((prev) => prev + currentString.charAt(prev.length));
+        } else {
+          // gõ xong => chuyển sang pause
+          setDirection("pausing");
+          setPauseCount(0);
+        }
+      } else if (direction === "deleting") {
+        // xóa từng ký tự
+        if (typedText.length > 0) {
+          setTypedText((prev) => prev.slice(0, -1));
+        } else {
+          // xóa hết => chuyển sang placeholder tiếp theo
+          setDirection("typing");
+          setIndexPlaceholder((prev) => (prev + 1) % typedPlaceholders.length);
+        }
+      } else if (direction === "pausing") {
+        // tạm dừng 1 lúc trước khi xóa
+        const pauseDuration = 50; // 10 * 100ms = 1s (bạn có thể tăng/giảm)
+        if (pauseCount < pauseDuration) {
+          setPauseCount((p) => p + 1);
+        } else {
+          setDirection("deleting");
+        }
+      }
+    }, typingSpeed);
+
+    return () => clearInterval(interval);
+  }, [typedText, indexPlaceholder, direction, pauseCount, typedPlaceholders]);
 
   const items = [
     {
@@ -226,7 +276,7 @@ const Navbar = () => {
               <input
                 type="text"
                 id="search-input" // KHÔNG ĐưỢC XÓA ID NÀY
-                placeholder="Tìm kiếm cá..."
+                placeholder={typedText}
                 onChange={(e) => {
                   debouncedSearch(e.target.value);
                 }}

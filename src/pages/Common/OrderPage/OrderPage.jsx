@@ -24,14 +24,13 @@ const OrderPage = () => {
   );
   const { width, height } = useWindowSize();
   const [shippingfee, setShippingFee] = useState(0);
-  const location = useLocation(); // Sử dụng useLocation để lấy thông tin URL hiện tại
+  const location = useLocation(); 
   const dispatch = useDispatch();
 
   useEffect(() => {
     setAddressDelivery(user.addresses.find((item) => item.default));
   }, [user.addresses.length]);
 
-  // Lấy các giá trị từ query parameters
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const code = searchParams.get("code");
@@ -48,7 +47,6 @@ const OrderPage = () => {
         dispatch(updateAccount({ cart: newCart }));
       }
 
-      // xóa query parameters trên URL
       window.history.replaceState({}, document.title, location.pathname);
     }
   }, [location.search]);

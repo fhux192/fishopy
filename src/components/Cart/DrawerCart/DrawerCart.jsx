@@ -12,6 +12,7 @@ import {
   Space,
   Card,
 } from "antd";
+import { Link } from "react-router-dom";
 import {
   CloseCircleOutlined,
   MinusCircleOutlined,
@@ -259,7 +260,25 @@ const CartDrawer = () => {
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
         {renderList(user.cart)}
       </div>
-      <MyButton text={"Xem giỏ hàng"} to={"/order"} />
+      <div className="flex justify-center w-full  h-10">
+        <Link to="/order">
+          <Button
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "auto",
+              borderRadius: "20px",
+              fontWeight: "600",
+              fontSize: "16px",
+              color: "#2daab6",
+              borderColor: "#cfefeb",
+              padding: "10px 20px",
+            }}
+          >
+            Xem giỏ hàng
+          </Button>
+        </Link>
+      </div>
     </Drawer>
   );
 };

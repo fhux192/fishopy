@@ -14,6 +14,7 @@ const MessageBox = () => {
     "Bạn dẫn mình đi mua cá đi!",
   ];
 
+  // Danh sách khách hàng, logic random quantity, v.v.
   const customers = [
     { name: "Nguyễn Phúc An", quantity: Math.floor(Math.random() * 7) + 1 },
     { name: "Trần Long Quang", quantity: Math.floor(Math.random() * 7) + 1 },
@@ -114,17 +115,21 @@ const MessageBox = () => {
     { name: "Phạm Thảo My", quantity: Math.floor(Math.random() * 7) + 1 },
   ];
 
+  // Các state quản lý hiển thị tin nhắn
   const [showMessage, setShowMessage] = useState(false);
   const [animateWave, setAnimateWave] = useState(false);
   const [currentMessage, setCurrentMessage] = useState(messages[0]);
 
+  // Random từ 7s đến 37s
   const getRandomTime = () => Math.floor(Math.random() * 30000) + 7000;
 
   useEffect(() => {
+    // Định kỳ hiển thị tin ngẫu nhiên
     const showMessageInterval = setInterval(() => {
       setShowMessage(true);
       setCurrentMessage(messages[Math.floor(Math.random() * messages.length)]);
 
+      // Lấy 1 khách hàng random
       const customer = customers[Math.floor(Math.random() * customers.length)];
 
       setCurrentMessage(
@@ -138,9 +143,10 @@ const MessageBox = () => {
 
       setAnimateWave(true);
 
+      // Sau 4 giây thì ẩn tin nhắn
       const hideTimer = setTimeout(() => {
         setShowMessage(false);
-        setAnimateWave(false); // Tắt hiệu ứng sóng sau khi tin nhắn ẩn
+        setAnimateWave(false); // Tắt hiệu ứng lắc icon
       }, 4000);
 
       return () => clearTimeout(hideTimer);
@@ -149,6 +155,7 @@ const MessageBox = () => {
     return () => clearInterval(showMessageInterval);
   }, []);
 
+  // Khi showMessage = true, ta bật animate icon
   useEffect(() => {
     if (showMessage) {
       setAnimateWave(true);
@@ -157,17 +164,29 @@ const MessageBox = () => {
 
   return (
     <div className="fixed bottom-[5rem] lg:bottom-[1rem] lg:right-[1rem] right-[1rem] z-[9999]">
-      {location.pathname != "/order" && (
+      {/* Ẩn MessageBox nếu đang ở trang /order (theo logic ban đầu) */}
+      {location.pathname !== "/order" && (
         <>
           <div className="flex flex-col items-end">
             <AnimatePresence>
               {showMessage && (
                 <motion.div
-                  key="message" // Thêm key để AnimatePresence quản lý
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.5 } }} // Thêm hiệu ứng fade out
-                  transition={{ opacity: { duration: 1 } }}
+                  key="message"
+                  /* 
+                    Thay đổi animation để tạo hiệu ứng bounce:
+                    - initial: scale nhỏ, dịch xuống, ẩn
+                    - animate: scale 1, hiển thị, dịch về vị trí ban đầu
+                    - exit: scale nhỏ lại, ẩn dần
+                    - transition: dùng type: 'spring' + stiffness + damping 
+                  */
+                  initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: 30 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 20,
+                  }}
                   className="bg-Black min-w-[9rem] rounded-xl rounded-b-none rounded-l-xl font-semibold p-3 mb-2 text-sm text-gray-800"
                   style={{
                     position: "absolute",
@@ -181,6 +200,7 @@ const MessageBox = () => {
               )}
             </AnimatePresence>
 
+            {/* Link sang Zalo, icon + hiệu ứng */}
             <motion.a
               whileHover={{ scale: 1.3 }}
               href="https://zalo.me/0388811160"
@@ -199,6 +219,8 @@ const MessageBox = () => {
               <div className="light-rays"></div>
             </motion.a>
           </div>
+
+          {/* CSS cho hiệu ứng lắc icon + ánh sáng tỏa */}
           <style>
             {`
             @keyframes wave {
