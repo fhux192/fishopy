@@ -261,7 +261,7 @@ const CartDrawer = () => {
         {renderList(user.cart)}
       </div>
       <div className="flex justify-center w-full  h-10">
-        <Link to="/order">
+        {/* <Link to="/order">
           <Button
             style={{
               display: "flex",
@@ -276,6 +276,27 @@ const CartDrawer = () => {
             }}
           >
             Xem giỏ hàng
+          </Button>
+        </Link> */}
+
+        <Link to="/order">
+          <Button
+            onClick={() => {
+              dispatch(toggle("drawerCart"));
+            }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "auto",
+              borderRadius: "20px",
+              fontWeight: "600",
+              fontSize: "16px",
+              color: "#2daab6",
+              borderColor: "#cfefeb",
+              padding: "20px 30px",
+            }}
+          >
+            <p>Xem giỏ hàng</p>
           </Button>
         </Link>
       </div>

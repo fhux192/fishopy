@@ -96,7 +96,7 @@ const BottomNavBar = () => {
   const inactiveColor = "#f0f6f5"; // Inactive icon color
 
   return (
-    <div className="bottom-nav">
+    <div className="bottom-nav z-[999]">
       <div className="bottom-nav-container">
         {/* Home Icon */}
         <motion.div
@@ -146,9 +146,15 @@ const BottomNavBar = () => {
               scale: isDropdownOpen ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`dropdown-menu ${user ? "top-[-238%]" : "top-[-175%]"} ${
-              isDropdownOpen ? "" : "top-[-500%]"
-            } ${isAdminSectionOpen ? "top-[-424%]" : ""}`}
+            className={`dropdown-menu   ${
+              isAuthenticated && user.role == "ADMIN"
+                ? "top-[-130px]"
+                : "top-[-100px]"
+            } ${
+              isAuthenticated && user.role == "USER"
+                ? "top-[-100px]"
+                : "top-[-100px]"
+            } ${isAdminSectionOpen && "top-[-270px]"}`}
           >
             {isDropdownOpen && (
               <div className="dropdown-content">
@@ -195,7 +201,9 @@ const BottomNavBar = () => {
                     )}
                     <Link
                       to="/account"
-                      className="block px-2 py-2 text-Black font-bold border-t-[1px] w-full text-left"
+                      className={`block px-2 py-2 text-Black font-bold ${
+                        user.role === "ADMIN" ? "border-t-[1px]" : ""
+                      } w-full text-left`}
                     >
                       Quản lý tài khoản
                     </Link>
