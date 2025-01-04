@@ -64,6 +64,10 @@ function App() {
     try {
       const res = await user_fetchAccount();
       if (res.vcode != 0) {
+        if (res.vcode == 1 && res.msg == "Vui lòng đăng nhập") {
+          localStorage.setItem("status_login", 1);
+          return dispatch(setLoading(false));
+        }
         return message.error(res.msg);
       }
       dispatch(setCredentials(res.data));

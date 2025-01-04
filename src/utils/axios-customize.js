@@ -20,6 +20,12 @@ instance.interceptors.response.use(
     return response?.data ? response?.data : response;
   },
   (error) => {
+    if (
+      error.response.status === 401 &&
+      error.response.data.msg === "Phiên đăng nhập hết hạn hoặc không hợp lệ"
+    ) {
+      localStorage.setItem("status_login", "1");
+    }
     return error?.response?.data ? error.response.data : Promise.reject(error);
   }
 );
