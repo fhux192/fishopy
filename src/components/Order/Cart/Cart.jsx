@@ -135,7 +135,7 @@ const Cart = () => {
 
               <div className={styles.col3}>
                 <Typography.Text className={styles.totalText}>
-                  Tổng:{" "}
+                  Tổng: { "  "}
                   {formatPrice(
                     item.quantity *
                       (item.id_combo?.price || item.id_product.price)

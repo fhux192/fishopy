@@ -260,7 +260,7 @@ const CartDrawer = () => {
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
         {renderList(user.cart)}
       </div>
-      <div className="flex justify-center w-full  h-10">
+      <div className="flex justify-center items-center w-full bg-white  shadow-md border-t-2 border-Grey3  h-[5rem]">
         {/* <Link to="/order">
           <Button
             style={{
@@ -291,6 +291,7 @@ const CartDrawer = () => {
               borderRadius: "20px",
               fontWeight: "600",
               fontSize: "16px",
+              backgroundColor: "#fff",
               color: "#2daab6",
               borderColor: "#cfefeb",
               padding: "20px 30px",

@@ -8,7 +8,8 @@
   background: #161617;
   border-radius: 10px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  width: 100%;
+ width: 100%;
+ min-width: 30rem;
   box-sizing: border-box;
 }
 
@@ -33,9 +34,7 @@
 .groupInfo {
   flex: 1;
   align-items: center;
-  justify-items: center;
-  min-width: 0;
-  width: calc(100% - 140px);
+  justify-items: start;
   padding-right: 0px;
   box-sizing: border-box;
   overflow: hidden;
@@ -76,7 +75,7 @@
 
 .sumProduct {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px !important;
   color: #08ea79;
   display: block;
   margin-top: 0px;
@@ -88,6 +87,8 @@
 @media only screen and (max-width: 575px) {
   .cardContainer {
     flex-direction: column !important; 
+    min-width: 15rem;
+    
     padding: 10px 10px;
     align-items: center; 
   }
@@ -103,7 +104,7 @@
   }
 
   .groupInfo {
-    width: 100%;
+    width: 9rem;
     text-align: left; 
     padding-right: 0; 
   }

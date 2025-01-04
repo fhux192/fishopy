@@ -6,10 +6,9 @@ const CartItemChoose = ({ item }) => {
   return (
     <Card
       span={24}
-      className="mx-2 lg:px-0 lg:p-0 md:p-0 p-4 px-10"
+      className="flex lg:block md:block justify-center mx-2 lg:px-0 lg:p-0 md:p-0 p-4 px-6"
       style={{
         marginBottom: "20px",
-        padding: "10px",
         background:
           "linear-gradient(90deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478)",
         border: "2px solid rgba(255, 255, 255, 0.2)",
@@ -39,22 +38,19 @@ const CartItemChoose = ({ item }) => {
 
             <div className={styles.productDetails}>
               <p className="font-bold price" style={{ color: "#46DFB1" }}>
-                Đơn giá:
-                {formatPrice(item.id_combo?.price || item.id_product.price)}đ
+                Đơn giá: {formatPrice(item.id_combo?.price || item.id_product.price)}đ
               </p>
               <p className="font-bold quantity" style={{ color: "#bdc3c7" }}>
                 Số lượng: {item.quantity}
               </p>
             </div>
             <p className={styles.sumProduct}>
-              Tổng:
-              <strong>
-                {formatPrice(
+              Tổng: {formatPrice(
                   item.quantity *
                     (item.id_combo?.price || item.id_product.price)
                 )}
                 đ
-              </strong>
+          
             </p>
           </div>
         </Flex>

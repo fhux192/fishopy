@@ -238,11 +238,9 @@ const CheckoutPayment = ({
               .filter((item) => item.checked)
               .reduce((acc, cur) => (acc += cur.quantity), 0) !== 0 && (
               <p>
-                (
-                {user.cart
+                {`${user.cart
                   .filter((item) => item.checked)
-                  .reduce((acc, cur) => (acc += cur.quantity), 0)}
-                sản phẩm)
+                  .reduce((acc, cur) => (acc += cur.quantity), 0)} sản phẩm`}
               </p>
             )}
           </span>
@@ -261,7 +259,7 @@ const CheckoutPayment = ({
                 {formatPrice(shippingfee)}đ
               </p>
               <small className="text-white">
-                (miễn phí ship đơn trên 200k)
+                (miễn phí ship đơn trên 200.000đ)
               </small>
             </div>
           </Flex>

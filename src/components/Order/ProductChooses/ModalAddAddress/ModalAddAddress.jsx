@@ -1,7 +1,17 @@
-import { Form, Input, message, Modal, Select, Typography } from "antd";
-const { Title } = Typography;
+import React, { useEffect, useState } from "react";
+import {
+  Form,
+  Input,
+  message,
+  Modal,
+  Select,
+  Typography,
+  Button,
+  Row,
+  Col,
+  Divider,
+} from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { useForm } from "antd/es/form/Form";
 import { toggle } from "@redux/features/toggle/toggleSlice";
 import { updateAccount } from "@redux/features/user/userSlice";
@@ -11,30 +21,42 @@ import {
   free_getDistricts,
   free_getWards,
 } from "@services/api";
+import { motion, AnimatePresence } from "framer-motion"; // <-- Import Framer Motion
 
+const { Title, Text } = Typography;
+
+// Regex
 const phoneRegex = /^0\d{9}$/;
 const nameRegex = /^[a-zA-ZÀ-Ỷà-ỷ\s]{3,50}$/u;
 const addressRegex = /^.{5,}$/;
 
 const ModalAddAddress = () => {
+  const dispatch = useDispatch();
+
+  // Lấy state từ Redux
   const { modalAddAddress } = useSelector((state) => state.toggle);
   const { isAuthenticated, user } = useSelector((state) => state.account);
-  const dispatch = useDispatch();
+
+  // Hook form của Ant Design
   const [form] = useForm();
+
+  // State cho danh sách tỉnh/thành, quận/huyện, xã/phường
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
 
+  // Khi mở modal, tự động load danh sách tỉnh/thành
   useEffect(() => {
     if (modalAddAddress) {
       getCitys();
     }
   }, [modalAddAddress]);
 
+  // Hàm lấy danh sách tỉnh/thành
   const getCitys = async () => {
     try {
       const res = await free_getCities();
-      if (res.vcode != 0) {
+      if (res.vcode !== 0) {
         return message.error(
           "Không thể lấy danh sách thành phố. Vui lòng thử lại!"
         );
@@ -51,23 +73,22 @@ const ModalAddAddress = () => {
     }
   };
 
-  const getDistricts = async (provinceId, update) => {
+  // Hàm lấy danh sách quận/huyện
+  const getDistrictsData = async (provinceId, update) => {
     try {
       if (!provinceId) return;
       const res = await free_getDistricts(provinceId);
-      if (res.vcode != 0) {
+      if (res.vcode !== 0) {
         return message.error(
           "Không thể lấy danh sách quận/huyện. Vui lòng thử lại!"
         );
       }
-
       setDistricts(
         res.data.map((item) => ({
           value: item.district_id,
           label: item.district_name,
         }))
       );
-
       if (update) {
         form.setFieldsValue({ district: undefined, ward: undefined });
         setWards([]);
@@ -78,11 +99,12 @@ const ModalAddAddress = () => {
     }
   };
 
-  const getWards = async (districtId, update) => {
+  // Hàm lấy danh sách xã/phường
+  const getWardsData = async (districtId, update) => {
     try {
       if (!districtId) return;
       const res = await free_getWards(districtId);
-      if (res.vcode != 0) {
+      if (res.vcode !== 0) {
         return message.error(
           "Không thể lấy danh sách xã/phường. Vui lòng thử lại!"
         );
@@ -102,6 +124,7 @@ const ModalAddAddress = () => {
     }
   };
 
+  // Xử lý submit form
   const onFinish = async (values) => {
     const selectedProvince = provinces.find(
       (item) => item.value === values.province
@@ -112,7 +135,9 @@ const ModalAddAddress = () => {
     const selectedWard = wards.find((item) => item.value === values.ward);
 
     if (!selectedProvince || !selectedDistrict || !selectedWard) {
-      message.error("Vui lòng chọn đầy đủ tỉnh/thành, quận/huyện, xã/phường!");
+      message.error(
+        "Vui lòng chọn đầy đủ tỉnh/thành, quận/huyện, xã/phường!"
+      );
       return;
     }
 
@@ -123,13 +148,13 @@ const ModalAddAddress = () => {
       name: values.name.trim(),
       phone: values.phone.trim(),
       address: values.address.trim(),
-      default: !user.addresses.length,
+      default: !user?.addresses?.length, // nếu user chưa có địa chỉ => đây là địa chỉ mặc định
     };
 
     try {
       if (isAuthenticated) {
         const res = await user_addAddress(data);
-        if (res.vcode != 0) {
+        if (res.vcode !== 0) {
           return message.error(res.msg);
         }
         dispatch(updateAccount({ addresses: res.data }));
@@ -137,8 +162,12 @@ const ModalAddAddress = () => {
         message.success(res.msg);
       } else {
         // Lưu vào localStorage nếu người dùng chưa đăng nhập
-        dispatch(updateAccount({ addresses: [data] }));
-        localStorage.setItem("addresses", JSON.stringify([data]));
+        const existingAddresses = JSON.parse(
+          localStorage.getItem("addresses") || "[]"
+        );
+        const updatedAddresses = [...existingAddresses, data];
+        dispatch(updateAccount({ addresses: updatedAddresses }));
+        localStorage.setItem("addresses", JSON.stringify(updatedAddresses));
         dispatch(toggle("modalAddAddress"));
         message.success("Thêm địa chỉ thành công");
       }
@@ -148,122 +177,233 @@ const ModalAddAddress = () => {
     }
   };
 
+  // Đóng modal
+  const handleCancel = () => {
+    dispatch(toggle("modalAddAddress"));
+  };
+
+  // Các biến Framer Motion - cài đặt hiệu ứng spring "bật nảy"
+  const containerVariants = {
+    hidden: { opacity: 0, scale: 0.6 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 500,
+        damping: 25,
+        // To create a more pronounced bounce, you can adjust these values
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.6,
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
-    <Modal
-      open={modalAddAddress}
-      onCancel={() => dispatch(toggle("modalAddAddress"))}
-      footer={null}
-      destroyOnClose
-    >
-      <Title level={4}>Thêm địa chỉ mới</Title>
-      <Form
-        form={form}
-        labelCol={{ span: 24 }}
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Tên người nhận"
-          name="name"
-          rules={[
-            { required: true, message: "Vui lòng nhập tên người nhận!" },
-            {
-              validator: (_, value) => {
-                if (!value || nameRegex.test(value.trim())) {
-                  return Promise.resolve();
-                } else {
-                  return Promise.reject(
-                    "Tên phải chứa ít nhất 3 ký tự và không chứa ký tự đặc biệt!"
-                  );
-                }
-              },
-            },
-          ]}
+    <AnimatePresence>
+      {modalAddAddress && (
+        <Modal
+          open={modalAddAddress}
+          onCancel={handleCancel}
+          footer={null}
+          centered
+          destroyOnClose
+          maskClosable={true} // Bật tính năng đóng modal khi click ra ngoài
+          bodyStyle={{
+            padding: "2px",
+          }}
+          maskStyle={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          // Tùy chỉnh để tránh xung đột animation
+          // Ant Design Modal vẫn sẽ quản lý animation của mask và dialog
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Số điện thoại"
-          name="phone"
-          rules={[
-            { required: true, message: "Vui lòng nhập số điện thoại!" },
-            {
-              validator: (_, value) => {
-                if (!value || phoneRegex.test(value.trim())) {
-                  return Promise.resolve();
-                } else {
-                  return Promise.reject(
-                    "Số điện thoại không đúng định dạng (VD: 0xxxxxxxxx)!"
-                  );
-                }
-              },
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Thành phố"
-          name="province"
-          rules={[{ required: true, message: "Vui lòng chọn thành phố!" }]}
-        >
-          <Select
-            options={provinces}
-            onChange={(value) => getDistricts(value, true)}
-          />
-        </Form.Item>
-        <Form.Item
-          label="Quận/huyện"
-          name="district"
-          rules={[{ required: true, message: "Vui lòng chọn quận/huyện!" }]}
-        >
-          <Select
-            options={districts}
-            onChange={(value) => getWards(value, true)}
-          />
-        </Form.Item>
-        <Form.Item
-          label="Xã/phường"
-          name="ward"
-          rules={[{ required: true, message: "Vui lòng chọn xã/phường!" }]}
-        >
-          <Select options={wards} />
-        </Form.Item>
-        <Form.Item
-          label="Địa chỉ nhận hàng"
-          name="address"
-          rules={[
-            { required: true, message: "Vui lòng nhập địa chỉ nhận hàng!" },
-            {
-              validator: (_, value) => {
-                if (!value || addressRegex.test(value.trim())) {
-                  return Promise.resolve();
-                } else {
-                  return Promise.reject("Địa chỉ phải chứa ít nhất 5 ký tự.");
-                }
-              },
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <button
-            type="submit"
-            style={{
-              padding: "8px 16px",
-              background: "#1890ff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            // Bạn có thể thêm các thuộc tính bổ sung nếu cần
           >
-            Thêm địa chỉ
-          </button>
-        </Form.Item>
-      </Form>
-    </Modal>
+            <div style={{ textAlign: "center", marginBottom: "16px" }}>
+              <Title level={3} style={{ margin: 0 }}>
+                Thêm địa chỉ mới
+              </Title>
+              <Text type="secondary" style={{ fontSize: "14px" }}>
+                Vui lòng nhập đầy đủ thông tin để nhận hàng
+              </Text>
+            </div>
+
+            <Divider />
+
+            <Form
+              form={form}
+              layout="vertical" // Sắp xếp label ở trên Input
+              onFinish={onFinish}
+              autoComplete="off"
+              style={{ marginTop: "16px" }}
+            >
+              {/* Tên người nhận và số điện thoại */}
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Tên người nhận"
+                    name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập tên người nhận!",
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (!value || nameRegex.test(value.trim())) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              new Error(
+                                "Tên phải chứa ít nhất 3 ký tự và không chứa ký tự đặc biệt!"
+                              )
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Ví dụ: Nguyễn Văn A" />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item
+                    label="Số điện thoại"
+                    name="phone"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập số điện thoại!",
+                      },
+                      {
+                        validator: (_, value) => {
+                          if (!value || phoneRegex.test(value.trim())) {
+                            return Promise.resolve();
+                          } else {
+                            return Promise.reject(
+                              new Error(
+                                "Số điện thoại không đúng định dạng (VD: 0xxxxxxxxx)!"
+                              )
+                            );
+                          }
+                        },
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Ví dụ: 0123456789" />
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              {/* Tỉnh/thành, quận/huyện, xã/phường */}
+              <Row gutter={16}>
+                <Col xs={24} sm={8}>
+                  <Form.Item
+                    label="Tỉnh/Thành phố"
+                    name="province"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn tỉnh/thành phố!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      options={provinces}
+                      placeholder="Chọn tỉnh/thành..."
+                      onChange={(value) => getDistrictsData(value, true)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={8}>
+                  <Form.Item
+                    label="Quận/Huyện"
+                    name="district"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn quận/huyện!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      options={districts}
+                      placeholder="Chọn quận/huyện..."
+                      onChange={(value) => getWardsData(value, true)}
+                    />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={8}>
+                  <Form.Item
+                    label="Xã/Phường"
+                    name="ward"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng chọn xã/phường!",
+                      },
+                    ]}
+                  >
+                    <Select
+                      options={wards}
+                      placeholder="Chọn xã/phường..."
+                    />
+                  </Form.Item>
+                </Col>
+              </Row>
+
+              {/* Địa chỉ nhận hàng */}
+              <Form.Item
+                label="Địa chỉ nhận hàng"
+                name="address"
+                rules={[
+                  {
+                    required: true,
+                    message: "Vui lòng nhập địa chỉ nhận hàng!",
+                  },
+                  {
+                    validator: (_, value) => {
+                      if (!value || addressRegex.test(value.trim())) {
+                        return Promise.resolve();
+                      } else {
+                        return Promise.reject(
+                          new Error("Địa chỉ phải chứa ít nhất 5 ký tự.")
+                        );
+                      }
+                    },
+                  },
+                ]}
+              >
+                <Input.TextArea
+                  placeholder="Ví dụ: Số 1, Đường ABC, Phường XYZ..."
+                  rows={2}
+                />
+              </Form.Item>
+
+              {/* Nút submit */}
+              <Form.Item style={{ marginTop: "24px", textAlign: "right" }}>
+                <Button
+                  style={{ marginRight: 8 }}
+                  onClick={handleCancel}
+                >
+                  Hủy
+                </Button>
+                <Button htmlType="submit">
+                  Thêm địa chỉ
+                </Button>
+              </Form.Item>
+            </Form>
+          </motion.div>
+        </Modal>
+      )}
+    </AnimatePresence>
   );
 };
 
