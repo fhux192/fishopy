@@ -61,11 +61,12 @@ const Home = () => {
   };
 
   const buttonVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 200, damping: 20 },
+      x: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 700, damping: 30, mass: 0.5 },
     },
   };
 
