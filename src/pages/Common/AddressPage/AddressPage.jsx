@@ -2,12 +2,11 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
 const AddressPage = () => {
-  const iframeRef = useRef(null); // Tham chiếu đến iframe
+  const iframeRef = useRef(null); 
 
   useEffect(() => {
     document.title = "Địa Chỉ | Guppy Hóc Môn";
 
-    // Tự động cuộn tới giữa iframe với độ trễ
     const scrollToIframe = () => {
       if (iframeRef.current) {
         const iframeTop = iframeRef.current.getBoundingClientRect().top + window.scrollY;
@@ -21,10 +20,9 @@ const AddressPage = () => {
       }
     };
 
-    // Chờ 500ms để đảm bảo iframe đã render
     const timeoutId = setTimeout(scrollToIframe, 700);
 
-    // Dọn dẹp timeout nếu component unmount
+
     return () => clearTimeout(timeoutId);
   }, []);
 

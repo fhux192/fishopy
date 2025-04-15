@@ -18,22 +18,6 @@ import {
 } from "@services/api";
 import { setSearch } from "../../../redux/features/user/userSlice";
 
-// Biến hiệu ứng nảy
-const bounceVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 20,
-      duration: 0.5,
-    },
-  },
-};
-
-// Hàm smoothScrollToTop giữ nguyên
 const easeInOutCubic = (t) => {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 };
@@ -100,7 +84,6 @@ const AllProductPage = () => {
   const [priceStage, setPriceStage] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
-
   const getProducts = async (query, sort, limit, page) => {
     try {
       let q = { ...query };
@@ -202,30 +185,16 @@ const AllProductPage = () => {
   };
 
   return (
-    <motion.div
-      className="min-h-screen bg-container"
-      initial="hidden"
-      animate="visible"
-      variants={bounceVariants}
-    >
-      <motion.div
-        className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap"
-        variants={bounceVariants}
-      >
-        <h1 className="text-white rounded-full mt-[4.5rem] lg:mt-[6.5rem] font-bold cursor-default lg:text-[1.2rem] text-[1.3rem] text-center"></h1>
-      </motion.div>
-      <motion.div className="lg:block md:block hidden" variants={bounceVariants}>
+    <motion.div className="min-h-screen bg-container">
+      <div className="flex lg:pb-0 lg:mt-0 pt-[3rem] w-full items-center justify-center whitespace-nowrap">
+        <h1 className=" text-white rounded-full  mt-[4.5rem] lg:mt-[6.5rem] font-bold cursor-default lg:text-[1.2rem] text-[1.3rem] text-center"></h1>
+      </div>
+      <div className="lg:block md:block hidden">
         <ShiftingCountdown />
-      </motion.div>
-      <motion.div className="flex w-full justify-center" variants={bounceVariants}>
-        <motion.div
-          className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl flex-col border-0 md:mt-0 items-center justify-center py-[0.7rem]"
-          variants={bounceVariants}
-        >
-          <motion.div
-            className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl text-center"
-            variants={bounceVariants}
-          >
+      </div>
+      <div className="flex w-full justify-center">
+        <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-[0.7rem] ">
+          <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl text-center">
             <p
               style={{
                 backgroundImage:
@@ -239,84 +208,71 @@ const AllProductPage = () => {
             >
               Dành Cho Bạn
             </p>
-          </motion.div>
+          </div>
 
           {/* Button chọn loại mua */}
-          <motion.div
-            className="flex flex-col lg:flex-row lg:mt-[0.7rem] mt-[0rem] items-center gap-2"
-            variants={bounceVariants}
-          >
+          <div className="flex flex-col lg:flex-row lg:mt-[0.7rem] mt-[0rem] items-center gap-2">
             <p className="text-White font-bold cursor-default text-[1.125rem] lg:text-[1.25rem]">
               Bạn muốn mua như thế nào?
             </p>
             <div className="flex">
-              <motion.button
+              <button
                 onClick={() => handlePurchaseOptionClick("single")}
-                className={`flex justify-center rounded-l-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                className={`flex justify-center rounded-l-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                   selectedPurchaseOption === "single"
                     ? "bg-Black text-Teal3 font-[700] cursor-default"
                     : "bg-Black2 text-Grey2"
                 }`}
-                variants={bounceVariants}
               >
                 <div className="flex items-center gap-1">
                   <FaBoxOpen />
                   <p className="text-md px-1"> 1 Cặp theo loại</p>
                 </div>
-              </motion.button>
-              <motion.button
+              </button>
+              <button
                 onClick={() => handlePurchaseOptionClick("combo")}
-                className={`flex justify-center rounded-r-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                className={`flex justify-center rounded-r-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
                   selectedPurchaseOption === "combo"
                     ? "bg-Black text-Teal3 font-[700] cursor-default"
                     : "bg-Black2 text-Grey2"
                 }`}
-                variants={bounceVariants}
               >
                 <div className="flex items-center gap-1">
                   <FaBoxesStacked />
                   <p className="text-md px-1">Combo giá rẻ</p>
                 </div>
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-      <motion.div variants={bounceVariants}>
-        <SortSection sortOption={sortOption} setSortOption={setSortOption} />
-      </motion.div>
+          </div>
+        </div>
+      </div>
+      <SortSection sortOption={sortOption} setSortOption={setSortOption} />
       {selectedPurchaseOption === "single" ? (
-        <motion.div variants={bounceVariants}>
-          <ProductsSection
-            currentPageProducts={allProducts}
-            priceStage={priceStage}
-            selectedPurchaseOption={selectedPurchaseOption}
-          />
-        </motion.div>
-      ) : (
-        <motion.div variants={bounceVariants}>
-          <CombosSection
-            currentPageProducts={allProducts}
-            priceStage={priceStage}
-            selectedPurchaseOption={selectedPurchaseOption}
-          />
-        </motion.div>
-      )}
-      <motion.div variants={bounceVariants}>
-        <Pagination
-          current={page}
-          pageSize={limit}
-          total={totalProducts}
-          onChange={handlePageChange}
-          pageSizeOptions={pageSizeOptions}
-          style={{
-            marginTop: "0.5rem",
-            paddingBottom: "1.25rem",
-            display: "flex",
-            justifyContent: "center",
-          }}
+        <ProductsSection
+          currentPageProducts={allProducts}
+          priceStage={priceStage}
+          selectedPurchaseOption={selectedPurchaseOption}
         />
-      </motion.div>
+      ) : (
+        <CombosSection
+          currentPageProducts={allProducts}
+          priceStage={priceStage}
+          selectedPurchaseOption={selectedPurchaseOption}
+        />
+      )}
+      <Pagination
+        current={page}
+        pageSize={limit}
+        total={totalProducts}
+        onChange={handlePageChange}
+        pageSizeOptions={pageSizeOptions}
+        style={{
+          marginTop: "0.5rem",
+          paddingBottom: "1.25rem",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      />
 
       <style>
         {`
