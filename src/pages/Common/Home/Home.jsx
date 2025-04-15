@@ -60,16 +60,6 @@ const Home = () => {
     },
   };
 
-  const buttonVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 700, damping: 30, mass: 0.5 },
-    },
-  };
-
   const imageVariants = {
     hidden: { opacity: 0, x: 100, scale: 0.7 },
     visible: {
@@ -133,7 +123,6 @@ const Home = () => {
               <motion.button
                 onClick={handleNavigation}
                 className="flex items-center justify-center bg-teal-500 py-3 text-white font-bold rounded-full transition duration-300"
-                variants={buttonVariants}
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
