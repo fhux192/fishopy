@@ -11,15 +11,15 @@ import {
   TikTokOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import "./itemsContainer.css"; // Import file CSS tùy chỉnh
-import { useDispatch } from "react-redux"; // Đảm bảo bạn đã import đúng useDispatch
-import { toggle } from "@redux/features/toggle/toggleSlice"; // Đảm bảo đúng import từ slice
+import "./itemsContainer.css"; 
+import { useDispatch } from "react-redux"; 
+import { toggle } from "@redux/features/toggle/toggleSlice"; 
 
 const { Footer } = Layout;
 const { Title, Link, Text } = Typography;
 
 export const ItemsContainer = () => {
-  const dispatch = useDispatch(); // Gọi useDispatch bên trong component
+  const dispatch = useDispatch(); 
 
   return (
     <Footer className="custom-footer">
@@ -72,7 +72,7 @@ export const ItemsContainer = () => {
                 <span className="highlight-text">Facebook: Quân Nguyễn</span>
               </Link>
               <Link
-                href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
+                href="https://www.tiktok.com/@quangupy"
                 className="footer-link"
               >
                 <TikTokOutlined className="highlight-icon" />{" "}

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "@scss/home.scss";
-import { FaFishFins } from "react-icons/fa6";
-import { FaCircleArrowDown } from "react-icons/fa6";
+import { FaFishFins, FaCircleArrowDown } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // Cập nhật các thẻ meta để tối ưu SEO và chia sẻ trên mạng xã hội
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage) {
       ogImage.setAttribute("content", "https://link.to/your-thumbnail.jpg");
@@ -52,14 +50,60 @@ const Home = () => {
     document.head.appendChild(metaOgType);
   }, []);
 
+  const bounceVariants = {
+    hidden: { opacity: 0, y: -100, scale: 0.7 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 500, damping: 10, mass: 0.3 },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", stiffness: 200, damping: 20 },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { opacity: 0, x: 100, scale: 0.7 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 500, damping: 10, mass: 0.3 },
+    },
+  };
+
+  // Container variants cho staggering
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
   return (
     <div className="min-h-screen pb-10 flex items-center justify-center">
       <div className="container px-6">
         <div className="bg-black mt-20 rounded-3xl shadow-xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Nội dung */}
-            <div className="md:w-1/2 p-8 flex flex-col justify-center">
-              <h1 className="text-5xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+            <motion.div
+              className="md:w-1/2 p-8 flex flex-col justify-center"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.h1
+                className="text-5xl sm:text-5xl md:text-6xl font-bold text-white mb-4"
+                variants={bounceVariants}
+              >
                 Cá{" "}
                 <span
                   className="bg-clip-text text-transparent"
@@ -74,30 +118,41 @@ const Home = () => {
                 >
                   Guppy
                 </span>
-              </h1>
+              </motion.h1>
 
-              <p className="text-Grey font-semibold text-lg sm:text-xl mb-6">
+              <motion.p
+                className="text-Grey font-semibold text-lg sm:text-xl mb-6"
+                variants={bounceVariants}
+              >
                 Cung cấp cá guppy chất lượng cao, đa dạng chủng loại, giao hàng
                 toàn quốc. <span className="text-white">Bảo hành 1 đổi 1</span>{" "}
                 cá có vấn đề khi nhận hàng.
-              </p>
+              </motion.p>
 
-              <button
+              <motion.button
                 onClick={handleNavigation}
                 className="flex items-center justify-center bg-teal-500 py-3 text-white font-bold rounded-full transition duration-300"
+                variants={buttonVariants}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
                 <FaFishFins className="mr-3 min-w-[20px] font-bold text-lg" />
                 Xem Tất Cả Sản Phẩm
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
-            <div className="md:w-1/2 relative">
+            <motion.div
+              className="md:w-1/2 relative"
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+            >
               <img
                 src="https://png.pngtree.com/png-vector/20231018/ourmid/pngtree-guppy-fish-isolated-on-white-background-small-png-image_10243212.png"
                 alt="Guppy Fish"
                 className="w-full h-full object-cover"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -111,7 +166,7 @@ const Home = () => {
             repeat: Infinity,
           }}
           className="flex justify-center mt-8 cursor-pointer"
-          onClick={handleScrollDown} // Gọi hàm cuộn xuống khi click
+          onClick={handleScrollDown}
         >
           <FaCircleArrowDown className="text-white text-3xl" />
         </motion.div>

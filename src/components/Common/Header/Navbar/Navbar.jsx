@@ -249,7 +249,7 @@ const Navbar = () => {
 
             <div className="lg:border-l-[1px] border-primaryBlack mr-[0rem] social">
               <a
-                href="https://www.tiktok.com/@quanguppy68?_t=8muvYNlCqUz&_r=1"
+                href="https://www.tiktok.com/@quangupy"
                 target="_blank"
                 rel="noopener noreferrer"
               >
