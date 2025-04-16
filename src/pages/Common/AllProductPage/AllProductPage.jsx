@@ -201,7 +201,7 @@ const AllProductPage = () => {
         <ShiftingCountdown />
       </div>
       <div className="flex w-full justify-center">
-        <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-[0.7rem] ">
+        <div className="flex w-full md:px-[10rem] md:rounded-3xl lg:rounded-3xl  flex-col border-0 md:mt-0  items-center justify-center py-[1.4rem] ">
           <div className="nav-blur px-4 md:mt-[1.5rem] lg:mt-[1.5rem] lg:rounded-full rounded-3xl text-center">
             <p
               style={{
