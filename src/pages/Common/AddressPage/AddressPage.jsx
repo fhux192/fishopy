@@ -68,7 +68,7 @@ const AddressPage = () => {
           animate="visible"
         >
           <motion.p className="text-center" variants={bounceVariants}>
-            Trại Cá Guppy Bất Ổn
+            Trại Cá Quân GP
           </motion.p>
           <motion.span
             className="text-3xl text-center lg:text-4xl"

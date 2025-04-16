@@ -11,20 +11,20 @@ import {
   TikTokOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import "./itemsContainer.css"; 
-import { useDispatch } from "react-redux"; 
-import { toggle } from "@redux/features/toggle/toggleSlice"; 
+import "./itemsContainer.css";
+import { useDispatch } from "react-redux";
+import { toggle } from "@redux/features/toggle/toggleSlice";
 
 const { Footer } = Layout;
 const { Title, Link, Text } = Typography;
 
 export const ItemsContainer = () => {
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   return (
-    <Footer className="custom-footer">
+    <Footer className="custom-footer pb-[4.9rem]">
       <div className="footer-content">
-        <Row gutter={[32, 32]} justify="space-between">
+        <Row gutter={[16, 16]} justify="space-between">
           <Col xs={24} sm={12} md={6}>
             <Title level={4} className="footer-title">
               Khách Hàng
@@ -47,14 +47,14 @@ export const ItemsContainer = () => {
             <Title level={4} className="footer-title">
               Liên Hệ
             </Title>
-            <Space direction="vertical px-0">
+            <Space direction="vertical">
               <Row className="gap-1 footer-text">
                 <PhoneOutlined />{" "}
                 <Text className="footer-text" copyable>
                   0388811160
                 </Text>
               </Row>
-              <Row className=" gap-1 footer-text">
+              <Row className="gap-1 footer-text">
                 <MailOutlined />{" "}
                 <Text copyable className="footer-text">
                   hoangphuc395@gmail.com
@@ -76,9 +76,7 @@ export const ItemsContainer = () => {
                 className="footer-link"
               >
                 <TikTokOutlined className="highlight-icon" />{" "}
-                <span className="highlight-text">
-                  Tiktok: Trại Cá Guppy Bất Ổn
-                </span>
+                <span className="highlight-text">Tiktok: Trại Cá Quân GP</span>
               </Link>
               <Link
                 href="https://www.youtube.com/channel/UCMnDPNFBmSwnlfPnPWN8zdw"
@@ -111,7 +109,7 @@ export const ItemsContainer = () => {
         <Row justify="center">
           <Col>
             <Text className="footer-copy">
-              Guppy Hóc Môn - Trại Cá Guppy Bất Ổn
+              Guppy Hóc Môn - Trại Cá Quân GP
             </Text>
           </Col>
         </Row>

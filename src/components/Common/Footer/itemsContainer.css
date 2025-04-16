@@ -1,20 +1,23 @@
 .custom-footer {
   background-color: rgba(30, 30, 30, 1);
   color: #fff;
-  padding-top:1.25rem;
+  padding: 2rem 0;
   position: relative;
   overflow: hidden;
   font-weight: 500;
 }
 
 .footer-content {
-  margin: 0 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1rem;
 }
 
 .footer-title {
   color: #fff !important;
   position: relative;
-  margin-bottom: 20px !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.2rem;
 }
 
 .footer-title::after {
@@ -30,41 +33,68 @@
 .footer-link,
 .footer-text {
   color: #bfbfbf !important;
-  font-size: 16px;
+  font-size: 1rem;
   transition: color 0.3s;
   cursor: default;
 }
-
 
 .highlight-text,
 .highlight-icon {
   color: #09D1C7;
 }
+
 .footer-divider {
   background-color: #707070;
   height: 2px;
-  margin: 20px 0;
+  margin: 1rem 0;
 }
 
 .footer-copy {
   font-weight: 700;
   text-align: center;
   color: #707070;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 1024px) {
   .footer-title::after {
     width: 30px;
   }
-  .custom-footer{
-    padding-bottom: 6rem;
+  .custom-footer {
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    padding: 0 1rem;
+  }
+  .footer-title {
+    font-size: 1.1rem;
+  }
+  .footer-link,
+  .footer-text {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 425px) {
-  .custom-footer{
-    padding-left: 1rem;
-    padding-right: 1rem;
+  .custom-footer {
+    padding: 1rem 0;
+  }
+  .footer-content {
+    padding: 0 0.5rem;
+  }
+  .footer-title {
+    font-size: 1rem;
+    margin-bottom: 1rem !important;
+  }
+  .footer-link,
+  .footer-text {
+    font-size: 0.8rem;
+  }
+  .footer-copy {
+    font-size: 0.8rem;
   }
 }
 
@@ -81,12 +111,10 @@
   color: #09D1C7;
 }
 
-/* Nếu biểu tượng copy là một SVG, cần thay đổi thuộc tính fill */
 .footer-text .ant-typography-copy svg {
   fill: #09D1C7;
 }
 
-/* Thay đổi màu khi hover vào nút copy */
 .footer-text .ant-typography-copy:hover {
   color: #1a7a80;
 }

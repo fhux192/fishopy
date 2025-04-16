@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaYoutube } from "react-icons/fa";
+import { FaYoutube, FaSearch } from "react-icons/fa";
 import { FaFishFins } from "react-icons/fa6";
 import "@scss/navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,45 +31,41 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   const typedPlaceholders = [
-    "Tìm kiếm cá...", 
-    "Cá Koi Red Ear", 
-    "Tìm kiếm cá...", 
-    "Cá Full Gold", 
-    "Tìm kiếm cá...", 
-    "Cá Blue Tazan", 
-    "Tìm kiếm cá...", 
+    "Tìm kiếm cá...",
+    "Cá Koi Red Ear",
+    "Tìm kiếm cá...",
+    "Cá Full Gold",
+    "Tìm kiếm cá...",
+    "Cá Blue Tazan",
+    "Tìm kiếm cá...",
     "Cá Full Black",
   ];
-  const [typedText, setTypedText] = useState("");      
-  const [indexPlaceholder, setIndexPlaceholder] = useState(0); 
-  const [direction, setDirection] = useState("typing"); 
+  const [typedText, setTypedText] = useState("");
+  const [indexPlaceholder, setIndexPlaceholder] = useState(0);
+  const [direction, setDirection] = useState("typing");
   const [pauseCount, setPauseCount] = useState(0);
+
   useEffect(() => {
     const typingSpeed = 100; // tốc độ gõ (ms)
     const interval = setInterval(() => {
       const currentString = typedPlaceholders[indexPlaceholder] || "";
 
       if (direction === "typing") {
-        // gõ từng ký tự
         if (typedText.length < currentString.length) {
           setTypedText((prev) => prev + currentString.charAt(prev.length));
         } else {
-          // gõ xong => chuyển sang pause
           setDirection("pausing");
           setPauseCount(0);
         }
       } else if (direction === "deleting") {
-        // xóa từng ký tự
         if (typedText.length > 0) {
           setTypedText((prev) => prev.slice(0, -1));
         } else {
-          // xóa hết => chuyển sang placeholder tiếp theo
           setDirection("typing");
           setIndexPlaceholder((prev) => (prev + 1) % typedPlaceholders.length);
         }
       } else if (direction === "pausing") {
-        // tạm dừng 1 lúc trước khi xóa
-        const pauseDuration = 50; // 10 * 100ms = 1s (bạn có thể tăng/giảm)
+        const pauseDuration = 50;
         if (pauseCount < pauseDuration) {
           setPauseCount((p) => p + 1);
         } else {
@@ -156,7 +152,6 @@ const Navbar = () => {
     }
   };
 
-  // Kiểm tra số lượng sản phẩm trong giỏ
   const cartQuantity = user.cart.length;
 
   return (
@@ -170,9 +165,9 @@ const Navbar = () => {
       <div>
         <div className="flex flex-col items-center">
           <div
-            className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0] `}
+            className={`wrapper lg:shadow-none lg:px-[20px] lg:mt-[1.5rem] lg:mx-[0]`}
           >
-            <div className="lg:flex gap-[0.5rem] w-full lg:ml-0 ">
+            <div className="lg:flex gap-[0.5rem] w-full lg:ml-0">
               <div className="flex justify-start w-full lg:flex-0 lg:ml-[1%]">
                 <div className="flex rounded-xl nav-blur px-3 items-center">
                   <button
@@ -183,23 +178,21 @@ const Navbar = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex justify-start lg:justify-end w-full"> </div>
+              <div className="flex justify-start lg:justify-end w-full"></div>
 
               <div className="rounded-xl nav-blur px-3 border-primaryGrey social">
                 {items.map((item) => (
                   <div
-                    className={`lg:block hidden icon-navigate text-primaryBlack mr-[17px] duration-500 ${
-                      (item.name === "Trang Chủ" &&
-                        location.pathname === "/") ||
-                      (item.name === "Sản Phẩm" &&
-                        location.pathname === "/product") ||
-                      (item.name === "Địa Chỉ" &&
-                        location.pathname === "/address")
+                    className={`lg:block hidden icon-navigate mr-[17px] duration-500 ${
+                      (item.name === "Trang Chủ" && location.pathname === "/") ||
+                      (item.name === "Sản Phẩm" && location.pathname === "/product") ||
+                      (item.name === "Địa Chỉ" && location.pathname === "/address")
                         ? "text-white"
-                        : "text-White"
+                        : "text-gray-300"
                     }`}
                     key={item.name}
                     onClick={() => handleNavigation(item.name)}
+                    title={item.name}
                   >
                     {item.icon}
                   </div>
@@ -212,7 +205,16 @@ const Navbar = () => {
                       onClick={handleUserTagClick}
                       className="lg:block hidden icon mr-2 duration-500 cursor-pointer"
                     />
-                    {isDropdownVisible && <ModalAuth />}
+                    {isDropdownVisible && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ModalAuth />
+                      </motion.div>
+                    )}
                   </div>
                 </div>
                 <div
@@ -222,7 +224,7 @@ const Navbar = () => {
                   <motion.div
                     initial={{ scale: 1 }}
                     animate={{
-                      scale: cartQuantity > 0 ? [1, 0.9, 1] : 1,
+                      scale: cartQuantity > 0 ? [1, 1.1, 1] : 1,
                     }}
                     transition={{
                       duration: 0.5,
@@ -233,13 +235,13 @@ const Navbar = () => {
                   >
                     <FaBagShopping
                       title="Giỏ Hàng"
-                      className={`bag-icon duration-500 text-White ${
+                      className={`bag-icon duration-500 text-white ${
                         cartQuantity > 0 ? "cart-notify" : ""
                       }`}
                     />
                   </motion.div>
                   <div
-                    className={`flex font-bold bg-Teal3 text-white  w-[1.35rem] h-[1.15rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute `}
+                    className={`flex font-bold bg-Teal3 text-white w-[1.35rem] h-[1.15rem] items-center justify-center lg:right-[5%] right-[7%] lg:top-[-35%] top-[-35%] duration-500 rounded-md absolute`}
                   >
                     <div className="">{cartQuantity}</div>
                   </div>
@@ -272,29 +274,26 @@ const Navbar = () => {
             </div>
           </div>
           {location.pathname === "/product" && (
-            <div className="flex w-[100%] lg:w-[35rem] mt-1 active:text-Teal text-white lg:ml-2 items-center">
-              <input
-                type="text"
-                id="search-input" // KHÔNG ĐưỢC XÓA ID NÀY
-                placeholder={typedText}
-                onChange={(e) => {
-                  debouncedSearch(e.target.value);
-                }}
-                onKeyDown={handleKeyDown}
-                className={`rounded-xl h-8 mt-2 text-Teal3 font-bold mx-8 shadow-md border-none ${
-                  isNavbarVisible ? "pt-[0.1rem]" : "pt-[0.3rem]"
-                } mobile-input`}
-                style={{
-                  backgroundColor: "#fff",
-                  outline: "none",
-                  border: "none",
-                  width: "100%",
-                  fontSize: "16px",
-                  paddingLeft: "10px",
-                  paddingRight: "10px",
-                  borderRadius: "4px",
-                }}
-              />
+            <div className="w-[100%] lg:w-[35rem] w-[20.5rem] lg:ml-3 mt-1">
+              <div className="relative">
+                <input
+                  type="text"
+                  id="search-input" // KHÔNG ĐƯỢC XÓA ID NÀY
+                  placeholder={typedText}
+                  onChange={(e) => {
+                    debouncedSearch(e.target.value);
+                  }}
+                  onKeyDown={handleKeyDown}
+                  className="w-full rounded-xl h-8 mt-4 text-Teal3 font-bold shadow-md border-none pl-10 pr-4"
+                  style={{
+                    backgroundColor: "#fff",
+                    outline: "none",
+                    border: "none",
+                    fontSize: "16px",
+                  }}
+                />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/5 text-gray-400" />
+              </div>
             </div>
           )}
         </div>
@@ -302,38 +301,20 @@ const Navbar = () => {
 
       <style>
         {`
-          @keyframes wiggleLoop {
+          @keyframes pulse {
             0% {
-              transform: rotate(0deg);
-            }
-            10% {
-              transform: rotate(-15deg);
-            }
-            20% {
-              transform: rotate(10deg);
-            }
-            30% {
-              transform: rotate(-5deg);
-            }
-            40% {
-              transform: rotate(5deg);
+              transform: scale(1);
             }
             50% {
-              transform: rotate(0deg);
+              transform: scale(1.1);
             }
             100% {
-              transform: rotate(0deg);
+              transform: scale(1);
             }
           }
 
-          /* 
-            Thời gian animation: 5.5s 
-            0% - 50% (0-0.5s): lắc 
-            50% - 100% (0.5-5.5s): đứng yên 
-            Lặp vô hạn => cứ 5.5s lắc 1 lần
-          */
           .cart-notify {
-            animation: wiggleLoop 7.5s infinite;
+            animation: pulse 2s infinite;
           }
         `}
       </style>

@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ShiftingCountdown from "@components/Common/CountDown/ShiftingCountdown";
 import SortSection from "./SortSection/SortSection";
 import ProductsSection from "./ProductsSection/ProductsSection";
@@ -62,6 +62,13 @@ const smoothScrollToTop = () => {
   animationFrameId = requestAnimationFrame(scrollStep);
 };
 
+// Define animation variants
+const buttonVariants = {
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.8 },
+};
+
 const AllProductPage = () => {
   const [selectedPurchaseOption, setSelectedPurchaseOption] =
     useState("single");
@@ -84,6 +91,7 @@ const AllProductPage = () => {
   const [priceStage, setPriceStage] = useState(0);
   const [allProducts, setAllProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
+
   const getProducts = async (query, sort, limit, page) => {
     try {
       let q = { ...query };
@@ -210,38 +218,52 @@ const AllProductPage = () => {
             </p>
           </div>
 
-          {/* Button chọn loại mua */}
+          {/* Button chọn loại mua với hiệu ứng */}
           <div className="flex flex-col lg:flex-row lg:mt-[0.7rem] mt-[0rem] items-center gap-2">
             <p className="text-White font-bold cursor-default text-[1.125rem] lg:text-[1.25rem]">
               Bạn muốn mua như thế nào?
             </p>
             <div className="flex">
-              <button
-                onClick={() => handlePurchaseOptionClick("single")}
-                className={`flex justify-center rounded-l-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                  selectedPurchaseOption === "single"
-                    ? "bg-Black text-Teal3 font-[700] cursor-default"
-                    : "bg-Black2 text-Grey2"
-                }`}
-              >
-                <div className="flex items-center gap-1">
-                  <FaBoxOpen />
-                  <p className="text-md px-1"> 1 Cặp theo loại</p>
-                </div>
-              </button>
-              <button
-                onClick={() => handlePurchaseOptionClick("combo")}
-                className={`flex justify-center rounded-r-xl  lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                  selectedPurchaseOption === "combo"
-                    ? "bg-Black text-Teal3 font-[700] cursor-default"
-                    : "bg-Black2 text-Grey2"
-                }`}
-              >
-                <div className="flex items-center gap-1">
-                  <FaBoxesStacked />
-                  <p className="text-md px-1">Combo giá rẻ</p>
-                </div>
-              </button>
+              <AnimatePresence mode="wait">
+                <motion.button
+                  key="single"
+                  onClick={() => handlePurchaseOptionClick("single")}
+                  className={`flex justify-center rounded-l-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                    selectedPurchaseOption === "single"
+                      ? "bg-Black text-Teal3 font-[700] cursor-default"
+                      : "bg-Black2 text-Grey2"
+                  }`}
+                  variants={buttonVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex items-center gap-1">
+                    <FaBoxOpen />
+                    <p className="text-md px-1">1 Cặp theo loại</p>
+                  </div>
+                </motion.button>
+                <motion.button
+                  key="combo"
+                  onClick={() => handlePurchaseOptionClick("combo")}
+                  className={`flex justify-center rounded-r-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
+                    selectedPurchaseOption === "combo"
+                      ? "bg-Black text-Teal3 font-[700] cursor-default"
+                      : "bg-Black2 text-Grey2"
+                  }`}
+                  variants={buttonVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex items-center gap-1">
+                    <FaBoxesStacked />
+                    <p className="text-md px-1">Combo giá rẻ</p>
+                  </div>
+                </motion.button>
+              </AnimatePresence>
             </div>
           </div>
         </div>

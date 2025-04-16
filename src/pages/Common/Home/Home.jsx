@@ -33,14 +33,14 @@ const Home = () => {
 
     const metaOgTitle = document.createElement("meta");
     metaOgTitle.setAttribute("property", "og:title");
-    metaOgTitle.setAttribute("content", "Guppy Hóc Môn | Trại Cá Guppy Bất Ổn");
+    metaOgTitle.setAttribute("content", "Guppy Hóc Môn | Trại Cá Quân GP");
     document.head.appendChild(metaOgTitle);
 
     const metaOgDescription = document.createElement("meta");
     metaOgDescription.setAttribute("property", "og:description");
     metaOgDescription.setAttribute(
       "content",
-      "Trang Web Chính Thức của Trại Cá Guppy Bất Ổn. Cung cấp cá Guppy chất lượng cao, đa dạng chủng loại, giao hàng toàn quốc. Bảo hành 1 đổi 1"
+      "Trang Web Chính Thức của Trại Cá Quân GP. Cung cấp cá Guppy chất lượng cao, đa dạng chủng loại, giao hàng toàn quốc. Bảo hành 1 đổi 1"
     );
     document.head.appendChild(metaOgDescription);
 
@@ -70,7 +70,6 @@ const Home = () => {
     },
   };
 
-  // Container variants cho staggering
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -84,9 +83,8 @@ const Home = () => {
       <div className="container px-6">
         <div className="bg-black mt-20 rounded-3xl shadow-xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
-            {/* Nội dung */}
             <motion.div
-              className="md:w-1/2 p-8 flex flex-col justify-center"
+              className="md:w-1/2 p-4 md:p-8 flex flex-col justify-center"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -112,7 +110,7 @@ const Home = () => {
               </motion.h1>
 
               <motion.p
-                className="text-Grey font-semibold text-lg sm:text-xl mb-6"
+                className="text-gray-400 font-semibold text-lg sm:text-xl mb-6"
                 variants={bounceVariants}
               >
                 Cung cấp cá guppy chất lượng cao, đa dạng chủng loại, giao hàng
@@ -146,7 +144,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Mũi tên xuống */}
         <motion.div
           initial={{ y: 0 }}
           animate={{ y: [0, 15, 0] }}

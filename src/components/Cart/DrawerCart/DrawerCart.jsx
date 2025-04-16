@@ -66,7 +66,6 @@ const CartDrawer = () => {
         );
       } catch (error) {
         message.error(error);
-      } finally {
       }
     } else {
       const updatedCart = user.cart.filter((item) => item._id !== id);
@@ -84,7 +83,6 @@ const CartDrawer = () => {
         if (res.vcode !== 0) {
           return message.error(res.msg);
         }
-
         const updatedCart = user.cart.map((item) =>
           item._id === id ? { ...item, quantity: Number(value) } : item
         );
@@ -135,7 +133,7 @@ const CartDrawer = () => {
           }}
         >
           <Row gutter={[16, 16]} align="middle">
-            <Col xs={8}>
+            <Col xs={8} sm={6} md={5}>
               <Image
                 width={80}
                 style={{ borderRadius: "8px" }}
@@ -144,7 +142,7 @@ const CartDrawer = () => {
                 preview={false}
               />
             </Col>
-            <Col xs={16}>
+            <Col xs={16} sm={18} md={19}>
               <Space
                 direction="horizontal"
                 size="small"
@@ -180,7 +178,6 @@ const CartDrawer = () => {
                   đ
                 </Text>
               </Space>
-
               <Space style={{ marginTop: "8px" }}>
                 <Button
                   type="link"
@@ -260,25 +257,7 @@ const CartDrawer = () => {
       <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
         {renderList(user.cart)}
       </div>
-      <div className="flex justify-center items-center w-full bg-white  shadow-md border-t-2 border-Grey3  h-[5rem]">
-        {/* <Link to="/order">
-          <Button
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: "auto",
-              borderRadius: "20px",
-              fontWeight: "600",
-              fontSize: "16px",
-              color: "#2daab6",
-              borderColor: "#cfefeb",
-              padding: "10px 20px",
-            }}
-          >
-            Xem giỏ hàng
-          </Button>
-        </Link> */}
-
+      <div className="flex justify-center items-center w-full bg-white shadow-md border-t-2 border-Grey3 h-[5rem]">
         <Link to="/order">
           <Button
             onClick={() => {
@@ -288,7 +267,8 @@ const CartDrawer = () => {
               display: "flex",
               alignItems: "center",
               width: "auto",
-              borderRadius: "20px",
+              borderRadius: "10px",
+              borderWidth:"2px",
               fontWeight: "600",
               fontSize: "16px",
               backgroundColor: "#fff",
