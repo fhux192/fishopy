@@ -22,7 +22,7 @@ export const ItemsContainer = () => {
   const dispatch = useDispatch();
 
   return (
-    <Footer className="custom-footer pb-[4.9rem]">
+    <Footer className="custom-footer lg:pb-4 pb-[4.9rem]">
       <div className="footer-content">
         <Row gutter={[16, 16]} justify="space-between">
           <Col xs={24} sm={12} md={6}>
