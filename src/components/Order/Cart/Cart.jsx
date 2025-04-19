@@ -12,7 +12,7 @@ import formatPrice from "@utils/formatPrice";
 import { user_deleteCartItem, user_updateCartItem } from "@services/api";
 import { useDispatch, useSelector } from "react-redux";
 import { updateAccount } from "@redux/features/user/userSlice";
-import styles from "./Cart.module.scss";
+import styles from "./Cart.module.css";
 
 const Cart = () => {
   const { isAuthenticated, user } = useSelector((state) => state.account);

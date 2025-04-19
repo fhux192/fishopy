@@ -11,10 +11,10 @@
   border-radius: 18px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+.cardCustom:hover {
+  transform: translateY(-5px);
 }
 
 .cardInner {
@@ -83,11 +83,11 @@
   text-align: center !important;
   background: #222;
   color: #fff;
+}
 
-  input {
-    color: #fff !important;
-    font-weight: 500;
-  }
+.quantityInput input {
+  color: #fff !important;
+  font-weight: 500;
 }
 
 .col3 {
@@ -110,10 +110,10 @@
   padding: 8px 12px;
   cursor: pointer;
   transition: background 0.3s;
+}
 
-  &:hover {
-    background: #222;
-  }
+.deleteButton:hover {
+  background: #222;
 }
 
 .deleteIcon {
