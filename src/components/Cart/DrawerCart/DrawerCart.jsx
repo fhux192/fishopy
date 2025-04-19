@@ -6,8 +6,6 @@ import {
   Image,
   InputNumber,
   message,
-  Row,
-  Col,
   Typography,
   Space,
   Card,
@@ -23,7 +21,6 @@ import { user_deleteCartItem, user_updateCartItem } from "@services/api";
 import { updateAccount } from "@redux/features/user/userSlice";
 import { toast } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
-import MyButton from "@components/Common/MyButton/MyButton";
 
 const { Text } = Typography;
 
@@ -57,7 +54,7 @@ const CartDrawer = () => {
     if (isAuthenticated) {
       try {
         const res = await user_deleteCartItem(id);
-        if (res.vcode != 0) {
+        if (res.vcode !== 0) {
           return message.error(res.msg);
         }
         message.success(res.msg);
@@ -99,140 +96,21 @@ const CartDrawer = () => {
     }
   };
 
+  const calculateTotal = () => {
+    return user.cart.reduce((total, item) => {
+      const price = item.id_combo?.price || item.id_product?.price;
+      return total + price * item.quantity;
+    }, 0);
+  };
+
   const getItemVariants = (index) => {
     const isEven = index % 2 === 0;
     return {
-      initial: { opacity: 0, y: isEven ? 100 : 0, x: isEven ? 0 : 100 },
-      animate: { opacity: 1, y: 0, x: 0 },
-      exit: { opacity: 0, y: isEven ? 100 : 0, x: isEven ? 0 : 100 },
+      initial: { opacity: 0, y: isEven ? 50 : -50 },
+      animate: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: isEven ? 50 : -50 },
     };
   };
-
-  const renderItemCard = (item, index) => {
-    const variants = getItemVariants(index);
-    return (
-      <motion.div
-        key={item._id || item.product._id}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        transition={{
-          type: "spring",
-          stiffness: 80,
-          damping: 15,
-          duration: 0.5,
-          delay: index * 0.1,
-        }}
-        style={{ marginBottom: "20px" }}
-      >
-        <Card
-          style={{
-            borderRadius: "10px",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          }}
-        >
-          <Row gutter={[16, 16]} align="middle">
-            <Col xs={8} sm={6} md={5}>
-              <Image
-                width={80}
-                style={{ borderRadius: "8px" }}
-                src={item.id_combo?.imgs[0] || item.id_product?.imgs[0]}
-                alt={item.id_combo?.name || item.id_product?.name}
-                preview={false}
-              />
-            </Col>
-            <Col xs={16} sm={18} md={19}>
-              <Space
-                direction="horizontal"
-                size="small"
-                style={{ justifyContent: "space-between", width: "100%" }}
-                align="center"
-              >
-                <Text strong style={{ fontSize: "16px", fontWeight: "bold" }}>
-                  {item.id_combo?.name || item.id_product?.name}
-                </Text>
-                <CloseCircleOutlined
-                  onClick={() => handleDeleteCartItem(item._id)}
-                  style={{
-                    color: "red",
-                    fontSize: "18px",
-                    cursor: "pointer",
-                  }}
-                />
-              </Space>
-              <Space
-                direction="horizontal"
-                size="small"
-                style={{ marginTop: "4px" }}
-              >
-                <Text
-                  style={{
-                    color: "#2daab6",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {item.id_combo?.price.toLocaleString() ||
-                    item.id_product?.price.toLocaleString()}
-                  đ
-                </Text>
-              </Space>
-              <Space style={{ marginTop: "8px" }}>
-                <Button
-                  type="link"
-                  icon={<MinusCircleOutlined />}
-                  disabled={item.quantity <= 1}
-                  onClick={() =>
-                    handleQuantityChange(item._id, item.quantity - 1)
-                  }
-                />
-                <InputNumber
-                  min={1}
-                  value={item.quantity}
-                  style={{
-                    width: "50px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  onBlur={(e) => {
-                    handleQuantityChange(item._id, e.target.value);
-                  }}
-                />
-                <Button
-                  type="link"
-                  icon={<PlusCircleOutlined />}
-                  onClick={() =>
-                    handleQuantityChange(item._id, item.quantity + 1)
-                  }
-                />
-              </Space>
-            </Col>
-          </Row>
-        </Card>
-      </motion.div>
-    );
-  };
-
-  const renderList = (list) => (
-    <div
-      className="overflow-y-auto"
-      style={{
-        flexGrow: 1,
-        overflowY: "auto",
-        padding: "20px",
-        maxHeight: "calc(100vh - 120px)",
-      }}
-    >
-      <AnimatePresence key={animationKey} initial={true}>
-        {list.map((item, index) => (
-          <React.Fragment key={item.id_combo?._id || item.id_product?._id}>
-            {renderItemCard(item, index)}
-          </React.Fragment>
-        ))}
-      </AnimatePresence>
-    </div>
-  );
 
   return (
     <Drawer
@@ -249,37 +127,148 @@ const CartDrawer = () => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          position: "relative",
           background: "#f7f7f7",
         },
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        {renderList(user.cart)}
+      <div style={{ flexGrow: 1, overflowY: "auto", padding: "20px" }}>
+        <AnimatePresence>
+          {user.cart.map((item, index) => (
+            <motion.div
+              key={item._id || item.product._id}
+              variants={getItemVariants(index)}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{
+                type: "spring",
+                stiffness: 80,
+                damping: 15,
+                duration: 0.5,
+                delay: index * 0.1,
+              }}
+              style={{ marginBottom: "20px" }}
+            >
+              <Card
+                style={{
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", padding: "10px" }}>
+                  <div style={{ flex: "0 0 80px", marginRight: "16px" }}>
+                    <Image
+                      width={80}
+                      height={80}
+                      style={{ borderRadius: "8px", objectFit: "cover" }}
+                      src={item.id_combo?.imgs[0] || item.id_product?.imgs[0]}
+                      alt={item.id_combo?.name || item.id_product?.name}
+                      preview={false}
+                    />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <Space
+                      direction="horizontal"
+                      size="small"
+                      style={{
+                        justifyContent: "space-between",
+                        width: "100%",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      <Text strong style={{ fontSize: "16px" }}>
+                        {item.id_combo?.name || item.id_product?.name}
+                      </Text>
+                      <CloseCircleOutlined
+                        onClick={() => handleDeleteCartItem(item._id)}
+                        style={{
+                          color: "red",
+                          fontSize: "18px",
+                          cursor: "pointer",
+                          transition: "color 0.3s",
+                        }}
+                        onMouseOver={(e) => (e.target.style.color = "#ff4d4f")}
+                        onMouseOut={(e) => (e.target.style.color = "red")}
+                      />
+                    </Space>
+                    <Text
+                      style={{
+                        color: "#2daab6",
+                        fontSize: "14px",
+                        fontWeight: "bold",
+                        display: "block",
+                        marginBottom: "8px",
+                      }}
+                    >
+                      {(item.id_combo?.price || item.id_product?.price).toLocaleString()}đ
+                    </Text>
+                    <Space>
+                      <Button
+                        type="link"
+                        icon={<MinusCircleOutlined />}
+                        disabled={item.quantity <= 1}
+                        onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
+                        style={{ padding: 0 }}
+                      />
+                      <InputNumber
+                        min={1}
+                        value={item.quantity}
+                        style={{ width: "50px", textAlign: "center" }}
+                        onChange={(value) => handleQuantityChange(item._id, value)}
+                      />
+                      <Button
+                        type="link"
+                        icon={<PlusCircleOutlined />}
+                        onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
+                        style={{ padding: 0 }}
+                      />
+                    </Space>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
-      <div className="flex justify-center items-center w-full bg-white shadow-md border-t-2 border-Grey3 h-[5rem]">
-        <Link to="/order">
-          <Button
-            onClick={() => {
-              dispatch(toggle("drawerCart"));
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              width: "auto",
-              borderRadius: "10px",
-              borderWidth:"2px",
-              fontWeight: "600",
-              fontSize: "16px",
-              backgroundColor: "#fff",
-              color: "#2daab6",
-              borderColor: "#cfefeb",
-              padding: "20px 30px",
-            }}
-          >
-            <p>Xem giỏ hàng</p>
-          </Button>
-        </Link>
+      <div
+        style={{
+          background: "#fff",
+          borderTop: "2px solid #e8e8e8",
+          padding: "20px",
+          boxShadow: "0 -2px 8px rgba(0,0,0,0.05)",
+        }}
+      >
+        <Space
+          direction="horizontal"
+          size="large"
+          style={{ justifyContent: "space-between", width: "100%" }}
+        >
+          <Text strong style={{color: "#707070", fontSize: "16px" }}>
+            Tổng cộng: {calculateTotal().toLocaleString()}đ
+          </Text>
+          <Link to="/order">
+            <Button
+              onClick={() => dispatch(toggle("drawerCart"))}
+              style={{
+                borderRadius: "10px",
+                border: "2px solid #cfefeb",
+                fontWeight: "600",
+                fontSize: "16px",
+                backgroundColor: "#fff",
+                color: "#2daab6",
+                padding: "10px 20px",
+                height: "auto",
+              }}
+              hoverStyle={{
+                backgroundColor: "#cfefeb",
+                color: "#2daab6",
+              }}
+            >
+              Xem giỏ hàng
+            </Button>
+          </Link>
+        </Space>
       </div>
     </Drawer>
   );
