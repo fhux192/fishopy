@@ -29,7 +29,6 @@ const CartDrawer = () => {
   const { drawerCart } = useSelector((state) => state.toggle);
   const { user, isAuthenticated } = useSelector((state) => state.account);
   const [drawerWidth, setDrawerWidth] = useState(400);
-  const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,12 +43,6 @@ const CartDrawer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (drawerCart) {
-      setAnimationKey((prev) => prev + 1);
-    }
-  }, [drawerCart]);
-
   const handleDeleteCartItem = async (id) => {
     if (isAuthenticated) {
       try {
@@ -62,7 +55,7 @@ const CartDrawer = () => {
           updateAccount({ cart: user.cart.filter((item) => item._id !== id) })
         );
       } catch (error) {
-        message.error(error);
+        message.error(error.message);
       }
     } else {
       const updatedCart = user.cart.filter((item) => item._id !== id);
@@ -103,14 +96,11 @@ const CartDrawer = () => {
     }, 0);
   };
 
-  const getItemVariants = (index) => {
-    const isEven = index % 2 === 0;
-    return {
-      initial: { opacity: 0, y: isEven ? 50 : -50 },
-      animate: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: isEven ? 50 : -50 },
-    };
-  };
+  const getItemVariants = (index) => ({
+    initial: { opacity: 0, y: index % 2 === 0 ? -50 : 50 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: index % 2 === 0 ? -50 : 50 },
+  });
 
   return (
     <Drawer
@@ -135,15 +125,15 @@ const CartDrawer = () => {
         <AnimatePresence>
           {user.cart.map((item, index) => (
             <motion.div
-              key={item._id || item.product._id}
+              key={item._id || item.product?._id}
               variants={getItemVariants(index)}
               initial="initial"
               animate="animate"
               exit="exit"
               transition={{
                 type: "spring",
-                stiffness: 80,
-                damping: 15,
+                stiffness: 100,
+                damping: 20,
                 duration: 0.5,
                 delay: index * 0.1,
               }}
@@ -244,7 +234,7 @@ const CartDrawer = () => {
           size="large"
           style={{ justifyContent: "space-between", width: "100%" }}
         >
-          <Text strong style={{color: "#707070", fontSize: "16px" }}>
+          <Text strong style={{ fontSize: "16px" }}>
             Tổng cộng: {calculateTotal().toLocaleString()}đ
           </Text>
           <Link to="/order">
@@ -259,10 +249,13 @@ const CartDrawer = () => {
                 color: "#2daab6",
                 padding: "10px 20px",
                 height: "auto",
+                transition: "background-color 0.3s",
               }}
-              hoverStyle={{
-                backgroundColor: "#cfefeb",
-                color: "#2daab6",
+              onMouseOver={(e) => {
+                e.target.style.backgroundColor = "#cfefeb";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.backgroundColor = "#fff";
               }}
             >
               Xem giỏ hàng
