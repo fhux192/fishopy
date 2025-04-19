@@ -192,7 +192,7 @@ const CartDrawer = () => {
                   <div style={{ flex: "0 0 80px", marginRight: "16px" }}>
                     <Image
                       width={80}
-                      height={80}
+                      height={60}
                       style={{ borderRadius: "8px", objectFit: "cover" }}
                       src={item.id_combo?.imgs[0] || item.id_product?.imgs[0]}
                       alt={item.id_combo?.name || item.id_product?.name}

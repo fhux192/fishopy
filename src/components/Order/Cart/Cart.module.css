@@ -1,132 +1,174 @@
+.cartContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .cardCustom {
   margin-bottom: 20px;
-  margin-right: 10px;
-  margin-left: 10px;
   background: linear-gradient(70deg, #15919b, #09d1c7, #46dfb1 47%, #0c6478);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 18px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 }
 
-.cardContainer {
+.cardInner {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 20px;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 15px;
   align-items: center;
   background: #161617;
-  border-radius: 10px;
+  border-radius: 14px;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  box-sizing: border-box;
-  padding: 15px;
+  padding: 20px;
 }
 
-/* Cột 1 (Ảnh, checkbox, tên) */
 .col1 {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .leftRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
+}
+
+.checkBox {
+  transform: scale(1.2);
 }
 
 .imageWrapper {
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .imageProduct {
-  border-radius: 10px;
-  width: 100px !important;
-  height: 60px !important;
+  width: 80px !important;
+  height: 80px !important;
   object-fit: cover !important;
+  border-radius: 12px;
 }
 
-/* Tên sản phẩm có thể xuống dòng nếu hẹp */
 .productName {
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
+  line-height: 1.4;
   word-break: break-word;
-  /* Cho phép xuống dòng thoải mái */
 }
 
-/* Cột 2 (Đơn giá, số lượng) */
 .col2 {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 }
 
 .priceText {
   color: #46dfb1;
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .quantityInput {
-  width: 60px !important;
-  justify-content: center;
-  justify-items: center;
-  text-align: center;
-  justify-self: center;
-  text-align: center !important;
+  width: 80px !important;
   border-radius: 8px !important;
-  font-weight: bold !important;
+  text-align: center !important;
+  background: #222;
+  color: #fff;
+
+  input {
+    color: #fff !important;
+    font-weight: 500;
+  }
 }
 
-/* Cột 3 (Tổng, nút xóa) */
 .col3 {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 12px;
 }
 
 .totalText {
-  font-weight: bold;
-  font-size: 16px;
   color: #08ea79;
+  font-weight: 600;
+  font-size: 16px;
 }
 
 .deleteButton {
   background: #000;
   border: 1px solid #3a3a3a;
-  border-radius: 10px;
-  padding: 5px 10px;
+  border-radius: 8px;
+  padding: 8px 12px;
   cursor: pointer;
-  width: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: background 0.3s;
+
+  &:hover {
+    background: #222;
+  }
 }
 
 .deleteIcon {
-  color: red;
-  font-size: 18px;
-  transition: color 0.3s;
-}
-.deleteIcon:hover {
   color: #ff4d4f;
+  font-size: 16px;
 }
 
-/* Mobile <768px: chuyển về 1 cột */
-@media only screen and (max-width: 425px) {
-  .cardCustom {
-    display: flex;
-    justify-content: center;
+.totalSummary {
+  display: block;
+  text-align: right;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .cartContainer {
+    padding: 10px;
   }
-  .cardContainer {
-    grid-template-columns: 2fr;
-    min-width: 250px;
+
+  .cardInner {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
+
+  .col1,
+  .col2,
   .col3 {
     align-items: flex-start;
+  }
+
+  .imageProduct {
+    width: 60px !important;
+    height: 60px !important;
+  }
+
+  .quantityInput {
+    width: 70px !important;
+  }
+
+  .col3 {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .cardCustom {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .productName {
+    font-size: 14px;
   }
 }
