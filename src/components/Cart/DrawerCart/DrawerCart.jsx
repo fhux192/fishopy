@@ -286,7 +286,7 @@ const CartDrawer = () => {
           size="large"
           style={{ justifyContent: "space-between", width: "100%" }}
         >
-          <Text strong style={{ fontSize: "16px" }}>
+          <Text strong style={{color: "#707070", fontSize: "14px",fontWeight:"bold" }}>
             Tổng cộng: {calculateTotal().toLocaleString()}đ
           </Text>
           <Link to="/order">
