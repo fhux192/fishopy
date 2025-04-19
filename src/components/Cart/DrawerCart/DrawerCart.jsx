@@ -96,11 +96,51 @@ const CartDrawer = () => {
     }, 0);
   };
 
-  const getItemVariants = (index) => ({
-    initial: { opacity: 0, y: index % 2 === 0 ? -50 : 50 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: index % 2 === 0 ? -50 : 50 },
-  });
+  const drawerVariants = {
+    hidden: { opacity: 0, x: "100%", scale: 0.95 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 150,
+        damping: 20,
+        duration: 0.6,
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: "100%",
+      scale: 0.95,
+      transition: {
+        duration: 0.4,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, rotateX: -15 },
+    visible: (index) => ({
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 20,
+        delay: index * 0.15,
+      },
+    }),
+    exit: {
+      opacity: 0,
+      y: -50,
+      rotateX: 15,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
 
   return (
     <Drawer
@@ -121,30 +161,32 @@ const CartDrawer = () => {
         },
       }}
     >
-      <div style={{ flexGrow: 1, overflowY: "auto", padding: "20px" }}>
+      <motion.div
+        variants={drawerVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        style={{ flexGrow: 1, overflowY: "auto", padding: "20px" }}
+      >
         <AnimatePresence>
           {user.cart.map((item, index) => (
             <motion.div
               key={item._id || item.product?._id}
-              variants={getItemVariants(index)}
-              initial="initial"
-              animate="animate"
+              custom={index}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
               exit="exit"
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-                duration: 0.5,
-                delay: index * 0.1,
-              }}
               style={{ marginBottom: "20px" }}
             >
               <Card
                 style={{
                   borderRadius: "10px",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
                   overflow: "hidden",
+                  transformOrigin: "center",
                 }}
+                hoverable
               >
                 <div style={{ display: "flex", alignItems: "center", padding: "10px" }}>
                   <div style={{ flex: "0 0 80px", marginRight: "16px" }}>
@@ -176,10 +218,16 @@ const CartDrawer = () => {
                           color: "red",
                           fontSize: "18px",
                           cursor: "pointer",
-                          transition: "color 0.3s",
+                          transition: "color 0.3s, transform 0.3s",
                         }}
-                        onMouseOver={(e) => (e.target.style.color = "#ff4d4f")}
-                        onMouseOut={(e) => (e.target.style.color = "red")}
+                        onMouseOver={(e) => {
+                          e.target.style.color = "#ff4d4f";
+                          e.target.style.transform = "scale(1.2)";
+                        }}
+                        onMouseOut={(e) => {
+                          e.target.style.color = "red";
+                          e.target.style.transform = "scale(1)";
+                        }}
                       />
                     </Space>
                     <Text
@@ -199,7 +247,9 @@ const CartDrawer = () => {
                         icon={<MinusCircleOutlined />}
                         disabled={item.quantity <= 1}
                         onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
-                        style={{ padding: 0 }}
+                        style={{ padding: 0, transition: "transform 0.2s" }}
+                        onMouseOver={(e) => (e.target.style.transform = "scale(1.1)")}
+                        onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
                       />
                       <InputNumber
                         min={1}
@@ -211,7 +261,9 @@ const CartDrawer = () => {
                         type="link"
                         icon={<PlusCircleOutlined />}
                         onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
-                        style={{ padding: 0 }}
+                        style={{ padding: 0, transition: "transform 0.2s" }}
+                        onMouseOver={(e) => (e.target.style.transform = "scale(1.1)")}
+                        onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
                       />
                     </Space>
                   </div>
@@ -220,7 +272,7 @@ const CartDrawer = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
+      </motion.div>
       <div
         style={{
           background: "#fff",
@@ -249,13 +301,15 @@ const CartDrawer = () => {
                 color: "#2daab6",
                 padding: "10px 20px",
                 height: "auto",
-                transition: "background-color 0.3s",
+                transition: "background-color 0.3s, transform 0.3s",
               }}
               onMouseOver={(e) => {
                 e.target.style.backgroundColor = "#cfefeb";
+                e.target.style.transform = "scale(1.05)";
               }}
               onMouseOut={(e) => {
                 e.target.style.backgroundColor = "#fff";
+                e.target.style.transform = "scale(1)";
               }}
             >
               Xem giỏ hàng
