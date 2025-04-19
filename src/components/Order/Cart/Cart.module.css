@@ -52,15 +52,15 @@
 
 .imageProduct {
   width: 80px !important;
-  height: 80px !important;
+  height: 60px !important;
   object-fit: cover !important;
   border-radius: 12px;
 }
 
 .productName {
   color: #fff;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1.4;
   word-break: break-word;
 }
@@ -73,7 +73,7 @@
 
 .priceText {
   color: #46dfb1;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
 }
 
@@ -82,12 +82,12 @@
   border-radius: 8px !important;
   text-align: center !important;
   background: #222;
-  color: #fff;
+  color: #222;
 }
 
 .quantityInput input {
-  color: #fff !important;
-  font-weight: 500;
+  color: #222 !important;
+  font-weight: 600;
 }
 
 .col3 {
@@ -126,7 +126,7 @@
   text-align: right;
   color: #fff;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 20px;
 }
 
@@ -148,7 +148,7 @@
 
   .imageProduct {
     width: 60px !important;
-    height: 60px !important;
+    height: 40px !important;
   }
 
   .quantityInput {
@@ -169,6 +169,6 @@
   }
 
   .productName {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
