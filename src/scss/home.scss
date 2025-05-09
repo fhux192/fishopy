@@ -1,33 +1,70 @@
-:root{
-    --color:#fff;
-
-}
-.home-container{
+:root {
+    /* defaults for small screens (<640px) */
+    --tz: 200px;      /* bigger radius so faces don't touch */
+    --face-w: 120px;
+    --face-h: 170px;
+  }
+  @media (min-width: 640px) {
+    :root {
+      --tz: 300px;
+      --face-w: 150px;
+      --face-h: 210px;
+    }
+  }
+  @media (min-width: 768px) {
+    :root {
+      --tz: 360px;
+      --face-w: 190px;
+      --face-h: 260px;
+    }
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --tz: 450px;
+      --face-w: 220px;
+      --face-h: 300px;
+    }
+  }
+  
+  .carouselWrapper {
+    position: relative;
     width: 100%;
-
-
-    .button-container{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 10px;
-        padding: 20px;
-        color:#1a202c ;
-        border: solid 4px;
-        border-color: #1a202c;
-        border-radius: 15px;
+    height: calc(var(--face-h) * 1.6);
+    perspective: 1200px;
+    margin: 2rem auto;
+  }
+  
+  .carousel3d {
+    position: absolute;
+    width: var(--face-w);
+    height: var(--face-h);
+    left: 50%;
+    top: 50%;
+    transform-style: preserve-3d;
+    animation: spinY 24s linear infinite;
+  }
+  .carousel3d:hover {
+    animation-play-state: paused;
+  }
+  
+  .carouselFace {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+    transform-origin: center center;
+    /* slight inner scale so gap becomes visible */
+    transform: scale(0.9);
+  }
+  
+  @keyframes spinY {
+    from {
+      transform: translate(-50%, -50%) rotateY(0deg);
     }
-
-    .button-container:hover{
-        background-color: #1a202c;
-        color: #fff;
-        transition: all 0.3s ease-in;
-         scale: 0.9;
+    to {
+      transform: translate(-50%, -50%) rotateY(-360deg);
     }
-    .button-container:not(:hover) {
-        transition: all 0.5s ease-in;
-    }
-    .textTeal{
-        color: linear-gradient(10deg,#15919B, #09D1C7,  #46DFB1 47%, #0C6478);
-    }
-}
+  }
+  
