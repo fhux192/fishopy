@@ -15,21 +15,20 @@ const BottomNavBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAdminSectionOpen, setIsAdminSectionOpen] = useState(false); // State for Admin section
+  const [isAdminSectionOpen, setIsAdminSectionOpen] = useState(false);
 
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.account);
 
   // Tính số lượng sản phẩm trong giỏ
-  const cartQuantity = 0;
+  const cartQuantity = user.cart?.length || 0;
 
-  // References for detecting clicks outside
   const dropdownRef = useRef(null);
   const accountNavRef = useRef(null);
 
   useEffect(() => {
     setIsDropdownOpen(false);
-    setIsAdminSectionOpen(false); // Close Admin section on path change
+    setIsAdminSectionOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -92,8 +91,8 @@ const BottomNavBar = () => {
     }
   };
 
-  const activeColor = "#09D1C7"; // Active icon color
-  const inactiveColor = "#f0f6f5"; // Inactive icon color
+  const activeColor = "#09D1C7";
+  const inactiveColor = "#f0f6f5";
 
   return (
     <div className="bottom-nav z-[999]">
@@ -146,7 +145,7 @@ const BottomNavBar = () => {
               scale: isDropdownOpen ? 1 : 0.5,
             }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className={`dropdown-menu   ${
+            className={`dropdown-menu ${
               isAuthenticated && user.role == "ADMIN"
                 ? "top-[-130px]"
                 : "top-[-100px]"
@@ -218,7 +217,7 @@ const BottomNavBar = () => {
                   <>
                     <button
                       onClick={() => dispatch(toggle("modalLogin"))}
-                      className="block  px-2 py-2 text-Black font-bold rounded-t-xl w-full text-left"
+                      className="block px-2 py-2 text-Black font-bold rounded-t-xl w-full text-left"
                     >
                       Đăng Nhập
                     </button>
@@ -237,7 +236,7 @@ const BottomNavBar = () => {
 
         {/* Cart Icon with Badge and Wiggle */}
         <motion.div
-          className={`nav-item font-semibold relative`}
+          className="nav-item font-semibold relative"
           animate={{
             color: location.pathname === "/cart" ? activeColor : inactiveColor,
           }}
@@ -312,10 +311,6 @@ const BottomNavBar = () => {
             }
           }
 
-          /* Animation lắc lư với chu kỳ 5.5s
-             - 0-0.5s: lắc
-             - 0.5-5.5s: đứng yên
-           */
           .cart-notify {
             animation: wiggleLoop 7.5s infinite;
           }

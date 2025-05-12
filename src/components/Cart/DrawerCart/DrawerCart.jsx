@@ -104,9 +104,8 @@ const CartDrawer = () => {
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 150,
-        damping: 20,
-        duration: 0.6,
+        stiffness: 200,
+        damping: 15,
       },
     },
     exit: {
@@ -120,26 +119,33 @@ const CartDrawer = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50, rotateX: -15 },
+    hidden: (index) => ({
+      opacity: 0,
+      y: 50,
+      x: index % 2 === 0 ? -50 : 50,
+      scale: 0.9,
+    }),
     visible: (index) => ({
       opacity: 1,
       y: 0,
-      rotateX: 0,
+      x: 0,
+      scale: 1,
       transition: {
         type: "spring",
-        stiffness: 200,
-        damping: 20,
-        delay: index * 0.15,
+        stiffness: 250,
+        damping: 25,
+        delay: index * 0.1,
       },
     }),
-    exit: {
+    exit: (index) => ({
       opacity: 0,
       y: -50,
-      rotateX: 15,
+      x: index % 2 === 0 ? 50 : -50,
+      scale: 0.9,
       transition: {
-        duration: 0.3,
+        duration: 0.4,
       },
-    },
+    }),
   };
 
   return (
@@ -151,6 +157,7 @@ const CartDrawer = () => {
       onClose={() => dispatch(toggle("drawerCart"))}
       open={drawerCart}
       width={drawerWidth}
+      destroyOnClose={true} // Đảm bảo nội dung bị hủy khi đóng để chạy lại hiệu ứng
       styles={{
         body: {
           padding: 0,
@@ -281,41 +288,65 @@ const CartDrawer = () => {
           boxShadow: "0 -2px 8px rgba(0,0,0,0.05)",
         }}
       >
-        <Space
-          direction="horizontal"
-          size="large"
-          style={{ justifyContent: "space-between", width: "100%" }}
+    <Space
+      direction="horizontal"
+      size="large"
+      style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
+    >
+      <Link to="/order-history">
+        <Button
+          onClick={() => dispatch(toggle("drawerCart"))}
+          style={{
+            borderRadius: "10px",
+            border: "2px solid #cfefeb",
+            fontWeight: "600",
+            fontSize: "16px",
+            backgroundColor: "#fff",
+            color: "#2daab6",
+            padding: "10px 20px",
+            height: "auto",
+            transition: "background-color 0.3s, transform 0.3s",
+          }}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = "#cfefeb";
+            e.target.style.transform = "scale(1.05)";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = "#fff";
+            e.target.style.transform = "scale(1)";
+          }}
         >
-          <Text strong style={{color: "#707070", fontSize: "15px",fontWeight:"bold" }}>
-            Tổng cộng: {calculateTotal().toLocaleString()}đ
-          </Text>
-          <Link to="/order">
-            <Button
-              onClick={() => dispatch(toggle("drawerCart"))}
-              style={{
-                borderRadius: "10px",
-                border: "2px solid #cfefeb",
-                fontWeight: "600",
-                fontSize: "16px",
-                backgroundColor: "#fff",
-                color: "#2daab6",
-                padding: "10px 20px",
-                height: "auto",
-                transition: "background-color 0.3s, transform 0.3s",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = "#cfefeb";
-                e.target.style.transform = "scale(1.05)";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.backgroundColor = "#fff";
-                e.target.style.transform = "scale(1)";
-              }}
-            >
-              Xem giỏ hàng
-            </Button>
-          </Link>
-        </Space>
+          Lịch sử đặt hàng
+        </Button>
+      </Link>
+      <Link to="/order">
+        <Button
+          onClick={() => dispatch(toggle("drawerCart"))}
+          style={{
+            borderRadius: "10px",
+            border: "2px solid #cfefeb",
+            fontWeight: "600",
+            fontSize: "16px",
+            backgroundColor: "#fff",
+            color: "#2daab6",
+            padding: "10px 20px",
+            height: "auto",
+            transition: "background-color 0.3s, transform 0.3s",
+          }}
+          onMouseOver={(e) => {
+            e.target.style.backgroundColor = "#cfefeb";
+            e.target.style.transform = "scale(1.05)";
+          }}
+          onMouseOut={(e) => {
+            e.target.style.backgroundColor = "#fff";
+            e.target.style.transform = "scale(1)";
+          }}
+        >
+          Xem giỏ hàng
+        </Button>
+      </Link>
+      
+    </Space>
       </div>
     </Drawer>
   );

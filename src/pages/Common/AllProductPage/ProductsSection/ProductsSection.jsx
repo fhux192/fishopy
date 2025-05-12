@@ -21,17 +21,16 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     ((product.price_sale - product.price) / product.price_sale) * 100;
 
   const handleAddToCart = async (event, product) => {
-    event.preventDefault(); // Prevent default <a> action
+    event.preventDefault();
     event.stopPropagation();
 
     if (isAuthenticated) {
       try {
-        // nếu đã có thì update giỏ hàng
         if (user.cart.some((e) => e.id_product?._id === product._id)) {
           let itemEdit = {};
           const newCart = user.cart.map((item) => {
             if (item.id_product._id === product._id) {
-              itemEdit = { ...item, quantity: item.quantity + 1 }; // Create a new object with updated quantity
+              itemEdit = { ...item, quantity: item.quantity + 1 };
               return itemEdit;
             }
             return item;
@@ -46,7 +45,6 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           toast.success(res.msg);
           dispatch(updateAccount({ cart: newCart }));
         } else {
-          // nếu chưa có thì thêm mới
           const res = await user_addToCart({
             id_user: user._id,
             id_product: product._id,
@@ -94,7 +92,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
 
-    const effectSize = 150; // Kích thước của hiệu ứng sáng (px)
+    const effectSize = 150;
     x = Math.max(effectSize / 2, Math.min(x, rect.width - effectSize / 2));
     y = Math.max(effectSize / 2, Math.min(y, rect.height - effectSize / 2));
 
@@ -102,7 +100,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
   };
 
   const handleMouseLeave = () => {
-    setLightPosition({ x: -100, y: -100 }); // Hide effect when not hovering
+    setLightPosition({ x: -100, y: -100 });
   };
 
   return (
@@ -132,8 +130,7 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
           <div className="h-full w-full flex items-center ">
             <div className="">
               <div className="flex items-center">
-                {" "}
-                <p className=" font-bold">
+                <p className="font-bold">
                   {product.price_sale === product.price ? (
                     <span>{formatPrice(product.price_sale)}₫</span>
                   ) : (
@@ -163,12 +160,23 @@ const ProductCard = ({ product, priceStage, animationDelay }) => {
         </div>
         <div className="w-full flex justify-center">
           <button
-            onClick={(e) => handleAddToCart(e, product)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (product.status) {
+                handleAddToCart(e, product);
+              } else {
+                message.info("Vui lòng liên hệ Zalo để kiểm tra.");
+              }
+            }}
             className={`add-to-cart ${
-              !product.status ? " opacity-30 cursor-not-allowed" : ""
+              !product.status ? "opacity-30 cursor-not-allowed" : ""
             }`}
-            aria-label={`Add ${product.name} to cart`}
-            disabled={!product.status}
+            aria-label={
+              product.status
+                ? `Add ${product.name} to cart`
+                : `${product.name} is out of stock`
+            }
           >
             <FaCartShopping />
             {product.status ? "Thêm vào giỏ" : "Hết hàng"}
@@ -185,7 +193,7 @@ const ProductsSection = ({ currentPageProducts, priceStage }) => {
       <div className="product-section rounded-xl">
         <div className="product-container">
           <div className="flex w-full justify-center">
-            <div className="product-grid grid gap-2 mx-2 lg:mx-0 ">
+            <div className="product-grid grid gap-2 mx-2 lg:mx-0">
               {currentPageProducts?.map((product, index) => (
                 <ProductCard
                   key={product._id}

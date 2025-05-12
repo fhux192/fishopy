@@ -84,9 +84,9 @@ export default function Home() {
   const staggerConfig = { visible: { transition: { staggerChildren: 0.2 } } };
 
   return (
-    <div className="min-h-screen pb-20 flex flex-col items-center bg-gray-900 text-white overflow-hidden">
+    <div className="min-h-screen pb-2 flex flex-col items-center bg-gray-900 text-white overflow-hidden">
       <div className="container px-6 pt-20">
-        <div className="bg-black rounded-3xl shadow-xl overflow-hidden">
+        <div className="bg-black mt-4 rounded-3xl shadow-xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             <motion.div
               className="md:w-1/2 p-8 flex flex-col justify-center"
@@ -109,10 +109,10 @@ export default function Home() {
               </motion.p>
               <motion.button
                 onClick={handleNavigation}
-                className="flex items-center bg-teal-500 py-3 px-6 rounded-full font-bold"
+                className="flex items-center justify-center bg-teal-500 py-3 px-6 rounded-full font-bold"
                 whileHover={{ scale: 1.05 }}
               >
-                <FaFishFins className="mr-3" /> Xem Tất Cả Sản Phẩm
+                <FaFishFins className="mr-3 " /> Xem Tất Cả Sản Phẩm
               </motion.button>
             </motion.div>
             <motion.div
@@ -129,15 +129,15 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        <motion.div
+        {/* <motion.div
           initial={{ y: 0 }}
           animate={{ y: [0, 15, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          transition={{ duration: 2.5, repeat: Infinity }}
           className="flex justify-center mt-8 cursor-pointer"
           onClick={handleScrollDown}
         >
           <FaCircleArrowDown className="text-3xl" />
-        </motion.div>
+        </motion.div> */}
       </div>
 
       <RingCarousel />

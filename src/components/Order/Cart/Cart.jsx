@@ -157,9 +157,9 @@ const Cart = () => {
           </div>
         </Card>
       ))}
-      <Typography.Text className={styles.totalSummary}>
-        Tổng cộng: {formatPrice(calculateTotal())}đ
-      </Typography.Text>
+        {/* <Typography.Text className={styles.totalSummary}>
+          Tổng cộng: {formatPrice(calculateTotal())}đ
+        </Typography.Text> */}
     </div>
   );
 };
