@@ -160,8 +160,8 @@ $light: #f8f9fa;
 // Carousel Styles
 :root {
   --tz: 200px;
-  --face-w: 120px;
-  --face-h: 170px;
+  --face-w: 130px;
+  --face-h: 185px;
 
   @media (min-width: 640px) {
     --tz: 300px;
@@ -197,7 +197,7 @@ $light: #f8f9fa;
     left: 50%;
     top: 50%;
     transform-style: preserve-3d;
-    animation: spinY 74s linear infinite;
+    animation: spinY 64s linear infinite;
 
     &:hover {
       animation-play-state: paused;
