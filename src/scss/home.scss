@@ -1,39 +1,195 @@
-:root {
-    /* defaults for small screens (<640px) */
-    --tz: 200px;      /* bigger radius so faces don't touch */
-    --face-w: 120px;
-    --face-h: 170px;
+// Variables
+$primary: #00b4d8;
+$secondary: #2ec4b6;
+$dark: #0f172a;
+$light: #f8f9fa;
+
+// Base Styles
+.min-h-screen {
+  background: linear-gradient(135deg, darken($dark, 5%), $dark);
+  color: $light;
+}
+
+// Hero Section
+.container {
+  .bg-black {
+    background: $dark;
   }
-  @media (min-width: 640px) {
-    :root {
-      --tz: 300px;
-      --face-w: 150px;
-      --face-h: 210px;
+
+  .gradientText {
+    background-image: linear-gradient(10deg, #fff, #09D1C7, #fff, #46DFB1, #fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: gradientCycle 10s infinite;
+  }
+
+  @keyframes gradientCycle {
+    0% { background-position: 0% 50%; }
+    30% { background-position: 100% 50%; }
+    70% { background-position: 0% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  button {
+    background: linear-gradient(45deg, $primary, $secondary);
+    color: white;
+    &:hover {
+      background: linear-gradient(45deg, darken($primary, 10%), darken($secondary, 10%));
     }
   }
-  @media (min-width: 768px) {
-    :root {
-      --tz: 360px;
-      --face-w: 190px;
-      --face-h: 260px;
-    }
-  }
-  @media (min-width: 1024px) {
-    :root {
-      --tz: 450px;
-      --face-w: 220px;
-      --face-h: 300px;
-    }
-  }
-  
-  .carouselWrapper {
+}
+
+// Features Section
+.features-section {
+  padding: 4rem 1rem;
+  background: rgba(white, 0.03);
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .section-title {
+    text-align: center;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin-bottom: 2rem;
     position: relative;
-    width: 100%;
-    height: calc(var(--face-h) * 1.6);
-    perspective: 1200px;
-    margin: 2rem auto;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: $primary;
+      margin: 1rem auto;
+      border-radius: 2px;
+    }
   }
-  
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+    height: auto;
+    overflow: visible;
+  }
+
+  .feature-card {
+    background: rgba(white, 0.05);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 1px solid rgba(white, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+
+      .card-icon {
+        font-size: clamp(1.8rem, 4vw, 2.2rem);
+      }
+
+      h3 {
+        font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+      }
+    }
+
+    .card-content {
+      p {
+        font-size: clamp(0.9rem, 3vw, 1rem);
+        line-height: 1.6;
+        color: rgba(white, 0.85);
+
+        strong {
+          color: $primary;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .features-section {
+    padding: 2rem 0.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr; /* Single column on mobile to stack all cards */
+    gap: 1rem;
+  }
+
+  .feature-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .features-section {
+    padding: 1.5rem 0rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 4.5vw, 2rem);
+  }
+
+  .feature-card {
+    .card-header {
+      gap: 0.8rem;
+
+      .card-icon {
+        font-size: clamp(1.5rem, 3.5vw, 1.8rem);
+      }
+
+      h3 {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+      }
+    }
+
+    .card-content {
+      p {
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      }
+    }
+  }
+}
+
+// Carousel Styles
+:root {
+  --tz: 200px;
+  --face-w: 120px;
+  --face-h: 170px;
+
+  @media (min-width: 640px) {
+    --tz: 300px;
+    --face-w: 150px;
+    --face-h: 210px;
+  }
+
+  @media (min-width: 768px) {
+    --tz: 360px;
+    --face-w: 190px;
+    --face-h: 260px;
+  }
+
+  @media (min-width: 1024px) {
+    --tz: 450px;
+    --face-w: 220px;
+    --face-h: 300px;
+  }
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  height: calc(var(--face-h) * 1.6);
+  perspective: 1200px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
   .carousel3d {
     position: absolute;
     width: var(--face-w);
@@ -42,29 +198,24 @@
     top: 50%;
     transform-style: preserve-3d;
     animation: spinY 74s linear infinite;
-  }
-  .carousel3d:hover {
-    animation-play-state: paused;
-  }
-  
-  .carouselFace {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0.75rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    transform-origin: center center;
-    /* slight inner scale so gap becomes visible */
-    transform: scale(0.9);
-  }
-  
-  @keyframes spinY {
-    from {
-      transform: translate(-50%, -50%) rotateY(0deg);
+
+    &:hover {
+      animation-play-state: paused;
     }
-    to {
-      transform: translate(-50%, -50%) rotateY(-360deg);
+
+    .carouselFace {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+      transform-origin: center center;
     }
   }
-  
+}
+
+@keyframes spinY {
+  from { transform: translate(-50%, -50%) rotateY(0deg); }
+  to { transform: translate(-50%, -50%) rotateY(-360deg); }
+}
