@@ -3,18 +3,24 @@ import { useNavigate } from "react-router-dom";
 import "@scss/home.scss";
 import { FaFishFins, FaCircleArrowDown } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import fb1 from "../../../assets/feedback/fb1.png";
+import fb2 from "../../../assets/feedback/fb2.png";
+import fb3 from "../../../assets/feedback/fb3.png";
+import fb4 from "../../../assets/feedback/fb4.png";
+import fb5 from "../../../assets/feedback/fb5.png";
+import fb7 from "../../../assets/feedback/fb7.png";
+import fb8 from "../../../assets/feedback/fb8.png";
+import fb9 from "../../../assets/feedback/fb9.png";
 
 const images = [
-  "https://images.unsplash.com/photo-1618042164219-62c6823ce02b?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1575936123452-b67c3203c357?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1543269865-0a740d43b90c?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1497436072909-60f69c88b4d1?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=600&q=60",
-  "https://images.unsplash.com/photo-1518495973544-4542c6a7b7cf?auto=format&fit=crop&w=600&q=60"
+  fb1,
+  fb2,
+  fb3,
+  fb4,
+  fb5,
+  fb7,
+  fb8,
+  fb9,
 ];
 
 function RingCarousel() {
