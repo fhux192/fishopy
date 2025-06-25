@@ -228,11 +228,10 @@ const AllProductPage = () => {
                 <motion.button
                   key="single"
                   onClick={() => handlePurchaseOptionClick("single")}
-                  className={`flex justify-center rounded-l-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                    selectedPurchaseOption === "single"
+                  className={`flex justify-center rounded-l-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${selectedPurchaseOption === "single"
                       ? "bg-Black text-Teal3 font-[700] cursor-default"
                       : "bg-Black2 text-Grey2"
-                  }`}
+                    }`}
                   variants={buttonVariants}
                   initial="initial"
                   animate="animate"
@@ -247,11 +246,10 @@ const AllProductPage = () => {
                 <motion.button
                   key="combo"
                   onClick={() => handlePurchaseOptionClick("combo")}
-                  className={`flex justify-center rounded-r-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${
-                    selectedPurchaseOption === "combo"
+                  className={`flex justify-center rounded-r-xl lg:w-[11.5rem] p-[0.5rem] lg:p-[0.55rem] lg:px-4 font-[500] ${selectedPurchaseOption === "combo"
                       ? "bg-Black text-Teal3 font-[700] cursor-default"
                       : "bg-Black2 text-Grey2"
-                  }`}
+                    }`}
                   variants={buttonVariants}
                   initial="initial"
                   animate="animate"
